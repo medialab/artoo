@@ -46,9 +46,11 @@
             this.readyState == 'loaded' ||
             this.readyState == 'complete')) {
         done = true;
-        cb();
         script.onload = script.onreadystatechange = null;
         head.removeChild(script);
+
+        if (typeof cb === 'function')
+          cb();
       }
     };
 

@@ -144,4 +144,12 @@
       // We convert the array of arrays to a csv string
     }
   };
+
+  artoo.saveHtml = function(data, params) {
+    // check typeof domelement or jquery sel? or string
+  };
+
+  artoo.savePageHtml = function() {
+
+  };
 }).call(this);

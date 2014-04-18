@@ -5,6 +5,7 @@
    * artoo dev bookmarklet
    * ======================
    *
+   * The bookmarklet loading artoo into a web page.
    */
 
   // Checking preexistence of artoo
@@ -13,7 +14,7 @@
         !(artoo.passphrase && artoo.passphrase === 'detoo') : false;
 
   if (usurpator) {
-    console.log('An usurpator artoo lives within this page!');
+    console.log('An usurper artoo lives within this page!');
     return;
   }
 

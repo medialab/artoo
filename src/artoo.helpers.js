@@ -5,6 +5,7 @@
    * artoo helpers
    * ==============
    *
+   * Some useful helpers.
    */
   var root = this;
 

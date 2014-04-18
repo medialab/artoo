@@ -5,6 +5,7 @@ module.exports = function(grunt) {
     'src/artoo.helpers.js',
     'src/artoo.console.js',
     'src/artoo.injection.js',
+    'src/methods/artoo.methods.save.js',
     "src/artoo.init.js"
   ];
 

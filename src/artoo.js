@@ -5,6 +5,7 @@
    * artoo core
    * ===========
    *
+   * The main artoo namespace and its vital properties.
    */
   var _root = this;
 
@@ -17,7 +18,8 @@
       export: function() {
         _root.ß = artoo.$;
       }
-    }
+    },
+    methods: {}
   };
 
   if (typeof this.exports !== 'undefined') {

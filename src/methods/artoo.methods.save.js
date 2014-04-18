@@ -13,90 +13,135 @@
    */
   var _root = this;
 
-  // Properties
-  var defaultFilename = 'data',
-      defaultEncoding = 'utf-8',
-      defaultMime = 'application/octet-stream',
-      xmlns = 'http://www.w3.org/1999/xhtml',
-      deletionQueue = [],
-      mimeShortcuts = {
-        csv: 'text/csv',
-        json: 'application/json'
-      };
-
+  // Polyfills
   var reqfs = window.requestFileSystem ||
               window.webkitRequestFileSystem ||
               window.mozRequestFileSystem;
 
   var URL = _root.URL || _root.webkitURL || _root;
 
-  // Saver Abstraction
-  function Saver(blob, filename) {
-    var _this = this,
-        minSize = blob.size,
-        saveLink = document.createElementNS(xmlns, 'a'),
-        canUseSaveLink = !_root.externalHost && 'download' in saveLink;
+  // Main abstraction
+  function Saver() {
+    var _saver;
+
+    // Properties
+    this.defaultFilename = 'artoo_data';
+    this.defaultEncoding = 'utf-8';
+    this.forceDownloadMimeType = 'application/octet-stream';
+    this.defaultMimeType = 'text/plain';
+    this.xmlns = 'http://www.w3.org/1999/xhtml';
+    this.deletionQueue = [];
+    this.mimeShortcuts = {
+      csv: 'text/csv',
+      json: 'application/json',
+      txt: 'text/plain'
+    };
 
     // State
+    this.INIT = 0;
     this.WRITING = 1;
     this.DONE = 2;
 
-    // First method
-    console.log(canUseSaveLink);
-    if (canUseSaveLink) {
-      var oURL = blobURL(blob);
+    // Methods
+    this.createBlob = function(data, mime, encoding) {
+      mime = this.mimeShortcuts[mime] || mime || this.defaultMime;
+      return new Blob(
+        [data],
+        {type: mime + ';charset=' + encoding || this.defaultEncoding}
+      );
+    };
 
-      // Updating the save link
-      saveLink.href = oURL;
-      saveLink.download = filename;
+    this.blobURL = function(blob) {
+      var oURL = URL.createObjectURL(blob);
+      this.deletionQueue.push(oURL);
+      return oURL;
+    };
 
-      // Creating event
-      var e = document.createEvent('MouseEvents');
-      e.initMouseEvent(
-        'click', true, false, _root, 0, 0, 0, 0, 0,
-        false, false, false, false, 0, null);
+    this.saveBlob = function(blob, filename) {
+      this.readyState = this.INIT;
 
-      saveLink.dispatchEvent(e);
-      this.readyState = this.DONE;
-      // dispatch_all
-    }
+      var minSize = blob.size,
+          saveLink = document.createElementNS(this.xmlns, 'a'),
+          canUseSaveLink = !_root.externalHost && 'download' in saveLink;
+
+      if (canUseSaveLink) {
+        var oURL = this.blobURL(blob);
+
+        // Updating the save link
+        saveLink.href = oURL;
+        saveLink.download = filename;
+
+        // Creating event
+        var e = document.createEvent('MouseEvents');
+        e.initMouseEvent(
+          'click', true, false, _root, 0, 0, 0, 0, 0,
+          false, false, false, false, 0, null);
+
+        saveLink.dispatchEvent(e);
+        this.readyState = this.DONE;
+        // dispatch_all
+      }
+    };
+
+    // Main interface
+    this.save = function(data, params) {
+      params = params || {};
+
+      // Creating the blob
+      var blob = this.createBlob(data, params.mime, params.encoding);
+
+      // Saving the blob
+      this.saveBlob(blob, params.filename || this.defaultFilename);
+    };
   }
 
-  // Blob creation
-  function createBlob(data, mime, encoding) {
-    mime = mimeShortcuts[mime] || mime || defaultMime;
-    return new Blob(
-      [data],
-      {type: mime + ';charset=' + encoding || defaultEncoding}
-    );
-  }
-
-  // Url from blob
-  function blobURL(blob) {
-    var oURL = URL.createObjectURL(blob);
-    deletionQueue.push(oURL);
-    return oURL;
-  }
-
-  // Main interface
-  function save(data, params) {
-
-  }
+  var _saver = new Saver();
 
   // Exporting
-  artoo.save = function(data, filename, type) {
+  artoo.save = function(data, params) {
+    params = params || {};
 
+    _saver.save(
+      data,
+      params
+    );
   };
 
-  artoo.saveJson = function(data, filename) {
-    // stringify
+  artoo.saveJson = function(data, params) {
+    params = params || {};
+
+    // Enforcing json
+    if (typeof data !== 'string')
+      if (params.pretty || params.indent)
+        data = JSON.stringify(data, undefined, params.indent || 2);
+      else
+        data = JSON.stringify(data);
+    else
+      if (params.pretty || params.indent)
+        data = JSON.stringify(JSON.parse(data), undefined, params.indent || 2);
+
+    // Extending params
+    params.filename = params.filename || 'data.json';
+    params.mime = 'json';
+
+    this.save(
+      data,
+      params
+    );
   };
 
-  artoo.saveCsv = function(data, filename) {
-    // stringify if array of array and !== string
+  artoo.savePrettyJson = function(data, params) {
+    params = params || {};
+    params.pretty = true;
+    this.saveJson(data, params);
   };
 
-  artoo.test = function(data) {
-    new Saver(createBlob(JSON.stringify(data), 'json'), 'test.json');
+  artoo.saveCsv = function(data, params) {
+    params = params || {};
+
+    if (typeof data !== 'string') {
+
+      // We convert the array of arrays to a csv string
+    }
   };
 }).call(this);

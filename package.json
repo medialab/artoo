@@ -1,0 +1,27 @@
+{
+  "name": "artoo",
+  "version": "0.0.1",
+  "description": "A client-side scraping toolbelt.",
+  "main": "index.js",
+  "scripts": {
+    "start": "grunt work & http-server -c -1 -p 8000 && fg"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/medialab/artoo"
+  },
+  "keywords": [
+    "scraping"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/medialab/artoo/issues"
+  },
+  "homepage": "https://github.com/medialab/artoo",
+  "devDependencies": {
+    "grunt-cli": "^0.1.13",
+    "grunt": "^0.4.4",
+    "http-server": "^0.6.1",
+    "grunt-contrib-watch": "^0.6.1"
+  }
+}

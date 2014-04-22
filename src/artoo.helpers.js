@@ -22,6 +22,14 @@
     return res;
   }
 
+  // Converting an array of arrays into a CSV string
+  // TODO: escape character
+  function toCSVString(data, delimiter, escape) {
+    return data.map(function(row) {
+      return row.join(delimiter || ',');
+    }).join('\n');
+  }
+
   // Loading an external script
   Artoo.prototype.getScript = function(url, cb) {
     var script = document.createElement('script'),
@@ -50,6 +58,7 @@
 
   // Exporting
   Artoo.helpers = {
-    extend: extend
+    extend: extend,
+    toCSVString: toCSVString
   };
 }).call(this);

@@ -141,11 +141,11 @@
 
   Artoo.prototype.saveCsv = function(data, params) {
     params = params || {};
+    params.mime = 'csv';
+    params.filename = params.filename || 'data.csv';
+    data = (typeof data === 'string') ? data : this.helpers.toCSVString(data);
 
-    if (typeof data !== 'string') {
-
-      // We convert the array of arrays to a csv string
-    }
+    this.save(data, params);
   };
 
   Artoo.prototype.saveHtml = function(data, params) {
@@ -154,6 +154,7 @@
 
   Artoo.prototype.savePageHtml = function(params) {
     params = params || {};
+    params.filename = params.filename || 'page.html';
     params.mime = 'html';
 
     this.save(

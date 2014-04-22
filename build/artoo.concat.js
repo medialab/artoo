@@ -75,6 +75,14 @@
     return res;
   }
 
+  // Converting an array of arrays into a CSV string
+  // TODO: escape character
+  function toCSVString(data, delimiter, escape) {
+    return data.map(function(row) {
+      return row.join(delimiter || ',');
+    }).join('\n');
+  }
+
   // Loading an external script
   Artoo.prototype.getScript = function(url, cb) {
     var script = document.createElement('script'),
@@ -103,7 +111,8 @@
 
   // Exporting
   Artoo.helpers = {
-    extend: extend
+    extend: extend,
+    toCSVString: toCSVString
   };
 }).call(this);
 
@@ -354,11 +363,11 @@
 
   Artoo.prototype.saveCsv = function(data, params) {
     params = params || {};
+    params.mime = 'csv';
+    params.filename = params.filename || 'data.csv';
+    data = (typeof data === 'string') ? data : this.helpers.toCSVString(data);
 
-    if (typeof data !== 'string') {
-
-      // We convert the array of arrays to a csv string
-    }
+    this.save(data, params);
   };
 
   Artoo.prototype.saveHtml = function(data, params) {
@@ -367,6 +376,7 @@
 
   Artoo.prototype.savePageHtml = function(params) {
     params = params || {};
+    params.filename = params.filename || 'page.html';
     params.mime = 'html';
 
     this.save(

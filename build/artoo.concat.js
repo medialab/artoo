@@ -25,6 +25,11 @@
       }
     };
 
+    // Settings
+    this.settings = {
+      logLevel: 'verbose'
+    };
+
     this.helpers = Artoo.helpers;
 
     this.init();
@@ -140,10 +145,46 @@
     ];
   }
 
-  // Log override
-  Artoo.prototype.log = function() {
-    console.log.apply(console, arguments);
+  // Log levels
+  var levels = {
+    verbose: 'cyan',
+    debug: 'blue',
+    info: 'green',
+    warn: 'orange',
+    error: 'red'
   };
+
+  // Log header
+  function logHeader(name, level) {
+    return ['[' + name + ']: ' +
+           '<span style="color: ' + levels[level] + '">' +
+           level + '</span> -'];
+  }
+
+  // Log override
+  Artoo.prototype.log = function(level) {
+    var hasLevel = (levels[level] !== undefined),
+        slice = hasLevel ? 1 : 0,
+        args = Array.prototype.slice.call(arguments, slice);
+
+    level = hasLevel ? level : 'debug';
+
+    console.log.apply(
+      console,
+      logHeader(this.name, level).concat(args)
+    );
+  };
+
+  // Log shortcuts
+  function makeShortcut(level) {
+    Artoo.prototype[level] = function() {
+      this.log.apply(this,
+        [level].concat(Array.prototype.slice.call(arguments)));
+    };
+  }
+
+  for (var l in levels)
+    makeShortcut(l);
 
   // Logo display
   Artoo.prototype.welcome = function() {
@@ -357,7 +398,7 @@
   };
 
   Artoo.prototype.saveHtml = function(data, params) {
-    // check typeof domelement or jquery sel? or string
+    var selector = data.jquery !== undefined;
   };
 
   Artoo.prototype.savePageHtml = function(params) {
@@ -378,6 +419,10 @@
    * Some scraping helpers.
    */
   var _root = this;
+
+  Artoo.prototype.scrape = function(sel, params) {
+
+  };
 }).call(this);
 
 ;(function(undefined) {

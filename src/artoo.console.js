@@ -31,16 +31,37 @@
     error: 'red'
   };
 
+  // Log header
+  function logHeader(name, level) {
+    return ['[' + name + ']: ' +
+           '<span style="color: ' + levels[level] + '">' +
+           level + '</span> -'];
+  }
+
   // Log override
   Artoo.prototype.log = function(level) {
-    var hasLevel = (levels[level] !== undefined);
+    var hasLevel = (levels[level] !== undefined),
+        slice = hasLevel ? 1 : 0,
+        args = Array.prototype.slice.call(arguments, slice);
+
     level = hasLevel ? level : 'debug';
 
     console.log.apply(
       console,
-      hasLevel ? Array.prototype.slice.call(arguments, 1) : arguments
+      logHeader(this.name, level).concat(args)
     );
   };
+
+  // Log shortcuts
+  function makeShortcut(level) {
+    Artoo.prototype[level] = function() {
+      this.log.apply(this,
+        [level].concat(Array.prototype.slice.call(arguments)));
+    };
+  }
+
+  for (var l in levels)
+    makeShortcut(l);
 
   // Logo display
   Artoo.prototype.welcome = function() {

@@ -25,6 +25,11 @@
       }
     };
 
+    // Settings
+    this.settings = {
+      logLevel: 'verbose'
+    };
+
     this.helpers = Artoo.helpers;
 
     this.init();

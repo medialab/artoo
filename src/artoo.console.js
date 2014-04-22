@@ -34,8 +34,8 @@
   // Log header
   function logHeader(name, level) {
     return ['[' + name + ']: ' +
-           '<span style="color: ' + levels[level] + '">' +
-           level + '</span> -'];
+            '<span style="color: ' + levels[level] + '">' +
+            level + '</span> -'];
   }
 
   // Log override

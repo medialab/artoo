@@ -98,7 +98,7 @@
   var _saver = new Saver();
 
   // Exporting
-  artoo.save = function(data, params) {
+  Artoo.prototype.save = function(data, params) {
     params = params || {};
 
     _saver.save(
@@ -107,18 +107,20 @@
     );
   };
 
-  artoo.saveJson = function(data, params) {
+  Artoo.prototype.saveJson = function(data, params) {
     params = params || {};
 
     // Enforcing json
-    if (typeof data !== 'string')
+    if (typeof data !== 'string') {
       if (params.pretty || params.indent)
         data = JSON.stringify(data, undefined, params.indent || 2);
       else
         data = JSON.stringify(data);
-    else
+    }
+    else {
       if (params.pretty || params.indent)
         data = JSON.stringify(JSON.parse(data), undefined, params.indent || 2);
+    }
 
     // Extending params
     params.filename = params.filename || 'data.json';
@@ -130,13 +132,13 @@
     );
   };
 
-  artoo.savePrettyJson = function(data, params) {
+  Artoo.prototype.savePrettyJson = function(data, params) {
     params = params || {};
     params.pretty = true;
     this.saveJson(data, params);
   };
 
-  artoo.saveCsv = function(data, params) {
+  Artoo.prototype.saveCsv = function(data, params) {
     params = params || {};
 
     if (typeof data !== 'string') {
@@ -145,11 +147,11 @@
     }
   };
 
-  artoo.saveHtml = function(data, params) {
+  Artoo.prototype.saveHtml = function(data, params) {
     // check typeof domelement or jquery sel? or string
   };
 
-  artoo.savePageHtml = function() {
+  Artoo.prototype.savePageHtml = function() {
 
   };
 }).call(this);

@@ -10,9 +10,10 @@
    */
 
   function inject(cb) {
+    var _this = this;
 
     // Properties
-    var desiredVersion = artoo.jquery.version,
+    var desiredVersion = this.jquery.version,
         cdn = '//code.jquery.com/jquery-' + desiredVersion + '.min.js';
 
     // Checking the existence of jQuery or of another library.
@@ -24,24 +25,25 @@
 
     // jQuery is already in a correct mood
     if (exists && currentVersion.charAt(0) === '2') {
-      artoo.log('jQuery already exists in this page ' +
+      this.log('jQuery already exists in this page ' +
                 '(v' + currentVersion + '). No need to load it again.');
 
       // Internal reference
-      artoo.$ = jQuery;
+      this.$ = jQuery;
 
       cb();
     }
 
     // jQuery has not the correct version or another library uses $
     else if ((exists && currentVersion.charAt(0) !== '2') || other) {
-      artoo.helpers.getScript(cdn, function() {
-        artoo.log('Either jQuery has not a valid version or another library ' +
-                  'using dollar is already present.\n' +
-                  'Exporting correct version to ß (or artoo.$).');
+      this.helpers.getScript(cdn, function() {
+        _this.log(
+          'Either jQuery has not a valid version or another library ' +
+          'using dollar is already present.\n' +
+          'Exporting correct version to ß (or artoo.$).');
 
-        artoo.$ = jQuery.noConflict();
-        artoo.jquery.export();
+        _this.$ = jQuery.noConflict();
+        _this.jquery.export();
 
         cb();
       });
@@ -49,11 +51,11 @@
 
     // jQuery does not exist at all, we load it
     else {
-      artoo.helpers.getScript(cdn, function() {
-        artoo.log('artoo loaded jQuery into your page ' +
+      this.helpers.getScript(cdn, function() {
+        _this.log('artoo loaded jQuery into your page ' +
                   '(v' + desiredVersion + ').');
 
-        artoo.$ = jQuery;
+        _this.$ = jQuery;
 
         cb();
       });
@@ -61,5 +63,5 @@
   }
 
   // Exporting
-  artoo.inject = inject;
+  Artoo.prototype.inject = inject;
 }).call(this);

@@ -5,18 +5,9 @@
    * artoo initialization
    * =====================
    *
-   * Batch of operations to be run when launching artoo into a web page.
+   * Loading a single instance of artoo into the web page while checking for
+   * potential userpers and acting accordingly.
    */
-  function init() {
 
-    // Welcoming user
-    artoo.welcome();
-
-    // Injecting jQuery
-    artoo.inject(function() {
-      artoo.log('artoo is now good to go!');
-    });
-  }
-
-  init();
+  this.artoo = new Artoo();
 }).call(this);

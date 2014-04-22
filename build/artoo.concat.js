@@ -9,25 +9,44 @@
    */
   var _root = this;
 
-  var artoo = {
-    $: null,
-    version: '0.0.1',
-    passphrase: 'detoo',
-    jquery: {
+  // Main object
+  var Artoo = function() {
+    var _this = this;
+
+    // Properties
+    this.$ = null;
+    this.version = '0.0.1';
+    this.name = 'artoo';
+    this.passphrase = 'detoo';
+    this.jquery = {
       version: '2.1.0',
       export: function() {
-        _root.ß = artoo.$;
+        _root.ß = _this.$;
       }
-    },
-    methods: {}
+    };
+
+    this.init();
+  };
+
+  // Main prototype methods
+  Artoo.prototype.init = function() {
+    var _this = this;
+
+    // Welcoming user
+    this.welcome();
+
+    // Injecting jQuery
+    this.inject(function() {
+      _this.log('artoo is now good to go!');
+    });
   };
 
   if (typeof this.exports !== 'undefined') {
     if (typeof this.module !== 'undefined' && this.module.exports)
-      this.exports = this.module.exports = artoo;
-    this.exports.artoo = artoo;
+      this.exports = this.module.exports = Artoo;
+    this.exports.Artoo = Artoo;
   }
-  this.artoo = artoo;
+  this.Artoo = Artoo;
 }).call(this);
 
 ;(function(undefined) {
@@ -39,8 +58,6 @@
    *
    * Some useful helpers.
    */
-  var root = this;
-
 
   // Extend objects
   function extend() {
@@ -92,7 +109,7 @@
   }
 
   // Exporting
-  artoo.helpers = {
+  Artoo.prototype.helpers = {
     extend: extend,
     getScript: getScript,
     pkg: pkg
@@ -124,17 +141,17 @@
   }
 
   // Log override
-  artoo.log = function() {
+  Artoo.prototype.log = function() {
     console.log.apply(console, arguments);
   };
 
   // Logo display
-  artoo.welcome = function() {
+  Artoo.prototype.welcome = function() {
     var ascii = robot();
 
     ascii[ascii.length - 2] = ascii[ascii.length - 2] + '    artoo';
 
-    console.log(ascii.join('\n') + '   v' + artoo.version);
+    console.log(ascii.join('\n') + '   v' + this.version);
   };
 }).call(this);
 
@@ -150,9 +167,10 @@
    */
 
   function inject(cb) {
+    var _this = this;
 
     // Properties
-    var desiredVersion = artoo.jquery.version,
+    var desiredVersion = this.jquery.version,
         cdn = '//code.jquery.com/jquery-' + desiredVersion + '.min.js';
 
     // Checking the existence of jQuery or of another library.
@@ -164,24 +182,25 @@
 
     // jQuery is already in a correct mood
     if (exists && currentVersion.charAt(0) === '2') {
-      artoo.log('jQuery already exists in this page ' +
+      this.log('jQuery already exists in this page ' +
                 '(v' + currentVersion + '). No need to load it again.');
 
       // Internal reference
-      artoo.$ = jQuery;
+      this.$ = jQuery;
 
       cb();
     }
 
     // jQuery has not the correct version or another library uses $
     else if ((exists && currentVersion.charAt(0) !== '2') || other) {
-      artoo.helpers.getScript(cdn, function() {
-        artoo.log('Either jQuery has not a valid version or another library ' +
-                  'using dollar is already present.\n' +
-                  'Exporting correct version to ß (or artoo.$).');
+      this.helpers.getScript(cdn, function() {
+        _this.log(
+          'Either jQuery has not a valid version or another library ' +
+          'using dollar is already present.\n' +
+          'Exporting correct version to ß (or artoo.$).');
 
-        artoo.$ = jQuery.noConflict();
-        artoo.jquery.export();
+        _this.$ = jQuery.noConflict();
+        _this.jquery.export();
 
         cb();
       });
@@ -189,11 +208,11 @@
 
     // jQuery does not exist at all, we load it
     else {
-      artoo.helpers.getScript(cdn, function() {
-        artoo.log('artoo loaded jQuery into your page ' +
+      this.helpers.getScript(cdn, function() {
+        _this.log('artoo loaded jQuery into your page ' +
                   '(v' + desiredVersion + ').');
 
-        artoo.$ = jQuery;
+        _this.$ = jQuery;
 
         cb();
       });
@@ -201,7 +220,7 @@
   }
 
   // Exporting
-  artoo.inject = inject;
+  Artoo.prototype.inject = inject;
 }).call(this);
 
 ;(function(undefined) {
@@ -304,7 +323,7 @@
   var _saver = new Saver();
 
   // Exporting
-  artoo.save = function(data, params) {
+  Artoo.prototype.save = function(data, params) {
     params = params || {};
 
     _saver.save(
@@ -313,18 +332,20 @@
     );
   };
 
-  artoo.saveJson = function(data, params) {
+  Artoo.prototype.saveJson = function(data, params) {
     params = params || {};
 
     // Enforcing json
-    if (typeof data !== 'string')
+    if (typeof data !== 'string') {
       if (params.pretty || params.indent)
         data = JSON.stringify(data, undefined, params.indent || 2);
       else
         data = JSON.stringify(data);
-    else
+    }
+    else {
       if (params.pretty || params.indent)
         data = JSON.stringify(JSON.parse(data), undefined, params.indent || 2);
+    }
 
     // Extending params
     params.filename = params.filename || 'data.json';
@@ -336,13 +357,13 @@
     );
   };
 
-  artoo.savePrettyJson = function(data, params) {
+  Artoo.prototype.savePrettyJson = function(data, params) {
     params = params || {};
     params.pretty = true;
     this.saveJson(data, params);
   };
 
-  artoo.saveCsv = function(data, params) {
+  Artoo.prototype.saveCsv = function(data, params) {
     params = params || {};
 
     if (typeof data !== 'string') {
@@ -350,8 +371,40 @@
       // We convert the array of arrays to a csv string
     }
   };
+
+  Artoo.prototype.saveHtml = function(data, params) {
+    // check typeof domelement or jquery sel? or string
+  };
+
+  Artoo.prototype.savePageHtml = function() {
+
+  };
 }).call(this);
-// delim + escape
+
+;(function(undefined) {
+  'use strict';
+
+  /**
+   * artoo scrape methods
+   * =====================
+   *
+   * Some scraping helpers.
+   */
+  var _root = this;
+}).call(this);
+
+;(function(undefined) {
+  'use strict';
+
+  /**
+   * artoo store methods
+   * ====================
+   *
+   * artoo's abstraction of HTML5's local storage.
+   */
+  var _root = this;
+}).call(this);
+
 ;(function(undefined) {
   'use strict';
 
@@ -359,18 +412,9 @@
    * artoo initialization
    * =====================
    *
-   * Batch of operations to be run when launching artoo into a web page.
+   * Loading a single instance of artoo into the web page while checking for
+   * potential userpers and acting accordingly.
    */
-  function init() {
 
-    // Welcoming user
-    artoo.welcome();
-
-    // Injecting jQuery
-    artoo.inject(function() {
-      artoo.log('artoo is now good to go!');
-    });
-  }
-
-  init();
+  this.artoo = new Artoo();
 }).call(this);

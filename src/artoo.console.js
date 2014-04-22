@@ -23,16 +23,16 @@
   }
 
   // Log override
-  artoo.log = function() {
+  Artoo.prototype.log = function() {
     console.log.apply(console, arguments);
   };
 
   // Logo display
-  artoo.welcome = function() {
+  Artoo.prototype.welcome = function() {
     var ascii = robot();
 
     ascii[ascii.length - 2] = ascii[ascii.length - 2] + '    artoo';
 
-    console.log(ascii.join('\n') + '   v' + artoo.version);
+    console.log(ascii.join('\n') + '   v' + this.version);
   };
 }).call(this);

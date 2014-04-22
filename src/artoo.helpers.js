@@ -7,8 +7,6 @@
    *
    * Some useful helpers.
    */
-  var root = this;
-
 
   // Extend objects
   function extend() {
@@ -60,7 +58,7 @@
   }
 
   // Exporting
-  artoo.helpers = {
+  Artoo.prototype.helpers = {
     extend: extend,
     getScript: getScript,
     pkg: pkg

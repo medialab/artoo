@@ -9,23 +9,42 @@
    */
   var _root = this;
 
-  var artoo = {
-    $: null,
-    version: '0.0.1',
-    passphrase: 'detoo',
-    jquery: {
+  // Main object
+  var Artoo = function() {
+    var _this = this;
+
+    // Properties
+    this.$ = null;
+    this.version = '0.0.1';
+    this.name = 'artoo';
+    this.passphrase = 'detoo';
+    this.jquery = {
       version: '2.1.0',
       export: function() {
-        _root.ß = artoo.$;
+        _root.ß = _this.$;
       }
-    },
-    methods: {}
+    };
+
+    this.init();
+  };
+
+  // Main prototype methods
+  Artoo.prototype.init = function() {
+    var _this = this;
+
+    // Welcoming user
+    this.welcome();
+
+    // Injecting jQuery
+    this.inject(function() {
+      _this.log('artoo is now good to go!');
+    });
   };
 
   if (typeof this.exports !== 'undefined') {
     if (typeof this.module !== 'undefined' && this.module.exports)
-      this.exports = this.module.exports = artoo;
-    this.exports.artoo = artoo;
+      this.exports = this.module.exports = Artoo;
+    this.exports.Artoo = Artoo;
   }
-  this.artoo = artoo;
+  this.Artoo = Artoo;
 }).call(this);

@@ -6,7 +6,9 @@ module.exports = function(grunt) {
     'src/artoo.console.js',
     'src/artoo.injection.js',
     'src/methods/artoo.methods.save.js',
-    "src/artoo.init.js"
+    'src/methods/artoo.methods.scrape.js',
+    'src/methods/artoo.methods.store.js',
+    'src/artoo.init.js'
   ];
 
   // Project configuration:

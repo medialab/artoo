@@ -46,7 +46,7 @@
 
     // Appending the script to head
     head.appendChild(script);
-  }
+  };
 
   // Exporting
   Artoo.helpers = {

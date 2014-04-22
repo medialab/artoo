@@ -34,7 +34,8 @@
     this.mimeShortcuts = {
       csv: 'text/csv',
       json: 'application/json',
-      txt: 'text/plain'
+      txt: 'text/plain',
+      html: 'text/html'
     };
 
     // State
@@ -151,7 +152,13 @@
     // check typeof domelement or jquery sel? or string
   };
 
-  Artoo.prototype.savePageHtml = function() {
+  Artoo.prototype.savePageHtml = function(params) {
+    params = params || {};
+    params.mime = 'html';
 
+    this.save(
+      document.documentElement.innerHTML,
+      params
+    );
   };
 }).call(this);

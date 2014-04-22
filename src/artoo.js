@@ -16,7 +16,7 @@
     // Properties
     this.$ = null;
     this.version = '0.0.1';
-    this.name = proxyName || 'artoo';
+    this.name = proxyName || 'artoo';
     this.passphrase = 'detoo';
     this.jquery = {
       version: '2.1.0',

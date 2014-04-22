@@ -16,7 +16,7 @@
     // Properties
     this.$ = null;
     this.version = '0.0.1';
-    this.name = proxyName || 'artoo';
+    this.name = proxyName || 'artoo';
     this.passphrase = 'detoo';
     this.jquery = {
       version: '2.1.0',
@@ -99,7 +99,7 @@
 
     // Appending the script to head
     head.appendChild(script);
-  }
+  };
 
   // Exporting
   Artoo.helpers = {
@@ -157,7 +157,7 @@
    * and gracefully inject it without generating conflicts.
    */
 
-  function inject(cb) {
+  Artoo.prototype.inject = function(cb) {
     var _this = this;
 
     // Properties
@@ -208,10 +208,7 @@
         cb();
       });
     }
-  }
-
-  // Exporting
-  Artoo.prototype.inject = inject;
+  };
 }).call(this);
 
 ;(function(undefined) {
@@ -250,7 +247,8 @@
     this.mimeShortcuts = {
       csv: 'text/csv',
       json: 'application/json',
-      txt: 'text/plain'
+      txt: 'text/plain',
+      html: 'text/html'
     };
 
     // State
@@ -367,8 +365,14 @@
     // check typeof domelement or jquery sel? or string
   };
 
-  Artoo.prototype.savePageHtml = function() {
+  Artoo.prototype.savePageHtml = function(params) {
+    params = params || {};
+    params.mime = 'html';
 
+    this.save(
+      document.documentElement.innerHTML,
+      params
+    );
   };
 }).call(this);
 

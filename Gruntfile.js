@@ -45,7 +45,7 @@ module.exports = function(grunt) {
       },
       bookmarklets: {
         files: {
-          'build/bookmarklet.dev.min.js': 'src/bookmarklet.dev.js'
+          'build/bookmarklet.dev.min.js': 'src/bookmarklets/bookmarklet.dev.js'
         },
         options: {
           banner: 'javascript: '

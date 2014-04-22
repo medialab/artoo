@@ -22,17 +22,8 @@
     return res;
   }
 
-  // Package helper
-  function pkg(pkgName) {
-    return (pkgName || '').split('.').reduce(function(context, objName) {
-      return (objName in context) ?
-        context[objName] :
-        (context[objName] = {});
-    }, _root);
-  }
-
   // Loading an external script
-  function getScript(url, cb) {
+  Artoo.prototype.getScript = function(url, cb) {
     var script = document.createElement('script'),
         head = document.getElementsByTagName('head')[0],
         done = false;
@@ -58,9 +49,7 @@
   }
 
   // Exporting
-  Artoo.prototype.helpers = {
-    extend: extend,
-    getScript: getScript,
-    pkg: pkg
+  Artoo.helpers = {
+    extend: extend
   };
 }).call(this);

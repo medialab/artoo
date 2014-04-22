@@ -31,7 +31,7 @@
   Artoo.prototype.welcome = function() {
     var ascii = robot();
 
-    ascii[ascii.length - 2] = ascii[ascii.length - 2] + '    artoo';
+    ascii[ascii.length - 2] = ascii[ascii.length - 2] + '    ' + this.name;
 
     console.log(ascii.join('\n') + '   v' + this.version);
   };

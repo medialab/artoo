@@ -10,13 +10,13 @@
   var _root = this;
 
   // Main object
-  var Artoo = function() {
+  var Artoo = function(proxyName) {
     var _this = this;
 
     // Properties
     this.$ = null;
     this.version = '0.0.1';
-    this.name = 'artoo';
+    this.name = proxyName || 'artoo';
     this.passphrase = 'detoo';
     this.jquery = {
       version: '2.1.0',
@@ -24,6 +24,8 @@
         _root.ß = _this.$;
       }
     };
+
+    this.helpers = Artoo.helpers;
 
     this.init();
   };
@@ -37,7 +39,7 @@
 
     // Injecting jQuery
     this.inject(function() {
-      _this.log('artoo is now good to go!');
+      _this.log(_this.name + ' is now good to go!');
     });
   };
 

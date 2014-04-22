@@ -36,11 +36,11 @@
 
     // jQuery has not the correct version or another library uses $
     else if ((exists && currentVersion.charAt(0) !== '2') || other) {
-      this.helpers.getScript(cdn, function() {
+      this.getScript(cdn, function() {
         _this.log(
           'Either jQuery has not a valid version or another library ' +
           'using dollar is already present.\n' +
-          'Exporting correct version to ß (or artoo.$).');
+          'Exporting correct version to ß (or ' + _this.name + '.$).');
 
         _this.$ = jQuery.noConflict();
         _this.jquery.export();
@@ -51,8 +51,8 @@
 
     // jQuery does not exist at all, we load it
     else {
-      this.helpers.getScript(cdn, function() {
-        _this.log('artoo loaded jQuery into your page ' +
+      this.getScript(cdn, function() {
+        _this.log(_this.name + ' loaded jQuery into your page ' +
                   '(v' + desiredVersion + ').');
 
         _this.$ = jQuery;

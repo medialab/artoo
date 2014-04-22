@@ -10,13 +10,13 @@
   var _root = this;
 
   // Main object
-  var Artoo = function() {
+  var Artoo = function(proxyName) {
     var _this = this;
 
     // Properties
     this.$ = null;
     this.version = '0.0.1';
-    this.name = 'artoo';
+    this.name = proxyName || 'artoo';
     this.passphrase = 'detoo';
     this.jquery = {
       version: '2.1.0',
@@ -24,6 +24,8 @@
         _root.ß = _this.$;
       }
     };
+
+    this.helpers = Artoo.helpers;
 
     this.init();
   };
@@ -37,7 +39,7 @@
 
     // Injecting jQuery
     this.inject(function() {
-      _this.log('artoo is now good to go!');
+      _this.log(_this.name + ' is now good to go!');
     });
   };
 
@@ -73,17 +75,8 @@
     return res;
   }
 
-  // Package helper
-  function pkg(pkgName) {
-    return (pkgName || '').split('.').reduce(function(context, objName) {
-      return (objName in context) ?
-        context[objName] :
-        (context[objName] = {});
-    }, _root);
-  }
-
   // Loading an external script
-  function getScript(url, cb) {
+  Artoo.prototype.getScript = function(url, cb) {
     var script = document.createElement('script'),
         head = document.getElementsByTagName('head')[0],
         done = false;
@@ -109,10 +102,8 @@
   }
 
   // Exporting
-  Artoo.prototype.helpers = {
-    extend: extend,
-    getScript: getScript,
-    pkg: pkg
+  Artoo.helpers = {
+    extend: extend
   };
 }).call(this);
 
@@ -149,7 +140,7 @@
   Artoo.prototype.welcome = function() {
     var ascii = robot();
 
-    ascii[ascii.length - 2] = ascii[ascii.length - 2] + '    artoo';
+    ascii[ascii.length - 2] = ascii[ascii.length - 2] + '    ' + this.name;
 
     console.log(ascii.join('\n') + '   v' + this.version);
   };
@@ -193,11 +184,11 @@
 
     // jQuery has not the correct version or another library uses $
     else if ((exists && currentVersion.charAt(0) !== '2') || other) {
-      this.helpers.getScript(cdn, function() {
+      this.getScript(cdn, function() {
         _this.log(
           'Either jQuery has not a valid version or another library ' +
           'using dollar is already present.\n' +
-          'Exporting correct version to ß (or artoo.$).');
+          'Exporting correct version to ß (or ' + _this.name + '.$).');
 
         _this.$ = jQuery.noConflict();
         _this.jquery.export();
@@ -208,8 +199,8 @@
 
     // jQuery does not exist at all, we load it
     else {
-      this.helpers.getScript(cdn, function() {
-        _this.log('artoo loaded jQuery into your page ' +
+      this.getScript(cdn, function() {
+        _this.log(_this.name + ' loaded jQuery into your page ' +
                   '(v' + desiredVersion + ').');
 
         _this.$ = jQuery;
@@ -413,8 +404,30 @@
    * =====================
    *
    * Loading a single instance of artoo into the web page while checking for
-   * potential userpers and acting accordingly.
+   * potential usurpers and acting accordingly.
    */
 
-  this.artoo = new Artoo();
+  // Checking preexistence of artoo and potential usurpation
+  var exists = typeof this.artoo !== 'undefined' ||
+               typeof this.detoo !== 'undefined',
+      usurper = exists && this.artoo.passphrase !== 'detoo',
+      name;
+
+  if (exists && !usurper) {
+    console.log('An artoo already works within this page.' +
+                'no need to invoke another one.');
+    return;
+  }
+
+  if (usurper) {
+    console.log('An usurper artoo lives within this page. Renaming artoo ' +
+                'to "detoo".');
+    name = 'detoo';
+  }
+  else {
+    name = 'artoo';
+  }
+
+  // Exporting
+  this[name] = new Artoo(name);
 }).call(this);

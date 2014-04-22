@@ -9,7 +9,7 @@
    * and gracefully inject it without generating conflicts.
    */
 
-  function inject(cb) {
+  Artoo.prototype.inject = function(cb) {
     var _this = this;
 
     // Properties
@@ -61,7 +61,4 @@
       });
     }
   }
-
-  // Exporting
-  Artoo.prototype.inject = inject;
 }).call(this);

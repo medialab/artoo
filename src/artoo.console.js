@@ -22,9 +22,24 @@
     ];
   }
 
+  // Log levels
+  var levels = {
+    verbose: 'cyan',
+    debug: 'blue',
+    info: 'green',
+    warn: 'orange',
+    error: 'red'
+  };
+
   // Log override
-  Artoo.prototype.log = function() {
-    console.log.apply(console, arguments);
+  Artoo.prototype.log = function(level) {
+    var hasLevel = (levels[level] !== undefined);
+    level = hasLevel ? level : 'debug';
+
+    console.log.apply(
+      console,
+      hasLevel ? Array.prototype.slice.call(arguments, 1) : arguments
+    );
   };
 
   // Logo display

@@ -135,7 +135,7 @@
   };
 
   Artoo.prototype.saveHtml = function(data, params) {
-    // check typeof domelement or jquery sel? or string
+    var selector = data.jquery !== undefined;
   };
 
   Artoo.prototype.savePageHtml = function(params) {

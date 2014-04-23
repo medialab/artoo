@@ -118,7 +118,10 @@
     }
 
     // Extending params
-    this.save(data, this.extend(params, {filename: 'data.json', mime: 'json'}));
+    this.save(
+      data,
+      this.helpers.extend(params, {filename: 'data.json', mime: 'json'})
+    );
   };
 
   Artoo.prototype.savePrettyJson = function(data, params) {

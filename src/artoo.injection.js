@@ -42,7 +42,7 @@
           'using dollar is already present.\n' +
           'Exporting correct version to ß (or ' + _this.name + '.$).');
 
-        _this.$ = jQuery.noConflict();
+        _this.$ = jQuery.noConflict(true);
         _this.jquery.export();
 
         cb();

@@ -8,6 +8,11 @@
    * Console abstraction enabling artoo to perform a finer logging job.
    */
 
+  // Utilities
+  function toArray(a, slice) {
+    return Array.prototype.slice.call(a, slice || 0);
+  }
+
   // Return the logo ASCII array
   function robot() {
     return [
@@ -33,9 +38,11 @@
 
   // Log header
   function logHeader(name, level) {
-    return ['[' + name + ']: ' +
-            '<span style="color: ' + levels[level] + '">' +
-            level + '</span> -'];
+    return [
+      '[' + name + ']: %c' + level,
+      'color: ' + levels[level] + ';',
+      '-'
+    ];
   }
 
   // Log override

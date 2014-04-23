@@ -131,6 +131,11 @@
    * Console abstraction enabling artoo to perform a finer logging job.
    */
 
+  // Utilities
+  function toArray(a, slice) {
+    return Array.prototype.slice.call(a, slice || 0);
+  }
+
   // Return the logo ASCII array
   function robot() {
     return [
@@ -156,9 +161,11 @@
 
   // Log header
   function logHeader(name, level) {
-    return ['[' + name + ']: ' +
-            '<span style="color: ' + levels[level] + '">' +
-            level + '</span> -'];
+    return [
+      '[' + name + ']: %c' + level,
+      'color: ' + levels[level] + ';',
+      '-'
+    ];
   }
 
   // Log override
@@ -250,7 +257,7 @@
     // jQuery does not exist at all, we load it
     else {
       this.getScript(cdn, function() {
-        _this.log(_this.name + ' loaded jQuery into your page ' +
+        _this.log('jQuery was correctly injected into your page ' +
                   '(v' + desiredVersion + ').');
 
         _this.$ = jQuery;

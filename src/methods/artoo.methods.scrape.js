@@ -9,7 +9,7 @@
    */
   var _root = this;
 
-  Artoo.prototype.scrape = function(sel, params) {
+  artoo.scrape = function(sel, params) {
 
   };
 }).call(this);

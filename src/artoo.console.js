@@ -37,33 +37,33 @@
   };
 
   // Log header
-  function logHeader(name, level) {
+  function logHeader(level) {
     return [
-      '[' + name + ']: %c' + level,
+      '[artoo]: %c' + level,
       'color: ' + levels[level] + ';',
       '-'
     ];
   }
 
   // Log override
-  Artoo.prototype.log = function(level) {
+  artoo.log = function(level) {
     var hasLevel = (levels[level] !== undefined),
         slice = hasLevel ? 1 : 0,
-        args = Array.prototype.slice.call(arguments, slice);
+        args = toArray(arguments, slice);
 
     level = hasLevel ? level : 'debug';
 
     console.log.apply(
       console,
-      logHeader(this.name, level).concat(args)
+      logHeader(level).concat(args)
     );
   };
 
   // Log shortcuts
   function makeShortcut(level) {
-    Artoo.prototype[level] = function() {
+    artoo.log[level] = function() {
       this.log.apply(this,
-        [level].concat(Array.prototype.slice.call(arguments)));
+        [level].concat(toArray(arguments)));
     };
   }
 
@@ -71,11 +71,11 @@
     makeShortcut(l);
 
   // Logo display
-  Artoo.prototype.welcome = function() {
+  artoo.log.welcome = function() {
     var ascii = robot();
 
-    ascii[ascii.length - 2] = ascii[ascii.length - 2] + '    ' + this.name;
+    ascii[ascii.length - 2] = ascii[ascii.length - 2] + '    artoo';
 
-    console.log(ascii.join('\n') + '   v' + this.version);
+    console.log(ascii.join('\n') + '   v' + artoo.version);
   };
 }).call(this);

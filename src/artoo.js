@@ -9,49 +9,40 @@
    */
   var _root = this;
 
-  // Main object
-  var Artoo = function(proxyName) {
-    var _this = this;
+  // Checking preexistence of artoo and potential usurpation
+  var exists = typeof _root.artoo !== 'undefined' ||
+               typeof _root.detoo !== 'undefined',
+      usurper = exists && _root.artoo.passphrase !== 'detoo',
+      name;
 
-    // Properties
-    this.$ = null;
-    this.version = '0.0.1';
-    this.name = proxyName || 'artoo';
-    this.passphrase = 'detoo';
-    this.jquery = {
+  if (exists && !usurper) {
+    console.log('An artoo already works within this page. ' +
+                'No need to invoke another one.');
+    return;
+  }
+
+  if (usurper)
+    console.log('An usurper artoo lives within this page. Let\'s shun it!');
+
+  // Main namespace
+  var artoo = {
+    $: null,
+    version: '0.0.1',
+    passphrase: 'detoo',
+    loaded: false,
+    jquery: {
       version: '2.1.0',
       export: function() {
-        _root.ß = _this.$;
+        _root.ß = artoo.$;
       }
-    };
-
-    // Settings
-    this.settings = {
-      logLevel: 'verbose'
-    };
-
-    this.helpers = Artoo.helpers;
-
-    this.init();
+    }
   };
 
-  // Main prototype methods
-  Artoo.prototype.init = function() {
-    var _this = this;
-
-    // Welcoming user
-    this.welcome();
-
-    // Injecting jQuery
-    this.inject(function() {
-      _this.log(_this.name + ' is now good to go!');
-    });
-  };
-
+  // Exporting to global scope
   if (typeof this.exports !== 'undefined') {
     if (typeof this.module !== 'undefined' && this.module.exports)
-      this.exports = this.module.exports = Artoo;
-    this.exports.Artoo = Artoo;
+      this.exports = this.module.exports = artoo;
+    this.exports.artoo = artoo;
   }
-  this.Artoo = Artoo;
+  this.artoo = artoo;
 }).call(this);

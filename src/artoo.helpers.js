@@ -31,7 +31,7 @@
   }
 
   // Loading an external script
-  Artoo.prototype.getScript = function(url, cb) {
+  function getScript(url, cb) {
     var script = document.createElement('script'),
         head = document.getElementsByTagName('head')[0],
         done = false;
@@ -54,10 +54,13 @@
 
     // Appending the script to head
     head.appendChild(script);
-  };
+  }
 
-  // Exporting
-  Artoo.helpers = {
+  // Exporting to artoo root
+  artoo.getScript = getScript;
+
+  // Exporting to artoo helpers
+  artoo.helpers = {
     extend: extend,
     toCSVString: toCSVString
   };

@@ -45,7 +45,8 @@ module.exports = function(grunt) {
       },
       bookmarklets: {
         files: {
-          'build/bookmarklet.dev.min.js': 'src/bookmarklets/bookmarklet.dev.js'
+          'build/bookmarklet.dev.min.js': 'src/bookmarklets/bookmarklet.dev.js',
+          'build/bookmarklet.prod.min.js': 'src/bookmarklets/bookmarklet.prod.js'
         },
         options: {
           banner: 'javascript: '
@@ -88,5 +89,5 @@ module.exports = function(grunt) {
     ]
   );
 
-  grunt.registerTask('work', ['watch:script'])
+  grunt.registerTask('work', ['concat', 'watch:script'])
 };

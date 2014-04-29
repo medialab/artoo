@@ -9,51 +9,42 @@
    */
   var _root = this;
 
-  // Main object
-  var Artoo = function(proxyName) {
-    var _this = this;
+  // Checking preexistence of artoo and potential usurpation
+  var exists = typeof _root.artoo !== 'undefined' ||
+               typeof _root.detoo !== 'undefined',
+      usurper = exists && _root.artoo.passphrase !== 'detoo',
+      name;
 
-    // Properties
-    this.$ = null;
-    this.version = '0.0.1';
-    this.name = proxyName || 'artoo';
-    this.passphrase = 'detoo';
-    this.jquery = {
+  if (exists && !usurper) {
+    console.log('An artoo already works within this page. ' +
+                'No need to invoke another one.');
+    return;
+  }
+
+  if (usurper)
+    console.log('An usurper artoo lives within this page. Let\'s shun it!');
+
+  // Main namespace
+  var artoo = {
+    $: null,
+    version: '0.0.1',
+    passphrase: 'detoo',
+    loaded: false,
+    jquery: {
       version: '2.1.0',
       export: function() {
-        _root.ß = _this.$;
+        _root.ß = artoo.$;
       }
-    };
-
-    // Settings
-    this.settings = {
-      logLevel: 'verbose'
-    };
-
-    this.helpers = Artoo.helpers;
-
-    this.init();
+    }
   };
 
-  // Main prototype methods
-  Artoo.prototype.init = function() {
-    var _this = this;
-
-    // Welcoming user
-    this.welcome();
-
-    // Injecting jQuery
-    this.inject(function() {
-      _this.log(_this.name + ' is now good to go!');
-    });
-  };
-
+  // Exporting to global scope
   if (typeof this.exports !== 'undefined') {
     if (typeof this.module !== 'undefined' && this.module.exports)
-      this.exports = this.module.exports = Artoo;
-    this.exports.Artoo = Artoo;
+      this.exports = this.module.exports = artoo;
+    this.exports.artoo = artoo;
   }
-  this.Artoo = Artoo;
+  this.artoo = artoo;
 }).call(this);
 
 ;(function(undefined) {
@@ -89,7 +80,7 @@
   }
 
   // Loading an external script
-  Artoo.prototype.getScript = function(url, cb) {
+  function getScript(url, cb) {
     var script = document.createElement('script'),
         head = document.getElementsByTagName('head')[0],
         done = false;
@@ -112,10 +103,13 @@
 
     // Appending the script to head
     head.appendChild(script);
-  };
+  }
 
-  // Exporting
-  Artoo.helpers = {
+  // Exporting to artoo root
+  artoo.getScript = getScript;
+
+  // Exporting to artoo helpers
+  artoo.helpers = {
     extend: extend,
     toCSVString: toCSVString
   };
@@ -160,33 +154,33 @@
   };
 
   // Log header
-  function logHeader(name, level) {
+  function logHeader(level) {
     return [
-      '[' + name + ']: %c' + level,
+      '[artoo]: %c' + level,
       'color: ' + levels[level] + ';',
       '-'
     ];
   }
 
   // Log override
-  Artoo.prototype.log = function(level) {
+  artoo.log = function(level) {
     var hasLevel = (levels[level] !== undefined),
         slice = hasLevel ? 1 : 0,
-        args = Array.prototype.slice.call(arguments, slice);
+        args = toArray(arguments, slice);
 
     level = hasLevel ? level : 'debug';
 
     console.log.apply(
       console,
-      logHeader(this.name, level).concat(args)
+      logHeader(level).concat(args)
     );
   };
 
   // Log shortcuts
   function makeShortcut(level) {
-    Artoo.prototype[level] = function() {
+    artoo.log[level] = function() {
       this.log.apply(this,
-        [level].concat(Array.prototype.slice.call(arguments)));
+        [level].concat(toArray(arguments)));
     };
   }
 
@@ -194,12 +188,12 @@
     makeShortcut(l);
 
   // Logo display
-  Artoo.prototype.welcome = function() {
+  artoo.log.welcome = function() {
     var ascii = robot();
 
-    ascii[ascii.length - 2] = ascii[ascii.length - 2] + '    ' + this.name;
+    ascii[ascii.length - 2] = ascii[ascii.length - 2] + '    artoo';
 
-    console.log(ascii.join('\n') + '   v' + this.version);
+    console.log(ascii.join('\n') + '   v' + artoo.version);
   };
 }).call(this);
 
@@ -213,12 +207,10 @@
    * Checking whether a version of jquery lives in the targeted page
    * and gracefully inject it without generating conflicts.
    */
-
-  Artoo.prototype.inject = function(cb) {
-    var _this = this;
+  artoo.jquery.inject = function(cb) {
 
     // Properties
-    var desiredVersion = this.jquery.version,
+    var desiredVersion = artoo.jquery.version,
         cdn = '//code.jquery.com/jquery-' + desiredVersion + '.min.js';
 
     // Checking the existence of jQuery or of another library.
@@ -230,25 +222,25 @@
 
     // jQuery is already in a correct mood
     if (exists && currentVersion.charAt(0) === '2') {
-      this.log('jQuery already exists in this page ' +
+      artoo.log('jQuery already exists in this page ' +
                 '(v' + currentVersion + '). No need to load it again.');
 
       // Internal reference
-      this.$ = jQuery;
+      artoo.$ = jQuery;
 
       cb();
     }
 
     // jQuery has not the correct version or another library uses $
     else if ((exists && currentVersion.charAt(0) !== '2') || other) {
-      this.getScript(cdn, function() {
-        _this.log(
+      artoo.getScript(cdn, function() {
+        artoo.log(
           'Either jQuery has not a valid version or another library ' +
           'using dollar is already present.\n' +
-          'Exporting correct version to ß (or ' + _this.name + '.$).');
+          'Exporting correct version to ß (or artoo.$).');
 
-        _this.$ = jQuery.noConflict(true);
-        _this.jquery.export();
+        artoo.$ = jQuery.noConflict(true);
+        artoo.jquery.export();
 
         cb();
       });
@@ -256,11 +248,11 @@
 
     // jQuery does not exist at all, we load it
     else {
-      this.getScript(cdn, function() {
-        _this.log('jQuery was correctly injected into your page ' +
+      artoo.getScript(cdn, function() {
+        artoo.log('jQuery was correctly injected into your page ' +
                   '(v' + desiredVersion + ').');
 
-        _this.$ = jQuery;
+        artoo.$ = jQuery;
 
         cb();
       });
@@ -369,11 +361,11 @@
   var _saver = new Saver();
 
   // Exporting
-  Artoo.prototype.save = function(data, params) {
+  artoo.save = function(data, params) {
     _saver.save(data, params);
   };
 
-  Artoo.prototype.saveJson = function(data, params) {
+  artoo.saveJson = function(data, params) {
 
     // Enforcing json
     if (typeof data !== 'string') {
@@ -394,11 +386,11 @@
     );
   };
 
-  Artoo.prototype.savePrettyJson = function(data, params) {
+  artoo.savePrettyJson = function(data, params) {
     this.saveJson(data, this.helpers.extend(params, {pretty: true}));
   };
 
-  Artoo.prototype.saveCsv = function(data, params) {
+  artoo.saveCsv = function(data, params) {
     data = (typeof data === 'string') ? data : this.helpers.toCSVString(data);
 
     this.save(
@@ -407,11 +399,11 @@
     );
   };
 
-  Artoo.prototype.saveHtml = function(data, params) {
+  artoo.saveHtml = function(data, params) {
     var selector = data.jquery !== undefined;
   };
 
-  Artoo.prototype.savePageHtml = function(params) {
+  artoo.savePageHtml = function(params) {
     this.save(
       document.documentElement.innerHTML,
       this.helpers.extend(params, {mime: 'html', filename: 'page.html'})
@@ -430,7 +422,7 @@
    */
   var _root = this;
 
-  Artoo.prototype.scrape = function(sel, params) {
+  artoo.scrape = function(sel, params) {
 
   };
 }).call(this);
@@ -458,27 +450,22 @@
    * potential usurpers and acting accordingly.
    */
 
-  // Checking preexistence of artoo and potential usurpation
-  var exists = typeof this.artoo !== 'undefined' ||
-               typeof this.detoo !== 'undefined',
-      usurper = exists && this.artoo.passphrase !== 'detoo',
-      name;
+  // Initialization hook
+  function initHook() {
 
-  if (exists && !usurper) {
-    console.log('An artoo already works within this page.' +
-                'no need to invoke another one.');
-    return;
+    // Welcoming user
+    artoo.log.welcome();
+
+    // Injecting jQuery
+    artoo.jquery.inject(function() {
+      artoo.log('artoo is now good to go!');
+    });
+
+    // Updating artoo state
+    artoo.loaded = true;
   }
 
-  if (usurper) {
-    console.log('An usurper artoo lives within this page. Renaming artoo ' +
-                'to "detoo".');
-    name = 'detoo';
-  }
-  else {
-    name = 'artoo';
-  }
-
-  // Exporting
-  this[name] = new Artoo(name);
+  // Init?
+  if (!artoo.loaded)
+    initHook();
 }).call(this);

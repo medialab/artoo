@@ -99,11 +99,11 @@
   var _saver = new Saver();
 
   // Exporting
-  Artoo.prototype.save = function(data, params) {
+  artoo.save = function(data, params) {
     _saver.save(data, params);
   };
 
-  Artoo.prototype.saveJson = function(data, params) {
+  artoo.saveJson = function(data, params) {
 
     // Enforcing json
     if (typeof data !== 'string') {
@@ -124,11 +124,11 @@
     );
   };
 
-  Artoo.prototype.savePrettyJson = function(data, params) {
+  artoo.savePrettyJson = function(data, params) {
     this.saveJson(data, this.helpers.extend(params, {pretty: true}));
   };
 
-  Artoo.prototype.saveCsv = function(data, params) {
+  artoo.saveCsv = function(data, params) {
     data = (typeof data === 'string') ? data : this.helpers.toCSVString(data);
 
     this.save(
@@ -137,11 +137,11 @@
     );
   };
 
-  Artoo.prototype.saveHtml = function(data, params) {
+  artoo.saveHtml = function(data, params) {
     var selector = data.jquery !== undefined;
   };
 
-  Artoo.prototype.savePageHtml = function(params) {
+  artoo.savePageHtml = function(params) {
     this.save(
       document.documentElement.innerHTML,
       this.helpers.extend(params, {mime: 'html', filename: 'page.html'})

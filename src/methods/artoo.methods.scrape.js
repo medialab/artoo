@@ -12,7 +12,6 @@
 
   // TODO: recursive
   artoo.scrape = function(iterator, data, params) {
-    console.log($);
     var scraped = $.isArray(data) ? [] : {};
 
     // Transforming to selector

@@ -446,7 +446,6 @@
 
   // TODO: recursive
   artoo.scrape = function(iterator, data, params) {
-    console.log($);
     var scraped = $.isArray(data) ? [] : {};
 
     // Transforming to selector
@@ -509,7 +508,6 @@
   }
 
   // TODO: automatic typing
-  // TODO: querying?
   // TODO: used space
 
   // Methods
@@ -547,15 +545,41 @@
   };
 
   artoo.store.set = function(key, value, o) {
-    if (typeof key !== 'string' && typeof key !== 'number')
+    if (typeof key !== 'string' && typeof key !== 'number') {
       artoo.log.error('Trying to set an invalid key to localStorage. ' +
                       'Keys should be strings or numbers.');
-    else
-      localStorage.setItem(key, o ? JSON.stringify(value) : '' + value);
+      return;
+    }
+    localStorage.setItem(key, o ? JSON.stringify(value) : '' + value);
   };
 
   artoo.store.setObject = function(key, value) {
     this.set(key, value, true);
+  };
+
+  artoo.store.push = function(key, value) {
+    var a = this.getObject(key);
+
+    if (!$.isArray(a)) {
+      artoo.log.error('Trying to push to a non-array for localStorage key "' +
+                      key + '".');
+      return;
+    }
+
+    a.push(value);
+    this.setObject(key, a);
+  };
+
+  artoo.store.update = function(key, object) {
+    var o = this.getObject(key);
+
+    if (!artoo.$.isPlainObject(o)) {
+      artoo.log.error('Trying to update a non-object for localStorage key "' +
+                      key + '".');
+      return;
+    }
+
+    this.setObject(key, artoo.helpers.extend(object, o));
   };
 
   artoo.store.remove = function(key) {

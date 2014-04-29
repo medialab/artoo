@@ -30,10 +30,16 @@
     version: '0.0.1',
     passphrase: 'detoo',
     loaded: false,
+    hooks: {
+      init: []
+    },
     jquery: {
       version: '2.1.0',
       export: function() {
         _root.ß = artoo.$;
+      },
+      get: function() {
+        return artoo.$;
       }
     }
   };
@@ -77,6 +83,19 @@
     return data.map(function(row) {
       return row.join(delimiter || ',');
     }).join('\n');
+  }
+
+  // Checking whether a variable is a jQuery selector
+  function isSelector(v) {
+    return v instanceof artoo.$ ||
+           v instanceof ß ||
+           v instanceof jQuery ||
+           v instanceof $;
+  }
+
+  // Enforce to selector
+  function enforceSelector(v) {
+    return (isSelector(v)) ? v : artoo.$(v);
   }
 
   // Loading an external script
@@ -149,7 +168,7 @@
     verbose: 'cyan',
     debug: 'blue',
     info: 'green',
-    warn: 'orange',
+    warning: 'orange',
     error: 'red'
   };
 
@@ -179,7 +198,7 @@
   // Log shortcuts
   function makeShortcut(level) {
     artoo.log[level] = function() {
-      this.log.apply(this,
+      artoo.log.apply(artoo.log,
         [level].concat(toArray(arguments)));
     };
   }
@@ -222,11 +241,12 @@
 
     // jQuery is already in a correct mood
     if (exists && currentVersion.charAt(0) === '2') {
-      artoo.log('jQuery already exists in this page ' +
-                '(v' + currentVersion + '). No need to load it again.');
+      artoo.log.verbose('jQuery already exists in this page ' +
+                        '(v' + currentVersion + '). No need to load it again.');
 
       // Internal reference
       artoo.$ = jQuery;
+      artoo.jquery.export();
 
       cb();
     }
@@ -234,7 +254,7 @@
     // jQuery has not the correct version or another library uses $
     else if ((exists && currentVersion.charAt(0) !== '2') || other) {
       artoo.getScript(cdn, function() {
-        artoo.log(
+        artoo.log.warning(
           'Either jQuery has not a valid version or another library ' +
           'using dollar is already present.\n' +
           'Exporting correct version to ß (or artoo.$).');
@@ -249,10 +269,11 @@
     // jQuery does not exist at all, we load it
     else {
       artoo.getScript(cdn, function() {
-        artoo.log('jQuery was correctly injected into your page ' +
-                  '(v' + desiredVersion + ').');
+        artoo.log.info('jQuery was correctly injected into your page ' +
+                       '(v' + desiredVersion + ').');
 
         artoo.$ = jQuery;
+        artoo.jquery.export();
 
         cb();
       });
@@ -420,10 +441,37 @@
    *
    * Some scraping helpers.
    */
-  var _root = this;
+  var _root = this,
+      $ = artoo.jquery.get();
 
-  artoo.scrape = function(sel, params) {
+  // TODO: recursive
+  artoo.scrape = function(iterator, data, params) {
+    console.log($);
+    var scraped = $.isArray(data) ? [] : {};
 
+    // Transforming to selector
+    var $iterator = this.helpers.enforceSelector(iterator);
+
+    // Iteration
+    $iterator.each(function() {
+      var $sel,
+          o,
+          i;
+
+      for (i in data) {
+        o = data[i];
+        $sel = $(this).find(o.sel);
+        scraped[i] = (o.attr !== undefined) ?
+          $sel.attr(o.attr) :
+          $sel[method]();
+      }
+    });
+
+    // Returning and done callback
+    if ($.isFunction(params.done))
+      params.done(scraped);
+
+    return scraped;
   };
 }).call(this);
 
@@ -437,6 +485,90 @@
    * artoo's abstraction of HTML5's local storage.
    */
   var _root = this;
+  artoo.store = {};
+
+  // Testing for the availablity of the localStorage
+  artoo.store.available = 'localStorage' in _root;
+  if (!artoo.store.available)
+    artoo.hooks.init.push(function() {
+      this.log.warning(
+        'localStorage not available. You might want to upgrade ' +
+        'your browser.'
+      );
+    });
+
+  // Utilities
+  function coerce(value, type) {
+    if (type === 'boolean')
+      value = (value === 'true');
+    else if (type === 'number')
+      value = +value;
+    else if (type === 'object')
+      value = JSON.parse(value);
+    return value;
+  }
+
+  // TODO: automatic typing
+  // TODO: querying?
+  // TODO: used space
+
+  // Methods
+  artoo.store.get = function(key, type) {
+    var value = localStorage.getItem(key);
+    return value !== null ? coerce(value, type || 'string') : value;
+  };
+
+  artoo.store.getNumber = function(key) {
+    return this.get(key, 'number');
+  };
+
+  artoo.store.getBoolean = function(key) {
+    return this.get(key, 'boolean');
+  };
+
+  artoo.store.getObject = function(key) {
+    return this.get(key, 'object');
+  };
+
+  artoo.store.keys = function(key) {
+    var keys = [],
+        i;
+    for (i in localStorage)
+      keys.push(i);
+
+    return keys;
+  };
+
+  artoo.store.getAll = function() {
+    var store = {};
+    for (var i in localStorage)
+      store[i] = this.get(i);
+    return store;
+  };
+
+  artoo.store.set = function(key, value, o) {
+    if (typeof key !== 'string' && typeof key !== 'number')
+      artoo.log.error('Trying to set an invalid key to localStorage. ' +
+                      'Keys should be strings or numbers.');
+    else
+      localStorage.setItem(key, o ? JSON.stringify(value) : '' + value);
+  };
+
+  artoo.store.setObject = function(key, value) {
+    this.set(key, value, true);
+  };
+
+  artoo.store.remove = function(key) {
+    localStorage.removeItem(key);
+  };
+
+  artoo.store.removeAll = function() {
+    for (var i in localStorage)
+      localStorage.removeItem(i);
+  };
+
+  // Shortcut
+  artoo.s = artoo.store;
 }).call(this);
 
 ;(function(undefined) {
@@ -451,21 +583,28 @@
    */
 
   // Initialization hook
-  function initHook() {
+  function main() {
 
     // Welcoming user
-    artoo.log.welcome();
+    this.log.welcome();
 
     // Injecting jQuery
-    artoo.jquery.inject(function() {
-      artoo.log('artoo is now good to go!');
+    this.jquery.inject(function() {
+      artoo.log.info('artoo is now good to go!');
+
+      // Triggering ready
+      if (artoo.$.isFunction(artoo.ready))
+        artoo.ready(artoo);
     });
 
     // Updating artoo state
-    artoo.loaded = true;
+    this.loaded = true;
   }
+  artoo.hooks.init.unshift(main);
 
   // Init?
   if (!artoo.loaded)
-    initHook();
+    artoo.hooks.init.map(function(h) {
+      h.apply(artoo, h);
+    });
 }).call(this);

@@ -23,11 +23,12 @@
 
     // jQuery is already in a correct mood
     if (exists && currentVersion.charAt(0) === '2') {
-      artoo.log('jQuery already exists in this page ' +
-                '(v' + currentVersion + '). No need to load it again.');
+      artoo.log.verbose('jQuery already exists in this page ' +
+                        '(v' + currentVersion + '). No need to load it again.');
 
       // Internal reference
       artoo.$ = jQuery;
+      artoo.jquery.export();
 
       cb();
     }
@@ -35,7 +36,7 @@
     // jQuery has not the correct version or another library uses $
     else if ((exists && currentVersion.charAt(0) !== '2') || other) {
       artoo.getScript(cdn, function() {
-        artoo.log(
+        artoo.log.warning(
           'Either jQuery has not a valid version or another library ' +
           'using dollar is already present.\n' +
           'Exporting correct version to ß (or artoo.$).');
@@ -50,10 +51,11 @@
     // jQuery does not exist at all, we load it
     else {
       artoo.getScript(cdn, function() {
-        artoo.log('jQuery was correctly injected into your page ' +
-                  '(v' + desiredVersion + ').');
+        artoo.log.info('jQuery was correctly injected into your page ' +
+                       '(v' + desiredVersion + ').');
 
         artoo.$ = jQuery;
+        artoo.jquery.export();
 
         cb();
       });

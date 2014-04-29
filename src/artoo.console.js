@@ -32,7 +32,7 @@
     verbose: 'cyan',
     debug: 'blue',
     info: 'green',
-    warn: 'orange',
+    warning: 'orange',
     error: 'red'
   };
 
@@ -62,7 +62,7 @@
   // Log shortcuts
   function makeShortcut(level) {
     artoo.log[level] = function() {
-      this.log.apply(this,
+      artoo.log.apply(artoo.log,
         [level].concat(toArray(arguments)));
     };
   }

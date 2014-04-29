@@ -10,21 +10,28 @@
    */
 
   // Initialization hook
-  function initHook() {
+  function main() {
 
     // Welcoming user
-    artoo.log.welcome();
+    this.log.welcome();
 
     // Injecting jQuery
-    artoo.jquery.inject(function() {
-      artoo.log('artoo is now good to go!');
+    this.jquery.inject(function() {
+      artoo.log.info('artoo is now good to go!');
+
+      // Triggering ready
+      if (artoo.$.isFunction(artoo.ready))
+        artoo.ready(artoo);
     });
 
     // Updating artoo state
-    artoo.loaded = true;
+    this.loaded = true;
   }
+  artoo.hooks.init.unshift(main);
 
   // Init?
   if (!artoo.loaded)
-    initHook();
+    artoo.hooks.init.map(function(h) {
+      h.apply(artoo, h);
+    });
 }).call(this);

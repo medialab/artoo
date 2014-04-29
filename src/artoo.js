@@ -30,10 +30,16 @@
     version: '0.0.1',
     passphrase: 'detoo',
     loaded: false,
+    hooks: {
+      init: []
+    },
     jquery: {
       version: '2.1.0',
       export: function() {
         _root.ß = artoo.$;
+      },
+      get: function() {
+        return artoo.$;
       }
     }
   };

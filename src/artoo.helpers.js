@@ -30,6 +30,19 @@
     }).join('\n');
   }
 
+  // Checking whether a variable is a jQuery selector
+  function isSelector(v) {
+    return v instanceof artoo.$ ||
+           v instanceof ß ||
+           v instanceof jQuery ||
+           v instanceof $;
+  }
+
+  // Enforce to selector
+  function enforceSelector(v) {
+    return (isSelector(v)) ? v : artoo.$(v);
+  }
+
   // Loading an external script
   function getScript(url, cb) {
     var script = document.createElement('script'),

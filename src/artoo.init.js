@@ -21,12 +21,14 @@
 
       // Triggering ready
       if (artoo.$.isFunction(artoo.ready))
-        artoo.ready(artoo);
+        artoo.ready();
     });
 
     // Updating artoo state
     this.loaded = true;
   }
+
+  // Placing the hook at first position
   artoo.hooks.init.unshift(main);
 
   // Init?

@@ -22,7 +22,9 @@
       // Loading extra script?
       if (artoo.dom) {
         var scriptUrl = artoo.dom.getAttribute('data-next-script');
-        artoo.injectScript(scriptUrl);
+
+        if (scriptUrl)
+          artoo.injectScript(scriptUrl);
       }
 
 

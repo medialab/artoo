@@ -29,6 +29,7 @@
     $: {},
     version: '0.0.1',
     passphrase: 'detoo',
+    dom: document.getElementById('artoo_injected_script'),
     loaded: false,
     hooks: {
       init: []
@@ -122,7 +123,7 @@
   }
 
   // Exporting to artoo root
-  artoo.getScript = getScript;
+  artoo.injectScript = getScript;
 
   // Exporting to artoo helpers
   artoo.helpers = {
@@ -251,7 +252,7 @@
 
     // jQuery has not the correct version or another library uses $
     else if ((exists && currentVersion.charAt(0) !== '2') || other) {
-      artoo.getScript(cdn, function() {
+      artoo.injectScript(cdn, function() {
         artoo.log.warning(
           'Either jQuery has not a valid version or another library ' +
           'using dollar is already present.\n' +
@@ -266,7 +267,7 @@
 
     // jQuery does not exist at all, we load it
     else {
-      artoo.getScript(cdn, function() {
+      artoo.injectScript(cdn, function() {
         artoo.log.info('jQuery was correctly injected into your page ' +
                        '(v' + desiredVersion + ').');
 
@@ -492,6 +493,9 @@
 
     return scraped;
   };
+
+  // Alternative
+  artoo.scrap = artoo.scrape;
 }).call(this);
 
 ;(function(undefined) {
@@ -635,6 +639,15 @@
     // Injecting jQuery
     this.jquery.inject(function() {
       artoo.log.info('artoo is now good to go!');
+
+      // Loading extra script?
+      if (artoo.dom) {
+        var scriptUrl = artoo.dom.getAttribute('data-next-script');
+
+        if (scriptUrl)
+          artoo.injectScript(scriptUrl);
+      }
+
 
       // Triggering ready
       if (artoo.$.isFunction(artoo.ready))

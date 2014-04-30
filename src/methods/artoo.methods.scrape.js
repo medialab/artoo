@@ -9,43 +9,53 @@
    */
   var _root = this;
 
+  // Helpers
+  function step(o, scope) {
+    var $ = artoo.$,
+        $sel;
+
+    // Polymorphism
+    if ($.isFunction(o)) {
+      return o.call(scope, $);
+    }
+    else {
+      $sel = $(scope).find(o.sel);
+      return (o.attr !== undefined) ?
+        $sel.attr(o.attr) :
+        $sel[o.method || 'text']();
+    }
+  }
+
   // TODO: recursive
   artoo.scrape = function(iterator, data, params) {
-    params = params || {};
-
     var $ = this.$,
-        scraped = [];
+        scraped = [],
+        loneSelector = !!data.sel ||
+                       typeof data === 'string' ||
+                       typeof data === 'function';
+
+    params = params || {};
+    data = typeof data === 'string' ? {sel: data, method: 'text'} : data;
 
     // Transforming to selector
     var $iterator = this.helpers.enforceSelector(iterator);
 
     // Iteration
     $iterator.each(function() {
-      var $sel,
-          item = {},
-          o,
+      var item = {},
           i;
 
-      for (i in data) {
-        o = data[i];
-
-        // Polymorphism
-        if ($.isFunction(o)) {
-          item[i] = o.call(this, $);
-        }
-        else {
-          $sel = $(this).find(o.sel);
-          item[i] = (o.attr !== undefined) ?
-            $sel.attr(o.attr) :
-            $sel[o.method || 'text']();
-        }
-      }
+      if (loneSelector)
+        item = step(data, this);
+      else
+        for (i in data)
+          item[i] = step(data[i], this);
 
       scraped.push(item);
     });
 
     // Returning and done callback
-    if ($.isFunction(params.done))
+    if (typeof params.done === 'function')
       params.done(scraped);
 
     return scraped;

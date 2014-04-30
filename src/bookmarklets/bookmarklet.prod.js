@@ -1,5 +1,4 @@
 ;(function(undefined) {
-  'use strict';
 
   /**
    * artoo prod bookmarklet

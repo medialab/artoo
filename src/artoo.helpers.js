@@ -70,7 +70,7 @@
   }
 
   // Exporting to artoo root
-  artoo.getScript = getScript;
+  artoo.injectScript = getScript;
 
   // Exporting to artoo helpers
   artoo.helpers = {

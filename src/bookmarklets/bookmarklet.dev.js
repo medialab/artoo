@@ -13,6 +13,7 @@
 
     script.src = 'http://localhost:8000/build/artoo.concat.js?r=' + r;
     script.type = 'text/javascript';
+    script.id = 'artoo_injected_script';
 
     // Appending to body
     body.appendChild(script);

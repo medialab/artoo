@@ -29,6 +29,7 @@
     $: {},
     version: '0.0.1',
     passphrase: 'detoo',
+    dom: document.getElementById('artoo_injected_script'),
     loaded: false,
     hooks: {
       init: []

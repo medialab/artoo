@@ -35,7 +35,7 @@
 
     // jQuery has not the correct version or another library uses $
     else if ((exists && currentVersion.charAt(0) !== '2') || other) {
-      artoo.getScript(cdn, function() {
+      artoo.injectScript(cdn, function() {
         artoo.log.warning(
           'Either jQuery has not a valid version or another library ' +
           'using dollar is already present.\n' +
@@ -50,7 +50,7 @@
 
     // jQuery does not exist at all, we load it
     else {
-      artoo.getScript(cdn, function() {
+      artoo.injectScript(cdn, function() {
         artoo.log.info('jQuery was correctly injected into your page ' +
                        '(v' + desiredVersion + ').');
 

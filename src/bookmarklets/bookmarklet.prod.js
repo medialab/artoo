@@ -13,6 +13,7 @@
 
     script.src = '//raw.githubusercontent.com/medialab/artoo/master/build/artoo.min.js';
     script.type = 'text/javascript';
+    script.id = 'artoo_injected_script';
 
     // Appending to body
     body.appendChild(script);

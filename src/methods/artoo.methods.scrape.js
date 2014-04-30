@@ -60,4 +60,7 @@
 
     return scraped;
   };
+
+  // Alternative
+  artoo.scrap = artoo.scrape;
 }).call(this);

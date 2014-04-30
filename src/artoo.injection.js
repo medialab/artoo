@@ -38,7 +38,7 @@
       artoo.injectScript(cdn, function() {
         artoo.log.warning(
           'Either jQuery has not a valid version or another library ' +
-          'using dollar is already present.\n' +
+          'using dollar is already present. ' +
           'Exporting correct version to ß (or artoo.$).');
 
         artoo.$ = jQuery.noConflict(true);

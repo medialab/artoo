@@ -69,8 +69,19 @@
     head.appendChild(script);
   }
 
+  // Waiting for something to happen
+  function waitFor(check, cb, milliseconds) {
+    var i = setInterval(function() {
+      if (check()) {
+        cb();
+        clearInterval(i);
+      }
+    }, milliseconds || 30);
+  }
+
   // Exporting to artoo root
   artoo.injectScript = getScript;
+  artoo.waitFor = waitFor;
 
   // Exporting to artoo helpers
   artoo.helpers = {

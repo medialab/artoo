@@ -26,7 +26,7 @@
 
   // Main namespace
   var artoo = {
-    $: null,
+    $: {},
     version: '0.0.1',
     passphrase: 'detoo',
     loaded: false,
@@ -37,9 +37,6 @@
       version: '2.1.0',
       export: function() {
         _root.ß = artoo.$;
-      },
-      get: function() {
-        return artoo.$;
       }
     }
   };

@@ -32,10 +32,10 @@
 
   // Checking whether a variable is a jQuery selector
   function isSelector(v) {
-    return v instanceof artoo.$ ||
-           v instanceof ß ||
-           v instanceof jQuery ||
-           v instanceof $;
+    return (artoo.$ && v instanceof artoo.$) ||
+           (ß && v instanceof ß) ||
+           (jQuery && v instanceof jQuery) ||
+           ($ && v instanceof $);
   }
 
   // Enforce to selector
@@ -75,6 +75,7 @@
   // Exporting to artoo helpers
   artoo.helpers = {
     extend: extend,
+    enforceSelector: enforceSelector,
     toCSVString: toCSVString
   };
 }).call(this);

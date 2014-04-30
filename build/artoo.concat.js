@@ -26,7 +26,7 @@
 
   // Main namespace
   var artoo = {
-    $: null,
+    $: {},
     version: '0.0.1',
     passphrase: 'detoo',
     loaded: false,
@@ -37,9 +37,6 @@
       version: '2.1.0',
       export: function() {
         _root.ß = artoo.$;
-      },
-      get: function() {
-        return artoo.$;
       }
     }
   };
@@ -87,10 +84,10 @@
 
   // Checking whether a variable is a jQuery selector
   function isSelector(v) {
-    return v instanceof artoo.$ ||
-           v instanceof ß ||
-           v instanceof jQuery ||
-           v instanceof $;
+    return (artoo.$ && v instanceof artoo.$) ||
+           (ß && v instanceof ß) ||
+           (jQuery && v instanceof jQuery) ||
+           ($ && v instanceof $);
   }
 
   // Enforce to selector
@@ -130,6 +127,7 @@
   // Exporting to artoo helpers
   artoo.helpers = {
     extend: extend,
+    enforceSelector: enforceSelector,
     toCSVString: toCSVString
   };
 }).call(this);
@@ -441,12 +439,14 @@
    *
    * Some scraping helpers.
    */
-  var _root = this,
-      $ = artoo.jquery.get();
+  var _root = this;
 
   // TODO: recursive
   artoo.scrape = function(iterator, data, params) {
-    var scraped = $.isArray(data) ? [] : {};
+    params = params || {};
+
+    var $ = this.$,
+        scraped = [];
 
     // Transforming to selector
     var $iterator = this.helpers.enforceSelector(iterator);
@@ -454,16 +454,26 @@
     // Iteration
     $iterator.each(function() {
       var $sel,
+          item = {},
           o,
           i;
 
       for (i in data) {
         o = data[i];
-        $sel = $(this).find(o.sel);
-        scraped[i] = (o.attr !== undefined) ?
-          $sel.attr(o.attr) :
-          $sel[method]();
+
+        // Polymorphism
+        if ($.isFunction(o)) {
+          item[i] = o.call(this, $);
+        }
+        else {
+          $sel = $(this).find(o.sel);
+          item[i] = (o.attr !== undefined) ?
+            $sel.attr(o.attr) :
+            $sel[o.method || 'text']();
+        }
       }
+
+      scraped.push(item);
     });
 
     // Returning and done callback
@@ -618,12 +628,14 @@
 
       // Triggering ready
       if (artoo.$.isFunction(artoo.ready))
-        artoo.ready(artoo);
+        artoo.ready();
     });
 
     // Updating artoo state
     this.loaded = true;
   }
+
+  // Placing the hook at first position
   artoo.hooks.init.unshift(main);
 
   // Init?

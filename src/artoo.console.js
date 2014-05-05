@@ -29,9 +29,9 @@
 
   // Log levels
   var levels = {
-    verbose: 'cyan',
-    debug: 'blue',
-    info: 'green',
+    verbose: '#33CCFF',
+    debug: '#000099',
+    info: '#009900',
     warning: 'orange',
     error: 'red'
   };

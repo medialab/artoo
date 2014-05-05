@@ -9,9 +9,9 @@
    * the scraped web page.
    */
   var _root = this;
-  var t = 0;
-  function expand(params, i) {
-    i = i || 1;
+
+  function _expand(params, i, c) {
+    i = i || 0;
 
     var canExpand = (params.canExpand) ?
       (typeof params.canExpand === 'string' ?
@@ -27,18 +27,23 @@
     }
 
     // Triggering expand
-    if (typeof params.expand === 'string')
-      artoo.$(params.expand).simulate('click');
-    else
-      params.expand();
+    var expandFn = (typeof params.expand === 'string') ?
+      function() {
+        artoo.$(params.expand).simulate('click');
+      } :
+      params.expand;
 
-    // Waiting for the content to expand
-    if (!params.isExpanding) {
-      expand(params, ++i);
-    }
-    else {
+    if (params.throttle)
+      setTimeout(expandFn, params.throttle);
+    else
+      expandFn();
+
+    // Waiting expansion
+    if (params.isExpanding) {
+
+      // Checking whether the content is expanding and waiting for it to end.
       if (typeof params.isExpanding === 'number') {
-        setTimeout(expand, params.isExpanding, params, ++i);
+        setTimeout(_expand, params.isExpanding, params, ++i);
       }
       else {
         var isExpanding = (typeof params.isExpanding === 'string') ?
@@ -52,25 +57,44 @@
             return !isExpanding();
           },
           function() {
-            expand(params, ++i);
+            _expand(params, ++i);
           },
           {timeout: params.timeout}
         );
       }
     }
+    else if (params.elements) {
+      c = c || artoo.$(params.elements).length;
+
+      // Counting elements to check if those have changed
+      artoo.waitFor(
+        function() {
+          return artoo.$(params.elements).length > c;
+        },
+        function() {
+          _expand(params, ++i, artoo.$(params.elements).length);
+        },
+        {timeout: params.timeout}
+      );
+    }
+    else {
+
+      // No way to assert content changes, continuing...
+      _expand(params, ++i);
+    }
   }
 
-  // Todo: throttle?
+  // TODO: throttle (make wrapper with setTimeout)
   artoo.autoExpand = function(params, cb) {
     params = params || {};
     params.done = cb || params.done;
 
     if (!params.expand) {
-      artoo.log.error('You did not pass an expand function to artoo\'s' +
+      artoo.log.error('You did not pass an expand parameter to artoo\'s' +
                       ' autoExpand method.');
       return;
     }
 
-    expand(params);
+    _expand(params);
   };
 }).call(this);

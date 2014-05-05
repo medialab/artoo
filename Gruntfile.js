@@ -8,6 +8,7 @@ module.exports = function(grunt) {
     'src/methods/artoo.methods.save.js',
     'src/methods/artoo.methods.scrape.js',
     'src/methods/artoo.methods.autoExpand.js',
+    'src/methods/artoo.methods.autoScroll.js',
     'src/methods/artoo.methods.store.js',
     'src/artoo.init.js'
   ];

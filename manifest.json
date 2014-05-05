@@ -1,0 +1,27 @@
+{
+  "manifest_version": 2,
+  "name": "artoo",
+  "description": "A client-side scraping toolbelt.",
+  "version": "0.0.1",
+  "permissions": [
+    "background",
+    "webRequest",
+    "tabs",
+    "http://*/*",
+    "https://*/*"
+  ],
+  "browser_action": {
+    "default_title": "artoo"
+  },
+  "content_scripts": [
+    {
+    "matches": ["http://*/*", "https://*/*"],
+    "js": ["build/artoo.concat.js"],
+    "run_at": "document_end"
+    }
+  ],
+  "background": {
+    "scripts": ["chrome/csp.js"]
+  },
+  "minimum_chrome_version": "33"
+}

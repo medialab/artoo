@@ -29,7 +29,7 @@
   // Main namespace
   var artoo = {
     $: {},
-    chromeExtension: false,
+    chromeExtension: !!chrome.runtime,
     debug: false,
     dom: document.getElementById('artoo_injected_script'),
     hooks: {
@@ -49,6 +49,8 @@
 
   // Setting debug
   artoo.debug = artoo.dom && !!artoo.dom.getAttribute('debug');
+
+  // If we are in a chrome extension context, we need to break into the page
 
   // Exporting to global scope
   if (typeof this.exports !== 'undefined') {

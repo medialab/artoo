@@ -29,7 +29,7 @@
   // Main namespace
   var artoo = {
     $: {},
-    chromeExtension: false,
+    chromeExtension: !!chrome.runtime,
     debug: false,
     dom: document.getElementById('artoo_injected_script'),
     hooks: {
@@ -49,6 +49,8 @@
 
   // Setting debug
   artoo.debug = artoo.dom && !!artoo.dom.getAttribute('debug');
+
+  // If we are in a chrome extension context, we need to break into the page
 
   // Exporting to global scope
   if (typeof this.exports !== 'undefined') {
@@ -199,9 +201,9 @@
 
   // Log levels
   var levels = {
-    verbose: 'cyan',
-    debug: 'blue',
-    info: 'green',
+    verbose: '#33CCFF',
+    debug: '#000099',
+    info: '#009900',
     warning: 'orange',
     error: 'red'
   };
@@ -421,6 +423,7 @@
   };
 
   artoo.saveJson = function(data, params) {
+    params = params || {};
 
     // Enforcing json
     if (typeof data !== 'string') {

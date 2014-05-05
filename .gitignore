@@ -1,3 +1,4 @@
 node_modules
 TODO.md
 *.pem
+npm-debug.log

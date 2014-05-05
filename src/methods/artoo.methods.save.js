@@ -104,6 +104,7 @@
   };
 
   artoo.saveJson = function(data, params) {
+    params = params || {};
 
     // Enforcing json
     if (typeof data !== 'string') {

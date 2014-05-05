@@ -11,9 +11,11 @@
       script = document.createElement('script'),
       r = Math.random();
 
-    script.src = 'http://localhost:8000/build/artoo.concat.js?r=' + r;
+    script.src = '//localhost:8000/build/artoo.concat.js?r=' + r;
     script.type = 'text/javascript';
     script.id = 'artoo_injected_script';
+
+    script.setAttribute('debug', 'true');
 
     // Appending to body
     body.appendChild(script);

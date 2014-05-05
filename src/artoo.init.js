@@ -19,6 +19,11 @@
     this.jquery.inject(function() {
       artoo.log.info('artoo is now good to go!');
 
+      // Applying jQuery plugins
+      artoo.jquery.plugins.map(function(p) {
+        p(artoo.$);
+      });
+
       // Loading extra script?
       if (artoo.dom) {
         var scriptUrl = artoo.dom.getAttribute('data-next-script');

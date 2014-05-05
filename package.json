@@ -4,7 +4,8 @@
   "description": "A client-side scraping toolbelt.",
   "main": "index.js",
   "scripts": {
-    "start": "grunt work & http-server -c-1 -p 8000 && fg"
+    "start": "grunt work & http-server -c-1 -p 8000 && fg",
+    "https": "grunt work & dev-http-server -c-1 -p 8000 -S && fg"
   },
   "repository": {
     "type": "git",

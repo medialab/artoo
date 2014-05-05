@@ -70,13 +70,29 @@
   }
 
   // Waiting for something to happen
-  function waitFor(check, cb, milliseconds) {
+  function waitFor(check, cb, params) {
+    params = params || {};
+    if (typeof cb === 'object') {
+      params = cb;
+      cb = params.done;
+    }
+
+    var milliseconds = params.interval || 30,
+        j = 0;
+
     var i = setInterval(function() {
       if (check()) {
         cb();
         clearInterval(i);
       }
-    }, milliseconds || 30);
+
+      if (params.timeout && params.timeout - (j * milliseconds) <= 0) {
+        cb(false);
+        clearInterval(i);
+      }
+
+      j++;
+    }, milliseconds);
   }
 
   // Exporting to artoo root

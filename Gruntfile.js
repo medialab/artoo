@@ -7,9 +7,14 @@ module.exports = function(grunt) {
     'src/artoo.injection.js',
     'src/methods/artoo.methods.save.js',
     'src/methods/artoo.methods.scrape.js',
+    'src/methods/artoo.methods.autoExpand.js',
     'src/methods/artoo.methods.store.js',
     'src/artoo.init.js'
   ];
+
+  var prodFiles = jsFiles.concat([
+    'src/plugins/*.js'
+  ]);
 
   // Project configuration:
   grunt.initConfig({
@@ -37,7 +42,7 @@ module.exports = function(grunt) {
     uglify: {
       prod: {
         files: {
-          'build/artoo.min.js': jsFiles
+          'build/artoo.min.js': prodFiles
         },
         options: {
           banner: '/* artoo.js - <%= pkg.description %> - Version: <%= pkg.version %> -  médialab SciencesPo */\n'
@@ -58,13 +63,13 @@ module.exports = function(grunt) {
         separator: '\n'
       },
       dist: {
-        src: jsFiles,
+        src: prodFiles,
         dest: 'build/artoo.concat.js'
       }
     },
     watch: {
       script: {
-        files: jsFiles,
+        files: prodFiles,
         tasks: ['concat', 'uglify:prod']
       }
     }

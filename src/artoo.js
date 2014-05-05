@@ -12,13 +12,15 @@
   // Checking preexistence of artoo and potential usurpation
   var exists = typeof _root.artoo !== 'undefined' ||
                typeof _root.detoo !== 'undefined',
-      usurper = exists && _root.artoo.passphrase !== 'detoo',
-      name;
+      usurper = exists && _root.artoo.passphrase !== 'detoo';
 
   if (exists && !usurper) {
-    console.log('An artoo already works within this page. ' +
-                'No need to invoke another one.');
-    return;
+
+    if (!_root.artoo.debug) {
+      console.log('An artoo already works within this page. ' +
+                  'No need to invoke another one.');
+      return;
+    }
   }
 
   if (usurper)
@@ -27,20 +29,26 @@
   // Main namespace
   var artoo = {
     $: {},
-    version: '0.0.1',
-    passphrase: 'detoo',
+    chromeExtension: false,
+    debug: false,
     dom: document.getElementById('artoo_injected_script'),
-    loaded: false,
     hooks: {
       init: []
     },
     jquery: {
-      version: '2.1.0',
       export: function() {
         _root.ß = artoo.$;
-      }
-    }
+      },
+      plugins: [],
+      version: '2.1.0'
+    },
+    loaded: false,
+    passphrase: 'detoo',
+    version: '0.0.1'
   };
+
+  // Setting debug
+  artoo.debug = !!artoo.dom.getAttribute('debug');
 
   // Exporting to global scope
   if (typeof this.exports !== 'undefined') {

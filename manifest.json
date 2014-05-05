@@ -6,6 +6,7 @@
   "permissions": [
     "background",
     "webRequest",
+    "webRequestBlocking",
     "tabs",
     "http://*/*",
     "https://*/*"
@@ -25,7 +26,9 @@
   },
   "web_accessible_resources": [
     "build/artoo.concat.js",
-    "build/artoo.build.js"
+    "build/artoo.build.js",
+    "chrome/csp.js"
   ],
+  "content_security_policy": "default-src 'self';",
   "minimum_chrome_version": "33"
 }

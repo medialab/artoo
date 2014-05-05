@@ -1,5 +1,5 @@
 ;(function(undefined) {
-
+console.log('started');
   /**
    * artoo Content Security Policy override
    * =======================================
@@ -16,11 +16,12 @@
   chrome.webRequest.onHeadersReceived.addListener(
     function(details) {
       var i, l, o;
+      console.log(details);
 
       for (i = 0, l = details.responseHeaders.length; i < l; i++) {
         o = details.responseHeaders[i];
 
-        if (~possibleHeaders.indexOf(o.name.toLowerCase())
+        if (~possibleHeaders.indexOf(o.name.toLowerCase()))
           o.value = 'default-src *; script-src *;';
       }
     },

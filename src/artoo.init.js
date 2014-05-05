@@ -5,8 +5,7 @@
    * artoo initialization
    * =====================
    *
-   * Loading a single instance of artoo into the web page while checking for
-   * potential usurpers and acting accordingly.
+   * Launch artoo's init hooks.
    */
 
   // Initialization hook
@@ -14,6 +13,11 @@
 
     // Welcoming user
     this.log.welcome();
+
+    // Indicating we are injecting artoo from the chrome extension
+    if (artoo.chromeExtension)
+      artoo.log.verbose('artoo has automatically been injected ' +
+                        'by the chrome extension.');
 
     // Injecting jQuery
     this.jquery.inject(function() {
@@ -25,12 +29,8 @@
       });
 
       // Loading extra script?
-      if (artoo.dom) {
-        var scriptUrl = artoo.dom.getAttribute('data-next-script');
-
-        if (scriptUrl)
-          artoo.injectScript(scriptUrl);
-      }
+      if (artoo.nextScript)
+        artoo.injectScript(artoo.nextScript);
 
 
       // Triggering ready

@@ -11,10 +11,10 @@
       script = document.createElement('script'),
       r = Math.random();
 
-    script.src = '//raw.githubusercontent.com/medialab/artoo/master/build/artoo.min.js';
-    script.type = 'text/javascript';
-    script.id = 'artoo_injected_script';
+  script.src = '//raw.githubusercontent.com/medialab/artoo/master/build/artoo.min.js';
+  script.type = 'text/javascript';
+  script.id = 'artoo_injected_script';
 
-    // Appending to body
-    body.appendChild(script);
+  // Appending to body
+  body.appendChild(script);
 })();

@@ -11,12 +11,12 @@
       script = document.createElement('script'),
       r = Math.random();
 
-    script.src = '//localhost:8000/build/artoo.concat.js?r=' + r;
-    script.type = 'text/javascript';
-    script.id = 'artoo_injected_script';
+  script.src = '//localhost:8000/build/artoo.concat.js?r=' + r;
+  script.type = 'text/javascript';
+  script.id = 'artoo_injected_script';
 
-    script.setAttribute('debug', 'true');
+  script.setAttribute('debug', 'true');
 
-    // Appending to body
-    body.appendChild(script);
+  // Appending to body
+  body.appendChild(script);
 })();

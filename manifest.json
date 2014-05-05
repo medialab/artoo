@@ -16,12 +16,16 @@
   "content_scripts": [
     {
     "matches": ["http://*/*", "https://*/*"],
-    "js": ["build/artoo.concat.js"],
+    "js": ["chrome/inject.js"],
     "run_at": "document_end"
     }
   ],
   "background": {
     "scripts": ["chrome/csp.js"]
   },
+  "web_accessible_resources": [
+    "build/artoo.concat.js",
+    "build/artoo.build.js"
+  ],
   "minimum_chrome_version": "33"
 }

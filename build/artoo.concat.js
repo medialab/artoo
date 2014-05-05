@@ -29,8 +29,6 @@
   // Main namespace
   var artoo = {
     $: {},
-    chromeExtension: !!chrome.runtime,
-    debug: false,
     dom: document.getElementById('artoo_injected_script'),
     hooks: {
       init: []
@@ -47,10 +45,12 @@
     version: '0.0.1'
   };
 
-  // Setting debug
-  artoo.debug = artoo.dom && !!artoo.dom.getAttribute('debug');
-
-  // If we are in a chrome extension context, we need to break into the page
+  // Retrieving some data from script dom
+  if (artoo.dom) {
+    artoo.debug = !!artoo.dom.getAttribute('debug');
+    artoo.chromeExtension = !!artoo.dom.getAttribute('chrome');
+    artoo.nextScript = artoo.dom.getAttribute('next');
+  }
 
   // Exporting to global scope
   if (typeof this.exports !== 'undefined') {
@@ -782,8 +782,7 @@
    * artoo initialization
    * =====================
    *
-   * Loading a single instance of artoo into the web page while checking for
-   * potential usurpers and acting accordingly.
+   * Launch artoo's init hooks.
    */
 
   // Initialization hook
@@ -791,6 +790,11 @@
 
     // Welcoming user
     this.log.welcome();
+
+    // Indicating we are injecting artoo from the chrome extension
+    if (artoo.chromeExtension)
+      artoo.log.verbose('artoo has automatically been injected ' +
+                        'by the chrome extension.');
 
     // Injecting jQuery
     this.jquery.inject(function() {
@@ -802,12 +806,8 @@
       });
 
       // Loading extra script?
-      if (artoo.dom) {
-        var scriptUrl = artoo.dom.getAttribute('data-next-script');
-
-        if (scriptUrl)
-          artoo.injectScript(scriptUrl);
-      }
+      if (artoo.nextScript)
+        artoo.injectScript(artoo.nextScript);
 
 
       // Triggering ready

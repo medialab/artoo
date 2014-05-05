@@ -48,7 +48,7 @@
   };
 
   // Setting debug
-  artoo.debug = !!artoo.dom.getAttribute('debug');
+  artoo.debug = artoo.dom && !!artoo.dom.getAttribute('debug');
 
   // Exporting to global scope
   if (typeof this.exports !== 'undefined') {

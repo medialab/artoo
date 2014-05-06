@@ -49,7 +49,7 @@
   artoo.settings = {
     store: localStorage,
     logLevel: 'verbose'
-  }
+  };
 
   // Retrieving some data from script dom
   if (artoo.dom) {

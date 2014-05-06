@@ -11,8 +11,17 @@
     "http://*/*",
     "https://*/*"
   ],
+  "icons": {
+    "16": "chrome/icons/icon16.png",
+    "48": "chrome/icons/icon48.png",
+    "128": "chrome/icons/icon128.png"
+  },
   "browser_action": {
-    "default_title": "artoo"
+    "default_title": "artoo",
+    "default_icon": {
+      "19": "chrome/icons/icon128.png",
+      "38": "chrome/icons/icon128.png"
+    }
   },
   "content_scripts": [
     {
@@ -22,7 +31,8 @@
     }
   ],
   "background": {
-    "scripts": ["chrome/csp.js"]
+    "scripts": ["chrome/csp.js"],
+    "persistent": true
   },
   "web_accessible_resources": [
     "build/artoo.concat.js",

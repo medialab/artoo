@@ -42,6 +42,9 @@
     },
     loaded: false,
     passphrase: 'detoo',
+    settings: {
+      store: localStorage
+    },
     version: '0.0.1'
   };
 

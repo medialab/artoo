@@ -10,13 +10,16 @@
   var _root = this;
   artoo.store = {};
 
+  // Store alias
+  var _store = artoo.settings.store;
+
   // Testing for the availablity of the localStorage
-  artoo.store.available = 'localStorage' in _root;
+  artoo.store.available = typeof _store !== 'undefined';
   if (!artoo.store.available)
     artoo.hooks.init.push(function() {
       this.log.warning(
-        'localStorage not available. You might want to upgrade ' +
-        'your browser.'
+        'localStorage or sessionStorage not available. You ' +
+        'might want to upgrade your browser.'
       );
     });
 
@@ -36,7 +39,7 @@
 
   // Methods
   artoo.store.get = function(key, type) {
-    var value = localStorage.getItem(key);
+    var value = _store.getItem(key);
     return value !== null ? coerce(value, type || 'string') : value;
   };
 
@@ -55,7 +58,7 @@
   artoo.store.keys = function(key) {
     var keys = [],
         i;
-    for (i in localStorage)
+    for (i in _store)
       keys.push(i);
 
     return keys;
@@ -63,18 +66,18 @@
 
   artoo.store.getAll = function() {
     var store = {};
-    for (var i in localStorage)
+    for (var i in _store)
       store[i] = this.get(i);
     return store;
   };
 
   artoo.store.set = function(key, value, o) {
     if (typeof key !== 'string' && typeof key !== 'number') {
-      artoo.log.error('Trying to set an invalid key to localStorage. ' +
+      artoo.log.error('Trying to set an invalid key to store. ' +
                       'Keys should be strings or numbers.');
       return;
     }
-    localStorage.setItem(key, o ? JSON.stringify(value) : '' + value);
+    _store.setItem(key, o ? JSON.stringify(value) : '' + value);
   };
 
   artoo.store.setObject = function(key, value) {
@@ -85,7 +88,7 @@
     var a = this.getObject(key);
 
     if (!$.isArray(a)) {
-      artoo.log.error('Trying to push to a non-array for localStorage key "' +
+      artoo.log.error('Trying to push to a non-array for store key "' +
                       key + '".');
       return;
     }
@@ -98,7 +101,7 @@
     var o = this.getObject(key);
 
     if (!artoo.$.isPlainObject(o)) {
-      artoo.log.error('Trying to update a non-object for localStorage key "' +
+      artoo.log.error('Trying to update a non-object for store key "' +
                       key + '".');
       return;
     }
@@ -107,12 +110,12 @@
   };
 
   artoo.store.remove = function(key) {
-    localStorage.removeItem(key);
+    _store.removeItem(key);
   };
 
   artoo.store.removeAll = function() {
-    for (var i in localStorage)
-      localStorage.removeItem(i);
+    for (var i in _store)
+      _store.removeItem(i);
   };
 
   // Shortcut

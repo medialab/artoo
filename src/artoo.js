@@ -42,11 +42,14 @@
     },
     loaded: false,
     passphrase: 'detoo',
-    settings: {
-      store: localStorage
-    },
     version: '0.0.1'
   };
+
+  // Settings
+  artoo.settings = {
+    store: localStorage,
+    logLevel: 'verbose'
+  }
 
   // Retrieving some data from script dom
   if (artoo.dom) {

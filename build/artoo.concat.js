@@ -42,11 +42,14 @@
     },
     loaded: false,
     passphrase: 'detoo',
-    settings: {
-      store: localStorage
-    },
     version: '0.0.1'
   };
+
+  // Settings
+  artoo.settings = {
+    store: localStorage,
+    logLevel: 'verbose'
+  }
 
   // Retrieving some data from script dom
   if (artoo.dom) {
@@ -653,7 +656,14 @@
   var _root = this;
 
   artoo.autoScroll = function(params, cb) {
-
+    artoo.autoExpand(
+      this.helpers.extend(params, {
+        expand: function() {
+          window.scrollTo(0, document.body.scrollHeight);
+        }
+      }),
+      cb
+    );
   };
 }).call(this);
 

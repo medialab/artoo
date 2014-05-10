@@ -1,0 +1,22 @@
+# Dependencies
+markdown:         redcarpet
+pygments:         true
+
+# Permalinks
+permalink:        pretty
+
+# Setup
+title:            artoo
+tagline:          'The client-side scraping toolbelt.'
+description:      'The client-side scraping toolbelt.'
+baseurl:          '/artoo'
+
+author:
+  name:           'Yomguithereal'
+  url:            https://github.com/Yomguithereal
+
+# Custom vars
+version:          0.0.1
+
+github:
+  repo:           https://github.com/medialab/artoo

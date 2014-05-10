@@ -498,11 +498,11 @@
         $sel;
 
     // Polymorphism
-    if ($.isFunction(o)) {
+    if (typeof o === 'function') {
       return o.call(scope, $);
     }
     else {
-      $sel = $(scope).find(o.sel);
+      $sel = o.sel ? $(scope).find(o.sel) : $(scope);
       return (o.attr !== undefined) ?
         $sel.attr(o.attr) :
         $sel[o.method || 'text']();
@@ -511,14 +511,14 @@
 
   // TODO: recursive
   artoo.scrape = function(iterator, data, params) {
-    var $ = this.$,
-        scraped = [],
+    var scraped = [],
         loneSelector = !!data.sel ||
                        typeof data === 'string' ||
-                       typeof data === 'function';
+                       typeof data === 'function',
+        model;
 
     params = params || {};
-    data = typeof data === 'string' ? {sel: data, method: 'text'} : data;
+    model = typeof data === 'string' ? {sel: data, method: 'text'} : data;
 
     // Transforming to selector
     var $iterator = this.helpers.enforceSelector(iterator);
@@ -529,10 +529,11 @@
           i;
 
       if (loneSelector)
-        item = step(data, this);
+        item = step(model, this);
       else
-        for (i in data)
-          item[i] = step(data[i], this);
+        for (i in model) {
+          item[i] = step(model[i], this);
+        }
 
       scraped.push(item);
     });

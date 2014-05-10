@@ -34,7 +34,7 @@
 
 
       // Triggering ready
-      if (artoo.$.isFunction(artoo.ready))
+      if (typeof artoo.ready === 'function')
         artoo.ready();
     });
 
@@ -48,6 +48,6 @@
   // Init?
   if (!artoo.loaded)
     artoo.hooks.init.map(function(h) {
-      h.apply(artoo, h);
+      h.apply(artoo);
     });
 }).call(this);

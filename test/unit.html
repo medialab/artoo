@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>artoo Unit Tests</title>
+  <link rel="stylesheet" href="qunit/qunit.css">
+  <style>
+    li > a {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  <script src="lib/jquery-2.1.1.min.js"></script>
+  <script src="qunit/qunit.js"></script>
+  <script type="text/javascript">
+    QUnit.config.autostart = false;
+  </script>
+
+  <!-- START ARTOO IMPORTS -->
+  <script src="../src/artoo.js"></script>
+  <script src="../src/artoo.helpers.js"></script>
+  <script src="../src/artoo.console.js"></script>
+  <script src="../src/artoo.injection.js"></script>
+  <script src="../src/methods/artoo.methods.save.js"></script>
+  <script src="../src/methods/artoo.methods.scrape.js"></script>
+  <script src="../src/methods/artoo.methods.autoExpand.js"></script>
+  <script src="../src/methods/artoo.methods.autoScroll.js"></script>
+  <script src="../src/methods/artoo.methods.state.js"></script>
+  <script src="../src/methods/artoo.methods.store.js"></script>
+  <!-- END ARTOO IMPORTS -->
+  
+  <script type="text/javascript">
+    artoo.settings.log = false;
+    artoo.ready = function() {
+      QUnit.start();
+    };
+  </script>
+  <script src="../src/artoo.init.js"></script>
+  <script src="unit.artoo.scrape.js"></script>
+</body>
+</html>

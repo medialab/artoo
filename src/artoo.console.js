@@ -47,6 +47,9 @@
 
   // Log override
   artoo.log = function(level) {
+    if (!artoo.settings.log)
+      return;
+
     var hasLevel = (levels[level] !== undefined),
         slice = hasLevel ? 1 : 0,
         args = toArray(arguments, slice);
@@ -72,8 +75,10 @@
 
   // Logo display
   artoo.log.welcome = function() {
-    var ascii = robot();
+    if (!artoo.settings.log)
+      return;
 
+    var ascii = robot();
     ascii[ascii.length - 2] = ascii[ascii.length - 2] + '    artoo';
 
     console.log(ascii.join('\n') + '   v' + artoo.version);

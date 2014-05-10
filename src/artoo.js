@@ -48,7 +48,8 @@
   // Settings
   artoo.settings = {
     store: localStorage,
-    logLevel: 'verbose'
+    logLevel: 'verbose',
+    log: true
   };
 
   // Retrieving some data from script dom

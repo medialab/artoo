@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "grunt work & http-server -c-1 -p 8000 && fg",
-    "https": "grunt work & dev-http-server -c-1 -p 8000 -S && fg"
+    "https": "grunt work & dev-http-server -c-1 -p 8000 -S && fg",
+    "test": "grunt qunit"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,8 @@
     "grunt-contrib-jshint": "^0.10.0",
     "grunt-contrib-uglify": "^0.4.0",
     "grunt-contrib-watch": "^0.6.1",
-    "http-server": "^0.6.1"
+    "http-server": "^0.6.1",
+    "grunt-sed": "~0.1.1",
+    "grunt-contrib-qunit": "~0.4.0"
   }
 }

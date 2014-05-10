@@ -74,6 +74,25 @@ module.exports = function(grunt) {
         files: prodFiles,
         tasks: ['concat', 'uglify:prod']
       }
+    },
+    sed: {
+      version: {
+        recursive: true,
+        path: 'test/',
+        pattern: /<!-- START ARTOO IMPORTS -->[\s\S]*<!-- END ARTOO IMPORTS -->/g,
+        replacement: ['<!-- START ARTOO IMPORTS -->'].concat(jsFiles.slice(0, -1).map(function(path) {
+          return '  <script src="../' + path + '"></script>';
+        }).concat('  <!-- END ARTOO IMPORTS -->')).join('\n')
+      }
+    },
+    qunit: {
+      all: {
+        options: {
+          urls: [
+            './test/unit.html'
+          ]
+        }
+      }
     }
   });
 
@@ -82,7 +101,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-sed');
 
   // Default tasks
   grunt.registerTask(
@@ -92,9 +113,10 @@ module.exports = function(grunt) {
       'jshint',
       'concat',
       'uglify:prod',
-      'uglify:bookmarklets'
+      'uglify:bookmarklets',
+      'qunit'
     ]
   );
 
-  grunt.registerTask('work', ['concat', 'watch:script'])
+  grunt.registerTask('work', ['concat', 'watch:script']);
 };

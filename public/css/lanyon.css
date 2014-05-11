@@ -431,6 +431,13 @@ a.pagination-item:hover {
  */
 
 /* Artoo */
+.artoo-logo {
+  margin-bottom: 0;
+  display: inline;
+  width: 35px;
+  height: 35px;
+}
+
 .theme-base-artoo .sidebar,
 .theme-base-artoo .sidebar-toggle:active,
 .theme-base-artoo #sidebar-checkbox:checked ~ .sidebar-toggle {

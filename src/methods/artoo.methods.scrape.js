@@ -12,14 +12,19 @@
   // Helpers
   function step(o, scope) {
     var $ = artoo.$,
-        $sel;
+        $sel = o.sel ? $(scope).find(o.sel) : $(scope);
 
     // Polymorphism
     if (typeof o === 'function') {
       return o.call(scope, $);
     }
+    else if (typeof o === 'string') {
+      if (o === 'text' || o === 'html')
+        return $sel[o]();
+      else
+        return $sel.attr(o);
+    }
     else {
-      $sel = o.sel ? $(scope).find(o.sel) : $(scope);
       return (o.attr !== undefined) ?
         $sel.attr(o.attr) :
         $sel[o.method || 'text']();
@@ -29,7 +34,7 @@
   // TODO: recursive
   artoo.scrape = function(iterator, data, params) {
     var scraped = [],
-        loneSelector = !!data.sel ||
+        loneSelector = !!data.attr || !!data.method ||
                        typeof data === 'string' ||
                        typeof data === 'function',
         model;

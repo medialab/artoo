@@ -58,10 +58,13 @@
       scraped.push(item);
     });
 
-    // Returning and done callback
-    if (typeof params.done === 'function')
+    // Triggering callback
+    if (typeof params === 'function')
+      params(scraped);
+    else if (typeof params.done === 'function')
       params.done(scraped);
 
+    // Returning data
     return scraped;
   };
 

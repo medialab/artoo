@@ -279,16 +279,19 @@ artoo.scrape('.complex-url-list > li', {
 }, artoo.savePrettyJson);
 ```
 
-
 ---
 
 <h2 id="what-next">What next?</h2>
+The intention of this quick glimpse was merely to show you that **artoo** is full of helpers for you to use in order to make your client-side scraping tasks as easy and enjoyable as can be.
+
+Furthermore, **artoo**'s helpers are often polymorphic and offer you a lot of different ways to express what you want to do. Just choose the shorter one or the one that fits the more your coding style.
 
 ---
 
+**artoo** is therefore able, more than just scraping lists and downloading files, to expand or scroll web page's content programmatically, to save persistent data in the local storage or in remote databases, to inject scripts, to crawl different websites, to trigger series of ajax queries and a lot of other things you'll be able to find in the **[methods]({{ site.baseurl }}/methods)** compendium of this documentation.
 
-polymorphism grave
-what's next? extension chrome + lien vers liste des methodes avec teaser sur toutes ses fonctions
+---
 
+Finally, if you happen to be a super lazy guy or if you need to perform more complex scraping jobs and need, for instance, to overcome some websites' particularly nasty `Content-Security-Policy` headers, **artoo** also exists as a chrome extension.
 
- 
+This extension, given you activate it, automatically injects **artoo** into every page you visit and override websites' responses headers in order to make client-side scraping a possibility.

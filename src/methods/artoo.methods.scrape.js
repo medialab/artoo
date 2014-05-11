@@ -36,11 +36,9 @@
     var scraped = [],
         loneSelector = !!data.attr || !!data.method ||
                        typeof data === 'string' ||
-                       typeof data === 'function',
-        model;
+                       typeof data === 'function';
 
     params = params || {};
-    model = typeof data === 'string' ? {sel: data, method: 'text'} : data;
 
     // Transforming to selector
     var $iterator = this.helpers.enforceSelector(iterator);
@@ -51,10 +49,10 @@
           i;
 
       if (loneSelector)
-        item = step(model, this);
+        item = step(data, this);
       else
-        for (i in model) {
-          item[i] = step(model[i], this);
+        for (i in data) {
+          item[i] = step(data[i], this);
         }
 
       scraped.push(item);

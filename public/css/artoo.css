@@ -1,0 +1,34 @@
+/* Artoo Doc Stylesheet */
+.artoo-logo {
+  margin-bottom: 0;
+  display: inline;
+  width: 35px;
+  height: 35px;
+}
+
+.theme-base-artoo .sidebar,
+.theme-base-artoo .sidebar-toggle:active,
+.theme-base-artoo #sidebar-checkbox:checked ~ .sidebar-toggle {
+  background-color: #00236D;
+}
+.theme-base-artoo .container a,
+.theme-base-artoo .sidebar-toggle,
+.theme-base-artoo .related-posts li a:hover {
+  color: #00236D;
+}
+
+.artoo-bookmark-highlight {
+  text-align: center;
+}
+
+.artoo-bookmark-highlight a {
+  background-color: #00236D;
+  color: white;
+  padding: 0 10px;
+  padding-bottom: 3px;
+  border-radius: 5px;
+}
+
+.artoo-bookmark-highlight a:hover {
+  text-decoration: none;
+};

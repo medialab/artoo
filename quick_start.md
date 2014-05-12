@@ -39,11 +39,13 @@ It would be a shame if someone were to scrape it...
 
 To achieve this we'll need **artoo**. We are therefore going to create a bookmarklet able to invoke artoo within any web page.
 
-To create the said bookmarklet, copy the code below and create a bookmark on your browser. Name it artoo and paste the code below as the url.
+To create the bookmarklet, simply drag and drop the following link onto your bookmarks toolbar:
 
-```js
-javascript:!function(){ {var a=document.getElementsByTagName("body")[0],b=document.createElement("script");Math.random()}b.src="//raw.githubusercontent.com/medialab/artoo/master/build/artoo.min.js",b.type="text/javascript",b.id="artoo_injected_script",a.appendChild(b)}();
-```
+<p class="artoo-bookmark-highlight">
+  <a style="color: white;" href='javascript:!function(){ {var a=document.getElementsByTagName("body")[0],b=document.createElement("script");Math.random()}b.src="//raw.githubusercontent.com/medialab/artoo/master/build/artoo.min.js",b.type="text/javascript",b.id="artoo_injected_script",a.appendChild(b)}();'>artoo</a>
+</p>
+
+If the drag and drop thingy does not work, simply right click the link and copy the link adress. The only remaining thing for you to do is simply to create a new bookmark that you'll call *artoo* and paste the link url.
 
 ---
 
@@ -249,7 +251,7 @@ And you'll find yourself with the following array
 <h2 id="downloading-list">Downloading your list</h2>
 Ok, now that you scraped your list, you might tell me:
 
-&laquo; *Yay! I've got my list in a nice JavaScript array. But what do I do to write it to a file? Should I do `JSON.stringify(niceList)` and copy the output string?* &raquo;
+&laquo; *Yay! I've got my list in a nice JavaScript array. But what do I do to save it to a file? Should I do `JSON.stringify(niceList)` and copy the output string?* &raquo;
 
 God no!
 
@@ -282,7 +284,7 @@ artoo.scrape('.complex-url-list > li', {
 ---
 
 <h2 id="what-next">What next?</h2>
-The intention of this quick glimpse was merely to show you that **artoo** is full of helpers for you to use in order to make your client-side scraping tasks as easy and enjoyable as can be.
+The intention of this quick introduction was merely to show you that **artoo** is full of helpers you can use in order to make your client-side scraping tasks as easy and enjoyable as can be.
 
 Furthermore, **artoo**'s helpers are often polymorphic and offer you a lot of different ways to express what you want to do. Just choose the shorter one or the one that fits the more your coding style.
 

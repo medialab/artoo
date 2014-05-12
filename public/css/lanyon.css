@@ -430,25 +430,6 @@ a.pagination-item:hover {
  * Based on colors from Base16: http://chriskempson.github.io/base16/#default.
  */
 
-/* Artoo */
-.artoo-logo {
-  margin-bottom: 0;
-  display: inline;
-  width: 35px;
-  height: 35px;
-}
-
-.theme-base-artoo .sidebar,
-.theme-base-artoo .sidebar-toggle:active,
-.theme-base-artoo #sidebar-checkbox:checked ~ .sidebar-toggle {
-  background-color: #00236D;
-}
-.theme-base-artoo .container a,
-.theme-base-artoo .sidebar-toggle,
-.theme-base-artoo .related-posts li a:hover {
-  color: #00236D;
-}
-
 /* Red */
 .theme-base-08 .sidebar,
 .theme-base-08 .sidebar-toggle:active,

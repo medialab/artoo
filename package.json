@@ -1,7 +1,7 @@
 {
   "name": "artoo",
   "version": "0.0.1",
-  "description": "A client-side scraping toolbelt.",
+  "description": "A client-side scraping companion.",
   "main": "index.js",
   "scripts": {
     "start": "grunt work & http-server -c-1 -p 8000 && fg",

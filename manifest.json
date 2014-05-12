@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "artoo",
-  "description": "A client-side scraping toolbelt.",
+  "description": "A client-side scraping companion.",
   "version": "0.0.1",
   "permissions": [
     "background",

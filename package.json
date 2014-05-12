@@ -3,6 +3,10 @@
   "version": "0.0.1",
   "description": "A client-side scraping companion.",
   "main": "index.js",
+  "author": {
+    "name": "Yomguithereal",
+    "url": "https://github.com/Yomguithereal"
+  },
   "scripts": {
     "start": "grunt work & http-server -c-1 -p 8000 && fg",
     "https": "grunt work & http-server -c-1 -p 8000 -S && fg",

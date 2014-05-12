@@ -14,14 +14,14 @@
     i = i || 0;
 
     var o = list[i];
-    
-    var get = (typeof o === 'string')?
+
+    var get = (typeof o === 'string') ?
       function(c) {
         artoo.$.get(o, c);
       } :
       function(c) {
         artoo.$[o.method || 'get'](o.url, o.data || {}, c);
-      }
+      };
 
     // Getting data with ajax
     if (params.throttle)

@@ -349,6 +349,194 @@
   'use strict';
 
   /**
+   * artoo ajaxSpider method
+   * ========================
+   *
+   * A useful method to scrape data from a list of ajax urls.
+   */
+  var _root = this;
+
+  function loop(list, params, acc, i) {
+    acc = acc || [];
+    i = i || 0;
+
+    var o = list[i];
+
+    var get = (typeof o === 'string') ?
+      function(c) {
+        artoo.$.get(o, c);
+      } :
+      function(c) {
+        artoo.$[o.method || 'get'](o.url, o.data || {}, c);
+      };
+
+    // Getting data with ajax
+    if (params.throttle)
+      setTimeout(get, params.throttle, dataRetrieved);
+    else
+      get(dataRetrieved);
+
+    function dataRetrieved(data) {
+      acc.push(params.callback(data));
+      loop(list, params, acc, ++i);
+    }
+  }
+
+  // TODO: Possibility for an iterator as list
+  // TODO: list can be objects with url and data + get or post default get
+  // TODO: throttle
+  // TODO: if fn returns false or list run dry, we stop
+  // TODO: asynchronous
+  artoo.ajaxSpider = function(list, params, cb) {
+    params = params || {};
+    params.done = params.done || cb;
+
+    loop(list, params);
+  };
+}).call(this);
+
+;(function(undefined) {
+  'use strict';
+
+  /**
+   * artoo autoExpand methods
+   * =========================
+   *
+   * Some useful functions to expand programmatically some content in
+   * the scraped web page.
+   */
+  var _root = this;
+
+  function _expand(params, i, c) {
+    i = i || 0;
+
+    var canExpand = (params.canExpand) ?
+      (typeof params.canExpand === 'string' ?
+        artoo.$(params.canExpand).length > 0 :
+        params.canExpand()) :
+      true;
+
+    // Is this over?
+    if (!canExpand || i >= params.limit) {
+      if (typeof params.done === 'function')
+        params.done();
+      return;
+    }
+
+    // Triggering expand
+    var expandFn = (typeof params.expand === 'string') ?
+      function() {
+        artoo.$(params.expand).simulate('click');
+      } :
+      params.expand;
+
+    if (params.throttle)
+      setTimeout(expandFn, params.throttle);
+    else
+      expandFn();
+
+    // Waiting expansion
+    if (params.isExpanding) {
+
+      // Checking whether the content is expanding and waiting for it to end.
+      if (typeof params.isExpanding === 'number') {
+        setTimeout(_expand, params.isExpanding, params, ++i);
+      }
+      else {
+        var isExpanding = (typeof params.isExpanding === 'string') ?
+          function() {
+            return artoo.$(params.isExpanding).length > 0;
+          } :
+          params.isExpanding;
+
+        artoo.waitFor(
+          function() {
+            return !isExpanding();
+          },
+          function() {
+            _expand(params, ++i);
+          },
+          {timeout: params.timeout}
+        );
+      }
+    }
+    else if (params.elements) {
+      c = c || artoo.$(params.elements).length;
+
+      // Counting elements to check if those have changed
+      artoo.waitFor(
+        function() {
+          return artoo.$(params.elements).length > c;
+        },
+        function() {
+          _expand(params, ++i, artoo.$(params.elements).length);
+        },
+        {timeout: params.timeout}
+      );
+    }
+    else {
+
+      // No way to assert content changes, continuing...
+      _expand(params, ++i);
+    }
+  }
+
+  // TODO: throttle (make wrapper with setTimeout)
+  artoo.autoExpand = function(params, cb) {
+    params = params || {};
+    params.done = cb || params.done;
+
+    if (!params.expand) {
+      artoo.log.error('You did not pass an expand parameter to artoo\'s' +
+                      ' autoExpand method.');
+      return;
+    }
+
+    _expand(params);
+  };
+}).call(this);
+
+;(function(undefined) {
+  'use strict';
+
+  /**
+   * artoo autoScroll methods
+   * =========================
+   *
+   * Some useful functions to scroll programmatically the web pages you need
+   * to scrape.
+   */
+  var _root = this;
+
+  artoo.autoScroll = function(params, cb) {
+    artoo.autoExpand(
+      this.helpers.extend(params, {
+        expand: function() {
+          window.scrollTo(0, document.body.scrollHeight);
+        }
+      }),
+      cb
+    );
+  };
+}).call(this);
+
+;(function(undefined) {
+  'use strict';
+
+  /**
+   * artoo instructions
+   * ===================
+   *
+   * This utility is meant to record user console input in order to be able
+   * to save it for later.
+   */
+  var _root = this;
+}).call(this);
+
+;(function(undefined) {
+  'use strict';
+
+  /**
    * artoo save methods
    * ===================
    *
@@ -569,131 +757,6 @@
 
   // Alternative
   artoo.scrap = artoo.scrape;
-}).call(this);
-
-;(function(undefined) {
-  'use strict';
-
-  /**
-   * artoo autoExpand methods
-   * =========================
-   *
-   * Some useful functions to expand programmatically some content in
-   * the scraped web page.
-   */
-  var _root = this;
-
-  function _expand(params, i, c) {
-    i = i || 0;
-
-    var canExpand = (params.canExpand) ?
-      (typeof params.canExpand === 'string' ?
-        artoo.$(params.canExpand).length > 0 :
-        params.canExpand()) :
-      true;
-
-    // Is this over?
-    if (!canExpand || i >= params.limit) {
-      if (typeof params.done === 'function')
-        params.done();
-      return;
-    }
-
-    // Triggering expand
-    var expandFn = (typeof params.expand === 'string') ?
-      function() {
-        artoo.$(params.expand).simulate('click');
-      } :
-      params.expand;
-
-    if (params.throttle)
-      setTimeout(expandFn, params.throttle);
-    else
-      expandFn();
-
-    // Waiting expansion
-    if (params.isExpanding) {
-
-      // Checking whether the content is expanding and waiting for it to end.
-      if (typeof params.isExpanding === 'number') {
-        setTimeout(_expand, params.isExpanding, params, ++i);
-      }
-      else {
-        var isExpanding = (typeof params.isExpanding === 'string') ?
-          function() {
-            return artoo.$(params.isExpanding).length > 0;
-          } :
-          params.isExpanding;
-
-        artoo.waitFor(
-          function() {
-            return !isExpanding();
-          },
-          function() {
-            _expand(params, ++i);
-          },
-          {timeout: params.timeout}
-        );
-      }
-    }
-    else if (params.elements) {
-      c = c || artoo.$(params.elements).length;
-
-      // Counting elements to check if those have changed
-      artoo.waitFor(
-        function() {
-          return artoo.$(params.elements).length > c;
-        },
-        function() {
-          _expand(params, ++i, artoo.$(params.elements).length);
-        },
-        {timeout: params.timeout}
-      );
-    }
-    else {
-
-      // No way to assert content changes, continuing...
-      _expand(params, ++i);
-    }
-  }
-
-  // TODO: throttle (make wrapper with setTimeout)
-  artoo.autoExpand = function(params, cb) {
-    params = params || {};
-    params.done = cb || params.done;
-
-    if (!params.expand) {
-      artoo.log.error('You did not pass an expand parameter to artoo\'s' +
-                      ' autoExpand method.');
-      return;
-    }
-
-    _expand(params);
-  };
-}).call(this);
-
-;(function(undefined) {
-  'use strict';
-
-  /**
-   * artoo autoScroll methods
-   * =========================
-   *
-   * Some useful functions to scroll programmatically the web pages you need
-   * to scrape.
-   */
-  var _root = this;
-
-  artoo.autoScroll = function(params, cb) {
-    artoo.autoExpand(
-      this.helpers.extend(params, {
-        expand: function() {
-          window.scrollTo(0, document.body.scrollHeight);
-        }
-      }),
-      cb
-    );
-  };
 }).call(this);
 
 ;(function(undefined) {

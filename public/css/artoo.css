@@ -31,4 +31,8 @@
 
 .artoo-bookmark-highlight a:hover {
   text-decoration: none;
-};
+}
+
+.sidebar-separator {
+  border-top: 1px solid rgba(255, 255, 255, .1);
+}

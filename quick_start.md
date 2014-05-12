@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Quick start
+id: quick_start
 ---
 
 # Quick start

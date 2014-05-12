@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Home
+id: home
 ---
 
 **artoo** is a client-side scraping companion. He is as fit for quick & dirty scraping jobs in your favorite browser's console as for more ambitious data burglaries.

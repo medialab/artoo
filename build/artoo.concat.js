@@ -450,22 +450,22 @@
     }
 
     // Extending params
-    this.save(
+    artoo.save(
       data,
-      this.helpers.extend(params, {filename: 'data.json', mime: 'json'})
+      artoo.helpers.extend(params, {filename: 'data.json', mime: 'json'})
     );
   };
 
   artoo.savePrettyJson = function(data, params) {
-    this.saveJson(data, this.helpers.extend(params, {pretty: true}));
+    artoo.saveJson(data, artoo.helpers.extend(params, {pretty: true}));
   };
 
   artoo.saveCsv = function(data, params) {
-    data = (typeof data === 'string') ? data : this.helpers.toCSVString(data);
+    data = (typeof data === 'string') ? data : artoo.helpers.toCSVString(data);
 
-    this.save(
+    artoo.save(
       data,
-      this.helpers.extend(params, {mime: 'csv', filename: 'data.csv'})
+      artoo.helpers.extend(params, {mime: 'csv', filename: 'data.csv'})
     );
   };
 
@@ -474,9 +474,9 @@
   };
 
   artoo.savePageHtml = function(params) {
-    this.save(
+    artoo.save(
       document.documentElement.innerHTML,
-      this.helpers.extend(params, {mime: 'html', filename: 'page.html'})
+      artoo.helpers.extend(params, {mime: 'html', filename: 'page.html'})
     );
   };
 }).call(this);

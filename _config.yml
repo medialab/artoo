@@ -7,8 +7,8 @@ permalink:        pretty
 
 # Setup
 title:            artoo
-tagline:          'The client-side scraping toolbelt.'
-description:      'The client-side scraping toolbelt.'
+tagline:          'The client-side scraping companion.'
+description:      'The client-side scraping companion.'
 baseurl:          '/artoo'
 
 author:

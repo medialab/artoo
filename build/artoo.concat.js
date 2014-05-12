@@ -45,13 +45,6 @@
     version: '0.0.1'
   };
 
-  // Settings
-  artoo.settings = {
-    store: localStorage,
-    logLevel: 'verbose',
-    log: true
-  };
-
   // Retrieving some data from script dom
   if (artoo.dom) {
     artoo.debug = !!artoo.dom.getAttribute('debug');
@@ -66,6 +59,29 @@
     this.exports.artoo = artoo;
   }
   this.artoo = artoo;
+}).call(this);
+
+;(function(undefined) {
+  'use strict';
+
+  /**
+   * artoo settings
+   * ===============
+   *
+   * artoo settings that may be set by user.
+   */
+  artoo.settings = {
+    store: {
+      engine: 'local'
+    },
+    log: {
+      enabled: true,
+      level: 'verbose'
+    },
+    instructions: {
+      record: true
+    }
+  };
 }).call(this);
 
 ;(function(undefined) {
@@ -226,7 +242,7 @@
 
   // Log override
   artoo.log = function(level) {
-    if (!artoo.settings.log)
+    if (!artoo.settings.log.enabled)
       return;
 
     var hasLevel = (levels[level] !== undefined),
@@ -254,7 +270,7 @@
 
   // Logo display
   artoo.log.welcome = function() {
-    if (!artoo.settings.log)
+    if (!artoo.settings.log.enabled)
       return;
 
     var ascii = robot();
@@ -706,23 +722,23 @@
    * artoo store methods
    * ====================
    *
-   * artoo's abstraction of HTML5's local storage.
+   * artoo's abstraction of HTML5's storage.
    */
   var _root = this;
   artoo.store = {};
 
   // Store alias
-  var _store = artoo.settings.store;
+  // TODO: make a function if we wanted to change engine while artoo is running
+  // or else if we'd need another store in the meantime.
+  var engine = artoo.settings.store.engine,
+      _store;
 
-  // Testing for the availablity of the localStorage
-  artoo.store.available = typeof _store !== 'undefined';
-  if (!artoo.store.available)
-    artoo.hooks.init.push(function() {
-      this.log.warning(
-        'localStorage or sessionStorage not available. You ' +
-        'might want to upgrade your browser.'
-      );
-    });
+  if (engine === 'local')
+    _store = localStorage;
+  else if (engine === 'session')
+    _store = sessionStorage;
+  else
+    artoo.log.error('Invalid store engine: "' + engine + '".');
 
   // Utilities
   function coerce(value, type) {

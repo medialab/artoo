@@ -45,13 +45,6 @@
     version: '0.0.1'
   };
 
-  // Settings
-  artoo.settings = {
-    store: localStorage,
-    logLevel: 'verbose',
-    log: true
-  };
-
   // Retrieving some data from script dom
   if (artoo.dom) {
     artoo.debug = !!artoo.dom.getAttribute('debug');

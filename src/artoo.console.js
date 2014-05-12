@@ -47,7 +47,7 @@
 
   // Log override
   artoo.log = function(level) {
-    if (!artoo.settings.log)
+    if (!artoo.settings.log.enabled)
       return;
 
     var hasLevel = (levels[level] !== undefined),
@@ -75,7 +75,7 @@
 
   // Logo display
   artoo.log.welcome = function() {
-    if (!artoo.settings.log)
+    if (!artoo.settings.log.enabled)
       return;
 
     var ascii = robot();

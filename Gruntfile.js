@@ -2,6 +2,7 @@ module.exports = function(grunt) {
   
   var jsFiles = [
     'src/artoo.js',
+    'src/artoo.settings.js',
     'src/artoo.helpers.js',
     'src/artoo.console.js',
     'src/artoo.injection.js',

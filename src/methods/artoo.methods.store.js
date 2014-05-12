@@ -5,23 +5,23 @@
    * artoo store methods
    * ====================
    *
-   * artoo's abstraction of HTML5's local storage.
+   * artoo's abstraction of HTML5's storage.
    */
   var _root = this;
   artoo.store = {};
 
   // Store alias
-  var _store = artoo.settings.store;
+  // TODO: make a function if we wanted to change engine while artoo is running
+  // or else if we'd need another store in the meantime.
+  var engine = artoo.settings.store.engine,
+      _store;
 
-  // Testing for the availablity of the localStorage
-  artoo.store.available = typeof _store !== 'undefined';
-  if (!artoo.store.available)
-    artoo.hooks.init.push(function() {
-      this.log.warning(
-        'localStorage or sessionStorage not available. You ' +
-        'might want to upgrade your browser.'
-      );
-    });
+  if (engine === 'local')
+    _store = localStorage;
+  else if (engine === 'session')
+    _store = sessionStorage;
+  else
+    artoo.log.error('Invalid store engine: "' + engine + '".');
 
   // Utilities
   function coerce(value, type) {

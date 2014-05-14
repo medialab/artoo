@@ -10,13 +10,13 @@
   var _root = this;
 
   // Checking preexistence of artoo and potential usurpation
-  var exists = typeof _root.artoo !== 'undefined' ||
-               typeof _root.detoo !== 'undefined',
-      usurper = exists && _root.artoo.passphrase !== 'detoo';
+  var exists = typeof artoo !== 'undefined' ||
+               typeof detoo !== 'undefined',
+      usurper = exists && artoo.passphrase !== 'detoo';
 
   if (exists && !usurper) {
 
-    if (!_root.artoo.debug) {
+    if (!artoo.settings.debug) {
       console.log('An artoo already works within this page. ' +
                   'No need to invoke another one.');
       return;
@@ -31,7 +31,8 @@
     $: {},
     dom: document.getElementById('artoo_injected_script'),
     hooks: {
-      init: []
+      init: [],
+      ready: []
     },
     jquery: {
       export: function() {
@@ -44,13 +45,6 @@
     passphrase: 'detoo',
     version: '0.0.1'
   };
-
-  // Retrieving some data from script dom
-  if (artoo.dom) {
-    artoo.debug = !!artoo.dom.getAttribute('debug');
-    artoo.chromeExtension = !!artoo.dom.getAttribute('chrome');
-    artoo.nextScript = artoo.dom.getAttribute('next');
-  }
 
   // Exporting to global scope
   if (typeof this.exports !== 'undefined') {
@@ -71,6 +65,15 @@
    * artoo settings that may be set by user.
    */
   artoo.settings = {
+
+    // Root settings
+    autoInit: true,
+    chromeExtension: false,
+    debug: false,
+    next: null,
+    script: null,
+
+    // Methods settings
     store: {
       engine: 'local'
     },
@@ -930,9 +933,16 @@
     this.log.welcome();
 
     // Indicating we are injecting artoo from the chrome extension
-    if (artoo.chromeExtension)
+    if (artoo.settings.chromeExtension)
       artoo.log.verbose('artoo has automatically been injected ' +
                         'by the chrome extension.');
+
+    // Retrieving some data from script dom
+    if (artoo.dom)
+      artoo.settings = artoo.helpers.extend(
+        JSON.parse(artoo.dom.getAttribute('settings')),
+        artoo.settings
+      );
 
     // Injecting jQuery
     this.jquery.inject(function() {
@@ -944,8 +954,10 @@
       });
 
       // Loading extra script?
-      if (artoo.nextScript)
-        artoo.injectScript(artoo.nextScript);
+      if (artoo.settings.script)
+        eval(artoo.settings.script);
+      if (artoo.settings.next)
+        artoo.injectScript(artoo.settings.next);
 
 
       // Triggering ready
@@ -965,7 +977,7 @@
   artoo.hooks.init.unshift(main);
 
   // Init?
-  if (!artoo.loaded)
+  if (!artoo.loaded && artoo.settings.autoInit)
     artoo.hooks.init.map(function(h) {
       h.apply(artoo);
     });

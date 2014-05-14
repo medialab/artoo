@@ -15,9 +15,16 @@
     this.log.welcome();
 
     // Indicating we are injecting artoo from the chrome extension
-    if (artoo.chromeExtension)
+    if (artoo.settings.chromeExtension)
       artoo.log.verbose('artoo has automatically been injected ' +
                         'by the chrome extension.');
+
+    // Retrieving some data from script dom
+    if (artoo.dom)
+      artoo.settings = artoo.helpers.extend(
+        JSON.parse(artoo.dom.getAttribute('settings')),
+        artoo.settings
+      );
 
     // Injecting jQuery
     this.jquery.inject(function() {
@@ -29,8 +36,10 @@
       });
 
       // Loading extra script?
-      if (artoo.nextScript)
-        artoo.injectScript(artoo.nextScript);
+      if (artoo.settings.script)
+        eval(artoo.settings.script);
+      if (artoo.settings.next)
+        artoo.injectScript(artoo.settings.next);
 
 
       // Triggering ready
@@ -50,7 +59,7 @@
   artoo.hooks.init.unshift(main);
 
   // Init?
-  if (!artoo.loaded)
+  if (!artoo.loaded && artoo.settings.autoInit)
     artoo.hooks.init.map(function(h) {
       h.apply(artoo);
     });

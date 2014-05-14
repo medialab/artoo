@@ -8,6 +8,15 @@
    * artoo settings that may be set by user.
    */
   artoo.settings = {
+
+    // Root settings
+    autoInit: true,
+    chromeExtension: false,
+    debug: false,
+    next: null,
+    script: null,
+
+    // Methods settings
     store: {
       engine: 'local'
     },

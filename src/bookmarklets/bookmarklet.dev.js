@@ -15,7 +15,9 @@
   script.type = 'text/javascript';
   script.id = 'artoo_injected_script';
 
-  script.setAttribute('debug', 'true');
+  script.setAttribute('settings', JSON.stringify({
+    debug: true
+  }));
 
   // Appending to body
   body.appendChild(script);

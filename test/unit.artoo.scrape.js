@@ -85,6 +85,12 @@
         simpleList.slice(0, 2),
         'Scraping with a limit should return only the first elements of the array.'
       );
+
+      deepEqual(
+        artoo.scrapeOne(id + ' li > a', function() { return $(this).attr('href'); }),
+        simpleList.slice(0, 1)[0],
+        'Scraping only one item should return the correct element.'
+      );
     });
   });
 
@@ -123,6 +129,21 @@
         }),
         list,
         'Scraping the list should return the correct array.'
+      );
+
+      deepEqual(
+        artoo.scrapeOne(id + ' .views-row', {
+          url: {
+            sel: 'a',
+            attr: 'href'
+          },
+          title: {
+            sel: 'a',
+            method: 'text'
+          }
+        }),
+        list.slice(0, 1)[0],
+        'Scraping one item should return the correct element.'
       );
 
       deepEqual(

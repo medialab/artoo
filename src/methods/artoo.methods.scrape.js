@@ -61,6 +61,8 @@
       return !params.limit || i < params.limit - 1;
     });
 
+    scraped = params.one ? scraped[0] : scraped;
+
     // Triggering callback
     if (typeof params === 'function')
       params(scraped);
@@ -73,6 +75,13 @@
     return scraped;
   };
 
-  // Alternative
-  artoo.scrap = artoo.scrape;
+  // Scrape only the first corresponding item
+  artoo.scrapeOne = function(iterator, data, params, cb) {
+    return artoo.scrape(
+      iterator,
+      data,
+      artoo.helpers.extend({limit: 1, one: true}, params),
+      cb
+    );
+  };
 }).call(this);

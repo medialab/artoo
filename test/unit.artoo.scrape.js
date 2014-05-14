@@ -35,7 +35,7 @@
           title: {method: 'text'}
         }),
         list,
-        'Scraping the basic list should return the correct array.'
+        'Scraping the basic list should return the correct array of objects.'
       );
 
       deepEqual(
@@ -44,7 +44,7 @@
           title: 'text'
         }),
         list,
-        'Scraping the basic list should return the correct array through polymorphism.'
+        'Scraping the basic list should return the correct array of objects through polymorphism.'
       );
 
       deepEqual(
@@ -53,25 +53,37 @@
           title: function() {return $(this).text();}
         }),
         list,
-        'Scraping the basic list with functions should return the correct array.'
+        'Scraping the basic list with functions should return the correct array of objects.'
       );
 
       deepEqual(
         artoo.scrape(id + ' li > a', {attr: 'href'}),
         simpleList,
-        'Scraping only one item should return a correct array.'
+        'Scraping only one property should return a correct array.'
       );
 
       deepEqual(
         artoo.scrape(id + ' li > a', 'href'),
         simpleList,
-        'Scraping only one item should return a correct array through polymorphism.'
+        'Scraping only one property should return a correct array through polymorphism.'
       );
 
       deepEqual(
         artoo.scrape(id + ' li > a', function() { return $(this).attr('href'); }),
         simpleList,
-        'Scraping only one item with a function should return a correct array.'
+        'Scraping only one property with a function should return a correct array.'
+      );
+
+      deepEqual(
+        artoo.scrape(id + ' li > a', function() { return $(this).attr('href'); }),
+        simpleList,
+        'Scraping only one property with a function should return a correct array.'
+      );
+
+      deepEqual(
+        artoo.scrape(id + ' li > a', function() { return $(this).attr('href'); }, {limit: 2}),
+        simpleList.slice(0, 2),
+        'Scraping with a limit should return only the first elements of the array.'
       );
     });
   });

@@ -32,7 +32,7 @@
   }
 
   // TODO: recursive
-  artoo.scrape = function(iterator, data, params) {
+  artoo.scrape = function(iterator, data, params, cb) {
     var scraped = [],
         loneSelector = !!data.attr || !!data.method ||
                        typeof data === 'string' ||
@@ -44,18 +44,21 @@
     var $iterator = this.helpers.enforceSelector(iterator);
 
     // Iteration
-    $iterator.each(function() {
+    $iterator.each(function(i) {
       var item = {},
-          i;
+          p;
 
       if (loneSelector)
         item = step(data, this);
       else
-        for (i in data) {
-          item[i] = step(data[i], this);
+        for (p in data) {
+          item[p] = step(data[p], this);
         }
 
       scraped.push(item);
+
+      // Breaking if limit i attained
+      return !params.limit || i < params.limit - 1;
     });
 
     // Triggering callback
@@ -63,6 +66,8 @@
       params(scraped);
     else if (typeof params.done === 'function')
       params.done(scraped);
+    else if (typeof cb === 'function')
+      cb(scraped);
 
     // Returning data
     return scraped;

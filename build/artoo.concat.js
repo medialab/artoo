@@ -799,12 +799,13 @@
    * artoo's abstraction of HTML5's storage.
    */
   var _root = this;
-  artoo.store = {};
 
   // Store alias
   // TODO: make a function if we wanted to change engine while artoo is running
   // or else if we'd need another store in the meantime.
-  var engine = artoo.settings.store.engine,
+  // OPTIMIZE: rewrite this part better.
+  var settings = artoo.settings.store,
+      engine = settings.engine,
       _store;
 
   if (engine === 'local')
@@ -814,36 +815,21 @@
   else
     artoo.log.error('Invalid store engine: "' + engine + '".');
 
-  // Utilities
-  function coerce(value, type) {
-    if (type === 'boolean')
-      value = (value === 'true');
-    else if (type === 'number')
-      value = +value;
-    else if (type === 'object')
-      value = JSON.parse(value);
-    return value;
-  }
-
-  // TODO: automatic typing
-  // TODO: used space
+  // Namespace
+  artoo.store = function(key) {
+    return artoo.store.get(key);
+  };
 
   // Methods
-  artoo.store.get = function(key, type) {
-    var value = _store.getItem(key);
-    return value !== null ? coerce(value, type || 'string') : value;
+  artoo.store.get = function(key) {
+    return key ? JSON.parse(_store.getItem(key)) : artoo.store.getAll();
   };
 
-  artoo.store.getNumber = function(key) {
-    return this.get(key, 'number');
-  };
-
-  artoo.store.getBoolean = function(key) {
-    return this.get(key, 'boolean');
-  };
-
-  artoo.store.getObject = function(key) {
-    return this.get(key, 'object');
+  artoo.store.getAll = function() {
+    var s = {};
+    for (var i in _store)
+      s[i] = artoo.store.get(i);
+    return s;
   };
 
   artoo.store.keys = function(key) {
@@ -855,28 +841,19 @@
     return keys;
   };
 
-  artoo.store.getAll = function() {
-    var store = {};
-    for (var i in _store)
-      store[i] = this.get(i);
-    return store;
-  };
-
-  artoo.store.set = function(key, value, o) {
+  artoo.store.set = function(key, value) {
     if (typeof key !== 'string' && typeof key !== 'number') {
       artoo.log.error('Trying to set an invalid key to store. ' +
                       'Keys should be strings or numbers.');
       return;
     }
-    _store.setItem(key, o ? JSON.stringify(value) : '' + value);
+
+    // Storing
+    _store.setItem(key, JSON.stringify(value));
   };
 
-  artoo.store.setObject = function(key, value) {
-    this.set(key, value, true);
-  };
-
-  artoo.store.push = function(key, value) {
-    var a = this.getObject(key);
+  artoo.store.pushTo = function(key, value) {
+    var a = artoo.store.get(key);
 
     if (!$.isArray(a)) {
       artoo.log.error('Trying to push to a non-array for store key "' +
@@ -884,12 +861,11 @@
       return;
     }
 
-    a.push(value);
-    this.setObject(key, a);
+    artoo.store.set(key, a.concat(value));
   };
 
   artoo.store.update = function(key, object) {
-    var o = this.getObject(key);
+    var o = artoo.store.get(key);
 
     if (!artoo.$.isPlainObject(o)) {
       artoo.log.error('Trying to update a non-object for store key "' +
@@ -897,7 +873,7 @@
       return;
     }
 
-    this.setObject(key, artoo.helpers.extend(object, o));
+    artoo.store.set(key, artoo.helpers.extend(object, o));
   };
 
   artoo.store.remove = function(key) {

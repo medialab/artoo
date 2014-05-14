@@ -148,4 +148,14 @@
       artoo.helpers.extend(params, {mime: 'html', filename: 'page.html'})
     );
   };
+
+  artoo.saveInstructions = function(params) {
+    artoo.save(
+      artoo.instructions.getScript(),
+      artoo.helpers.extend(params, {
+        mime: 'text/javascript',
+        filename: 'artoo_script.js'
+      })
+    );
+  };
 }).call(this);

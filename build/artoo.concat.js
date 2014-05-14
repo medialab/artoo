@@ -132,17 +132,14 @@
   // Loading an external script
   function getScript(url, cb) {
     var script = document.createElement('script'),
-        head = document.getElementsByTagName('head')[0],
-        done = false;
+        head = document.getElementsByTagName('head')[0];
 
     // Defining the script tag
     script.src = url;
     script.onload = script.onreadystatechange = function() {
-      if (!done &&
-          (!this.readyState ||
+      if ((!this.readyState ||
             this.readyState == 'loaded' ||
             this.readyState == 'complete')) {
-        done = true;
         script.onload = script.onreadystatechange = null;
         head.removeChild(script);
 
@@ -941,6 +938,10 @@
       if (typeof artoo.ready === 'function')
         artoo.ready();
     });
+
+    // Deleting artoo's dom element
+    if (artoo.dom)
+      artoo.dom.parentNode.removeChild(artoo.dom);
 
     // Updating artoo state
     this.loaded = true;

@@ -38,6 +38,10 @@
         artoo.ready();
     });
 
+    // Deleting artoo's dom element
+    if (artoo.dom)
+      artoo.dom.parentNode.removeChild(artoo.dom);
+
     // Updating artoo state
     this.loaded = true;
   }

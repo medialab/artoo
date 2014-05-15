@@ -8,7 +8,7 @@
    * Some useful helpers.
    */
 
-  // Extend objects
+  // Recursively extend objects
   function extend() {
     var i,
         k,
@@ -20,6 +20,19 @@
         res[k] = arguments[i][k];
 
     return res;
+  }
+
+  // Is the var an array?
+  function isArray(v) {
+    return v instanceof Array;
+  }
+
+  function isObject(v) {
+    return v instanceof Object;
+  }
+
+  function isPlainObject(v) {
+    return v instanceof Object && !(v instanceof Array);
   }
 
   // Some function
@@ -51,7 +64,7 @@
     delimiter = delimiter || ',';
 
     // If the data is an array of objects
-    if (artoo.$.isPlainObject(data[0])) {
+    if (isPlainObject(data[0])) {
       for (i in data[0])
         header[0].push(i);
       oData = header.concat(data.map(objectToArray));
@@ -138,6 +151,9 @@
   artoo.helpers = {
     extend: extend,
     enforceSelector: enforceSelector,
+    isArray: isArray,
+    isObject: isObject,
+    isPlainObject: isPlainObject,
     isSelector: isSelector,
     toCSVString: toCSVString,
     some: some

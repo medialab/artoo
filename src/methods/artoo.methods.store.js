@@ -64,7 +64,7 @@
   artoo.store.pushTo = function(key, value) {
     var a = artoo.store.get(key);
 
-    if (!$.isArray(a)) {
+    if (!artoo.helpers.isArray(a)) {
       artoo.log.error('Trying to push to a non-array for store key "' +
                       key + '".');
       return;
@@ -76,7 +76,7 @@
   artoo.store.update = function(key, object) {
     var o = artoo.store.get(key);
 
-    if (!artoo.$.isPlainObject(o)) {
+    if (!artoo.helpers.isPlainObject(o)) {
       artoo.log.error('Trying to update a non-object for store key "' +
                       key + '".');
       return;

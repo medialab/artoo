@@ -22,7 +22,8 @@
     },
     log: {
       enabled: true,
-      level: 'verbose'
+      level: 'verbose',
+      beeping: false
     },
     instructions: {
       autoRecord: true

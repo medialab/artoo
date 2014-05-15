@@ -12,14 +12,28 @@
   function main() {
 
     // Retrieving settings from script tag
-    if (artoo.dom)
-      artoo.settings = artoo.helpers.extend(
-        JSON.parse(artoo.dom.getAttribute('settings')),
-        artoo.settings
-      );
+    if (artoo.dom) {
+      var ns = JSON.parse(artoo.dom.getAttribute('settings')),
+          s = artoo.settings,
+          k;
+
+      if (ns) {
+        for (k in ns) {
+          if (artoo.helpers.isPlainObject(ns[k]))
+            s[k] = artoo.helpers.extend(ns[k], s[k]);
+          else
+            s[k] = ns[k];
+        }
+      }
+    }
 
     // Welcoming user
     this.log.welcome();
+
+    // Should we greet the user with a joyful beep?
+    if (artoo.settings.log.beeping)
+      artoo.beep();
+
 
     // Indicating we are injecting artoo from the chrome extension
     if (artoo.settings.chromeExtension)

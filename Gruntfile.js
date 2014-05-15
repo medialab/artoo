@@ -2,6 +2,7 @@ module.exports = function(grunt) {
   
   var jsFiles = [
     'src/artoo.js',
+    'src/artoo.beep.js',
     'src/artoo.settings.js',
     'src/artoo.helpers.js',
     'src/artoo.hooks.js',
@@ -33,7 +34,7 @@ module.exports = function(grunt) {
         options: {
           stdout: true,
           strict: true,
-          opt: '--disable 6,13'
+          opt: '--disable 6,13,110'
         }
       }
     },

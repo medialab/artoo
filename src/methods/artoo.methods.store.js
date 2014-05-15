@@ -70,7 +70,9 @@
       return;
     }
 
-    artoo.store.set(key, a.concat(value));
+    a.push(value);
+    artoo.store.set(key, a);
+    return a;
   };
 
   artoo.store.update = function(key, object) {
@@ -82,7 +84,9 @@
       return;
     }
 
-    artoo.store.set(key, artoo.helpers.extend(object, o));
+    o = artoo.helpers.extend(object, o);
+    artoo.store.set(key, o);
+    return o;
   };
 
   artoo.store.remove = function(key) {

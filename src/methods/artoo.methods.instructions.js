@@ -13,8 +13,7 @@
       _instructions = [],
       blackList = [
         'saveInstructions(',
-        'instructions(',
-        'instructions.'
+        '.instructions'
       ],
       inChrome = 'chrome' in _root;
 

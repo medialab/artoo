@@ -121,10 +121,20 @@
   }
 
   // Converting an array of arrays into a CSV string
-  // TODO: escape character
   function toCSVString(data, delimiter, escape) {
+
+    // Defaults
+    escape = escape || '"';
+    delimiter = delimiter || ',';
+
+    // Converting to string
     return data.map(function(row) {
-      return row.join(delimiter || ',');
+      return row.map(function(item) {
+        item = item.replace(new RegExp(escape, 'g'), escape + escape);
+        return ~item.indexOf(delimiter) || ~item.indexOf(escape) ?
+          escape + item + escape :
+          item;
+      }).join(delimiter);
     }).join('\n');
   }
 
@@ -198,6 +208,7 @@
   artoo.helpers = {
     extend: extend,
     enforceSelector: enforceSelector,
+    isSelector: isSelector,
     toCSVString: toCSVString,
     some: some
   };
@@ -569,8 +580,7 @@
       _instructions = [],
       blackList = [
         'saveInstructions(',
-        'instructions(',
-        'instructions.'
+        '.instructions'
       ],
       inChrome = 'chrome' in _root;
 
@@ -754,7 +764,10 @@
   };
 
   artoo.saveCsv = function(data, params) {
-    data = (typeof data === 'string') ? data : artoo.helpers.toCSVString(data);
+    data = (typeof data !== 'string') ?
+      artoo.helpers.toCSVString(data, params.delimiter, params.escape) :
+      data;
+
 
     artoo.save(
       data,

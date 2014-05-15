@@ -130,7 +130,10 @@
   };
 
   artoo.saveCsv = function(data, params) {
-    data = (typeof data === 'string') ? data : artoo.helpers.toCSVString(data);
+    data = (typeof data !== 'string') ?
+      artoo.helpers.toCSVString(data, params.delimiter, params.escape) :
+      data;
+
 
     artoo.save(
       data,

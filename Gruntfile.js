@@ -7,7 +7,6 @@ module.exports = function(grunt) {
     'src/artoo.hooks.js',
     'src/artoo.console.js',
     'src/artoo.injection.js',
-    'src/methods/artoo.methods.aggregate.js',
     'src/methods/artoo.methods.ajaxSpider.js',
     'src/methods/artoo.methods.autoExpand.js',
     'src/methods/artoo.methods.autoScroll.js',

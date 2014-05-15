@@ -22,6 +22,15 @@
     return res;
   }
 
+  // Some function
+  function some(a, fn) {
+    for (var i = 0, l = a.length; i < l; i++) {
+      if (fn(a[i]))
+        return true;
+    }
+    return false;
+  }
+
   // Converting an array of arrays into a CSV string
   // TODO: escape character
   function toCSVString(data, delimiter, escape) {
@@ -100,6 +109,7 @@
   artoo.helpers = {
     extend: extend,
     enforceSelector: enforceSelector,
-    toCSVString: toCSVString
+    toCSVString: toCSVString,
+    some: some
   };
 }).call(this);

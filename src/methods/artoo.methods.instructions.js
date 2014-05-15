@@ -18,15 +18,6 @@
       ],
       inChrome = 'chrome' in _root;
 
-  // Utilities
-  function isInBlackList(input) {
-    for (var i = 0, l = blackList.length; i < l; i++) {
-      if (~input.indexOf(blackList[i]))
-        return true;
-    }
-    return false;
-  }
-
   // We override function calling to sniff user input
   if (inChrome) {
 
@@ -38,7 +29,11 @@
         var input = arguments[1].split('\n').slice(1, -1).join('\n'),
             lastIndex = _instructions.length - 1;
 
-        if (input !== 'this' && !isInBlackList(input)) {
+        if (input !== 'this' &&
+            !artoo.helpers.some(blackList, function(e) {
+              return ~input.indexOf(e);
+            }) &&
+            input !== 'artoo') {
           if (~input.indexOf(_instructions[lastIndex]))
             _instructions[lastIndex] = input;
           else

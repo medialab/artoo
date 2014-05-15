@@ -111,6 +111,15 @@
     return res;
   }
 
+  // Some function
+  function some(a, fn) {
+    for (var i = 0, l = a.length; i < l; i++) {
+      if (fn(a[i]))
+        return true;
+    }
+    return false;
+  }
+
   // Converting an array of arrays into a CSV string
   // TODO: escape character
   function toCSVString(data, delimiter, escape) {
@@ -189,7 +198,8 @@
   artoo.helpers = {
     extend: extend,
     enforceSelector: enforceSelector,
-    toCSVString: toCSVString
+    toCSVString: toCSVString,
+    some: some
   };
 }).call(this);
 
@@ -564,15 +574,6 @@
       ],
       inChrome = 'chrome' in _root;
 
-  // Utilities
-  function isInBlackList(input) {
-    for (var i = 0, l = blackList.length; i < l; i++) {
-      if (~input.indexOf(blackList[i]))
-        return true;
-    }
-    return false;
-  }
-
   // We override function calling to sniff user input
   if (inChrome) {
 
@@ -584,7 +585,11 @@
         var input = arguments[1].split('\n').slice(1, -1).join('\n'),
             lastIndex = _instructions.length - 1;
 
-        if (input !== 'this' && !isInBlackList(input)) {
+        if (input !== 'this' &&
+            !artoo.helpers.some(blackList, function(e) {
+              return ~input.indexOf(e);
+            }) &&
+            input !== 'artoo') {
           if (~input.indexOf(_instructions[lastIndex]))
             _instructions[lastIndex] = input;
           else

@@ -26,6 +26,9 @@
     },
     instructions: {
       record: true
+    },
+    jquery: {
+      version: '2.1.1'
     }
   };
 }).call(this);

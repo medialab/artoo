@@ -11,7 +11,7 @@
   artoo.jquery.inject = function(cb) {
 
     // Properties
-    var desiredVersion = artoo.jquery.version,
+    var desiredVersion = artoo.settings.jquery.version,
         cdn = '//code.jquery.com/jquery-' + desiredVersion + '.min.js';
 
     // Checking the existence of jQuery or of another library.

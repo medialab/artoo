@@ -30,16 +30,11 @@
   var artoo = {
     $: {},
     dom: document.getElementById('artoo_injected_script'),
-    hooks: {
-      init: [],
-      ready: []
-    },
     jquery: {
       export: function() {
         _root.ß = artoo.$;
       },
-      plugins: [],
-      version: '2.1.0'
+      plugins: []
     },
     loaded: false,
     passphrase: 'detoo',

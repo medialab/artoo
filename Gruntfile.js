@@ -4,6 +4,7 @@ module.exports = function(grunt) {
     'src/artoo.js',
     'src/artoo.settings.js',
     'src/artoo.helpers.js',
+    'src/artoo.hooks.js',
     'src/artoo.console.js',
     'src/artoo.injection.js',
     'src/methods/artoo.methods.aggregate.js',
@@ -119,6 +120,7 @@ module.exports = function(grunt) {
       'concat',
       'uglify:prod',
       'uglify:bookmarklets',
+      'sed',
       'qunit'
     ]
   );

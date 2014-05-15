@@ -30,16 +30,11 @@
   var artoo = {
     $: {},
     dom: document.getElementById('artoo_injected_script'),
-    hooks: {
-      init: [],
-      ready: []
-    },
     jquery: {
       export: function() {
         _root.ß = artoo.$;
       },
-      plugins: [],
-      version: '2.1.0'
+      plugins: []
     },
     loaded: false,
     passphrase: 'detoo',
@@ -83,6 +78,9 @@
     },
     instructions: {
       record: true
+    },
+    jquery: {
+      version: '2.1.1'
     }
   };
 }).call(this);
@@ -218,6 +216,42 @@
   'use strict';
 
   /**
+   * artoo hooks
+   * ============
+   *
+   * Utilities to triggers and apply artoo's hooks
+   */
+  artoo.hooks = {
+    init: [],
+    ready: [],
+    trigger: function(hook) {
+      if (!artoo.hooks[hook]) {
+        artoo.log.error(
+          'Trying to trigger an inexistant hook: "' + hook + '".');
+        return;
+      }
+
+      artoo.hooks[hook].forEach(function(fn) {
+        fn.apply(artoo);
+      });
+    }
+  };
+
+  // Add a function to be executed on the ready hook
+  artoo.ready = function(fn) {
+    if (typeof fn !== 'function') {
+      artoo.log.error('Trying to add a non-function to the "ready" hook.');
+      return;
+    }
+
+    artoo.hooks.ready.push(fn);
+  };
+}).call(this);
+
+;(function(undefined) {
+  'use strict';
+
+  /**
    * artoo console abstraction
    * ==========================
    *
@@ -314,7 +348,7 @@
   artoo.jquery.inject = function(cb) {
 
     // Properties
-    var desiredVersion = artoo.jquery.version,
+    var desiredVersion = artoo.settings.jquery.version,
         cdn = '//code.jquery.com/jquery-' + desiredVersion + '.min.js';
 
     // Checking the existence of jQuery or of another library.
@@ -1017,6 +1051,13 @@
   // Initialization hook
   function main() {
 
+    // Retrieving settings from script tag
+    if (artoo.dom)
+      artoo.settings = artoo.helpers.extend(
+        JSON.parse(artoo.dom.getAttribute('settings')),
+        artoo.settings
+      );
+
     // Welcoming user
     this.log.welcome();
 
@@ -1024,13 +1065,6 @@
     if (artoo.settings.chromeExtension)
       artoo.log.verbose('artoo has automatically been injected ' +
                         'by the chrome extension.');
-
-    // Retrieving some data from script dom
-    if (artoo.dom)
-      artoo.settings = artoo.helpers.extend(
-        JSON.parse(artoo.dom.getAttribute('settings')),
-        artoo.settings
-      );
 
     // Injecting jQuery
     this.jquery.inject(function() {
@@ -1049,8 +1083,7 @@
 
 
       // Triggering ready
-      if (typeof artoo.ready === 'function')
-        artoo.ready();
+      artoo.hooks.trigger('ready');
     });
 
     // Deleting artoo's dom element
@@ -1066,9 +1099,7 @@
 
   // Init?
   if (!artoo.loaded && artoo.settings.autoInit)
-    artoo.hooks.init.map(function(h) {
-      h.apply(artoo);
-    });
+    artoo.hooks.trigger('init');
 }).call(this);
 
 /*

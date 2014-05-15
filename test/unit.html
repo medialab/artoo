@@ -27,8 +27,10 @@
   <script src="../src/artoo.js"></script>
   <script src="../src/artoo.settings.js"></script>
   <script src="../src/artoo.helpers.js"></script>
+  <script src="../src/artoo.hooks.js"></script>
   <script src="../src/artoo.console.js"></script>
   <script src="../src/artoo.injection.js"></script>
+  <script src="../src/methods/artoo.methods.aggregate.js"></script>
   <script src="../src/methods/artoo.methods.ajaxSpider.js"></script>
   <script src="../src/methods/artoo.methods.autoExpand.js"></script>
   <script src="../src/methods/artoo.methods.autoScroll.js"></script>
@@ -40,13 +42,18 @@
   <!-- END ARTOO IMPORTS -->
   
   <script type="text/javascript">
+
+    // Disabling artoo's console for tests
     artoo.settings.log = false;
-    artoo.ready = function() {
+
+    // Launching tests when artoo is ready
+    artoo.ready(function() {
       QUnit.start();
-    };
+    });
   </script>
   <script src="../src/artoo.init.js"></script>
 
+  <!-- Test scripts -->
   <script src="unit.helpers.js"></script>
   <script src="unit.artoo.helpers.js"></script>
   <script src="unit.artoo.scrape.js"></script>

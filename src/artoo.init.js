@@ -11,6 +11,13 @@
   // Initialization hook
   function main() {
 
+    // Retrieving settings from script tag
+    if (artoo.dom)
+      artoo.settings = artoo.helpers.extend(
+        JSON.parse(artoo.dom.getAttribute('settings')),
+        artoo.settings
+      );
+
     // Welcoming user
     this.log.welcome();
 
@@ -18,13 +25,6 @@
     if (artoo.settings.chromeExtension)
       artoo.log.verbose('artoo has automatically been injected ' +
                         'by the chrome extension.');
-
-    // Retrieving some data from script dom
-    if (artoo.dom)
-      artoo.settings = artoo.helpers.extend(
-        JSON.parse(artoo.dom.getAttribute('settings')),
-        artoo.settings
-      );
 
     // Injecting jQuery
     this.jquery.inject(function() {
@@ -43,8 +43,7 @@
 
 
       // Triggering ready
-      if (typeof artoo.ready === 'function')
-        artoo.ready();
+      artoo.hooks.trigger('ready');
     });
 
     // Deleting artoo's dom element
@@ -60,7 +59,5 @@
 
   // Init?
   if (!artoo.loaded && artoo.settings.autoInit)
-    artoo.hooks.init.map(function(h) {
-      h.apply(artoo);
-    });
+    artoo.hooks.trigger('init');
 }).call(this);

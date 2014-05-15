@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "artoo",
-  "description": "A client-side scraping companion.",
+  "description": "The client-side scraping companion.",
   "version": "0.0.2",
   "permissions": [
     "background",

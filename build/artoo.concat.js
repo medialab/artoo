@@ -824,7 +824,10 @@
   };
 
   artoo.saveHtml = function(data, params) {
-    var selector = data.jquery !== undefined;
+    artoo.save(
+      (artoo.helpers.isSelector(data)) ? data.html() : data,
+      artoo.helpers.extend(params, {mime: 'html', filename: 'fragment.html'})
+    );
   };
 
   artoo.savePageHtml = function(params) {

@@ -155,6 +155,14 @@
     );
   };
 
+  artoo.saveStore = function(params) {
+    params = params || {};
+    artoo.savePrettyJson(
+      artoo.store.get(params.key),
+      artoo.helpers.extend(params, {filename: 'store.json'})
+    );
+  };
+
   artoo.saveInstructions = function(params) {
     artoo.save(
       artoo.instructions.getScript(),

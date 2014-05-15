@@ -77,7 +77,7 @@
       level: 'verbose'
     },
     instructions: {
-      record: true
+      autoRecord: true
     },
     jquery: {
       version: '2.1.1'
@@ -614,8 +614,7 @@
       inChrome = 'chrome' in _root;
 
   // We override function calling to sniff user input
-  if (inChrome) {
-
+  function overrideFunctionCall() {
     Function.prototype.call = function() {
       if (arguments.length > 1 &&
           this.name === 'evaluate' &&
@@ -640,12 +639,19 @@
     };
   }
 
+  function restoreOriginalFunctionCall() {
+    Function.prototype.call = _call;
+  }
+
   // artoo's methods
   artoo.instructions = function() {
     return artoo.instructions.get();
   };
 
   artoo.instructions.get = function() {
+    if (!inChrome)
+      artoo.log.warning('You are not in chrome. artoo is therefore unable ' +
+                        'to record console\' instructions.');
 
     // Filtering the array
     _instructions = _instructions.filter(function(e, i) {
@@ -657,7 +663,20 @@
 
   artoo.instructions.getScript = function() {
     return '// ' + window.location + '\n' +
+           '// ' + new Date() + '\n' +
            artoo.instructions.get().join('\n\n') + '\n';
+  };
+
+  artoo.instructions.startRecording = function() {
+    if (!inChrome)
+      return;
+    overrideFunctionCall();
+  };
+
+  artoo.instructions.stopRecording = function() {
+    if (!inChrome)
+      return;
+    restoreOriginalFunctionCall();
   };
 }).call(this);
 
@@ -1060,6 +1079,10 @@
     if (artoo.settings.chromeExtension)
       artoo.log.verbose('artoo has automatically been injected ' +
                         'by the chrome extension.');
+
+    // Starting instructions recording
+    if (artoo.settings.instructions.autoRecord)
+      artoo.instructions.startRecording();
 
     // Injecting jQuery
     this.jquery.inject(function() {

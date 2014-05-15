@@ -26,6 +26,10 @@
       artoo.log.verbose('artoo has automatically been injected ' +
                         'by the chrome extension.');
 
+    // Starting instructions recording
+    if (artoo.settings.instructions.autoRecord)
+      artoo.instructions.startRecording();
+
     // Injecting jQuery
     this.jquery.inject(function() {
       artoo.log.info('artoo is now good to go!');

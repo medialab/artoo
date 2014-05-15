@@ -25,7 +25,7 @@
       level: 'verbose'
     },
     instructions: {
-      record: true
+      autoRecord: true
     },
     jquery: {
       version: '2.1.1'

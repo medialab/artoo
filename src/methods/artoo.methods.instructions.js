@@ -18,8 +18,7 @@
       inChrome = 'chrome' in _root;
 
   // We override function calling to sniff user input
-  if (inChrome) {
-
+  function overrideFunctionCall() {
     Function.prototype.call = function() {
       if (arguments.length > 1 &&
           this.name === 'evaluate' &&
@@ -44,12 +43,19 @@
     };
   }
 
+  function restoreOriginalFunctionCall() {
+    Function.prototype.call = _call;
+  }
+
   // artoo's methods
   artoo.instructions = function() {
     return artoo.instructions.get();
   };
 
   artoo.instructions.get = function() {
+    if (!inChrome)
+      artoo.log.warning('You are not in chrome. artoo is therefore unable ' +
+                        'to record console\' instructions.');
 
     // Filtering the array
     _instructions = _instructions.filter(function(e, i) {
@@ -61,6 +67,19 @@
 
   artoo.instructions.getScript = function() {
     return '// ' + window.location + '\n' +
+           '// ' + new Date() + '\n' +
            artoo.instructions.get().join('\n\n') + '\n';
+  };
+
+  artoo.instructions.startRecording = function() {
+    if (!inChrome)
+      return;
+    overrideFunctionCall();
+  };
+
+  artoo.instructions.stopRecording = function() {
+    if (!inChrome)
+      return;
+    restoreOriginalFunctionCall();
   };
 }).call(this);

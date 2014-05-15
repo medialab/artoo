@@ -10,19 +10,19 @@
   var _root = this;
 
   // Store alias
-  // TODO: make a function if we wanted to change engine while artoo is running
-  // or else if we'd need another store in the meantime.
-  // OPTIMIZE: rewrite this part better.
-  var settings = artoo.settings.store,
-      engine = settings.engine,
-      _store;
+  var _store;
 
-  if (engine === 'local')
+  function setEngine(engine) {
+    if (engine === 'local')
     _store = localStorage;
-  else if (engine === 'session')
-    _store = sessionStorage;
-  else
-    artoo.log.error('Invalid store engine: "' + engine + '".');
+    else if (engine === 'session')
+      _store = sessionStorage;
+    else
+      artoo.log.error('Invalid store engine: "' + engine + '".');
+  }
+
+  // Setting engine
+  setEngine(artoo.settings.store.engine);
 
   // Namespace
   artoo.store = function(key) {

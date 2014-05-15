@@ -53,7 +53,7 @@ module.exports = function(grunt) {
           'build/artoo.min.js': prodFiles
         },
         options: {
-          banner: '/* artoo.js - <%= pkg.description %> - Version: <%= pkg.version %> -  médialab SciencesPo */\n'
+          banner: '/* artoo.js - <%= pkg.description %> - Version: <%= pkg.version %> -  medialab SciencesPo */\n'
         }
       },
       bookmarklets: {

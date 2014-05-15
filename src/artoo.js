@@ -38,7 +38,7 @@
     },
     loaded: false,
     passphrase: 'detoo',
-    version: '0.0.1'
+    version: '0.0.2'
   };
 
   // Exporting to global scope

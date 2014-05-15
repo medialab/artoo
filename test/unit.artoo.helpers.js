@@ -66,5 +66,11 @@
       headerString,
       'The array of object should return the correct string with headers.'
     );
+
+    strictEqual(
+      artoo.helpers.toCSVString([[1, 2], [3, 4]]),
+      '1,2\n3,4',
+      'Items other than number should not mess with CSV conversion.'
+    );
   });
 }).call(this);

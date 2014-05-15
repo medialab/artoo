@@ -73,7 +73,7 @@
     // Converting to string
     return (oData || data).map(function(row) {
       return row.map(function(item) {
-        item = item.replace(new RegExp(escape, 'g'), escape + escape);
+        item = ('' + item).replace(new RegExp(escape, 'g'), escape + escape);
         return ~item.indexOf(delimiter) || ~item.indexOf(escape) ?
           escape + item + escape :
           item;

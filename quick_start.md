@@ -14,6 +14,7 @@ id: quick_start
 * [Needing more specific things?](#specific-things)
 * [A more complex list](#more-complex-list)
 * [Downloading your list](#downloading-list)
+* [Remember, remember](#remember)
 * [What next?](#what-next)
 
 ---
@@ -252,7 +253,7 @@ And you'll find yourself with the following array
 <h2 id="downloading-list">Downloading your list</h2>
 Ok, now that you scraped your list, you might tell me:
 
-&laquo; *Yay! I've got my list in a nice JavaScript array. But what do I do to save it to a file? Should I do `JSON.stringify(niceList)` and copy the output string?* &raquo;
+> &laquo; *Yay! I've got my list in a nice JavaScript array. But what do I do to save it to a file? Should I do `JSON.stringify(niceList)` and copy the output string?* &raquo;
 
 God no!
 
@@ -262,24 +263,26 @@ God no!
 artoo.savePrettyJson(niceList);
 ```
 
-Now you should see your browser download a `data.json` file containing your scraped list.
+Now you should see your browser download a `data.json` file containing your scraped list and if `chrome`bothers you and tells you are trying to download too much, just tell him to get lost.
 
-And, if you were in a hurry, you could have done the whole scraping and downloading thing in a single step:
+And if you are more the CSV kind of guy.
 
 ```js
-artoo.scrape('.complex-url-list > li', {
-  url: {
-    sel: 'a',
-    attr: 'href'
-  },
-  title: {
-    sel: 'a',
-    method: 'text'
-  },
-  nb_visits: function() {
-    return +$(this).find('span').text().replace(' visits', '');
-  }
-}, artoo.savePrettyJson);
+artoo.saveCsv(niceList);
+```
+
+---
+<h2 id="remember">Remember, remember</h2>
+Having written some commands now, you might find yourself in delicate position.
+
+> &laquo; *How on earth am I going to remember all the possibly complex commands I just wrote into my browser console?* &raquo;
+
+> &laquo; *It would be nice I could just download a `js` script containing everything I executed while scraping this fine site.* &raquo;
+
+Well...
+
+```js
+artoo.saveInstructions();
 ```
 
 ---

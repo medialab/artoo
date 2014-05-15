@@ -1,8 +1,8 @@
 ;(function(undefined) {
 
   /**
-   * artoo Content Security Policy override
-   * =======================================
+   * artoo background script
+   * ========================
    *
    * This chrome background script check for CSP protection in response
    * headers and circumvent them.
@@ -62,9 +62,11 @@
     
     // Changing icon and disabling
     if (_globals.enabled)
-      chrome.browserAction.setIcon({path: 'chrome/icons/icon128_disabled.png'});
+      chrome.browserAction.setIcon(
+        {path: {'38': 'chrome/icons/icon38-disabled.png'}});
     else
-      chrome.browserAction.setIcon({path: 'chrome/icons/icon128.png'});
+      chrome.browserAction.setIcon(
+        {path: {'38': 'chrome/icons/icon38.png'}});
 
     _globals.enabled = !_globals.enabled;
   });

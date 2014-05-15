@@ -118,15 +118,34 @@
     return false;
   }
 
+  // Convert an object into an array of its properties
+  function objectToArray(o) {
+    var a = [],
+        i;
+    for (i in o)
+      a.push(o[i]);
+    return a;
+  }
+
   // Converting an array of arrays into a CSV string
   function toCSVString(data, delimiter, escape) {
+    var header = [[]],
+        oData,
+        i;
 
     // Defaults
     escape = escape || '"';
     delimiter = delimiter || ',';
 
+    // If the data is an array of objects
+    if (artoo.$.isPlainObject(data[0])) {
+      for (i in data[0])
+        header[0].push(i);
+      oData = header.concat(data.map(objectToArray));
+    }
+
     // Converting to string
-    return data.map(function(row) {
+    return (oData || data).map(function(row) {
       return row.map(function(item) {
         item = item.replace(new RegExp(escape, 'g'), escape + escape);
         return ~item.indexOf(delimiter) || ~item.indexOf(escape) ?

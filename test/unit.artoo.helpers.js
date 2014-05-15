@@ -40,6 +40,19 @@
       badass: 'Michel,"Chenu, the Lord"\nMarion,"dit ""La brousse"""'
     };
 
+    var headerArray = [
+      {
+        firstName: 'Michel',
+        lastName: 'Chenu'
+      },
+      {
+        firstName: 'Marion',
+        lastName: 'La brousse'
+      }
+    ];
+
+    var headerString = 'firstName,lastName\nMichel,Chenu\nMarion,La brousse';
+
     for (var i in arrays) {
       strictEqual(
         artoo.helpers.toCSVString(arrays[i]),
@@ -47,5 +60,11 @@
         'The array "' + i + '" should return the correct string.'
       );
     }
+
+    strictEqual(
+      artoo.helpers.toCSVString(headerArray),
+      headerString,
+      'The array of object should return the correct string with headers.'
+    );
   });
 }).call(this);

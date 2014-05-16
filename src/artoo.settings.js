@@ -20,6 +20,9 @@
     state: {
       key: '%artoo%'
     },
+    navigation: {
+      history: true
+    },
     store: {
       engine: 'local'
     },

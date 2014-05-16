@@ -44,6 +44,15 @@
     return false;
   }
 
+  // Get first item of array returning true to given function
+  function first(a, fn) {
+    for (var i = 0, l = a.length; i < l; i++) {
+      if (fn(a[i]))
+        return a[i];
+    }
+    return;
+  }
+
   // Convert an object into an array of its properties
   function objectToArray(o) {
     var a = [],
@@ -151,6 +160,7 @@
   artoo.helpers = {
     extend: extend,
     enforceSelector: enforceSelector,
+    first: first,
     isArray: isArray,
     isObject: isObject,
     isPlainObject: isPlainObject,

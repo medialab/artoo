@@ -24,6 +24,24 @@
     );
   });
 
+  test('first', function() {
+    strictEqual(
+      artoo.helpers.first([1, 2, 3], function(e) {
+        return e === 2;
+      }),
+      2,
+      'first should return the correct item in the array.'
+    );
+
+    strictEqual(
+      artoo.helpers.first([1, 2, 3], function(e) {
+        return e === 4;
+      }),
+      undefined,
+      'first should return undefined if the item is not found in the array.'
+    );
+  });
+
   // Testing the toCSVString function
   test('toCSVString & parseCSVString', function() {
     var arrays = {

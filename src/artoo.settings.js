@@ -13,6 +13,7 @@
     autoInit: true,
     chromeExtension: false,
     debug: false,
+    gist: null,
     next: null,
     script: null,
 
@@ -30,7 +31,7 @@
     },
     gists: {
       user: null,
-      store: true
+      cache: true
     },
     navigation: {
       history: true

@@ -152,6 +152,13 @@
     }, milliseconds);
   }
 
+  function lazy(cond, falseFn, nextFn) {
+    if (cond)
+      nextFn();
+    else
+      falseFn(nextFn);
+  }
+
   // Exporting to artoo root
   artoo.injectScript = getScript;
   artoo.waitFor = waitFor;
@@ -165,6 +172,7 @@
     isObject: isObject,
     isPlainObject: isPlainObject,
     isSelector: isSelector,
+    lazy: lazy,
     toCSVString: toCSVString,
     some: some
   };

@@ -54,11 +54,11 @@
       });
 
       // Loading extra script?
-      if (artoo.settings.script)
-        eval(artoo.settings.script);
-      if (artoo.settings.next)
+      // Order is: eval, localhost, gist
+      if (artoo.settings.eval)
+        eval(artoo.settings.eval);
+      else if (artoo.settings.next)
         artoo.injectScript(artoo.settings.next);
-
 
       // Triggering ready
       artoo.hooks.trigger('ready');

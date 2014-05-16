@@ -17,6 +17,9 @@
   artoo.gists = {};
 
   // Utilities
+  function isJsFile(filename) {
+    return ~filename.indexOf('.js');
+  }
 
   // Methods
   artoo.gists.browse = function(user) {
@@ -46,7 +49,7 @@
     user = user || artoo.settings.gists.user;
 
     if (!user) {
-      artoo.log.error('Impossible to fetch gists if you do not specify a user.');
+      artoo.log.error('Impossible to fetch gists with no user.');
       return;
     }
 
@@ -62,7 +65,7 @@
         _cache[user] = gists;
 
         // Caching in store?
-        if (artoo.settings.gists.store)
+        if (artoo.settings.gists.cache)
           artoo.state.set('gists', _cache);
 
         if (typeof cb === 'function')
@@ -71,24 +74,30 @@
     }
   };
 
-  artoo.gists.execute = function(params, cb) {
-    params = params || {};
-    var filter,
-        gist;
+  artoo.gists.execute = function(user, params, cb) {
+    params = (typeof user === 'object') ? user : (params || {});
+    user = params.user || user || artoo.settings.gists.user;
 
-    user = user || artoo.settings.gists.user;
-    if (!user) {
-      artoo.log.error('Impossible to execute a gist if you do not specify its' +
-                      ' creator.');
+    // Callbacks
+    function noSuitableFile() {
+      artoo.log.error('artoo was not able to find a suitable script with ' +
+                      'the given parameters:', params);
+    }
+
+    function getFile(file) {
+
+      // Injecting script
+      artoo.injectScript(file.raw_url, cb);
+    }
+
+    // Safeguards
+    if (!user ||
+        (!params.description && !params.id && !params.filename)) {
+      noSuitableFile();
       return;
     }
 
-    if (!params.description && !params.id && !params.filename) {
-      artoo.log.error('Impossible to execute a gist with given parameters :',
-                      params);
-      return;
-    }
-
+    var filter;
     if (params.id && params.filename)
       filter = function(e) {
         return e.id === params.id && e.filename in e.files;
@@ -110,7 +119,36 @@
         return e.filename in e.files;
       };
 
-    // gist = artoo.helpers.first(_cache)
-    // ext = .js par defaut over another
+    // Lazy load the gists
+    artoo.helpers.lazy(
+      user in _cache,
+      function notInCache(next) {
+        artoo.gists.fetch(user, next);
+      },
+      function() {
+        var gist = artoo.helpers.first(_cache[user], filter),
+            f;
+
+        if (!gist) {
+          noSuitableFile();
+          return;
+        }
+
+        // Finding the most suitable script
+        if (params.filename) {
+          if (params.filename in gist.files)
+            getFile(gist.files[params.filename]);
+          else
+            noSuitableFile();
+        }
+        else {
+          f = artoo.helpers.first(Object.keys(gist.files), isJsFile);
+          if (f)
+            getFile(gist.files[f]);
+          else
+            noSuitableFile();
+        }
+      }
+    );
   };
 }).call(this);

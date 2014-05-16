@@ -63,10 +63,12 @@
     // Changing icon and disabling
     if (_globals.enabled)
       chrome.browserAction.setIcon(
-        {path: {'38': 'chrome/icons/icon38-disabled.png'}});
+        {path: {'19': 'chrome/icons/icon19-disabled.png',
+                '38': 'chrome/icons/icon38-disabled.png'}});
     else
       chrome.browserAction.setIcon(
-        {path: {'38': 'chrome/icons/icon38.png'}});
+        {path: {'19': 'chrome/icons/icon19.png',
+                '38': 'chrome/icons/icon38.png'}});
 
     _globals.enabled = !_globals.enabled;
   });

@@ -36,7 +36,7 @@
   },
   "web_accessible_resources": [
     "build/artoo.concat.js",
-    "build/artoo.build.js",
+    "build/artoo.min.js",
     "chrome/background.js"
   ],
   "content_security_policy": "default-src 'self';",

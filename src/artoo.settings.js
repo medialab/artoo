@@ -22,7 +22,8 @@
       autoRecord: true
     },
     jquery: {
-      version: '2.1.1'
+      version: '2.1.1',
+      force: false
     },
     log: {
       enabled: true,

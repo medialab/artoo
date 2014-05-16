@@ -31,7 +31,7 @@
     $: {},
     dom: document.getElementById('artoo_injected_script'),
     jquery: {
-      export: function() {
+      setß: function() {
         _root.ß = artoo.$;
       },
       plugins: []

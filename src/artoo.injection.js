@@ -28,9 +28,23 @@
 
       // Internal reference
       artoo.$ = jQuery;
-      artoo.jquery.export();
+      artoo.jquery.setß();
 
       cb();
+    }
+
+    // Forcing jQuery injection, according to settings
+    else if (artoo.settings.jquery.force) {
+      artoo.injectScript(cdn, function() {
+        artoo.log.warning('According to your settings, jQuery (v' +
+                          desiredVersion + ') was injected into your page ' +
+                          'to replace the current $ variable.');
+
+        artoo.$ = jQuery;
+        artoo.jquery.setß();
+
+        cb();
+      });
     }
 
     // jQuery has not the correct version or another library uses $
@@ -38,11 +52,11 @@
       artoo.injectScript(cdn, function() {
         artoo.log.warning(
           'Either jQuery has not a valid version or another library ' +
-          'using dollar is already present. ' +
+          'using $ is already present. ' +
           'Exporting correct version to ß (or artoo.$).');
 
         artoo.$ = jQuery.noConflict(true);
-        artoo.jquery.export();
+        artoo.jquery.setß();
 
         cb();
       });
@@ -55,7 +69,7 @@
                        '(v' + desiredVersion + ').');
 
         artoo.$ = jQuery;
-        artoo.jquery.export();
+        artoo.jquery.setß();
 
         cb();
       });

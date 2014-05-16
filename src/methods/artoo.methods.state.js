@@ -18,7 +18,7 @@
 
   artoo.state.get = function(key) {
     return key ?
-      (artoo.store(artoo.settings.state.key)[key] || null) :
+      ((artoo.store(artoo.settings.state.key) || {})[key] || null) :
       (artoo.store(artoo.settings.state.key) || {});
   };
 

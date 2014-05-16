@@ -17,25 +17,29 @@
     script: null,
 
     // Methods settings
-    state: {
-      key: '%artoo%'
+    instructions: {
+      autoRecord: true
     },
-    navigation: {
-      history: true
-    },
-    store: {
-      engine: 'local'
+    jquery: {
+      version: '2.1.1'
     },
     log: {
       enabled: true,
       level: 'verbose',
       beeping: false
     },
-    instructions: {
-      autoRecord: true
+    gists: {
+      user: null,
+      store: true
     },
-    jquery: {
-      version: '2.1.1'
+    navigation: {
+      history: true
+    },
+    state: {
+      key: '%artoo%'
+    },
+    store: {
+      engine: 'local'
     }
   };
 }).call(this);

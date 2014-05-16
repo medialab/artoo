@@ -17,6 +17,9 @@
     script: null,
 
     // Methods settings
+    state: {
+      key: '%artoo%'
+    },
     store: {
       engine: 'local'
     },

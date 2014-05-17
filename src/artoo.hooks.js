@@ -9,6 +9,7 @@
    */
   artoo.hooks = {
     init: [],
+    countermeasures: [],
     ready: [],
     trigger: function(hook) {
       if (!artoo.hooks[hook]) {

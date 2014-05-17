@@ -8,6 +8,7 @@ module.exports = function(grunt) {
     'src/artoo.hooks.js',
     'src/artoo.console.js',
     'src/artoo.injection.js',
+    'src/artoo.countermeasures.js',
     'src/methods/artoo.methods.ajaxSpider.js',
     'src/methods/artoo.methods.autoExpand.js',
     'src/methods/artoo.methods.autoScroll.js',
@@ -46,7 +47,8 @@ module.exports = function(grunt) {
         '-W055': true,
         '-W040': true,
         '-W064': true,
-        '-W061': true
+        '-W061': true,
+        '-W103': true
       }
     },
     uglify: {

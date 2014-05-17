@@ -11,6 +11,9 @@
   // Initialization hook
   function main() {
 
+    // Triggering countermeasures
+    artoo.hooks.trigger('countermeasures');
+
     // Retrieving settings from script tag
     if (artoo.dom) {
       var ns = JSON.parse(artoo.dom.getAttribute('settings')),

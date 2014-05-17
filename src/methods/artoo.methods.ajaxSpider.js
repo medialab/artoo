@@ -20,29 +20,31 @@
         artoo.$.get(o, c);
       } :
       function(c) {
-        artoo.$[o.method || 'get'](o.url, o.data || {}, c);
+        artoo.$[o.method || params.method || 'get'](o.url, o.data || {}, c);
       };
 
     // Getting data with ajax
     if (params.throttle)
-      setTimeout(get, params.throttle, dataRetrieved);
+      setTimeout(get, !i || params.throttle, dataRetrieved);
     else
       get(dataRetrieved);
 
     function dataRetrieved(data) {
-      acc.push(params.callback(data));
-      loop(list, params, acc, ++i);
+      acc.push(params.callback ? params.callback(data, i, acc) : data);
+
+      if (++i === list.length && typeof params.done === 'function')
+        params.done(acc);
+      else
+        loop(list, params, acc, i);
     }
   }
 
   // TODO: Possibility for an iterator as list
-  // TODO: list can be objects with url and data + get or post default get
-  // TODO: throttle
   // TODO: if fn returns false or list run dry, we stop
   // TODO: asynchronous
   artoo.ajaxSpider = function(list, params, cb) {
     params = params || {};
-    params.done = params.done || cb;
+    cb = cb || params.done;
 
     loop(list, params);
   };

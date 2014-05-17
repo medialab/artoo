@@ -10,10 +10,15 @@
 
   // Script evaluation function
   function exec() {
-    if (artoo.settings.eval)
+    if (artoo.settings.eval) {
+      artoo.log.verbose('evaluating and executing the script given to artoo.');
       eval(JSON.parse(artoo.settings.eval));
-    else if (artoo.settings.scriptUrl)
-        artoo.injectScript(artoo.settings.scriptUrl);
+    }
+    else if (artoo.settings.scriptUrl) {
+      artoo.log.verbose('executing script at "' +
+                        artoo.settings.scriptUrl + '"');
+      artoo.injectScript(artoo.settings.scriptUrl);
+    }
   }
 
   // Initialization function

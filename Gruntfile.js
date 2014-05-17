@@ -100,7 +100,8 @@ module.exports = function(grunt) {
           random: true,
           url: '//localhost:8000/build/artoo.concat.js',
           settings: {
-            debug: true
+            debug: true,
+            reload: true
           }
         },
         dest: './build/bookmarklet.dev.min.js'

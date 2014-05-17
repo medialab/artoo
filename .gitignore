@@ -4,3 +4,4 @@ TODO.md
 *.pem
 npm-debug.log
 build/artoo.concat.js
+build/bookmarklet.*

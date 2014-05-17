@@ -57,15 +57,6 @@ module.exports = function(grunt) {
         options: {
           banner: '/* artoo.js - <%= pkg.description %> - Version: <%= pkg.version %> -  medialab SciencesPo */\n'
         }
-      },
-      bookmarklets: {
-        files: {
-          'build/bookmarklet.dev.min.js': 'src/bookmarklets/bookmarklet.dev.js',
-          'build/bookmarklet.prod.min.js': 'src/bookmarklets/bookmarklet.prod.js'
-        },
-        options: {
-          banner: 'javascript: '
-        }
       }
     },
     concat: {
@@ -101,6 +92,24 @@ module.exports = function(grunt) {
           ]
         }
       }
+    },
+    artoo: {
+      dev: {
+        options: {
+          random: true,
+          url: '//localhost:8000/build/artoo.concat.js',
+          settings: {
+            debug: true
+          }
+        },
+        dest: './build/bookmarklet.dev.min.js'
+      },
+      prod: {
+        options: {
+          clipboard: false
+        },
+        dest: './build/bookmarklet.prod.min.js'
+      }
     }
   });
 
@@ -111,6 +120,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-artoo');
   grunt.loadNpmTasks('grunt-sed');
 
   // Default tasks
@@ -120,12 +130,12 @@ module.exports = function(grunt) {
       'closureLint',
       'jshint',
       'concat',
-      'uglify:prod',
-      'uglify:bookmarklets',
+      'uglify',
       'sed',
       'qunit'
     ]
   );
 
+  grunt.registerTask('bookmarklets', ['artoo']);
   grunt.registerTask('work', ['concat', 'watch:script']);
 };

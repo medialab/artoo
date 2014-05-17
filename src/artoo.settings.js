@@ -14,8 +14,8 @@
     chromeExtension: false,
     debug: false,
     gist: null,
-    next: null,
-    script: null,
+    scriptUrl: null,
+    eval: null,
 
     // Methods settings
     instructions: {

@@ -57,8 +57,8 @@
       // Order is: eval, localhost, gist
       if (artoo.settings.eval)
         eval(artoo.settings.eval);
-      else if (artoo.settings.next)
-        artoo.injectScript(artoo.settings.next);
+      else if (artoo.settings.scriptUrl)
+        artoo.injectScript(artoo.settings.scriptUrl);
 
       // Triggering ready
       artoo.hooks.trigger('ready');

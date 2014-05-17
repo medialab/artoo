@@ -32,7 +32,8 @@
     dom: document.getElementById('artoo_injected_script'),
     jquery: {
       setß: function() {
-        _root.ß = artoo.$;
+        if (artoo.settings.jquery.ß)
+          _root.ß = artoo.$;
       },
       plugins: []
     },

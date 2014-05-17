@@ -23,7 +23,8 @@
     },
     jquery: {
       version: '2.1.1',
-      force: false
+      force: false,
+      ß: true
     },
     log: {
       enabled: true,

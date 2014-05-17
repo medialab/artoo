@@ -22,7 +22,7 @@
           !!~$$.toString().indexOf('[Command Line API]');
 
     // jQuery is already in a correct mood
-    if (exists && currentVersion.charAt(0) === '2') {
+    if (exists && currentVersion.charAt(0) === desiredVersion.charAt(0)) {
       artoo.log.verbose('jQuery already exists in this page ' +
                         '(v' + currentVersion + '). No need to load it again.');
 

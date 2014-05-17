@@ -56,7 +56,7 @@
       // Loading extra script?
       // Order is: eval, localhost, gist
       if (artoo.settings.eval)
-        eval(artoo.settings.eval);
+        eval(JSON.parse(artoo.settings.eval));
       else if (artoo.settings.scriptUrl)
         artoo.injectScript(artoo.settings.scriptUrl);
 

@@ -19,7 +19,7 @@
       return o.call(scope, $);
     }
     else if (typeof o === 'string') {
-      if (o === 'text' || o === 'html')
+      if (typeof $sel[o] === 'function')
         return $sel[o]();
       else
         return $sel.attr(o);

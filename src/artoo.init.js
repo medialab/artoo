@@ -8,13 +8,23 @@
    * Launch artoo's init hooks.
    */
 
-  // Initialization hook
+  // Script evaluation function
+  function exec() {
+    if (artoo.settings.eval)
+      eval(JSON.parse(artoo.settings.eval));
+    else if (artoo.settings.scriptUrl)
+        artoo.injectScript(artoo.settings.scriptUrl);
+  }
+
+  // Initialization function
   function main() {
 
     // Triggering countermeasures
     artoo.hooks.trigger('countermeasures');
 
     // Retrieving settings from script tag
+    artoo.dom = document.getElementById('artoo_injected_script');
+
     if (artoo.dom) {
       var ns = JSON.parse(artoo.dom.getAttribute('settings')),
           s = artoo.settings,
@@ -56,12 +66,9 @@
         p(artoo.$);
       });
 
-      // Loading extra script?
-      // Order is: eval, localhost, gist
-      if (artoo.settings.eval)
-        eval(JSON.parse(artoo.settings.eval));
-      else if (artoo.settings.scriptUrl)
-        artoo.injectScript(artoo.settings.scriptUrl);
+      // Triggering exec
+      if (artoo.settings.autoExec)
+        artoo.exec();
 
       // Triggering ready
       artoo.hooks.trigger('ready');
@@ -75,10 +82,21 @@
     this.loaded = true;
   }
 
-  // Placing the hook at first position
+  // Adding functions to hooks
   artoo.hooks.init.unshift(main);
+  artoo.hooks.exec.unshift(exec);
+
+  // artoo initialization
+  artoo.init = function() {
+    artoo.hooks.trigger('init');
+  };
+
+  // artoo exectution
+  artoo.exec = function() {
+    artoo.hooks.trigger('exec');
+  };
 
   // Init?
-  if (!artoo.loaded && artoo.settings.autoInit)
-    artoo.hooks.trigger('init');
+  if (artoo.settings.autoInit)
+    artoo.init();
 }).call(this);

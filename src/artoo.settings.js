@@ -11,6 +11,7 @@
 
     // Root settings
     autoInit: true,
+    autoExec: true,
     chromeExtension: false,
     debug: false,
     gist: null,

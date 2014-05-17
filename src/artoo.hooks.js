@@ -7,10 +7,14 @@
    *
    * Utilities to triggers and apply artoo's hooks
    */
+  var hooks = [
+    'init',
+    'countermeasures',
+    'exec',
+    'ready'
+  ];
+
   artoo.hooks = {
-    init: [],
-    countermeasures: [],
-    ready: [],
     trigger: function(hook) {
       if (!artoo.hooks[hook]) {
         artoo.log.error(
@@ -23,6 +27,10 @@
       });
     }
   };
+
+  hooks.forEach(function(h) {
+    artoo.hooks[h] = [];
+  });
 
   // Add a function to be executed on the ready hook
   artoo.ready = function(fn) {

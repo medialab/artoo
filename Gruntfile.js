@@ -18,7 +18,6 @@ module.exports = function(grunt) {
     'src/methods/artoo.methods.scrape.js',
     'src/methods/artoo.methods.store.js',
     'src/methods/artoo.methods.state.js',
-    'src/methods/artoo.methods.gists.js',
     'src/artoo.init.js'
   ];
 

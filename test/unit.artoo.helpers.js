@@ -43,7 +43,7 @@
   });
 
   // Testing the toCSVString function
-  test('toCSVString & parseCSVString', function() {
+  test('toCSVString', function() {
     var arrays = {
       correct: [['Michel', 'Chenu'], ['Marion', 'La brousse']],
       delimiter: [['Michel', 'Chenu, the Lord'], ['Marion', 'La brousse']],

@@ -98,6 +98,7 @@
       _store.removeItem(i);
   };
 
-  // Shortcut
+  // Shortcuts
   artoo.s = artoo.store;
+  artoo.store.clean = artoo.store.removeAll;
 }).call(this);

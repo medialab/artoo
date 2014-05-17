@@ -20,6 +20,9 @@
     reload: false,
 
     // Methods settings
+    cache: {
+      delimiter: '%'
+    },
     instructions: {
       autoRecord: true
     },
@@ -39,9 +42,6 @@
     },
     navigation: {
       history: true
-    },
-    state: {
-      key: '%artoo%'
     },
     store: {
       engine: 'local'

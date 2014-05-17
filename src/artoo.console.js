@@ -73,6 +73,12 @@
   for (var l in levels)
     makeShortcut(l);
 
+  // Plain log
+  artoo.log.plain = function() {
+    if (artoo.settings.log.enabled)
+      console.log.apply(console, arguments);
+  };
+
   // Logo display
   artoo.log.welcome = function() {
     if (!artoo.settings.log.enabled)

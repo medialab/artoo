@@ -12,7 +12,8 @@
   // Helpers
   function step(o, scope) {
     var $ = artoo.$,
-        $sel = o.sel ? $(scope).find(o.sel) : $(scope);
+        $sel = o.sel ? $(scope).find(o.sel) : $(scope),
+        s;
 
     // Polymorphism
     if (typeof o === 'function') {
@@ -31,10 +32,15 @@
     }
   }
 
-  // TODO: recursive
   artoo.scrape = function(iterator, data, params, cb) {
+    if (arguments.length < 2) {
+      artoo.log.error('Wrong arguments passed to scrape method. artoo has ' +
+                      'no clue about what he should scrape.');
+      return;
+    }
+
     var scraped = [],
-        loneSelector = !!data.attr || !!data.method ||
+        loneSelector = !!data.attr || !!data.method || data.scrape ||
                        typeof data === 'string' ||
                        typeof data === 'function';
 
@@ -49,10 +55,22 @@
           p;
 
       if (loneSelector)
-        item = step(data, this);
+        item = (typeof data === 'object' && 'scrape' in data) ?
+          artoo.scrape(
+            $(this).find(data.scrape.sel),
+            data.scrape.data,
+            data.scrape.params
+          ) :
+          step(data, this);
       else
         for (p in data) {
-          item[p] = step(data[p], this);
+          item[p] = (typeof data[p] === 'object' && 'scrape' in data[p]) ?
+            artoo.scrape(
+              $(this).find(data[p].scrape.sel),
+              data[p].scrape.data,
+              data[p].scrape.params
+            ) :
+            step(data[p], this);
         }
 
       scraped.push(item);

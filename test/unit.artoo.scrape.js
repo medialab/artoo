@@ -160,4 +160,110 @@
       );
     });
   });
+
+  asyncTest('Recursive list', function() {
+    helpers.fetchHTMLResource('recursive_list', function(id) {
+      start();
+
+      var result1 = [
+        ['Item 1-1', 'Item 1-2'],
+        ['Item 2-1', 'Item 2-2']
+      ];
+
+      var result2 = [
+        {
+          name: 'List 1',
+          items: [
+            {
+              name: 'Foo',
+              text: 'Item 1-1'
+            },
+            {
+              name: 'Bar',
+              text: 'Item 1-2'
+            }
+          ]
+        },
+        {
+          name: 'List 2',
+          items: [
+            {
+              name: 'Oof',
+              text: 'Item 2-1'
+            },
+            {
+              name: 'Rab',
+              text: 'Item 2-2'
+            }
+          ]
+        }
+      ];
+
+      deepEqual(
+        artoo.scrape(id + ' .recursive-url-list1 > li', {
+          scrape: {
+            sel: 'ul > li',
+            data: 'text'
+          }
+        }),
+        result1,
+        'Scraping the simple recursive list should return the correct array of arrays.'
+      );
+
+      deepEqual(
+        artoo.scrape(id + ' .recursive-url-list2 > li', {
+          name: 'name',
+          items: {
+            scrape: {
+              sel: 'ul > li',
+              data: {
+                name: 'name',
+                text: 'text'
+              }
+            }
+          }
+        }),
+        result2,
+        'Scraping the complex recursive list should return the correct items.'
+      );
+    });
+  });
+
+  asyncTest('Table', function() {
+    helpers.fetchHTMLResource('table', function(id) {
+      start();
+
+      var flat = [
+        ['Jill', 'Smith', '50'],
+        ['Eve', 'Jackson', '94'],
+        ['John', 'Doe', '80'],
+        ['Adam', 'Johnson', '67']
+      ];
+
+      var objects = flat.map(function(p) {
+        return {firstname: p[0], lastname: p[1], points: p[2]};
+      });
+
+      deepEqual(
+        artoo.scrape(id + ' .reference tr:not(:first)', {
+          scrape: {
+            sel: 'td',
+            data: 'text'
+          }
+        }),
+        flat,
+        'Recursively scraping the table should return the correct array.'
+      );
+
+      deepEqual(
+        artoo.scrape(id + ' .reference tr:not(:first)', {
+          firstname: {sel: 'td:first'},
+          lastname: {sel: 'td:eq(1)'},
+          points: {sel: 'td:eq(2)'}
+        }),
+        objects,
+        'Scraping the list more easily should return the correct array of objects'
+      );
+    });
+  });
 }).call(this);

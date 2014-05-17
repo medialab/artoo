@@ -102,4 +102,60 @@
       cb
     );
   };
+
+  // Scrape a table
+  // TODO: better header handle
+  artoo.scrapeTable = function(sel, params, cb) {
+    params = params || {};
+
+    var headers;
+
+    if (!params.headers) {
+      return artoo.scrape(sel + ' tr:has(td)', {
+        scrape: {
+          sel: 'td',
+          data: params.data || 'text'
+        }
+      }, params, cb);
+    }
+    else {
+      var headerType = params.headers.type ||
+                       params.headers.methods && 'first' ||
+                       params.headers,
+          headerFn = params.headers.method;
+
+      if (headerType === 'th') {
+        headers = artoo.scrape(
+          sel + ' th', headerFn || 'text'
+        );
+      }
+      else if (headerType === 'first') {
+        headers = artoo.scrape(
+          sel + ' tr:has(td):first td',
+          headerFn || 'text'
+        );
+      }
+      else {
+        artoo.log.error('invalid header type for scrapeTable method ' +
+                        '("th" or "first").');
+        return;
+      }
+
+      // Scraping
+      return artoo.scrape(
+        sel + ' tr:has(td)' +
+        (headerType === 'first' ? ':not(:first)' : ''), function() {
+          var o = {};
+
+          headers.forEach(function(h, i) {
+            o[h] = step(
+              params.data || 'text',
+              $(this).find('td:eq(' + i + ')')
+            );
+          }, this);
+
+          return o;
+        }, params, cb);
+    }
+  };
 }).call(this);

@@ -256,6 +256,12 @@
       );
 
       deepEqual(
+        artoo.scrapeTable(id + ' .reference'),
+        flat,
+        'scrapTable should produce the same result as above.'
+      );
+
+      deepEqual(
         artoo.scrape(id + ' .reference tr:not(:first)', {
           firstname: {sel: 'td:first'},
           lastname: {sel: 'td:eq(1)'},
@@ -263,6 +269,33 @@
         }),
         objects,
         'Scraping the list more easily should return the correct array of objects'
+      );
+
+      deepEqual(
+        artoo.scrapeTable(id + ' .reference', {headers: 'th'}),
+        objects,
+        'scrapTable with headers should produce the same result as above.'
+      );
+
+      deepEqual(
+        artoo.scrapeTable(id + ' .reference-no-headers', {headers: 'first'}),
+        objects,
+        'scrapTable with headers-first should produce the same result as above.'
+      );
+
+      deepEqual(
+        artoo.scrapeTable(
+          id + ' .reference-no-headers',
+          {
+            headers: {
+              type: 'first',
+              method: function() {
+                return $(this).text().toLowerCase();
+              }
+            }
+          }),
+        objects,
+        'scrapTable with headers-first and header formatting should produce the same result as above.'
       );
     });
   });

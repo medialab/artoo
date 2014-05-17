@@ -16,6 +16,7 @@
     gist: null,
     scriptUrl: null,
     eval: null,
+    reload: false,
 
     // Methods settings
     instructions: {

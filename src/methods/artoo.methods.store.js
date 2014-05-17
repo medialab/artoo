@@ -9,6 +9,12 @@
    */
   var _root = this;
 
+  // Utilities
+  function isCache(key) {
+    var d = artoo.settings.cache.delimiter;
+    return key.charAt(0) === d && key.charAt(key.length - 1) === d;
+  }
+
   // Store alias
   var _store;
 
@@ -36,8 +42,10 @@
 
   artoo.store.getAll = function() {
     var s = {};
-    for (var i in _store)
+    for (var i in _store) {
+      if (!isCache(i))
       s[i] = artoo.store.get(i);
+    }
     return s;
   };
 
@@ -94,8 +102,10 @@
   };
 
   artoo.store.removeAll = function() {
-    for (var i in _store)
-      _store.removeItem(i);
+    for (var i in _store) {
+      if (!isCache(i))
+        _store.removeItem(i);
+    }
   };
 
   // Shortcuts

@@ -24,26 +24,14 @@
   // Initialization function
   function main() {
 
-    // Triggering countermeasures
-    artoo.hooks.trigger('countermeasures');
-
     // Retrieving settings from script tag
     artoo.dom = document.getElementById('artoo_injected_script');
 
-    if (artoo.dom) {
-      var ns = JSON.parse(artoo.dom.getAttribute('settings')),
-          s = artoo.settings,
-          k;
+    if (artoo.dom)
+      artoo.loadSettings(JSON.parse(artoo.dom.getAttribute('settings')));
 
-      if (ns) {
-        for (k in ns) {
-          if (artoo.helpers.isPlainObject(ns[k]))
-            s[k] = artoo.helpers.extend(ns[k], s[k]);
-          else
-            s[k] = ns[k];
-        }
-      }
-    }
+    // Triggering countermeasures
+    artoo.hooks.trigger('countermeasures');
 
     // Welcoming user
     this.log.welcome();

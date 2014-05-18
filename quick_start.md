@@ -41,7 +41,7 @@ It would be a shame if someone were to scrape it...
 
 To achieve this we'll need **artoo**. We are therefore going to create a bookmarklet able to invoke artoo within any web page.
 
-To create the bookmarklet, simply drag and drop the following link onto your bookmarks toolbar:
+To create the bookmarklet, simply drag and drop the following link onto your bookmarks bar:
 
 <p class="artoo-bookmark-highlight">
   <a style="color: white;" href='{{ site.bookmarklet }}'>artoo</a>

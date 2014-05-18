@@ -6,16 +6,23 @@
 <div class="sidebar" id="sidebar">
   <div class="sidebar-item">
     <p align="center">
-      <img width="148" height="148" src="https://raw.githubusercontent.com/medialab/artoo/master/chrome/icons/artoo-icon.svg" />
+      <a href='{{ site.bookmarklet }}'>
+        <img alt="artoo" width="148" height="148" src="https://raw.githubusercontent.com/medialab/artoo/master/chrome/icons/artoo-icon.svg" />
+      </a>
+      To install artoo, just drag and drop the above logo onto your bookmark bar.
     </p>
   </div>
 
   <nav class="sidebar-nav">
     <a class="sidebar-nav-item{% if page.id == 'home' %} active{% endif %}" href="{{ site.baseurl }}/">Home</a>
     <a class="sidebar-nav-item{% if page.id == 'quick_start' %} active{% endif %}" href="{{ site.baseurl }}/quick_start">Quick Start</a>
+    <p class="sidebar-separator"></p>
     <a class="sidebar-nav-item{% if page.id == 'methods' %} active{% endif %}" href="{{ site.baseurl }}/methods">Methods</a>
+    <a class="sidebar-nav-item{% if page.id == 'settings' %} active{% endif %}" href="{{ site.baseurl }}/settings">Settings</a>
+    <a class="sidebar-nav-item{% if page.id == 'grunt' %} active{% endif %}" href="{{ site.baseurl }}/grunt">Grunt task</a>
     <p class="sidebar-separator"></p>
     <a class="sidebar-nav-item" href="{{ site.github.repo }}">GitHub project</a>
+    <a class="sidebar-nav-item" href="{{ site.medialab }}">Sciences-po médialab</a>
     <span class="sidebar-nav-item">Currently v{{ site.version }}</span>
   </nav>
 

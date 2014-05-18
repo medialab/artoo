@@ -44,7 +44,7 @@ To achieve this we'll need **artoo**. We are therefore going to create a bookmar
 To create the bookmarklet, simply drag and drop the following link onto your bookmarks toolbar:
 
 <p class="artoo-bookmark-highlight">
-  <a style="color: white;" href='javascript:!function(){ {var a=document.getElementsByTagName("body")[0],b=document.createElement("script");Math.random()}b.src="//raw.githubusercontent.com/medialab/artoo/master/build/artoo.min.js",b.type="text/javascript",b.id="artoo_injected_script",a.appendChild(b)}();'>artoo</a>
+  <a style="color: white;" href='{{ site.bookmarklet }}'>artoo</a>
 </p>
 
 If the drag and drop thingy does not work, simply right click the link and copy the link adress. The only remaining thing for you to do is simply to create a new bookmark that you'll call *artoo* and paste the link url.

@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Methods
-id: methods
+title: Grunt Task
+id: grunt
 ---
 
 # {{ page.title }}

@@ -16,7 +16,10 @@ author:
   url:            https://github.com/Yomguithereal
 
 # Custom vars
-version:          0.0.1
+version:          0.0.2
 
 github:
   repo:           https://github.com/medialab/artoo
+
+bookmarklet:      'javascript: (function(){var t=!0;if("object"==typeof this.artoo)artoo.reload||(artoo.log.verbose("artoo already lies within this page. No need to inject him again."),artoo.hooks.trigger("exec"));else if(t){var e=document.getElementsByTagName("body")[0],o=document.createElement("script");o.src="https://raw.githubusercontent.com/medialab/artoo/master/build/artoo.min.js",o.type="text/javascript",o.id="artoo_injected_script",o.setAttribute("settings",JSON.stringify({})),e.appendChild(o)}}).call(this);'
+medialab:         'http://www.medialab.sciences-po.fr/'

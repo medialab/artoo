@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Methods
-id: methods
+title: Settings
+id: settings
 ---
 
 # {{ page.title }}

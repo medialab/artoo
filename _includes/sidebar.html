@@ -15,12 +15,18 @@
 
   <nav class="sidebar-nav">
     <a class="sidebar-nav-item{% if page.id == 'home' %} active{% endif %}" href="{{ site.baseurl }}/">Home</a>
-    <a class="sidebar-nav-item{% if page.id == 'quick_start' %} active{% endif %}" href="{{ site.baseurl }}/quick_start">Quick Start</a>
-    <p class="sidebar-separator"></p>
-    <a class="sidebar-nav-item{% if page.id == 'methods' %} active{% endif %}" href="{{ site.baseurl }}/methods">Methods</a>
-    <a class="sidebar-nav-item{% if page.id == 'settings' %} active{% endif %}" href="{{ site.baseurl }}/settings">Settings</a>
-    <a class="sidebar-nav-item{% if page.id == 'grunt' %} active{% endif %}" href="{{ site.baseurl }}/grunt">Grunt task</a>
-    <p class="sidebar-separator"></p>
+    {% for node in site.sidebar %}
+      {% if node != 'sep' %}
+        <a class="sidebar-nav-item{% if page.id == node.url %} active{% endif %}" href="{{ site.baseurl }}/{{ node.url }}">{{ node.title }}</a>
+        {% if node.children %}
+          {% for child in node.children%}
+            <a class="sidebar-nav-item{% if page.id == child.url %} active{% endif %}" href="{{ site.baseurl }}/{{ child.url }}">&nbsp;&nbsp;• &nbsp; {{ child.title }}</a>
+          {% endfor%}
+        {% endif %}
+      {% else %}
+        <p class="sidebar-separator"></p>
+      {% endif %}
+    {% endfor %}
     <a class="sidebar-nav-item" href="{{ site.github.repo }}">GitHub project</a>
     <a class="sidebar-nav-item" href="{{ site.medialab.url }}"> SciencesPo - médialab</a>
     <span class="sidebar-nav-item">Currently v{{ site.version }}</span>

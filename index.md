@@ -69,6 +69,13 @@ You'll never find yourself crawling pages massively etc. on a browser, but for m
 
 ---
 
+## Disclaimer
+Please note that **artoo** has been built having *Chrome* and *Chromium* in mind. So, even if artoo may function quite properly on other browsers, some of its features such as instructions recording might not be available on those.
+
+If you think this is injust and feel that some features can be ported to other browsers, please report it and we'll find a solution together.
+
+---
+
 ## Contribution
 [![Build Status](https://travis-ci.org/medialab/artoo.svg)](https://travis-ci.org/medialab/artoo)
 
@@ -93,13 +100,6 @@ npm start
 # Note that you'll need some ssl keys (instructions to come...)
 npm run https
 ```
-
----
-
-## Disclaimer
-Please note that **artoo** has been built having *Chrome* and *Chromium* in mind. So, even if artoo may function quite properly on other browsers, some of its features such as instructions recording might not be available on those.
-
-If you think this is injust and feel that some features can be ported to other browsers, please report it and we'll find a solution together.
 
 ---
 

@@ -18,6 +18,21 @@ author:
 # Custom vars
 version:          0.0.2
 
+sidebar:
+  - url: 'quick_start'
+    title: 'Quick Start'
+  - 'sep'
+  - url: 'methods'
+    title: 'Methods'
+    children:
+      - url: 'helpers'
+        title: 'Helpers'
+  - url: 'settings'
+    title: 'Settings'
+  - url: 'grunt'
+    title: 'Grunt'
+  - 'sep'
+
 github:
   repo:           https://github.com/medialab/artoo
 

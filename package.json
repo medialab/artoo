@@ -19,7 +19,10 @@
   "keywords": [
     "scraping"
   ],
-  "license": "MIT",
+  "license": {
+    "type": "MIT",
+    "url": "https://github.com/medialab/artoo/blob/master/LICENSE.txt"
+  },
   "bugs": {
     "url": "https://github.com/medialab/artoo/issues"
   },

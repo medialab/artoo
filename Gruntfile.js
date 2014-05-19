@@ -1,5 +1,5 @@
 module.exports = function(grunt) {
-  
+
   var jsFiles = [
     'src/artoo.js',
     'src/artoo.beep.js',
@@ -99,6 +99,7 @@ module.exports = function(grunt) {
       dev: {
         options: {
           random: true,
+          loadingText: null,
           url: '//localhost:8000/build/artoo.concat.js',
           settings: {
             debug: true,

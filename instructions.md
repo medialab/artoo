@@ -14,7 +14,7 @@ This is useful if you want to get back every instructions you typed during a scr
 
 By default, **artoo** records the instructions you type from the moment he is loaded into the web page. If you want to alter this behaviour, you should pay a visit to the [settings]({{ site.baseurl }}/settings#instructions) section of this documentation.
 
-It is also possible to download you instructions in the form of a JavaScript file but more precisions are available in the [download]({{ site.baseurl }}/download) section.
+It is also possible to download you instructions in the form of a JavaScript file but more precisions are available in the [save]({{ site.baseurl }}/save#instructions) section.
 
 ---
 

@@ -29,6 +29,8 @@ sidebar:
         title: 'Helpers'
       - url: 'instructions'
         title: 'Instructions'
+      - url: 'save'
+        title: 'Save'
   - url: 'settings'
     title: 'Settings'
   - url: 'jquery'

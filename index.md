@@ -67,6 +67,7 @@ The intention here is not at all to say that classical scraping is obsolete but 
 
 You'll never find yourself crawling pages massively etc. on a browser, but for most of your scraping tasks, client-side should enhance your productivity dramatically.
 
+
 ---
 
 ## Disclaimer

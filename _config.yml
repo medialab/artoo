@@ -27,6 +27,8 @@ sidebar:
     children:
       - url: 'helpers'
         title: 'Helpers'
+      - url: 'instructions'
+        title: 'Instructions'
   - url: 'settings'
     title: 'Settings'
   - url: 'grunt'

@@ -10,12 +10,28 @@ id: quick_start
 
 ---
 
+* [Installation](#installation)
 * [How can artoo help me with a basic list?](#basic-list)
 * [Needing more specific things?](#specific-things)
 * [A more complex list](#more-complex-list)
 * [Downloading your list](#downloading-list)
 * [Remember, remember](#remember)
 * [What next?](#what-next)
+
+---
+
+<h2 id="installation">Installation</h2>
+Before anything, we need to install **artoo**. Hopefully, this is a painless task: just drop the icon below onto your bookmark bar.
+
+<p align="center">
+  <a href='{{ site.bookmarklet }}'>
+    <img alt="artoo" width="148" height="148" src="{{ site.baseurl }}/public/img/artoo-icon.svg" />
+  </a>
+</p>
+
+If you have trouble dropping it, just right click the icon, copy the link address and create a new bookmark you will call artoo and paste the url.
+
+Now that we are ready, let's scrape!
 
 ---
 
@@ -39,19 +55,9 @@ Let's consider the following list:
 
 It would be a shame if someone were to scrape it...
 
-To achieve this we'll need **artoo**. We are therefore going to create a bookmarklet able to invoke artoo within any web page.
-
-To create the bookmarklet, simply drag and drop the following link onto your bookmarks bar:
-
-<p class="artoo-bookmark-highlight">
-  <a style="color: white;" href='{{ site.bookmarklet }}'>artoo</a>
-</p>
-
-If the drag and drop thingy does not work, simply right click the link and copy the link adress. The only remaining thing for you to do is simply to create a new bookmark that you'll call *artoo* and paste the link url.
-
 ---
 
-Now that **artoo** is ready to go, open your browser's console and click on **artoo**'s bookmark so he could greet you with unmitigated joy.
+To do so, open your browser's console and click artoo's bookmark. He should now greet you with unmitigated joy.
 
 You are now ready to scrape!
 
@@ -159,7 +165,7 @@ And here is your clean list.
 ---
 
 <h2 id="more-complex-list">A more complex list</h2>
-It's really a shame but data does not comes in such a handy shape everyday. What about a more - but not too - complex list like this one:
+It's really a shame but data does not comes in such a handy shape everyday. What about a more - but not too - complex list like this one?
 
 <ul class="complex-url-list">
   <li>
@@ -203,7 +209,7 @@ A quick look into your browser's inspector should tell you this second list is t
 </ul>
 ```
 
-Let's say we want to retrieve the url, the title and the number of visits of the sites. Try order **artoo** to execute the following command:
+Let's say we want to retrieve the url, the title and the number of visits of the sites. Just order **artoo** to execute the following command:
 
 ```js
 var niceList = artoo.scrape('.complex-url-list > li', {
@@ -221,27 +227,27 @@ var niceList = artoo.scrape('.complex-url-list > li', {
 });
 ```
 
-And you'll find yourself with the following array
+And you'll find yourself with the following list.
 
 ```js
 [
   {
-    url: 'http://nicesite.com',
+    url: '#http://nicesite.com',
     title: 'Nice site',
     nb_visit: 14
   },
   {
-    url: 'http://awesomesite.com',
+    url: '#http://awesomesite.com',
     title: 'Awesome site',
     nb_visit: 22
   },
   {
-    url: 'http://prettysite.com',
+    url: '#http://prettysite.com',
     title: 'Pretty site',
     nb_visit: 2
   },
   {
-    url: 'http://unknownsite.com',
+    url: '#http://unknownsite.com',
     title: 'Unknown site',
     nb_visit: 45
   }
@@ -257,13 +263,13 @@ Ok, now that you scraped your list, you might tell me:
 
 God no!
 
-**artoo** is a handy droid and will make your browser download the list with the following command:
+**artoo** is a #handy droid and will make your browser download the list with the following command:
 
 ```js
 artoo.savePrettyJson(niceList);
 ```
 
-Now you should see your browser download a `data.json` file containing your scraped list and if `chrome`bothers you and tells you are trying to download too much, just tell him to get lost.
+Now you should see your browser download a `data.json` file containing your scraped list and if `chrome` bothers you and tells you are trying to download too much, just tell him to get lost.
 
 And if you are more the CSV kind of guy.
 
@@ -278,8 +284,6 @@ Having written some commands now, you might find yourself in delicate position.
 > &laquo; *How on earth am I going to remember all the possibly complex commands I just wrote into my browser console?* &raquo;
 
 > &laquo; *It would be nice I could just download a `js` script containing everything I executed while scraping this fine site.* &raquo;
-
-Well...
 
 ```js
 artoo.saveInstructions();

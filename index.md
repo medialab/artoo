@@ -10,7 +10,7 @@ id: home
 
 <p align="center">
   <a href='{{ site.bookmarklet }}'>
-    <img alt="artoo" width="148" height="148" src="https://raw.githubusercontent.com/medialab/artoo/master/chrome/icons/artoo-icon.svg" />
+    <img alt="artoo" width="148" height="148" src="{{ site.baseurl }}/public/img/artoo-icon.svg" />
   </a>
 </p>
 
@@ -24,10 +24,12 @@ He is therefore as fit for your quick & dirty scraping jobs as for more ambitiou
 
 ---
 
-## What can bring me the present documentation?
+## Where should I go?
 If this is your first visit, you should probably visit the [Quick Start]({{ site.baseurl }}/quick_start) section of this documentation to take a glimpse at what **artoo** can do for you.
 
-If you are searching for more specific documentation or if you are just taking a stroll, the summary located below and the sidebar at your left should be more of use.
+If you are searching for more specific documentation or if you are just taking a stroll, the [methods]({{ site.baseurl }}/methods) compendium and the sidebar located at your left should be more of use.
+
+If what you need is documentation about the artoo grunt task, [there]({{ site.baseurl }}/grunt) you go.
 
 ---
 
@@ -41,30 +43,29 @@ Well, before quitting the present documentation and run back to your beloved scr
 
 Usually, the scraping process occurs thusly: we find sites from which we need to retrieve data and we consequently build a program whose goal is to fetch those site's html and parse it to get what we need.
 
-The only problem is therefore that nowadays website are not just plain html. We need cookies, we need authentication, we need JavaScript execution etc...
+The only problem with this process is that, nowadays, websites are not just plain html. We need cookies, we need authentication, we need JavaScript execution and a million other things to get proper data.
 
-%%%%
+So, by the days, to cope with this harsh reality, our scraping program became complex monsters being able to execute JavaScript, authenticating on websites and even trying to make servers think they were human by clicking and browsing naturally.
 
+But, if you sit back and try to find other programs able to perform all those things, you'll quickly come to this obvious answer:
 
-d'habitude on voit un site, puis on écrit un programme qui va récupérer le site et le parser. mais avec JavaScript et tout le bordel, c'est devenu plus en plus complexe d'écrire ce prog et si on résume, en gros, un prog de scraping doit faire quoi aujourd'hui pour fonctionner? list --> ca ne vous rappelle rien, on appelle ça un browser
-
-En gros, artoo se sert du browser comme plateforme de scraping. En plus c'est rapide, on peut tester en live, pas de problème de cookie ou d'authentication, moins de chance de se faire tèj comme un robot. Plus peut créer pour les autres un bookmarklet pour end user. ou pour build more ambitious
-
-Mais je ne dit pas que ca va remplacer le scraping classique: pour crawler comme un porc et faire du chiffre, artoo n'est pas fit. Mais que le client-scrape ça peut te changer la vie sur pas mal de cas.
+Isn't this the definition of a **Web browser**?
 
 ---
 
-## Summary
-* Quick Start
-* Methods
-	* *artoo.autoExpand*
-	* *artoo.autoScroll*
-	* *artoo.instructions*
-	* *artoo.scrape*
-	* *artoo.save*
-	* *artoo.store*	
-* Settings
-* Grunt Task
+So why shouldn't we take advantage of this and start scraping with web browsers? It has become really easy today to execute JavaScript in browsers' console and this is exactly what **artoo** is doing.
+
+Using browsers as scraping platforms come with a lot of advantages:
+
+* **Fast coding**: You can see and test the result of your code live thanks to JavaScript browsers' REPL and interact with DOM with useful interfaces. 
+* **No more authentication issues**: No longer need to deploy clever solutions to enable your spiders to authenticate on the website you intent to scrape. You are already authenticated on your browser. Nor more trying to be recognized as a human being: you are a human being.
+* **Tools for non-devs**: You can design tools for non-dev people. One could easily build an application with a UI on top of **artoo**. Moreover, **artoo** gives you the possibility to create bookmarklets on the fly to execute your personnal scripts.
+
+---
+
+The intention here is not at all to say that classical scraping is obsolete but rather to say that client-side scraping is a possibility today and, what's more, a useful one.
+
+You'll never find yourself crawling pages massively etc. on a browser, but for most of your scraping tasks, client-side should enhance your productivity dramatically.
 
 ---
 
@@ -96,9 +97,9 @@ npm run https
 ---
 
 ## Disclaimer
-Please note that **artoo** has been built having *Chrome* and *Chromium* in mind. So, even if artoo may function quite properly on other browsers, some of its features such as instructions recording might not be available on those other browsers.
+Please note that **artoo** has been built having *Chrome* and *Chromium* in mind. So, even if artoo may function quite properly on other browsers, some of its features such as instructions recording might not be available on those.
 
-If you think this is injust and find that some features can be ported to other browsers, please report it and we'll find a solution together.
+If you think this is injust and feel that some features can be ported to other browsers, please report it and we'll find a solution together.
 
 ---
 

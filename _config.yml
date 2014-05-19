@@ -31,6 +31,8 @@ sidebar:
         title: 'Instructions'
   - url: 'settings'
     title: 'Settings'
+  - url: 'jquery'
+    title: 'jQuery injection'
   - url: 'grunt'
     title: 'Grunt'
   - 'sep'

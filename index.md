@@ -45,9 +45,9 @@ Usually, the scraping process occurs thusly: we find sites from which we need to
 
 The only problem with this process is that, nowadays, websites are not just plain html. We need cookies, we need authentication, we need JavaScript execution and a million other things to get proper data.
 
-So, by the days, to cope with this harsh reality, our scraping program became complex monsters being able to execute JavaScript, authenticating on websites and even trying to make servers think they were human by clicking and browsing naturally.
+So, by the days, to cope with this harsh reality, our scraping program became complex monsters being able to execute JavaScript, authenticating on websites and even trying to lead servers into thinking they were human by clicking and browsing naturally.
 
-But, if you sit back and try to find other programs able to perform all those things, you'll quickly come to this obvious answer:
+But, if you sit back and try to find other programs able to perform all those things, you'll quickly come to this observation:
 
 Isn't this the definition of a **Web browser**?
 
@@ -105,7 +105,7 @@ npm run https
 ---
 
 ## Authors
-**artoo** is being developed by [Guillaume Plique](https://github.com/Yomguithereal) @ Sciences-Po - [médialab]({{ site.medialab.url }}).
+**artoo** is being developed by [Guillaume Plique](https://github.com/Yomguithereal) @ SciencesPo - [médialab]({{ site.medialab.url }}).
 
 Logo by [Daniele Guido](https://github.com/danieleguido).
 

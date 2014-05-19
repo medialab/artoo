@@ -72,7 +72,7 @@ artoo.instructions();
 
 ---
 
-<h2 id="get-script">artoo.instructions.startRecording</h2>
+<h2 id="start-recording">artoo.instructions.startRecording</h2>
 This function tells **artoo** to start recording typed instructions (**artoo** will do it by default if no settings indicates him the contrary).
 
 ```js
@@ -81,7 +81,7 @@ artoo.instructions.startRecording();
 
 ---
 
-<h2 id="get-script">artoo.instructions.stopRecording</h2>
+<h2 id="stop-recording">artoo.instructions.stopRecording</h2>
 This function tells **artoo** to stop recording typed instructions.
 
 ```js

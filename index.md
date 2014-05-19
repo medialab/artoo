@@ -6,7 +6,7 @@ id: home
 
 **artoo** is a piece of JavaScript code meant to be run in your browser's console to provide you with some scraping utilites.
 
-**artoo** can therefore be loaded into the JavaScript context of any webpage through a handy bookmarklet you can instantly install by dropping the icon below onto your bookmark bar.
+**artoo** is loaded into the JavaScript context of any webpage through a handy bookmarklet you can instantly install by dropping the icon below onto your bookmark bar.
 
 <p align="center">
   <a href='{{ site.bookmarklet }}'>
@@ -57,7 +57,7 @@ So why shouldn't we take advantage of this and start scraping with web browsers?
 
 Using browsers as scraping platforms come with a lot of advantages:
 
-* **Fast coding**: You can see and test the result of your code live thanks to JavaScript browsers' REPL and interact with DOM with useful interfaces. 
+* **Fast coding**: You can see and test the result of your code live thanks to JavaScript browsers' REPL and interact with DOM with useful interfaces.
 * **No more authentication issues**: No longer need to deploy clever solutions to enable your spiders to authenticate on the website you intent to scrape. You are already authenticated on your browser. Nor more trying to be recognized as a human being: you are a human being.
 * **Tools for non-devs**: You can design tools for non-dev people. One could easily build an application with a UI on top of **artoo**. Moreover, **artoo** gives you the possibility to create bookmarklets on the fly to execute your personnal scripts.
 
@@ -104,11 +104,31 @@ If you think this is injust and feel that some features can be ported to other b
 ---
 
 ## Authors
-**artoo** is being developed by [Guillaume Plique](https://github.com/Yomguithereal) for Sciences-Po's [médialab]({{ site.medialab.url }}).
+**artoo** is being developed by [Guillaume Plique](https://github.com/Yomguithereal) @ Sciences-Po - [médialab]({{ site.medialab.url }}).
 
 Logo by [Daniele Guido](https://github.com/danieleguido).
 
 ---
 
 ## License
-MIT
+The MIT License (MIT)
+
+Copyright (c) 2014 Guillaume Plique, Sciences-po médialab
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.

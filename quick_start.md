@@ -10,16 +10,6 @@ id: quick_start
 
 ---
 
-* [Installation](#installation)
-* [How can artoo help me with a basic list?](#basic-list)
-* [Needing more specific things?](#specific-things)
-* [A more complex list](#more-complex-list)
-* [Downloading your list](#downloading-list)
-* [Remember, remember](#remember)
-* [What next?](#what-next)
-
----
-
 <h2 id="installation">Installation</h2>
 Before anything, we need to install **artoo**. Hopefully, this is a painless task: just drop the icon below onto your bookmark bar.
 
@@ -32,6 +22,15 @@ Before anything, we need to install **artoo**. Hopefully, this is a painless tas
 If you have trouble dropping it, just right click the icon, copy the link address and create a new bookmark you will call artoo and paste the url.
 
 Now that we are ready, let's scrape!
+
+---
+
+* [How can artoo help me with a basic list?](#basic-list)
+* [Needing more specific things?](#specific-things)
+* [A more complex list](#more-complex-list)
+* [Downloading your list](#downloading-list)
+* [Remember, remember](#remember)
+* [What next?](#what-next)
 
 ---
 
@@ -263,7 +262,7 @@ Ok, now that you scraped your list, you might tell me:
 
 God no!
 
-**artoo** is a #handy droid and will make your browser download the list with the following command:
+**artoo** is a handy droid and will make your browser download the list with the following command:
 
 ```js
 artoo.savePrettyJson(niceList);
@@ -298,7 +297,7 @@ Furthermore, **artoo**'s helpers are often polymorphic and offer you a lot of di
 
 ---
 
-**artoo** is therefore able, more than just scraping lists and downloading files, to expand or scroll web page's content programmatically, to save persistent data in the local storage or in remote databases, to inject scripts, to crawl different websites, to trigger series of ajax queries and a lot of other things you'll be able to find in the **[methods]({{ site.baseurl }}/methods)** compendium of this documentation.
+**artoo**, more than just scraping lists and downloading files, is therefore able to expand or scroll web page's content programmatically, to save persistent data in the local storage or in remote databases, to inject scripts, to crawl different websites, to trigger series of ajax queries and a lot of other things you'll be able to find in the **[methods]({{ site.baseurl }}/methods)** compendium of this documentation.
 
 ---
 

@@ -244,6 +244,10 @@
         return {firstname: p[0], lastname: p[1], points: p[2]};
       });
 
+      var customs = flat.map(function(p) {
+        return {foo: p[0], bar: p[1], baz: p[2]};
+      });
+
       deepEqual(
         artoo.scrape(id + ' .reference tr:not(:first)', {
           scrape: {
@@ -281,6 +285,12 @@
         artoo.scrapeTable(id + ' .reference-no-headers', {headers: 'first'}),
         objects,
         'scrapTable with headers-first should produce the same result as above.'
+      );
+
+      deepEqual(
+        artoo.scrapeTable(id + ' .reference', {headers: ['foo', 'bar', 'baz']}),
+        customs,
+        'scrapTable with custom headers should produce the correct result.'
       );
 
       deepEqual(

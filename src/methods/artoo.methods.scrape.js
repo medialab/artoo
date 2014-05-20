@@ -135,6 +135,9 @@
           headerFn || 'text'
         );
       }
+      else if (artoo.helpers.isArray(headerType)) {
+        headers = headerType;
+      }
       else {
         artoo.log.error('invalid header type for scrapeTable method ' +
                         '("th" or "first").');

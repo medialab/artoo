@@ -7,6 +7,7 @@
    *
    * Some useful helpers.
    */
+  var _root = this;
 
   // Recursively extend objects
   function extend() {
@@ -161,9 +162,49 @@
       falseFn(nextFn);
   }
 
+  var globalsBlackList = [
+    'chrome',
+    'console',
+    'devicePixelRatio',
+    'document',
+    'localStorage',
+    'location',
+    'navigator',
+    'outerHeight',
+    'outerWidth',
+    'pageXOffset',
+    'pageYOffset',
+    'performance',
+    'screen',
+    'screenLeft',
+    'screenTop',
+    'screenX',
+    'screenY',
+    'scrollX',
+    'scrollY',
+    'sessionStorage'
+  ];
+
+  function getGlobalVariables() {
+    var p = Object.getPrototypeOf(_root),
+        o = {},
+        i;
+
+    for (i in _root)
+      if (!~i.indexOf('webkit') &&
+          !(i in p) &&
+          _root[i] !== _root &&
+          !(_root[i] instanceof BarProp) &&
+          !~globalsBlackList.indexOf(i))
+        o[i] = _root[i];
+
+    return o;
+  }
+
   // Exporting to artoo root
   artoo.injectScript = getScript;
   artoo.waitFor = waitFor;
+  artoo.getGlobalVariables = getGlobalVariables;
 
   // Exporting to artoo helpers
   artoo.helpers = {

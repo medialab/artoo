@@ -80,7 +80,7 @@ artoo.saveJson(data, {pretty: true});
 ---
 
 <h2 id="csv">artoo.saveCsv</h2>
-Download an array of array or an array of objects or a string as a CSV file.
+Download an array of array, an array of objects or a string as a CSV file.
 
 ```js
 artoo.saveCsv(data, [params]);
@@ -110,3 +110,56 @@ artoo.saveCsv(persons);
 
 For more precisions, refer to [artoo.helpers.toCSVString]({{ site.baseurl }}/helpers#to-csv-string) method.
 
+---
+
+<h2 id="html">artoo.saveHtml</h2>
+Download HTML corresponding either to a string or a selector.
+
+```js
+artoo.saveHtml(data, [params]);
+```
+
+*Example*
+
+```js
+artoo.saveHtml($('div.the-div-id-need'), {filename: 'div.html'});
+```
+
+---
+
+<h2 id="page-html">artoo.savePageHtml</h2>
+Download the page's current Html.
+
+```js
+artoo.savePageHtml([params]);
+```
+
+---
+
+<h2 id="store">artoo.saveStore</h2>
+Save the content of the local storage as a JSON file. You can also alternatively select to download only the part corresponding to a key.
+
+```js
+artoo.saveStore([params]);
+```
+
+*Additional Parameters*
+
+* **key** *?string* : the precise key to save.
+
+*Example*
+
+```js
+artoo.saveStore({key: 'your-needed-key'});
+```
+
+---
+
+<h2 id="instructions">artoo.saveInstructions</h2>
+Save the instructions recorded by artoo as a JavaScript file.
+
+```js
+artoo.saveInstructions([params]);
+```
+
+If you want more precise information about how the instructions recording work, the [instructions]({{ site.baseurl }}/instructions) section of this documentation should be of help.

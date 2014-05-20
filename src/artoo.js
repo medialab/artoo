@@ -13,10 +13,6 @@
   var artoo = {
     $: {},
     jquery: {
-      setß: function() {
-        if (artoo.settings.jquery.ß)
-          _root.ß = artoo.$;
-      },
       plugins: []
     },
     version: '0.0.2'

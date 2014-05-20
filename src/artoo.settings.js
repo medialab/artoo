@@ -30,8 +30,7 @@
     },
     jquery: {
       version: '2.1.1',
-      force: false,
-      ß: true
+      force: false
     },
     log: {
       enabled: true,

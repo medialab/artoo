@@ -28,7 +28,6 @@
 
       // Internal reference
       artoo.$ = jQuery;
-      artoo.jquery.setß();
 
       cb();
     }
@@ -41,7 +40,6 @@
                           'to replace the current $ variable.');
 
         artoo.$ = jQuery;
-        artoo.jquery.setß();
 
         cb();
       });
@@ -53,10 +51,9 @@
         artoo.log.warning(
           'Either jQuery has not a valid version or another library ' +
           'using $ is already present. ' +
-          'Exporting correct version to ß (or artoo.$).');
+          'Correct version available through `artoo.$`.');
 
         artoo.$ = jQuery.noConflict(true);
-        artoo.jquery.setß();
 
         cb();
       });
@@ -69,7 +66,6 @@
                        '(v' + desiredVersion + ').');
 
         artoo.$ = jQuery;
-        artoo.jquery.setß();
 
         cb();
       });

@@ -96,7 +96,6 @@
   // Checking whether a variable is a jQuery selector
   function isSelector(v) {
     return (artoo.$ && v instanceof artoo.$) ||
-           (ß && v instanceof ß) ||
            (jQuery && v instanceof jQuery) ||
            ($ && v instanceof $);
   }

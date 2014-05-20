@@ -38,10 +38,6 @@
       level: 'verbose',
       beeping: false
     },
-    gists: {
-      user: null,
-      cache: true
-    },
     navigation: {
       history: true
     },
@@ -52,16 +48,6 @@
 
   // Setting utility
   artoo.loadSettings = function(ns) {
-    var s = artoo.settings,
-        k;
-
-    if (ns) {
-      for (k in ns) {
-        if (artoo.helpers.isPlainObject(ns[k]))
-          s[k] = artoo.helpers.extend(ns[k], s[k]);
-        else
-          s[k] = ns[k];
-      }
-    }
+    artoo.settings = artoo.helpers.extend(ns, artoo.settings);
   };
 }).call(this);

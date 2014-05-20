@@ -10,7 +10,6 @@ id: methods
 
 * [Why jQuery?](#why)
 * [Logic of the injection](#logic)
-* [The ß variable](#beta)
 * [jQuery settings](#settings)
 * [jQuery simulate](#simulate)
 * [$ in artoo's functions](#dollar)
@@ -35,13 +34,7 @@ The logic followed by **artoo**'s jQuery injection is the following:
 <br><br>
 > 2. If jQuery is not present and if `$` is not used by some other library, **artoo** will inject a suitable version of jQuery.
 <br><br>
-> 3. Finally, if jQuery is present in a wrong version or if `$` is used by another library, **artoo** will load jQuery but won't override the page's `$`. jQuery will then be available through `artoo.$` and `ß`.
-
----
-
-<h2 id="beta">The ß variable</h2>
-
-As an helper, **artoo** will assign a reference to jQuery through the `ß` variable (usually `alt + b`).
+> 3. Finally, if jQuery is present in a wrong version or if `$` is used by another library, **artoo** will load jQuery but won't override the page's `$`. jQuery will then be available through `artoo.$`.
 
 ---
 

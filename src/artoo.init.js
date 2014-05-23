@@ -24,12 +24,6 @@
   // Initialization function
   function main() {
 
-    // Retrieving settings from script tag
-    artoo.dom = document.getElementById('artoo_injected_script');
-
-    if (artoo.dom)
-      artoo.loadSettings(JSON.parse(artoo.dom.getAttribute('settings')));
-
     // Triggering countermeasures
     artoo.hooks.trigger('countermeasures');
 
@@ -74,6 +68,12 @@
     // Updating artoo state
     this.loaded = true;
   }
+
+  // Retrieving settings from script tag
+  artoo.dom = document.getElementById('artoo_injected_script');
+
+  if (artoo.dom)
+    artoo.loadSettings(JSON.parse(artoo.dom.getAttribute('settings')));
 
   // Adding functions to hooks
   artoo.hooks.init.unshift(main);

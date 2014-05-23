@@ -16,7 +16,6 @@
     autoExec: true,
     chromeExtension: false,
     debug: false,
-    gist: null,
     scriptUrl: null,
     eval: null,
     reload: false,

@@ -9,12 +9,12 @@
 .theme-base-artoo .sidebar,
 .theme-base-artoo .sidebar-toggle:active,
 .theme-base-artoo #sidebar-checkbox:checked ~ .sidebar-toggle {
-  background-color: #00236D;
+  background-color: #1f5baa;
 }
 .theme-base-artoo .container a,
 .theme-base-artoo .sidebar-toggle,
 .theme-base-artoo .related-posts li a:hover {
-  color: #00236D;
+  color: #1f5baa;
 }
 
 .artoo-bookmark-highlight {
@@ -22,7 +22,7 @@
 }
 
 .artoo-bookmark-highlight a {
-  background-color: #00236D;
+  background-color: #1f5baa;
   color: white;
   padding: 0 10px;
   padding-bottom: 3px;

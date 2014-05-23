@@ -18,7 +18,7 @@ id: methods
 
 <h2 id="why">Why jQuery?</h2>
 
-It would be a rather injust statement to say that jQuery is useless when it comes to DOM parsing and AJAX queries. This is indeed a nice and widely used library and anyone who tried to scrape data from HTML with jQuery once may have a lot of regrets while returning to XPath&#42;.
+It would be an understatement to say that jQuery is useless when it comes to DOM parsing and AJAX queries. This is indeed a nice and widely used library and anyone who tried to scrape data from HTML with jQuery once may have a lot of regrets while returning to XPath&#42;.
 
 So, in order to make your scraping jobs an agreable moment, **artoo** injects jQuery within the page you are browsing.
 
@@ -40,7 +40,7 @@ The logic followed by **artoo**'s jQuery injection is the following:
 
 <h2 id="settings">jQuery settings</h2>
 
-If you find exhausting to use `artoo.$` or `ß` in pages where **artoo** thinks he should not automatically override them and if you know reassigning `$` won't cause trouble, you are obviously free to do so.
+If you find exhausting to use `artoo.$` in pages where **artoo** thinks he should not override another `$` variable and if you know for sure that reassigning it won't cause trouble, you are obviously free to do so.
 
 ```js
 var $ = artoo.$;
@@ -54,7 +54,7 @@ Finally, if you prefer another jQuery version, you can also configure it in the 
 
 <h2 id="simulate">jQuery simulate</h2>
 
-In order to be able to trigger complex DOM events as well as a human would, **artoo** encapsulate the jquery.simulate plugin.
+In order to be able to trigger complex DOM events as well as a human would, **artoo** encapsulates the `jquery.simulate` plugin.
 
 It is commonly used to perform functionnal testing and ensure that interfaces are working correctly. But scrapers know it can be useful otherwise...
 
@@ -62,7 +62,7 @@ It is commonly used to perform functionnal testing and ensure that interfaces ar
 
 <h2 id="dollar">$ in artoo's functions</h2>
 
-Knowing that you may not be able to access easily jQuery through `$`, **artoo** give access to his internal jQuery instance in some of his methods callbacks. This is for instance the case with the `artoo.scrape` method.
+Knowing that you may not be able to access easily jQuery through `$`, **artoo** gives access to his internal jQuery instance in some of his methods callbacks. This is for instance the case with the `artoo.scrape` method.
 
 *Example*
 

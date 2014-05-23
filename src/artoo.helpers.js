@@ -163,13 +163,29 @@
   }
 
   var globalsBlackList = [
+    '__commandLineAPI',
+    'applicationCache',
     'chrome',
+    'closed',
     'console',
+    'crypto',
+    'CSS',
+    'defaultstatus',
+    'defaultStatus',
     'devicePixelRatio',
     'document',
+    'external',
+    'frameElement',
+    'history',
+    'indexedDB',
+    'innerHeight',
+    'innerWidth',
+    'length',
     'localStorage',
     'location',
-    'navigator',
+    'name',
+    'offscreenBuffering',
+    'opener',
     'outerHeight',
     'outerWidth',
     'pageXOffset',
@@ -182,7 +198,10 @@
     'screenY',
     'scrollX',
     'scrollY',
-    'sessionStorage'
+    'sessionStorage',
+    'speechSynthesis',
+    'status',
+    'styleMedia'
   ];
 
   function getGlobalVariables() {
@@ -195,6 +214,7 @@
           !(i in p) &&
           _root[i] !== _root &&
           !(_root[i] instanceof BarProp) &&
+          !(_root[i] instanceof Navigator) &&
           !~globalsBlackList.indexOf(i))
         o[i] = _root[i];
 

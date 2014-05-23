@@ -63,7 +63,7 @@ var list = artoo.scrape('ul > li', 'text');
 artoo.savePrettyJson(list);
 
 artoo.instructions();
-"// http://currentUrl/artoo/instructions
+"// http://currentUrl
  // Mon May 19 2014 20:56:50 GMT+0200 (CEST)
  var list = artoo.scrape('ul > li', 'text');
 

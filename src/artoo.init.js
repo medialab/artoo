@@ -61,10 +61,6 @@
       artoo.hooks.trigger('ready');
     });
 
-    // Deleting artoo's dom element
-    if (artoo.dom)
-      artoo.dom.parentNode.removeChild(artoo.dom);
-
     // Updating artoo state
     this.loaded = true;
   }
@@ -72,8 +68,10 @@
   // Retrieving settings from script tag
   artoo.dom = document.getElementById('artoo_injected_script');
 
-  if (artoo.dom)
+  if (artoo.dom) {
     artoo.loadSettings(JSON.parse(artoo.dom.getAttribute('settings')));
+    artoo.dom.parentNode.removeChild(artoo.dom);
+  }
 
   // Adding functions to hooks
   artoo.hooks.init.unshift(main);

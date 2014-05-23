@@ -14,6 +14,7 @@ id: helpers
 
 **Root helpers** - *callable from `artoo`*
 
+* [artoo.getGlobalVariables](#global-variables)
 * [artoo.injectScript](#inject-script)
 * [artoo.waitFor](#wait-for)
 
@@ -21,6 +22,18 @@ id: helpers
 
 * [artoo.helpers.toCSVString](#to-csv-string)
 
+---
+
+<h2 id="global-variables">artoo.getGlobalVariables</h2>
+Returns global variables set by the page itself.
+
+This can be useful if you need to search for loopholes in the page's JavaScript code.
+
+Sometimes, you don't even need to scrape as the developer forgot his/her variables containing the data you need in the global scope.
+
+```js
+artoo.getGlobalVariables();
+```
 
 ---
 

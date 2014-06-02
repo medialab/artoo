@@ -10,7 +10,7 @@ id: scrape
 
 **artoo**'s main goal is to provide you with some useful scraping helpers and this is precisely what the following methods do.
 
-It is advisable, however, to check the [quick start]({{ site.baseurl }}/quick_start) section of this documentation to find a less exhaustive but more concise presentation about the `artoo.scrape` method.
+It is advisable, however, to check the [quick start]({{ site.baseurl }}/quick_start) section of this documentation to find a less exhaustive but more didactic presentation of `artoo.scrape` method.
 
 ---
 
@@ -140,7 +140,88 @@ artoo.scrape('ul.list > li', {
 
 <h2 id="scrape-one">artoo.scrapeOne</h2>
 
+`scrapeOne` is works the same way as `scrape` but will only return the first element. It is strictly the same as passing `1` as the `limit` parameter.
+
+```js
+artoo.scrapeOne(iterator, model, [params, callback]);
+```
+
+*Example*
+
+```js
+artoo.scrapeOne('ul a', {url: 'href', title: 'text'});
+>>> {
+  url: 'http://firstelement.com',
+  title: 'First Element'
+}
+```
+
 ---
 
 <h2 id="scrape-table">artoo.scrapeTable</h2>
-helper on basic table iteration
+
+`scrapeTable` is a handful helper when you need to scrape data from a HTML table.
+
+```js
+artoo.scrapeTable(selector, [params, callback]);
+```
+
+*Arguments*
+
+* **selector** *css selector | jQuery selector* : the root selector of the table you need to scrape.
+* **params** *?object* : an object of optional parameters.
+  * **limit** *?integer* : the number of items you want to scrape if you do not want each of them.
+  * **headers** *?mixed*: see below.
+  * **data** *?object* : the data retriever as expressed for the `scrape` method if needed.
+  * **done** *?function* : a function taking as only argument the scraped items and to be triggered when the scraping is done.
+* **callback** : same as `params.done`.
+
+*Headers*
+
+It is possible to specify headers for the scraped table. If you do so, instead of returning an array of array, the `scrapeTable` method will return an array of objects.
+
+You can therefore specify headers through the following ways:
+
+* **a string** : either `'first'` to declare the first row as headers or `'th'` if the table as regular HTML headers.
+* **an object** : a configuration object containing at least one of the following parameters.
+  * **type** *?string* : same as passing a string.
+  * **method** *?function* : a function to be called on each iteration of the desired headers.
+
+*Example*
+
+<table class="reference">
+  <tr>
+    <td><b>First Name</b></td>
+    <td><b>Last Name</b></td>
+    <td><b>Points</b></td>
+  </tr>
+  <tr>
+    <td>Jill</td>
+    <td>Smith</td>
+    <td>50</td>
+  </tr>
+  <tr>
+    <td>Eve</td>
+    <td>Jackson</td>
+    <td>94</td>
+  </tr>
+  <tr>
+    <td>John</td>
+    <td>Doe</td>
+    <td>80</td>
+  </tr>
+  <tr>
+    <td>Adam</td>
+    <td>Johnson</td>
+    <td>67</td>
+  </tr>
+</table>
+
+To scrape the above table and download it as a CSV file, just execute the following command:
+
+```js
+artoo.scrapeTable('table.reference', {
+  headers: 'first',
+  done: artoo.saveCsv
+});
+```

@@ -1,5 +1,7 @@
 <p align="center">
-  <img alt="artoo" width="148" height="148" src="http://medialab.github.io/artoo/public/img/artoo-icon.svg" />
+  <a href="http://medialab.github.io/artoo/">
+    <img alt="artoo" width="148" height="148" src="http://medialab.github.io/artoo/public/img/artoo-icon.svg" />
+  </a>
 </p>
 
 **artoo** is a piece of JavaScript code meant to be run in your browser's console to provide you with some scraping utilites.

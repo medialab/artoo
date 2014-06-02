@@ -35,7 +35,7 @@ If what you need is documentation about the artoo grunt task, [there]({{ site.ba
 
 ## Why client-side scraping?
 
-> &laquo; *Why on earth would I scrape client-side? Isn't this insane?* &raquo;
+> &laquo; *Why on earth should I scrape client-side? Isn't this insane?* &raquo;
 
 Well, before quitting the present documentation and run back to your beloved scrapy spiders, you should pause for a minute or two and read the reasons why **artoo** has made the choice of client-side scraping.
 

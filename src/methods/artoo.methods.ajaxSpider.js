@@ -24,7 +24,9 @@
         artoo.$.get(o, c);
       } :
       function(c) {
-        artoo.$[o.method || params.method || 'get'](o.url, o.data || {}, c);
+        artoo.$[o.method || params.method || 'get'](
+          o.url, o.data || params.data || {}, c
+        );
       };
 
     // Getting data with ajax

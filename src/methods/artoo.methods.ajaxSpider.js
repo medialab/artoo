@@ -64,15 +64,17 @@
 
   // TODO: asynchronous
   artoo.ajaxSpider = function(list, params, cb) {
-    var p;
+    var fn,
+        p;
 
     // Default
     params = params || {};
 
     // If only callback
     if (typeof params === 'function') {
+      fn = params;
       params = {};
-      params.callback = params;
+      params.done = fn;
     }
 
     // Dealing with callback polymorphism

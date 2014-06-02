@@ -18,9 +18,13 @@
   <div id="qunit-fixture"></div>
   <div id="artoo-doms"></div>
   <script src="lib/jquery-2.1.1.min.js"></script>
+  <script src="lib/jquery.mockjax.js"></script>
   <script src="qunit/qunit.js"></script>
   <script type="text/javascript">
     QUnit.config.autostart = false;
+
+    $.mockjaxSettings.responseTime = 200;
+    $.mockjaxSettings.log = function() {};
   </script>
 
   <!-- START ARTOO IMPORTS -->
@@ -63,6 +67,7 @@
   <script src="unit.helpers.js"></script>
   <script src="unit.artoo.helpers.js"></script>
   <script src="unit.artoo.scrape.js"></script>
+  <script src="unit.artoo.spiders.js"></script>
   <script src="unit.artoo.store.js"></script>
 </body>
 </html>

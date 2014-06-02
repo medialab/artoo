@@ -13,7 +13,11 @@
     acc = acc || [];
     i = i || 0;
 
-    var o = list[i];
+    var o = (typeof list === 'function') ? list(i) : list[i];
+
+    // Breaking if iterator returns false
+    if (o === false)
+      return params.done(acc);
 
     var get = (typeof o === 'string') ?
       function(c) {
@@ -24,28 +28,49 @@
       };
 
     // Getting data with ajax
-    if (params.throttle)
-      setTimeout(get, !i || params.throttle, dataRetrieved);
+    if (params.throttle > 0)
+      setTimeout(get, !i ? 0 : params.throttle, dataRetrieved);
+    else if (typeof params.throttle === 'function')
+      setTimeout(get, !i ? 0 : params.throttle(i), dataRetrieved);
     else
       get(dataRetrieved);
 
     function dataRetrieved(data) {
-      acc.push(params.callback ? params.callback(data, i, acc) : data);
+      var result = (typeof params.callback === 'function') ?
+        params.callback(data, i, acc) :
+        data;
 
-      if (++i === list.length && typeof params.done === 'function')
+      // If false is returned as the callback, we break
+      if (result === false)
+        return params.done(acc);
+
+      acc.push(result);
+      i++;
+
+      if (artoo.helpers.isArray(list) && i === list.length)
         params.done(acc);
       else
         loop(list, params, acc, i);
     }
   }
 
-  // TODO: Possibility for an iterator as list
-  // TODO: if fn returns false or list run dry, we stop
   // TODO: asynchronous
   artoo.ajaxSpider = function(list, params, cb) {
-    params = params || {};
-    cb = cb || params.done;
+    var p;
 
-    loop(list, params);
+    // Default
+    params = params || {};
+
+    // If only callback
+    if (typeof params === 'function') {
+      params = {};
+      params.callback = params;
+    }
+
+    // Dealing with callback polymorphism
+    if (typeof cb === 'function')
+      p = artoo.helpers.extend({done: cb}, params);
+
+    loop(list, artoo.helpers.extend(p || params, {done: artoo.helpers.noop}));
   };
 }).call(this);

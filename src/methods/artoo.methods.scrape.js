@@ -120,7 +120,7 @@
     }
     else {
       var headerType = params.headers.type ||
-                       params.headers.methods && 'first' ||
+                       params.headers.method && 'first' ||
                        params.headers,
           headerFn = params.headers.method;
 

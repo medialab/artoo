@@ -26,6 +26,9 @@
     return res;
   }
 
+  // Useless function
+  function noop() {}
+
   // Is the var an array?
   function isArray(v) {
     return v instanceof Array;
@@ -36,7 +39,9 @@
   }
 
   function isPlainObject(v) {
-    return v instanceof Object && !(v instanceof Array);
+    return v instanceof Object &&
+           !(v instanceof Array) &&
+           !(v instanceof Function);
   }
 
   // Some function
@@ -236,6 +241,7 @@
     isPlainObject: isPlainObject,
     isSelector: isSelector,
     lazy: lazy,
+    noop: noop,
     toCSVString: toCSVString,
     some: some
   };

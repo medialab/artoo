@@ -34,14 +34,22 @@
     return v instanceof Array;
   }
 
+  // Is the var an object?
   function isObject(v) {
     return v instanceof Object;
   }
 
+  // Is the var a plain object?
   function isPlainObject(v) {
     return v instanceof Object &&
            !(v instanceof Array) &&
            !(v instanceof Function);
+  }
+
+  // Flattening an array of array
+  function flatten(a) {
+    var m = [];
+    return m.concat.apply(m, a);
   }
 
   // Some function
@@ -236,6 +244,7 @@
     extend: extend,
     enforceSelector: enforceSelector,
     first: first,
+    flatten: flatten,
     isArray: isArray,
     isObject: isObject,
     isPlainObject: isPlainObject,

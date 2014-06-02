@@ -43,11 +43,14 @@
   <script src="../src/methods/artoo.methods.store.js"></script>
   <script src="../src/methods/artoo.methods.state.js"></script>
   <!-- END ARTOO IMPORTS -->
-  
+
   <script type="text/javascript">
 
     // Disabling artoo's console for tests
     artoo.settings.log = false;
+
+    // Disabling instructions recording
+    artoo.instructions.record = false;
 
     // Launching tests when artoo is ready
     artoo.ready(function() {

@@ -46,7 +46,13 @@
       if (result === false)
         return params.done(acc);
 
-      acc.push(result);
+      // Concat or push?
+      if (params.concat)
+        acc = acc.concat(result);
+      else
+        acc.push(result);
+
+      // Incrementing
       i++;
 
       if (artoo.helpers.isArray(list) && i === list.length)

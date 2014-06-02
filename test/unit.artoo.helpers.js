@@ -42,6 +42,14 @@
     );
   });
 
+  test('flatten', function() {
+    deepEqual(
+      artoo.helpers.flatten([[1, 2], [3, 4]]),
+      [1, 2, 3, 4],
+      'Flatten should work correctly.'
+    );
+  });
+
   // Testing the toCSVString function
   test('toCSVString', function() {
     var arrays = {

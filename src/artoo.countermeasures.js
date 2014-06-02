@@ -18,7 +18,7 @@
       return;
 
     // The console have been shunted, repairing...
-    ['log', 'info', 'debug', 'log'].forEach(function(fn) {
+    ['log', 'info', 'debug', 'warn'].forEach(function(fn) {
       console[fn] = console.__proto__[fn];
     });
 

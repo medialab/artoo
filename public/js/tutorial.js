@@ -1,5 +1,7 @@
 ;(function(undefined) {
   'use strict';
+  artoo.init();
+  return;
 
   var root = this;
 

@@ -277,12 +277,12 @@ a.sidebar-nav-item:focus {
           transition: transform .3s ease-in-out;
 }
 
-#sidebar-checkbox:checked + .sidebar {
+#sidebar-checkbox + .sidebar {
   visibility: visible;
 }
-#sidebar-checkbox:checked ~ .sidebar,
-#sidebar-checkbox:checked ~ .wrap,
-#sidebar-checkbox:checked ~ .sidebar-toggle {
+#sidebar-checkbox ~ .sidebar,
+#sidebar-checkbox ~ .wrap,
+#sidebar-checkbox ~ .sidebar-toggle {
   -webkit-transform: translateX(14rem);
       -ms-transform: translateX(14rem);
           transform: translateX(14rem);

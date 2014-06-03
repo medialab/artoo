@@ -36,3 +36,15 @@
 .sidebar-nav, .sidebar-nav-item {
   border: none;
 }
+
+.wrap {
+  padding-right: 14rem;
+}
+
+.container {
+  margin: 0 auto;
+}
+
+.sidebar-toggle {
+  display: none;
+}

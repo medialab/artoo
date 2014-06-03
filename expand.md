@@ -59,7 +59,7 @@ artoo.autoExpand({
 
 * **params** *object* : an object of parameters.
   * **expand** *function | css selector* : a required function programmatically performing the action needed to expand the desired content. You can alternatively pass a css selector as the expand parameter and **artoo** will assume he has to click the selected elements.
-  * **elements** *css selector* : selector on the watched elements. For instance, if you want to expand posts and posts have the class `.class`, the `autoExpand` method will wait until more of those elements exist to assert the expansion has worked.
+  * **elements** *css selector* : selector on the watched elements. For instance, if you want to expand posts and posts have the class `.posts`, the `autoExpand` method will wait until more of those elements exist to assert the expansion has worked.
   * **canExpand** *?function | ?css selector* : a function returning a boolean and asserting whether content can or cannot be expanded. Alternatively, a selector meaning true if at least one of the elements is present.
   * **isExpanding** *?function | ?css selector* : a function returning a boolean and asserting whether content is currently expanding. This typically tracks the visibility or existence of a loading animation or gif. Alternatively a selector meaning true if at least one of the elements is present.
   * **limit** *?integer* : maximum number of expansions.

@@ -33,11 +33,7 @@
     },
     log: {
       enabled: true,
-      level: 'verbose',
       beeping: false
-    },
-    navigation: {
-      history: true
     },
     store: {
       engine: 'local'

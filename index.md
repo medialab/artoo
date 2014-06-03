@@ -14,24 +14,24 @@ id: home
   </a>
 </p>
 
-Now that you have installed **artoo** let's scrape Hacker News in four painless steps:
+Now that you have installed **artoo** let's scrape *Hacker News* in four painless steps:
 
-1. Copy the following instruction.
+* Copy the following instruction.
 
 ```js
-artoo.scrape('td.title:has(a)', {
+artoo.scrape('td.title:has(a):not(:last)', {
   title: {sel: 'a'},
   url: {sel: 'a', attr: 'href'}
 }, artoo.savePrettyJson);
 ```
 
-2. Go to <a href="https://news.ycombinator.com/" target="_blank">Hacker News</a>
-3. Open JavaScript console and click the freshly created bookmarklet (**artoo** should greet you and tell you he is ready to roll).
-4. Hit enter.
+* Go to <a href="https://news.ycombinator.com/" target="_blank">Hacker News</a>
+* Open your JavaScript console and click the freshly created bookmarklet (**artoo** should greet you and tell you he is ready to roll).
+* Paste the instruction and hit enter.
 
-That's it. You've just scraped Hacker News front page and downloaded the resultant data as a json file&#42;.
+That's it. You've just scraped *Hacker News* front page and downloaded the resultant data as a json file&#42;.
 
-&#42; <small>If you need a more complete scraper, check out [this]({{ site.baseurl }}/hacker_news).</small>
+&#42; <small>If you need a more thorough scraper, check out [this]({{ site.baseurl }}/hacker_news).</small>
 
 ---
 

@@ -11,7 +11,7 @@ id: hacker_news
 ## Basic
 
 ```js
-artoo.scrape('td.title:has(a)', {
+artoo.scrape('td.title:has(a):not(:last)', {
   title: {sel: 'a'},
   url: {sel: 'a', attr: 'href'}
 }, artoo.savePrettyJson);
@@ -20,7 +20,7 @@ artoo.scrape('td.title:has(a)', {
 ## Full
 
 ```js
-artoo.scrape('td.title:has(a)', {
+artoo.scrape('td.title:has(a):not(:last)', {
   title: {sel: 'a'},
   url: {sel: 'a', attr: 'href'},
   domain: function($) {
@@ -41,3 +41,6 @@ artoo.scrape('td.title:has(a)', {
   }
 }, artoo.savePrettyJson);
 ```
+
+## Getting more pages
+One could easily scrape several pages by using an [ajaxSpider]({{ site.baseurl }}/spiders).

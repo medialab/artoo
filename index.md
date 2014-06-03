@@ -14,7 +14,24 @@ id: home
   </a>
 </p>
 
-Just click the freshly created bookmark and **artoo** should greet you within your browser's console and tell you he is ready to roll.
+Now that you have installed **artoo** let's scrape Hacker News in four painless steps:
+
+1. Copy the following instruction.
+
+```js
+artoo.scrape('td.title:has(a)', {
+  title: {sel: 'a'},
+  url: {sel: 'a', attr: 'href'}
+}, artoo.savePrettyJson);
+```
+
+2. Go to <a href="https://news.ycombinator.com/" target="_blank">Hacker News</a>
+3. Open JavaScript console and click the freshly created bookmarklet (**artoo** should greet you and tell you he is ready to roll).
+4. Hit enter.
+
+That's it. You've just scraped Hacker News front page and downloaded the resultant data as a json file&#42;.
+
+&#42; <small>If you need a more complete scraper, check out [this]({{ site.baseurl }}/hacker_news).</small>
 
 ---
 
@@ -108,28 +125,3 @@ npm run https
 **artoo** is being developed by [Guillaume Plique](https://github.com/Yomguithereal) @ SciencesPo - [médialab]({{ site.medialab.url }}).
 
 Logo by [Daniele Guido](https://github.com/danieleguido).
-
----
-
-## License
-The MIT License (MIT)
-
-Copyright (c) 2014 Guillaume Plique, Sciences-po médialab
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.

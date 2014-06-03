@@ -7,12 +7,13 @@
    *
    * Launch artoo's init hooks.
    */
+  var _root = this;
 
   // Script evaluation function
   function exec() {
     if (artoo.settings.eval) {
       artoo.log.verbose('evaluating and executing the script given to artoo.');
-      eval(JSON.parse(artoo.settings.eval));
+      eval.call(_root, JSON.parse(artoo.settings.eval));
     }
     else if (artoo.settings.scriptUrl) {
       artoo.log.verbose('executing script at "' +

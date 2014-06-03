@@ -301,6 +301,6 @@ Furthermore, **artoo**'s helpers are often polymorphic and offer you a lot of di
 
 ---
 
-Finally, if you happen to be a super lazy guy or if you need to perform more complex scraping jobs and need, for instance, to overcome some websites' particularly nasty `Content-Security-Policy` headers, **artoo** also exists as a chrome extension.
+Finally, if you happen to be a super lazy guy or if you need to perform more complex scraping jobs and need, for instance, to overcome some websites' particularly nasty `Content-Security-Policy` headers, **artoo** also exists as a [chrome extension]({{ site.baseurl }}/chrome).
 
 This extension, given you activate it, automatically injects **artoo** into every page you visit and override websites' responses headers in order to make client-side scraping a possibility.

@@ -16,7 +16,7 @@
     var canExpand = (params.canExpand) ?
       (typeof params.canExpand === 'string' ?
         artoo.$(params.canExpand).length > 0 :
-        params.canExpand()) :
+        params.canExpand(artoo.$)) :
       true;
 
     // Is this over?
@@ -34,9 +34,9 @@
       params.expand;
 
     if (params.throttle)
-      setTimeout(expandFn, params.throttle);
+      setTimeout(expandFn, params.throttle, artoo.$);
     else
-      expandFn();
+      expandFn(artoo.$);
 
     // Waiting expansion
     if (params.isExpanding) {
@@ -54,7 +54,7 @@
 
         artoo.waitFor(
           function() {
-            return !isExpanding();
+            return !isExpanding(artoo.$);
           },
           function() {
             _expand(params, ++i);

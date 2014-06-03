@@ -8,4 +8,11 @@ id: chrome
 
 ---
 
-Documentation to come...
+Presentation
+
+## Installation
+
+## Features
+
+* Bypassing
+* Automatic loading

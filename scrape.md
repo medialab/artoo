@@ -70,6 +70,8 @@ Ok, but now that you know what kind of array you want to be returned, you need t
 
 There are three ways to get what you want with `artoo.scrape`:
 
+---
+
 #### a single string
 
 Basically, if you pass a string as your retriever, **artoo** will try to apply the given jQuery method, `text` or `html` for instance, to the current item in the iteration, else he'll try to find a relevant attribute.
@@ -81,6 +83,8 @@ artoo.scrape('ul > li', 'html');
 // We want to retrieve the href of the elements
 artoo.scrape('ul a', 'href');
 ```
+
+---
 
 #### an expressive object
 
@@ -94,6 +98,14 @@ artoo.scrape('ul > li', {
   url: {sel: 'a', attr: 'href'}
 });
 ```
+Possible properties for a retriever object are the following:
+
+* **sel** *?css Selector | jQuery selector* : a subselector for the retriever (will apply `.find(sel)` to the current element in iteration). If a `method` property is given as a function, `$(this)` will correspond to this subselection.
+* **attr** *?string* : an attribute to retrieve.
+* **method** *?string | ?function* : the name of a jQuery element method like `text` or `html` or a custom function.
+* **defaultValue** *?mixed* : a default value to return in case the retriever would return a falsy value or `NaN`.
+
+---
 
 #### a function
 

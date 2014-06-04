@@ -44,10 +44,11 @@ artoo.scrape('tr tr:has(td.title:has(a)):not(:last)', {
   nb_comments: {
     sel: '+ tr a[href^=item]',
     method: function($) {
-      return +$(this).text().replace(/ comments/, '');
+      var nb = +$(this).text().replace(/ comments/, '');
+      return isNaN(nb) ? 0 : nb;
     }
   }
-});
+}, artoo.savePrettyJson);
 ```
 
 ## Getting more pages

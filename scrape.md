@@ -100,10 +100,13 @@ artoo.scrape('ul > li', {
 ```
 Possible properties for a retriever object are the following:
 
-* **sel** *?css Selector | jQuery selector* : a subselector for the retriever (will apply `.find(sel)` to the current element in iteration). If a `method` property is given as a function, `$(this)` will correspond to this subselection.
 * **attr** *?string* : an attribute to retrieve.
-* **method** *?string | ?function* : the name of a jQuery element method like `text` or `html` or a custom function.
 * **defaultValue** *?mixed* : a default value to return in case the retriever would return a falsy value or `NaN`.
+* **method** *?string | ?function* : the name of a jQuery element method like `text` or `html` or a custom function.
+* **scrape** *?object* : helper for recursivity. See [recursivity](#recursivity) for complete documentation.
+* **sel** *?css Selector | jQuery selector* : a subselector for the retriever (will apply `.find(sel)` to the current element in iteration). If a `method` property is given as a function, `$(this)` will correspond to this subselection.
+
+
 
 ---
 
@@ -134,7 +137,7 @@ artoo.scrape('ul > li', {
 })
 ```
 
-### Recursivity
+<h3 id="recursivity">Recursivity</h3>
 
 If you need recursivity within the `artoo.scrape` method, rather that calling the method itself in a function retriever, you can also pass an object with the scrape property like in the example below.
 

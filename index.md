@@ -31,7 +31,7 @@ artoo.scrape('td.title:has(a):not(:last)', {
 
 That's it. You've just scraped *Hacker News* front page and downloaded the resultant data as a json file&#42;.
 
-&#42; <small>If you need a more thorough scraper, check out [this]({{ site.baseurl }}/hacker_news).</small>
+&#42; <small>If you need a more thorough scraper, check [this]({{ site.baseurl }}/hacker_news) out.</small>
 
 ---
 
@@ -72,10 +72,10 @@ Isn't this the definition of a **Web browser**?
 
 So why shouldn't we take advantage of this and start scraping with web browsers? It has become really easy today to execute JavaScript in browsers' console and this is exactly what **artoo** is doing.
 
-Using browsers as scraping platforms come with a lot of advantages:
+Using browsers as scraping platforms comes with a lot of advantages:
 
 * **Fast coding**: You can see and test the result of your code live thanks to JavaScript browsers' REPL and interact with DOM with useful interfaces.
-* **No more authentication issues**: No longer need to deploy clever solutions to enable your spiders to authenticate on the website you intent to scrape. You are already authenticated on your browser. Nor more trying to be recognized as a human being: you are a human being.
+* **No more authentication issues**: No longer need to deploy clever solutions to enable your spiders to authenticate on the website you intent to scrape. You are already authenticated on your browser. No more trying to be recognized as a human being: you are a human being.
 * **Tools for non-devs**: You can design tools for non-dev people. One could easily build an application with a UI on top of **artoo**. Moreover, **artoo** gives you the possibility to create bookmarklets on the fly to execute your personnal scripts.
 
 ---

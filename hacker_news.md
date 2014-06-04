@@ -20,24 +20,30 @@ artoo.scrape('td.title:has(a):not(:last)', {
 ## Full
 
 ```js
-artoo.scrape('td.title:has(a):not(:last)', {
-  title: {sel: 'a'},
-  url: {sel: 'a', attr: 'href'},
-  domain: function($) {
-    return $(this).find('.comhead')
-                  .text().trim().replace(/[\(\)]/g, '');
+artoo.scrape('tr tr:has(td.title:has(a)):not(:last)', {
+  title: {sel: '.title a'},
+  url: {sel: '.title a', attr: 'href'},
+  domain: {
+    sel: '.comhead',
+    method: function($) {
+      return $(this).text().trim().replace(/[\(\)]/g, '');
+    }
   },
-  score: function($) {
-    return +$(this).parent().next().find('[id^=score]')
-                   .text().replace(/ points/, '');
+  score: {
+    sel: '+ tr [id^=score]',
+    method: function($) {
+      return +$(this).text().replace(/ points/, '');
+    }
   },
-  user: function($) {
-    return $(this).parent().next().find('a[href^=user]')
-                  .text();
+  user: {
+    sel: '+ tr a[href^=user]',
+    method: 'text'
   },
-  nb_comments: function($) {
-    return +$(this).parent().next().find('a:last')
-                   .text().replace(/ comments/, '');
+  nb_comments: {
+    sel: '+ tr a:last',
+    method: function($) {
+      return +$(this).text().replace(/ comments/, '');
+    }
   }
 }, artoo.savePrettyJson);
 ```

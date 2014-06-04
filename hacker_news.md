@@ -37,15 +37,17 @@ artoo.scrape('tr tr:has(td.title:has(a)):not(:last)', {
   },
   user: {
     sel: '+ tr a[href^=user]',
-    method: 'text'
+    method: function($) {
+      return $(this).length ? $(this).text() : null;
+    }
   },
   nb_comments: {
-    sel: '+ tr a:last',
+    sel: '+ tr a[href^=item]',
     method: function($) {
       return +$(this).text().replace(/ comments/, '');
     }
   }
-}, artoo.savePrettyJson);
+});
 ```
 
 ## Getting more pages

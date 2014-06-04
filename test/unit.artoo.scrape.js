@@ -132,6 +132,25 @@
       );
 
       deepEqual(
+        artoo.scrape(id + ' .views-row', {
+          url: {
+            sel: 'a',
+            method: function() {
+              return $(this).attr('href');
+            }
+          },
+          title: {
+            sel: 'a',
+            method: function() {
+              return $(this).text();
+            }
+          }
+        }),
+        list,
+        'Scraping the list with method polymorphism should return the correct array.'
+      );
+
+      deepEqual(
         artoo.scrapeOne(id + ' .views-row', {
           url: {
             sel: 'a',

@@ -19,6 +19,8 @@
     if (typeof o === 'function') {
       return o.call(scope, $);
     }
+    else if (typeof o.method === 'function')
+      return o.method.call($sel.get(), $);
     else if (typeof o === 'string') {
       if (typeof $sel[o] === 'function')
         return $sel[o]();

@@ -34,7 +34,7 @@
     }
 
     // Default value?
-    if (val === undefined && o.defaultValue)
+    if (o.defaultValue && (!val || isNaN(val)))
       val = o.defaultValue;
 
     return val;

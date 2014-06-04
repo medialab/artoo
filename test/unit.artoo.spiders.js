@@ -50,9 +50,18 @@
 
   // Testing limit
   asyncTest('Spider limit', function() {
+    expect(3);
 
     artoo.ajaxSpider(
-      function(i) {
+      function(i, data) {
+        if (i === 0)
+          ok(data === undefined, 'First time iterator is run, data is undefined');
+        else
+          deepEqual(
+            JSON.parse(data),
+            responses.basic,
+            'Next times iterator is run, data is correctly set.'
+          );
         return '/basic/' + i;
       },
       {

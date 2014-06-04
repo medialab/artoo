@@ -9,11 +9,11 @@
    */
   var _root = this;
 
-  function loop(list, params, acc, i) {
+  function loop(list, params, i, acc, lastData) {
     acc = acc || [];
     i = i || 0;
 
-    var o = (typeof list === 'function') ? list(i) : list[i];
+    var o = (typeof list === 'function') ? list(i, lastData) : list[i];
 
     // Breaking if iterator returns false
     if (o === false)
@@ -59,7 +59,7 @@
           i === params.limit)
         params.done(acc);
       else
-        loop(list, params, acc, i);
+        loop(list, params, i, acc, data);
     }
   }
 

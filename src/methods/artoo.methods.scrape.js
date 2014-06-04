@@ -13,25 +13,31 @@
   function step(o, scope) {
     var $ = artoo.$,
         $sel = o.sel ? $(scope).find(o.sel) : $(scope),
-        s;
+        val;
 
     // Polymorphism
     if (typeof o === 'function') {
-      return o.call(scope, $);
+      val = o.call(scope, $);
     }
     else if (typeof o.method === 'function')
-      return o.method.call($sel.get(), $);
+      val = o.method.call($sel.get(), $);
     else if (typeof o === 'string') {
       if (typeof $sel[o] === 'function')
-        return $sel[o]();
+        val = $sel[o]();
       else
-        return $sel.attr(o);
+        val = $sel.attr(o);
     }
     else {
-      return (o.attr !== undefined) ?
+      val = (o.attr !== undefined) ?
         $sel.attr(o.attr) :
         $sel[o.method || 'text']();
     }
+
+    // Default value?
+    if (val === undefined && o.defaultValue)
+      val = o.defaultValue;
+
+    return val;
   }
 
   artoo.scrape = function(iterator, data, params, cb) {

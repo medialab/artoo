@@ -151,6 +151,31 @@
       );
 
       deepEqual(
+        artoo.scrape(id + ' .views-row', {
+          url: {
+            sel: 'a',
+            method: function() {
+              return;
+            },
+            defaultValue: 'default value'
+          },
+          title: {
+            sel: 'a',
+            method: function() {
+              return $(this).text();
+            }
+          }
+        }),
+        list.map(function(i) {
+          return {
+            title: i.title,
+            url: 'default value'
+          };
+        }),
+        'Scraping the list with default values should return the correct array.'
+      );
+
+      deepEqual(
         artoo.scrapeOne(id + ' .views-row', {
           url: {
             sel: 'a',

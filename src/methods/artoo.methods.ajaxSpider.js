@@ -55,7 +55,8 @@
       // Incrementing
       i++;
 
-      if (artoo.helpers.isArray(list) && i === list.length)
+      if ((artoo.helpers.isArray(list) && i === list.length) ||
+          i === params.limit)
         params.done(acc);
       else
         loop(list, params, acc, i);

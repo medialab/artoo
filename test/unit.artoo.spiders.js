@@ -47,4 +47,26 @@
       );
     });
   });
+
+  // Testing limit
+  asyncTest('Spider limit', function() {
+
+    artoo.ajaxSpider(
+      function(i) {
+        return '/basic/' + i;
+      },
+      {
+        limit: 2,
+        done: function(data) {
+          start();
+
+          deepEqual(
+            data.map(JSON.parse),
+            [responses.basic, responses.basic],
+            'Crawling a with an iterator and a limit should stop properly.'
+          );
+        }
+      }
+    );
+  });
 }).call(this);

@@ -53,13 +53,14 @@ artoo.ajaxSpider(
 
 *Arguments*
 
-* **urlList** *array | function* : the list of urls to request through ajax or, alternatively, a function taking as sole argument the index of the iteration and returning either the desired url or `false` to break the spider.
+* **urlList** *array | function* : the list of urls to request through ajax or, alternatively, a function taking as arguments the index of the iteration and the data of the last request, and returning either the desired url or `false` to break the spider.
 * **params** *?object | ?function* : a object containing optional parameters. If params is a function, it will be considered as the `callback` argument.
   * **callback** *?function* : a function to be triggered each time data is retrieved through ajax. This function takes as arguments the retrieved data, the current index and the current data accumulated. Also, this function should either return the wanted data to accumulate or `false` to break the spider.
   * **throttle** *?integer | ?function*: Number of milliseconds to wait between two ajax requests. You can also pass a function taking the current index and returning the time to wait.
   * **method** *?string* [`'get'`] : the default HTTP or jQuery method.
   * **data** *?object* : the default data object to pass as the requests parameters.
   * **concat** *?boolean* [`false`] : should the data retrieved be concatenated into the accumulator or merely pushed?
+  * **limit** *?integer* : maximum number of requests to perform.
   * **done** *?function* : same as `callback` argument.
 * **callback** : callback fired when the spider iteration is over and taking as argument the accumulated data.
 

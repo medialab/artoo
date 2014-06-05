@@ -329,13 +329,15 @@
   artoo.waitFor = waitFor;
   artoo.getGlobalVariables = getGlobalVariables;
 
+  // Async helpers namespace
+  artoo.async = {
+    lazy: lazy,
+    until: asyncUntil,
+    while: asyncWhile
+  };
+
   // Exporting to artoo helpers
   artoo.helpers = {
-    async: {
-      lazy: lazy,
-      until: asyncUntil,
-      while: asyncWhile
-    },
     extend: extend,
     enforceSelector: enforceSelector,
     first: first,

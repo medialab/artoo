@@ -168,11 +168,57 @@
     }, milliseconds);
   }
 
+  // Lazily perform asynchronous task if condition if not true
   function lazy(cond, falseFn, nextFn) {
     if (cond)
       nextFn();
     else
       falseFn(nextFn);
+  }
+
+  var imageMimes = {
+    'png': 'image/png',
+    'jpg': 'image/jpeg',
+    'jpeg': 'image/jpeg',
+    'gif': 'image/gif'
+  };
+
+  // Get an image native size
+  function getImgNativeSize($image) {
+    var image = new Image();
+    image.src = $image.attr('src');
+
+    return {
+      width: image.width,
+      height: image.height
+    };
+  }
+
+  // Convert an image into a dataUrl
+  function imgToDataUrl(img) {
+    var $img = enforceSelector(img);
+
+    // Do we know the mime type of the image?
+    var mime = imageMimes[$img.attr('src').split('.').slice(-1)[0]] ||
+      'image/png';
+
+    // Creating dummy canvas
+    var canvas = document.createElement('canvas'),
+        size = getImgNativeSize($img);
+
+    canvas.width = size.width;
+    canvas.height = size.height;
+
+    // Copy the desired image to a canvas
+    var ctx = canvas.getContext('2d');
+    ctx.drawImage($img[0], 0, 0);
+    var dataUrl = canvas.toDataURL(mime);
+
+    // Clean up
+    canvas = null;
+
+    // Returning the url
+    return dataUrl;
   }
 
   var globalsBlackList = [
@@ -245,6 +291,7 @@
     enforceSelector: enforceSelector,
     first: first,
     flatten: flatten,
+    imgToDataUrl: imgToDataUrl,
     isArray: isArray,
     isObject: isObject,
     isPlainObject: isPlainObject,

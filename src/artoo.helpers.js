@@ -254,7 +254,7 @@
     i = i || 0;
 
     if (test(i)) {
-      iterator(function(err) {
+      iterator(i, function(err) {
         if (err)
           return callback(err);
         asyncWhile(test, iterator, callback, ++i);

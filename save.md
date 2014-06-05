@@ -24,6 +24,7 @@ If your browser warns you about the webpage trying to download several items, ju
 * [artoo.savePageHtml](#page-html)
 * [artoo.saveStore](#store)
 * [artoo.saveInstructions](#instructions)
+* [artoo.saveImage](#image)
 
 ---
 
@@ -116,13 +117,13 @@ For more precisions, refer to [artoo.helpers.toCSVString]({{ site.baseurl }}/hel
 Download HTML corresponding either to a string or a selector.
 
 ```js
-artoo.saveHtml(data, [params]);
+artoo.saveHtml(htmlStringOrSelector, [params]);
 ```
 
 *Example*
 
 ```js
-artoo.saveHtml($('div.the-div-id-need'), {filename: 'div.html'});
+artoo.saveHtml($('#a_div_id'), {filename: 'div.html'});
 ```
 
 ---
@@ -163,3 +164,20 @@ artoo.saveInstructions([params]);
 ```
 
 If you want more precise information about how the instructions recording work, the [instructions]({{ site.baseurl }}/instructions) section of this documentation should be of help.
+
+---
+
+<h2 id="image">artoo.saveImage</h2>
+Save an image corresponding either to a css or a jQuery selector.
+
+**artoo** will name it `[alt-attribute].extension` by default if you do not provide a `filename` parameter.
+
+```js
+artoo.saveImage(selector, [params]);
+```
+
+*Example*
+
+```js
+artoo.saveImage('#an_image_id');
+```

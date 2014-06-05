@@ -144,3 +144,6 @@ Just change the `limit` to get more pages and put a `throttle` parameter not to 
 Wouldn't it be nice to create a custom **artoo** bookmarklet scraping the first three pages of Hacker News?
 
 Well this can be done thanks to **artoo**'s grunt task for which you can find documentation [here]({{ site.baseurl }}/grunt).
+
+A full example of how you would create such a bookmarklet can be found on this [gist](https://gist.github.com/Yomguithereal/5d792d88ad6f1fe7c15d).
+

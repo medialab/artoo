@@ -118,4 +118,12 @@ grunt.initConfig({
 });
 ```
 
+#### A full example
+
+Want to see a simple but full example of what you can do with **artoo** bookmarklets?
+
+Check out this [gist](https://gist.github.com/Yomguithereal/5d792d88ad6f1fe7c15d) containing a bookmarklet project to scrape and download [Hacker News](Hacker News) data.
+
+---
+
 Note finally that **artoo**'s standard bookmarklets are generated through this task and can be another useful [example](https://github.com/medialab/artoo/blob/master/Gruntfile.js#L98).

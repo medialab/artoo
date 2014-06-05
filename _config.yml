@@ -46,7 +46,7 @@ sidebar:
   # - url: 'chrome'
   #   title: 'Chrome extension'
   - url: 'grunt'
-    title: 'Grunt'
+    title: 'Grunt task'
   - 'sep'
 
 github:

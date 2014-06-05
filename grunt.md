@@ -16,9 +16,11 @@ This also makes possible the creation of bookmarklet scripts or applications tha
 
 ## Installation
 
-For the time being and until a proper [npm](https://www.npmjs.org/) release is done, the grunt task can be installed thusly:
-
 ```bash
+# Last stable version
+npm install grunt-artoo
+
+# Dev version
 npm install git+https://github.com/medialab/grunt-artoo.git
 ```
 
@@ -32,7 +34,7 @@ If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out th
 Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
 
 ```js
-grunt.loadNpmTasks('grunt-artoo-bookmarklet');
+grunt.loadNpmTasks('grunt-artoo');
 ```
 
 ---
@@ -116,4 +118,4 @@ grunt.initConfig({
 });
 ```
 
-Note finally that **artoo**'s standard bookmarklet are generated through this task and can be another useful [example](https://github.com/medialab/artoo/blob/master/Gruntfile.js#L98).
+Note finally that **artoo**'s standard bookmarklets are generated through this task and can be another useful [example](https://github.com/medialab/artoo/blob/master/Gruntfile.js#L98).

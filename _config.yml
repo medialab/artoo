@@ -55,4 +55,6 @@ github:
 medialab:
   url:            'http://www.medialab.sciences-po.fr/'
 
-bookmarklet:      'javascript: (function(){var t={},o=!0;if("object"==typeof this.artoo)artoo.reload||(artoo.log.verbose("artoo already lies within this page. No need to inject him again."),artoo.loadSettings(t),artoo.hooks.trigger("exec"),o=!1);else if(o){var e=document.getElementsByTagName("body")[0],a=document.createElement("script");console.log("artoo is loading..."),a.src="https://rawgit.com/medialab/artoo/master/build/artoo.min.js",a.type="text/javascript",a.id="artoo_injected_script",a.setAttribute("settings",JSON.stringify(t)),e.appendChild(a)}}).call(this);'
+bookmarklets:      
+  artoo:          'javascript: (function(){var t={},o=!0;if("object"==typeof this.artoo)artoo.reload||(artoo.log.verbose("artoo already lies within this page. No need to inject him again."),artoo.loadSettings(t),artoo.hooks.trigger("exec"),o=!1);else if(o){var e=document.getElementsByTagName("body")[0],i=document.createElement("script");console.log("artoo is loading..."),i.src="//medialab.github.io/artoo/public/js/artoo.min.js",i.type="text/javascript",i.id="artoo_injected_script",i.setAttribute("settings",JSON.stringify(t)),e.appendChild(i)}}).call(this);'
+  hackernews:     ''

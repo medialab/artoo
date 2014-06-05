@@ -9,7 +9,7 @@ id: home
 **artoo** is loaded into the JavaScript context of any webpage through a handy bookmarklet you can instantly install by dropping the icon below onto your bookmark bar.
 
 <p align="center">
-  <a href='{{ site.bookmarklet }}' id='bookmarklet'>
+  <a href='{{ site.bookmarklets.artoo }}' id='bookmarklet'>
     <img alt="artoo" width="148" height="148" src="{{ site.baseurl }}/public/img/artoo-icon.svg" />
   </a>
 </p>

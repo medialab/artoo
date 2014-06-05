@@ -52,9 +52,24 @@
       );
     };
 
+    this.createBlobFromDataURL = function(url) {
+      var byteString = atob(url.split(',')[1]),
+          ba = new Uint8Array(byteString.length),
+          i,
+          l;
+
+      for (i = 0, l = byteString.length; i < l; i++)
+        ba[i] = byteString.charCodeAt(i);
+
+      return new Blob([ba.buffer], {
+        type: url.split(',')[0].split(':')[1].split(';')[0]
+      });
+    };
+    window.c = this.createBlobFromDataURL;
+
     this.blobURL = function(blob) {
       var oURL = URL.createObjectURL(blob);
-      this.deletionQueue.push(oURL);
+      // this.deletionQueue.push(oURL);
       return oURL;
     };
 
@@ -90,6 +105,16 @@
 
       // Creating the blob
       var blob = this.createBlob(data, params.mime, params.encoding);
+
+      // Saving the blob
+      this.saveBlob(blob, params.filename || this.defaultFilename);
+    };
+
+    this.saveDataURL = function(url, params) {
+      params = params || {};
+
+      // Creating the blob
+      var blob = this.createBlobFromDataURL(url);
 
       // Saving the blob
       this.saveBlob(blob, params.filename || this.defaultFilename);
@@ -170,6 +195,18 @@
       artoo.helpers.extend(params, {
         mime: 'text/javascript',
         filename: 'artoo_script.js'
+      })
+    );
+  };
+
+  artoo.saveImage = function(sel, params) {
+    params = params || {};
+    var $sel = artoo.helpers.enforceSelector(sel);
+
+    _saver.saveDataURL(
+      artoo.helpers.imgToDataUrl(sel),
+      artoo.helpers.extend(params, {
+        filename: 'image.' + ($sel.attr('src').split('.').slice(-1)[0] || 'png')
       })
     );
   };

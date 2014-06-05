@@ -119,6 +119,15 @@
       // Saving the blob
       this.saveBlob(blob, params.filename || this.defaultFilename);
     };
+
+    this.saveMedia = function(href, params) {
+      var a = document.createElement('a');
+      a.href = href;
+      a.download = params.filename || this.defaultFilename;
+
+      artoo.$(a).simulate('click');
+      a = null;
+    };
   }
 
   var _saver = new Saver();
@@ -203,11 +212,20 @@
     params = params || {};
     var $sel = artoo.helpers.enforceSelector(sel);
 
-    _saver.saveDataURL(
-      artoo.helpers.imgToDataUrl(sel),
-      artoo.helpers.extend(params, {
-        filename: 'image.' + ($sel.attr('src').split('.').slice(-1)[0] || 'png')
-      })
+    if (!$sel.is('img') || !$sel.attr('src')) {
+      artoo.log.error('Trying to download an invalid image.', $sel);
+      return;
+    }
+
+    _saver.saveMedia(
+      $sel.attr('src'),
+      artoo.helpers.extend(
+        params,
+        {
+          filename: ($sel.attr('alt') || 'image') +
+                    ('.' + $sel.attr('src').split('.').slice(-1)[0] || '')
+        }
+      )
     );
   };
 }).call(this);

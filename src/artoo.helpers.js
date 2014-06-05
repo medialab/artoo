@@ -286,17 +286,6 @@
     'gif': 'image/gif'
   };
 
-  // Get an image native size
-  function getImgNativeSize($image) {
-    var image = new Image();
-    image.src = $image.attr('src');
-
-    return {
-      width: image.width,
-      height: image.height
-    };
-  }
-
   // Convert an image into a dataUrl
   function imgToDataUrl(img) {
     var $img = enforceSelector(img);
@@ -306,11 +295,9 @@
       'image/png';
 
     // Creating dummy canvas
-    var canvas = document.createElement('canvas'),
-        size = getImgNativeSize($img);
-
-    canvas.width = size.width;
-    canvas.height = size.height;
+    var canvas = document.createElement('canvas');
+    canvas.width = $img[0].naturalWidth;
+    canvas.height = $img[0].naturalHeight;
 
     // Copy the desired image to a canvas
     var ctx = canvas.getContext('2d');

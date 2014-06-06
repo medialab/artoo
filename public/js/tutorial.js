@@ -8,11 +8,6 @@
   if (!console.clear)
     console.clear = function() {};
 
-  // Preventing default on bookmark
-  $('#bookmarklet').click(function(e) {
-    e.preventDefault();
-  });
-
   // State
   var initalized = false;
 

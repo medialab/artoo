@@ -8,10 +8,10 @@ id: hacker_news
 
 ---
 
-* [Getting basic data](#basic)
-* [Getting full data](#full)
-* [Getting more pages](#more)
-* [A nice bookmarklet?](#bookmarklet)
+* [You want basic data?](#basic)
+* [You want full data](#full)
+* [You want more pages](#more)
+* [And a nice bookmarklet with that?](#nice-bookmarklet)
 
 ---
 
@@ -139,11 +139,24 @@ Just change the `limit` to get more pages and put a `throttle` parameter not to 
 
 ---
 
-<h2 id="bookmarklet">A nice bookmarklet?</h2>
+<h2 id="nice-bookmarklet">A nice bookmarklet?</h2>
 
-Wouldn't it be nice to create a custom **artoo** bookmarklet scraping the first three pages of Hacker News?
+> &laquo; *Ok, I see your point but this is quite tiresome to copy & paste code into the JavaScript console. There should be a more pratical way.* &raquo;
 
-Well this can be done thanks to **artoo**'s grunt task for which you can find documentation [here]({{ site.baseurl }}/grunt).
+Fortunately, there is: You could create a custom **artoo** bookmarklet wrapping things up.
 
-A full example of how you would create such a bookmarklet can be found on this [gist](https://gist.github.com/Yomguithereal/5d792d88ad6f1fe7c15d).
+<p align="center">
+  <a href='{{ site.bookmarklets.hackernews }}' id='bookmarklet'>
+    <img alt="artoo HN" width="108" height="108" src="{{ site.baseurl }}/public/img/hackernews.png" />
+  </a>
+</p>
 
+In fact, the icon above is just this. Just drop it onto your bookmark bar and use it when visiting *Hacker News* and it should download the first three pages' data.
+
+This is not instantaneous so please wait for the data to be retrieved and downloaded for if you click the bookmark twice, you will logically download the data twice.
+
+---
+
+Curtom bookmarks such as this one can be generated through **artoo**'s grunt task whose documentation can be found [here]({{ site.baseurl }}/grunt).
+
+Finally, a full example of how you would create such a bookmarklet can be found on this [gist](https://gist.github.com/Yomguithereal/5d792d88ad6f1fe7c15d).

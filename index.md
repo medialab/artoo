@@ -16,7 +16,9 @@ id: home
 
 Now that you have installed **artoo** let's scrape *Hacker News* in four painless steps:
 
-* Copy the following instruction.
+<ol>
+  <li>Copy the following instruction.</li>
+</ol>
 
 ```js
 artoo.scrape('td.title:has(a):not(:last)', {
@@ -25,9 +27,11 @@ artoo.scrape('td.title:has(a):not(:last)', {
 }, artoo.savePrettyJson);
 ```
 
-* Go to <a href="https://news.ycombinator.com/" target="_blank">Hacker News</a>
-* Open your JavaScript console and click the freshly created bookmarklet (**artoo** should greet you and tell you he is ready to roll).
-* Paste the instruction and hit enter.
+<ol start="2">
+  <li>Go to <a href="https://news.ycombinator.com/" target="_blank">Hacker News</a>.</li>
+  <li>Open your JavaScript console and click the freshly created bookmarklet (<strong>artoo</strong> should greet you and tell you he is ready to roll).</li>
+  <li>Paste the instruction and hit enter.</li>
+</ol>
 
 That's it. You've just scraped *Hacker News* front page and downloaded the resultant data as a json file&#42;.
 
@@ -42,11 +46,11 @@ He is therefore as fit for your quick & dirty scraping jobs as for more ambitiou
 ---
 
 ## Where should I go?
-If this is your first visit, you should probably visit the [Quick Start]({{ site.baseurl }}/quick_start) section of this documentation to take a glimpse at what **artoo** can do for you.
+If this is your first visit, you should probably visit the [Quick Start]({{ site.baseurl }}/quick_start) section of this documentation or check the [Hacker News]({{ site.baseurl }}/hacker_news) scraper to see concise examples of what **artoo** can do for you.
 
 If you are searching for more specific documentation or if you are just taking a stroll, the [methods]({{ site.baseurl }}/methods) compendium and the sidebar located at your left should be more of use.
 
-If what you need is documentation about the artoo grunt task, [there]({{ site.baseurl }}/grunt) you go.
+Finally, if you need documentation about the artoo grunt task, [there]({{ site.baseurl }}/grunt) you go.
 
 ---
 

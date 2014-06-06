@@ -9,8 +9,8 @@ id: hacker_news
 ---
 
 * [You want basic data?](#basic)
-* [You want full data](#full)
-* [You want more pages](#more)
+* [You want full data?](#full)
+* [You want more pages?](#more)
 * [And a nice bookmarklet with that?](#nice-bookmarklet)
 
 ---

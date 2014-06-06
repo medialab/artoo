@@ -24,6 +24,7 @@ If your browser warns you about the webpage trying to download several items, ju
 * [artoo.savePageHtml](#page-html)
 * [artoo.saveStore](#store)
 * [artoo.saveInstructions](#instructions)
+* [artoo.saveMedia](#media)
 * [artoo.saveImage](#image)
 
 ---
@@ -167,10 +168,29 @@ If you want more precise information about how the instructions recording work, 
 
 ---
 
+<h2 id="media">artoo.saveMedia</h2>
+Save the media located at the given url.
+
+**artoo** will name your file `media.extension` by default if you do not provide a `filename` parameter.
+
+```js
+artoo.saveMedia(url, [params]);
+```
+
+*Example*
+
+```js
+artoo.saveMedia('http://url-of-a-random-audio-file.mp3', {
+  filename: 'MyAwesomeMusic.mp3'
+});
+```
+
+---
+
 <h2 id="image">artoo.saveImage</h2>
 Save an image corresponding either to a css or a jQuery selector.
 
-**artoo** will name it `[alt-attribute].extension` by default if you do not provide a `filename` parameter.
+**artoo** will name your file `[alt-attribute].extension` by default if you do not provide a `filename` parameter.
 
 ```js
 artoo.saveImage(selector, [params]);

@@ -279,6 +279,15 @@
    * Functions dealing with file issues such as converting images into dataURI.
    */
 
+  // Retrieve a file extenstion from filename or url
+  function getExtension(url) {
+    var a = url.split('.');
+
+    if (a.length === 1 || (a[0] === '' && a.length === 2))
+      return '';
+    return a.pop();
+  }
+
   var imageMimes = {
     'png': 'image/png',
     'jpg': 'image/jpeg',
@@ -291,8 +300,7 @@
     var $img = enforceSelector(img);
 
     // Do we know the mime type of the image?
-    var mime = imageMimes[$img.attr('src').split('.').slice(-1)[0]] ||
-      'image/png';
+    var mime = imageMimes[getExtension($img.attr('src')) || 'png'];
 
     // Creating dummy canvas
     var canvas = document.createElement('canvas');
@@ -329,6 +337,7 @@
     enforceSelector: enforceSelector,
     first: first,
     flatten: flatten,
+    getExtension: getExtension,
     imgToDataUrl: imgToDataUrl,
     isArray: isArray,
     isObject: isObject,

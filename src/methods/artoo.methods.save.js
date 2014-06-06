@@ -208,22 +208,32 @@
     );
   };
 
+  artoo.saveMedia = function(url, params) {
+    params = params || {};
+
+    var ext = artoo.helpers.getExtension(url);
+
+    _saver.saveMedia(url, artoo.helpers.extend(params, {
+      filename: 'media' + (ext ? '.' + ext : '')
+    }));
+  };
+
   artoo.saveImage = function(sel, params) {
     params = params || {};
-    var $sel = artoo.helpers.enforceSelector(sel);
+    var $sel = artoo.helpers.enforceSelector(sel),
+        ext = artoo.helpers.getExtension($sel.attr('src'));
 
-    if (!$sel.is('img') || !$sel.attr('src')) {
+    if (!$sel.is('img') && !$sel.attr('src')) {
       artoo.log.error('Trying to download an invalid image.', $sel);
       return;
     }
 
-    _saver.saveMedia(
+    artoo.saveMedia(
       $sel.attr('src'),
       artoo.helpers.extend(
         params,
         {
-          filename: ($sel.attr('alt') || 'image') +
-                    ('.' + $sel.attr('src').split('.').slice(-1)[0] || '')
+          filename: ($sel.attr('alt') || 'image') + (ext ? '.' + ext : '')
         }
       )
     );

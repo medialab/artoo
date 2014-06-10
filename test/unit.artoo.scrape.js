@@ -132,6 +132,24 @@
       );
 
       deepEqual(
+        artoo.scrape({
+          iterator: '.views-row',
+          data: {
+            url: {
+              sel: 'a',
+              attr: 'href'
+            },
+            title: {
+              sel: 'a',
+              method: 'text'
+            }
+          }
+        }),
+        list,
+        'Scraping the list with iterator polymorphism should also work.'
+      );
+
+      deepEqual(
         artoo.scrape(id + ' .views-row', {
           url: {
             sel: 'a',
@@ -246,7 +264,7 @@
       deepEqual(
         artoo.scrape(id + ' .recursive-url-list1 > li', {
           scrape: {
-            sel: 'ul > li',
+            iterator: 'ul > li',
             data: 'text'
           }
         }),
@@ -259,7 +277,7 @@
           name: 'name',
           items: {
             scrape: {
-              sel: 'ul > li',
+              iterator: 'ul > li',
               data: {
                 name: 'name',
                 text: 'text'
@@ -295,7 +313,7 @@
       deepEqual(
         artoo.scrape(id + ' .reference tr:not(:first)', {
           scrape: {
-            sel: 'td',
+            iterator: 'td',
             data: 'text'
           }
         }),

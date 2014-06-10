@@ -7,6 +7,17 @@
    */
   module('artoo.store', {
 
+    // Cleaning the store and setting some value before we begin
+    setup: function() {
+      artoo.s.removeAll();
+
+      artoo.s.set('number', 4);
+      artoo.s.set('string', 'hello');
+      artoo.s.set('numberLikeString', '45');
+      artoo.s.set('array', [1, 2, 3]);
+      artoo.s.set('object', {hello: 'world'});
+    },
+
     // Deleting every localstorage item in case the tests failed
     teardown: function() {
       for (var i in localStorage)
@@ -15,13 +26,6 @@
   });
 
   test('Setters & getters', function() {
-
-    // Set some values
-    artoo.s.set('number', 4);
-    artoo.s.set('string', 'hello');
-    artoo.s.set('numberLikeString', '45');
-    artoo.s.set('array', [1, 2, 3]);
-    artoo.s.set('object', {hello: 'world'});
 
     deepEqual(
       artoo.s.keys().length,

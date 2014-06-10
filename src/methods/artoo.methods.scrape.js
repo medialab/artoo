@@ -7,7 +7,8 @@
    *
    * Some scraping helpers.
    */
-  var _root = this;
+  var _root = this,
+      extend = artoo.helpers.extend;
 
   // Helpers
   function step(o, scope) {
@@ -40,13 +41,8 @@
     return val;
   }
 
-  artoo.scrape = function(iterator, data, params, cb) {
-    if (arguments.length < 2) {
-      artoo.log.error('Wrong arguments passed to scrape method. artoo has ' +
-                      'no clue about what he should scrape.');
-      return;
-    }
-
+  // Scraping function after polymorphism has been taken care of
+  function scrape(iterator, data, params, cb) {
     var scraped = [],
         loneSelector = !!data.attr || !!data.method || data.scrape ||
                        typeof data === 'string' ||
@@ -55,7 +51,7 @@
     params = params || {};
 
     // Transforming to selector
-    var $iterator = this.helpers.enforceSelector(iterator);
+    var $iterator = artoo.helpers.enforceSelector(iterator);
 
     // Iteration
     $iterator.each(function(i) {
@@ -65,7 +61,7 @@
       if (loneSelector)
         item = (typeof data === 'object' && 'scrape' in data) ?
           artoo.scrape(
-            $(this).find(data.scrape.sel),
+            $(this).find(data.scrape.iterator),
             data.scrape.data,
             data.scrape.params
           ) :
@@ -74,7 +70,7 @@
         for (p in data) {
           item[p] = (typeof data[p] === 'object' && 'scrape' in data[p]) ?
             artoo.scrape(
-              $(this).find(data[p].scrape.sel),
+              $(this).find(data[p].scrape.iterator),
               data[p].scrape.data,
               data[p].scrape.params
             ) :
@@ -90,15 +86,39 @@
     scraped = params.one ? scraped[0] : scraped;
 
     // Triggering callback
-    if (typeof params === 'function')
-      params(scraped);
-    else if (typeof params.done === 'function')
-      params.done(scraped);
-    else if (typeof cb === 'function')
+    if (typeof cb === 'function')
       cb(scraped);
 
     // Returning data
     return scraped;
+  }
+
+  // Public interface mainly taking care of polymorphism
+  artoo.scrape = function(iterator, data, params, cb) {
+    var i, d, p, c;
+
+    if (artoo.helpers.isPlainObject(iterator) && iterator.iterator) {
+      d = iterator.data;
+      p = iterator.params || {};
+      i = iterator.iterator;
+    }
+    else {
+      d = data;
+      p = params || {};
+      i = iterator;
+    }
+
+    c = (typeof arguments[arguments.length - 1] === 'function') ?
+      arguments[arguments.length - 1] : p.done;
+
+    // Warn if no iterator or no data
+    if (!i || !d) {
+      artoo.log.error('Wrong arguments passed to the scrape method. artoo ' +
+                      'no clue about what he should scrape.');
+      return;
+    }
+
+    return scrape(i, d, p, c);
   };
 
   // Scrape only the first corresponding item
@@ -106,7 +126,7 @@
     return artoo.scrape(
       iterator,
       data,
-      artoo.helpers.extend({limit: 1, one: true}, params),
+      extend({limit: 1, one: true}, params),
       cb
     );
   };
@@ -121,7 +141,7 @@
     if (!params.headers) {
       return artoo.scrape(sel + ' tr:has(td)', {
         scrape: {
-          sel: 'td',
+          iterator: 'td',
           data: params.data || 'text'
         }
       }, params, cb);

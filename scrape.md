@@ -144,7 +144,7 @@ If you need recursivity within the `artoo.scrape` method, rather that calling th
 ```js
 artoo.scrape('ul.list > li', {
   scrape: {
-    sel: 'ul.sublist > li',
+    iterator: 'ul.sublist > li',
     data: 'text'
   }
 });

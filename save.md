@@ -168,7 +168,7 @@ If you want more precise information about how the instructions recording work, 
 
 ---
 
-<h2 id="media">artoo.saveResource</h2>
+<h2 id="resource">artoo.saveResource</h2>
 Save the resource located at the given url.
 
 

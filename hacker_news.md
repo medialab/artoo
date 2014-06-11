@@ -82,7 +82,7 @@ var scraper = {
     score: {
       sel: '+ tr [id^=score]',
       method: function($) {
-        return +$(this).text().replace(/ points/, '');
+        return +$(this).text().replace(' points', '');
       }
     },
     user: {
@@ -94,7 +94,7 @@ var scraper = {
     nb_comments: {
       sel: '+ tr a[href^=item]',
       method: function($) {
-        var nb = +$(this).text().replace(/ comments/, '');
+        var nb = +$(this).text().replace(' comments', '');
         return isNaN(nb) ? 0 : nb;
       }
     }
@@ -102,7 +102,6 @@ var scraper = {
 };
 
 function nextUrl($page) {
-console.log($page.find('td.title:last > a').attr('href'));
   return $page.find('td.title:last > a').attr('href');
 }
 
@@ -152,4 +151,4 @@ This is not instantaneous so please wait for the data to be retrieved and downlo
 
 Curtom bookmarks such as this one can be generated through **artoo**'s grunt task whose documentation can be found [here]({{ site.baseurl }}/grunt).
 
-Finally, a full example of how you would create such a bookmarklet can be found on this [gist](https://gist.github.com/Yomguithereal/5d792d88ad6f1fe7c15d).
+Finally, a fully explained example of how you would create such a bookmarklet can be found on this [gist](https://gist.github.com/Yomguithereal/5d792d88ad6f1fe7c15d).

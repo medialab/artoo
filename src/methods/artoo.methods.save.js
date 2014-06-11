@@ -120,7 +120,7 @@
       this.saveBlob(blob, params.filename || this.defaultFilename);
     };
 
-    this.saveMedia = function(href, params) {
+    this.saveResource = function(href, params) {
       var a = document.createElement('a');
       a.href = href;
       a.download = params.filename || this.defaultFilename;
@@ -208,12 +208,12 @@
     );
   };
 
-  artoo.saveMedia = function(url, params) {
+  artoo.saveResource = function(url, params) {
     params = params || {};
 
     var ext = artoo.helpers.getExtension(url);
 
-    _saver.saveMedia(url, artoo.helpers.extend(params, {
+    _saver.saveResource(url, artoo.helpers.extend(params, {
       filename: 'media' + (ext ? '.' + ext : '')
     }));
   };
@@ -228,7 +228,7 @@
       return;
     }
 
-    artoo.saveMedia(
+    artoo.saveResource(
       $sel.attr('src'),
       artoo.helpers.extend(
         params,

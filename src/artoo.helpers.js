@@ -126,6 +126,16 @@
     return (isSelector(v)) ? v : artoo.$(v);
   }
 
+  // Get either string or document and return valid jQuery selection
+  function jquerify(v) {
+    var $ = artoo.$;
+
+    if (typeof v === 'string')
+      return $($.parseXML(v));
+    else
+      return $(v);
+  }
+
   // Loading an external script
   function getScript(url, cb) {
     var script = document.createElement('script'),
@@ -343,6 +353,7 @@
     isObject: isObject,
     isPlainObject: isPlainObject,
     isSelector: isSelector,
+    jquerify: jquerify,
     noop: noop,
     toCSVString: toCSVString,
     some: some

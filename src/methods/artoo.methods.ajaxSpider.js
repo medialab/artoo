@@ -19,15 +19,26 @@
     if (o === false)
       return params.done(acc);
 
-    var get = (typeof o === 'string') ?
-      function(c) {
-        artoo.$.get(o, c);
-      } :
-      function(c) {
-        artoo.$[o.method || params.method || 'get'](
-          o.url, o.data || params.data || {}, c
+    function get(c) {
+      if (o.settings || params.settings)
+        artoo.$.ajax(
+          o.url || o,
+          artoo.helpers.extend(
+            o.settings || params.settings,
+            {
+              success: c,
+              data: o.data || params.data || {},
+              type: o.method || params.method || 'get'
+            }
+          )
         );
-      };
+      else
+        artoo.$[o.method || params.method || 'get'](
+          o.url || o,
+          o.data || params.data || {},
+          c
+        );
+    }
 
     // Getting data with ajax
     if (params.throttle > 0)
@@ -38,9 +49,23 @@
       get(dataRetrieved);
 
     function dataRetrieved(data) {
-      var result = (typeof params.callback === 'function') ?
-        params.callback(data, i, acc) :
-        data;
+
+      if (params.scrape || params.jquerify)
+        data = artoo.helpers.jquerify(data);
+
+      // Applying callback on data
+      var result = data;
+
+      if (params.scrape) {
+        result = artoo.scrape(
+          data.find(params.scrape.iterator),
+          params.scrape.data,
+          params.scrape.params
+        );
+      }
+      else if (typeof params.callback === 'function') {
+        result = params.callback(data, i, acc);
+      }
 
       // If false is returned as the callback, we break
       if (result === false)

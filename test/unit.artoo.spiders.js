@@ -155,7 +155,7 @@
       {
         limit: 2,
         jquerify: true,
-        callback: function($data, i)  {
+        process: function($data, i)  {
           if (i)
             ok(artoo.helpers.isSelector($data), 'Data given to callbacks with jquerify is a valid selector.');
           return artoo.scrape($data.find('div'), 'id');

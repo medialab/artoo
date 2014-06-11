@@ -63,8 +63,8 @@
           params.scrape.params
         );
       }
-      else if (typeof params.callback === 'function') {
-        result = params.callback(data, i, acc);
+      else if (typeof params.process === 'function') {
+        result = params.process(data, i, acc);
       }
 
       // If false is returned as the callback, we break

@@ -123,7 +123,8 @@
     this.saveResource = function(href, params) {
       var a = document.createElement('a');
       a.href = href;
-      a.download = params.filename || this.defaultFilename;
+
+      a.setAttribute('download', params.filename || '');
 
       artoo.$(a).simulate('click');
       a = null;
@@ -209,19 +210,14 @@
   };
 
   artoo.saveResource = function(url, params) {
-    params = params || {};
-
-    var ext = artoo.helpers.getExtension(url);
-
-    _saver.saveResource(url, artoo.helpers.extend(params, {
-      filename: 'media' + (ext ? '.' + ext : '')
-    }));
+    _saver.saveResource(url, params || {});
   };
 
   artoo.saveImage = function(sel, params) {
     params = params || {};
     var $sel = artoo.helpers.enforceSelector(sel),
-        ext = artoo.helpers.getExtension($sel.attr('src'));
+        ext = artoo.helpers.getExtension($sel.attr('src')),
+        alt = $sel.attr('alt');
 
     if (!$sel.is('img') && !$sel.attr('src')) {
       artoo.log.error('Trying to download an invalid image.', $sel);
@@ -233,7 +229,7 @@
       artoo.helpers.extend(
         params,
         {
-          filename: ($sel.attr('alt') || 'image') + (ext ? '.' + ext : '')
+          filename: alt ? alt + (ext ? '.' + ext : '') : false
         }
       )
     );

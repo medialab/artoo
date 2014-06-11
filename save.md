@@ -20,9 +20,9 @@ If your browser warns you about the webpage trying to download several items, ju
 * [artoo.saveJson](#json)
 * [artoo.savePrettyJson](#pretty)
 * [artoo.saveCsv](#csv)
+* [artoo.saveXml](#xml)
 * [artoo.saveHtml](#html)
 * [artoo.savePageHtml](#page-html)
-* [artoo.saveXml](#xml)
 * [artoo.saveStore](#store)
 * [artoo.saveInstructions](#instructions)
 * [artoo.saveResource](#resource)
@@ -115,6 +115,22 @@ For more precisions, refer to [artoo.helpers.toCSVString]({{ site.baseurl }}/hel
 
 ---
 
+<h2 id="xml">artoo.saveXml</h2>
+Download a XML file from a string, a jQuery selector or a DOM document.
+
+```js
+artoo.saveXml(htmlData, [params]);
+```
+
+*Examples*
+
+```js
+artoo.saveXml($('#a_div_id'), {filename: 'div.html'});
+artoo.saveXml(document);
+```
+
+---
+
 <h2 id="html">artoo.saveHtml</h2>
 Download a HTML file from a string, a jQuery selector or a DOM document.
 
@@ -122,12 +138,7 @@ Download a HTML file from a string, a jQuery selector or a DOM document.
 artoo.saveHtml(htmlData, [params]);
 ```
 
-*Examples*
-
-```js
-artoo.saveHtml($('#a_div_id'), {filename: 'div.html'});
-artoo.saveHtml(document);
-```
+This method is in fact an alias of `artoo.saveXml`.
 
 ---
 
@@ -137,16 +148,6 @@ Download the page's current Html.
 ```js
 artoo.savePageHtml([params]);
 ```
-
----
-
-<h2 id="xml">artoo.saveXml</h2>
-Download a XML file from a string, a jQuery selector or a DOM document.
-
-```js
-artoo.saveXml(htmlData, [params]);
-```
-This method is in fact an alias of `artoo.saveHtml`.
 
 ---
 

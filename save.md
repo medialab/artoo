@@ -24,7 +24,7 @@ If your browser warns you about the webpage trying to download several items, ju
 * [artoo.savePageHtml](#page-html)
 * [artoo.saveStore](#store)
 * [artoo.saveInstructions](#instructions)
-* [artoo.saveMedia](#media)
+* [artoo.saveResource](#resource)
 * [artoo.saveImage](#image)
 
 ---
@@ -168,21 +168,22 @@ If you want more precise information about how the instructions recording work, 
 
 ---
 
-<h2 id="media">artoo.saveMedia</h2>
-Save the media located at the given url.
+<h2 id="media">artoo.saveResource</h2>
+Save the resource located at the given url.
 
-**artoo** will name your file `media.extension` by default if you do not provide a `filename` parameter.
 
 ```js
-artoo.saveMedia(url, [params]);
+artoo.saveResource(url, [params]);
 ```
 
 *Example*
 
 ```js
-artoo.saveMedia('http://url-of-a-random-audio-file.mp3', {
+artoo.saveResource('http://url-of-a-random-audio-file.mp3', {
   filename: 'MyAwesomeMusic.mp3'
 });
+
+artoo.saveResource('/public/css/style.css');
 ```
 
 ---

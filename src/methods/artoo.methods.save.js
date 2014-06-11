@@ -178,18 +178,23 @@
     );
   };
 
-  artoo.saveHtml = function(data, params) {
+  artoo.saveXml = function(data, params) {
     var s = (helpers.isSelector(data) && data.html()) ||
             (helpers.isDocument(data) && data.documentElement.outerHTML) ||
             data;
 
     artoo.save(
       s,
-      helpers.extend(params, {mime: 'html', filename: 'fragment.html'})
+      helpers.extend(params, {mime: 'html', filename: 'document.xml'})
     );
   };
 
-  artoo.saveXml = artoo.saveHtml;
+  artoo.saveHtml = function(data, params) {
+    artoo.saveXml(
+      data,
+      helpers.extend(params || {}, {filename: 'document.html'})
+    );
+  };
 
   artoo.savePageHtml = function(params) {
     artoo.saveHtml(

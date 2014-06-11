@@ -40,6 +40,7 @@ artoo.scrape(iterator, model, [params, callback]);
   * **done**    *?function* : a function taking as only argument the scraped items and to be triggered when the scraping is done.
 * **callback**  *?function* : same as `params.done`.
 
+Alternatively, you can pass a single object as argument to the `scrape` method and taking as properties `iterator` and `data`.
 
 ---
 

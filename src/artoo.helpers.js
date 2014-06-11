@@ -121,19 +121,44 @@
            ($ && v instanceof $);
   }
 
-  // Enforce to selector
-  function enforceSelector(v) {
-    return (isSelector(v)) ? v : artoo.$(v);
+  // Checking whether a variable is a DOM document
+  function isDocument(v) {
+    return v instanceof HTMLDocument ||
+           v instanceof XMLDocument;
   }
 
   // Get either string or document and return valid jQuery selection
   function jquerify(v) {
     var $ = artoo.$;
 
-    if (typeof v === 'string')
-      return $($.parseXML(v));
-    else
+    if (typeof v === 'string') {
+      try {
+        return $($.parseXML(v).documentElement);
+      }
+      catch (x) {
+        try {
+          return $(createDocument().documentElement).append(v);
+        }
+        catch (x) {
+          return $(v);
+        }
+      }
+    }
+    else {
       return $(v);
+    }
+  }
+
+  // Creating an HTML or XML document
+  function createDocument(root, namespace) {
+    if (!root)
+      return document.implementation.createHTMLDocument();
+    else
+      return document.implementation.createDocument(
+        namespace || null,
+        root,
+        null
+      );
   }
 
   // Loading an external script
@@ -307,7 +332,7 @@
 
   // Convert an image into a dataUrl
   function imgToDataUrl(img) {
-    var $img = enforceSelector(img);
+    var $img = artoo.$(img);
 
     // Do we know the mime type of the image?
     var mime = imageMimes[getExtension($img.attr('src')) || 'png'];
@@ -343,13 +368,14 @@
 
   // Exporting to artoo helpers
   artoo.helpers = {
+    createDocument: createDocument,
     extend: extend,
-    enforceSelector: enforceSelector,
     first: first,
     flatten: flatten,
     getExtension: getExtension,
     imgToDataUrl: imgToDataUrl,
     isArray: isArray,
+    isDocument: isDocument,
     isObject: isObject,
     isPlainObject: isPlainObject,
     isSelector: isSelector,

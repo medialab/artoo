@@ -50,11 +50,11 @@
 
     function dataRetrieved(data) {
 
-      if (params.scrape || params.jquerify)
-        data = artoo.helpers.jquerify(data);
-
       // Applying callback on data
       var result = data;
+
+      if (params.scrape || params.jquerify)
+        data = artoo.helpers.jquerify(data);
 
       if (params.scrape) {
         result = artoo.scrape(

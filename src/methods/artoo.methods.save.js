@@ -11,7 +11,8 @@
    * Mainly inspired by:
    * https://github.com/eligrey/FileSaver.js/blob/master/FileSaver.js
    */
-  var _root = this;
+  var _root = this,
+      helpers = artoo.helpers;
 
   // Polyfills
   var reqfs = window.requestFileSystem ||
@@ -156,38 +157,44 @@
     // Extending params
     artoo.save(
       data,
-      artoo.helpers.extend(params, {filename: 'data.json', mime: 'json'})
+      helpers.extend(params, {filename: 'data.json', mime: 'json'})
     );
   };
 
   artoo.savePrettyJson = function(data, params) {
-    artoo.saveJson(data, artoo.helpers.extend(params, {pretty: true}));
+    artoo.saveJson(data, helpers.extend(params, {pretty: true}));
   };
 
   artoo.saveCsv = function(data, params) {
     params = params || {};
 
     data = (typeof data !== 'string') ?
-      artoo.helpers.toCSVString(data, params.delimiter, params.escape) :
+      helpers.toCSVString(data, params.delimiter, params.escape) :
       data;
 
     artoo.save(
       data,
-      artoo.helpers.extend(params, {mime: 'csv', filename: 'data.csv'})
+      helpers.extend(params, {mime: 'csv', filename: 'data.csv'})
     );
   };
 
   artoo.saveHtml = function(data, params) {
+    var s = (helpers.isSelector(data) && data.html()) ||
+            (helpers.isDocument(data) && data.documentElement.outerHTML) ||
+            data;
+
     artoo.save(
-      (artoo.helpers.isSelector(data)) ? data.html() : data,
-      artoo.helpers.extend(params, {mime: 'html', filename: 'fragment.html'})
+      s,
+      helpers.extend(params, {mime: 'html', filename: 'fragment.html'})
     );
   };
 
+  artoo.saveXml = artoo.saveHtml;
+
   artoo.savePageHtml = function(params) {
-    artoo.save(
-      document.documentElement.innerHTML,
-      artoo.helpers.extend(params, {mime: 'html', filename: 'page.html'})
+    artoo.saveHtml(
+      document,
+      helpers.extend(params || {}, {filename: 'page.html'})
     );
   };
 
@@ -195,14 +202,14 @@
     params = params || {};
     artoo.savePrettyJson(
       artoo.store.get(params.key),
-      artoo.helpers.extend(params, {filename: 'store.json'})
+      helpers.extend(params, {filename: 'store.json'})
     );
   };
 
   artoo.saveInstructions = function(params) {
     artoo.save(
       artoo.instructions.getScript(),
-      artoo.helpers.extend(params, {
+      helpers.extend(params, {
         mime: 'text/javascript',
         filename: 'artoo_script.js'
       })
@@ -215,8 +222,8 @@
 
   artoo.saveImage = function(sel, params) {
     params = params || {};
-    var $sel = artoo.helpers.enforceSelector(sel),
-        ext = artoo.helpers.getExtension($sel.attr('src')),
+    var $sel = artoo.$(sel),
+        ext = helpers.getExtension($sel.attr('src')),
         alt = $sel.attr('alt');
 
     if (!$sel.is('img') && !$sel.attr('src')) {
@@ -226,7 +233,7 @@
 
     artoo.saveResource(
       $sel.attr('src'),
-      artoo.helpers.extend(
+      helpers.extend(
         params,
         {
           filename: alt ? alt + (ext ? '.' + ext : '') : false

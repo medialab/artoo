@@ -51,7 +51,7 @@
     params = params || {};
 
     // Transforming to selector
-    var $iterator = artoo.helpers.enforceSelector(iterator);
+    var $iterator = artoo.$(iterator);
 
     // Iteration
     $iterator.each(function(i) {

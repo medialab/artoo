@@ -48,7 +48,8 @@ module.exports = function(grunt) {
         '-W040': true,
         '-W064': true,
         '-W061': true,
-        '-W103': true
+        '-W103': true,
+        '-W002': true
       }
     },
     uglify: {

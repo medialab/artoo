@@ -234,14 +234,14 @@
 
   artoo.saveImage = function(sel, params) {
     params = params || {};
-    var $sel = artoo.$(sel),
-        ext = helpers.getExtension($sel.attr('src')),
-        alt = $sel.attr('alt');
 
-    if (!$sel.is('img') && !$sel.attr('src')) {
-      artoo.log.error('Trying to download an invalid image.', $sel);
-      return;
-    }
+    var $sel = artoo.$(sel);
+
+    if (!$sel.is('img') && !$sel.attr('src'))
+      throw Error('artoo.saveImage: selector is not an image.');
+
+    var ext = helpers.getExtension($sel.attr('src')),
+        alt = $sel.attr('alt');
 
     artoo.saveResource(
       $sel.attr('src'),

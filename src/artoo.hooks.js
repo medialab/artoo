@@ -16,11 +16,8 @@
 
   artoo.hooks = {
     trigger: function(hook) {
-      if (!artoo.hooks[hook]) {
-        artoo.log.error(
-          'Trying to trigger an inexistant hook: "' + hook + '".');
-        return;
-      }
+      if (!artoo.hooks[hook])
+        throw Error('artoo.hooks.trigger: inexistant hook');
 
       artoo.hooks[hook].forEach(function(fn) {
         fn.apply(artoo);
@@ -34,10 +31,8 @@
 
   // Add a function to be executed on the ready hook
   artoo.ready = function(fn) {
-    if (typeof fn !== 'function') {
-      artoo.log.error('Trying to add a non-function to the "ready" hook.');
-      return;
-    }
+    if (typeof fn !== 'function')
+      throw Error('artoo.ready: trying to register a non-function.');
 
     artoo.hooks.ready.push(fn);
   };

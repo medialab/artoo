@@ -20,11 +20,11 @@
 
   function setEngine(engine) {
     if (engine === 'local')
-    _store = localStorage;
+      _store = localStorage;
     else if (engine === 'session')
       _store = sessionStorage;
     else
-      artoo.log.error('Invalid store engine: "' + engine + '".');
+      throw Error('artoo.store: wrong engine "' + engine + '".');
   }
 
   // Setting engine
@@ -59,11 +59,8 @@
   };
 
   artoo.store.set = function(key, value) {
-    if (typeof key !== 'string' && typeof key !== 'number') {
-      artoo.log.error('Trying to set an invalid key to store. ' +
-                      'Keys should be strings or numbers.');
-      return;
-    }
+    if (typeof key !== 'string' && typeof key !== 'number')
+      throw TypeError('artoo.store.set: trying to set an invalid key.');
 
     // Storing
     _store.setItem(key, JSON.stringify(value));
@@ -72,12 +69,10 @@
   artoo.store.pushTo = function(key, value) {
     var a = artoo.store.get(key);
 
-    if (!artoo.helpers.isArray(a)) {
-      artoo.log.error('Trying to push to a non-array for store key "' +
-                      key + '".');
-      return;
-    }
+    if (!artoo.helpers.isArray(a) && a !== null)
+      throw TypeError('artoo.store.pushTo: trying to push to a non-array.');
 
+    a = a || [];
     a.push(value);
     artoo.store.set(key, a);
     return a;
@@ -86,11 +81,8 @@
   artoo.store.update = function(key, object) {
     var o = artoo.store.get(key);
 
-    if (!artoo.helpers.isPlainObject(o)) {
-      artoo.log.error('Trying to update a non-object for store key "' +
-                      key + '".');
-      return;
-    }
+    if (!artoo.helpers.isPlainObject(o) && o !== null)
+      throw TypeError('artoo.store.update: trying to udpate to a non-object.');
 
     o = artoo.helpers.extend(object, o);
     artoo.store.set(key, o);

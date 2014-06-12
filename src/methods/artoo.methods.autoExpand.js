@@ -89,11 +89,8 @@
     params = params || {};
     params.done = cb || params.done;
 
-    if (!params.expand) {
-      artoo.log.error('You did not pass an expand parameter to artoo\'s' +
-                      ' autoExpand method.');
-      return;
-    }
+    if (!params.expand)
+      throw Error('artoo.autoExpand: you must provide an expand parameter.');
 
     _expand(params);
   };

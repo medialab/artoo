@@ -112,11 +112,8 @@
       arguments[arguments.length - 1] : p.done;
 
     // Warn if no iterator or no data
-    if (!i || !d) {
-      artoo.log.error('Wrong arguments passed to the scrape method. artoo ' +
-                      'no clue about what he should scrape.');
-      return;
-    }
+    if (!i || !d)
+      throw TypeError('artoo.scrape: wrong arguments.');
 
     return scrape(i, d, p, c);
   };
@@ -167,9 +164,7 @@
         headers = headerType;
       }
       else {
-        artoo.log.error('invalid header type for scrapeTable method ' +
-                        '("th" or "first").');
-        return;
+        throw TypeError('artoo.scrapeTable: wrong headers type.');
       }
 
       // Scraping

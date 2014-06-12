@@ -21,11 +21,10 @@
 
   var URL = _root.URL || _root.webkitURL || _root;
 
+  // Utilities
   function selectorOuterHTML($sel) {
-    if (helpers.isDocument($sel[0]))
-      return $sel[0].documentElement.outerHTML;
-    else
-      return $sel[0].outerHTML;
+    return ($sel[0].documentElement && $sel[0].documentElement.outerHTML) ||
+           $sel[0].outerHTML;
   }
 
   // Main abstraction
@@ -199,7 +198,7 @@
   artoo.saveHtml = function(data, params) {
     artoo.saveXml(
       data,
-      helpers.extend(params || {}, {filename: 'document.html'})
+      helpers.extend(params || {}, {filename: 'document.html', type: 'html'})
     );
   };
 

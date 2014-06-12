@@ -276,37 +276,6 @@
     }, milliseconds);
   }
 
-  // Lazily perform asynchronous task if condition is not true
-  function lazy(cond, falseFn, nextFn) {
-    if (cond)
-      nextFn();
-    else
-      falseFn(nextFn);
-  }
-
-  // Asynchronous while
-  function asyncWhile(test, iterator, callback, i) {
-    i = i || 0;
-
-    if (test(i)) {
-      iterator(i, function(err) {
-        if (err)
-          return callback(err);
-        asyncWhile(test, iterator, callback, ++i);
-      });
-    }
-    else {
-      callback();
-    }
-  }
-
-  // Asynchronous until
-  function asyncUntil(test, iterator, callback) {
-    asyncWhile(function(i) {
-      return !test(i);
-    }, iterator, callback);
-  }
-
   /**
    * File handling
    * --------------
@@ -358,13 +327,6 @@
   artoo.injectScript = getScript;
   artoo.waitFor = waitFor;
   artoo.getGlobalVariables = getGlobalVariables;
-
-  // Async helpers namespace
-  artoo.async = {
-    lazy: lazy,
-    until: asyncUntil,
-    while: asyncWhile
-  };
 
   // Exporting to artoo helpers
   artoo.helpers = {

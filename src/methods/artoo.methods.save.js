@@ -21,6 +21,13 @@
 
   var URL = _root.URL || _root.webkitURL || _root;
 
+  function selectorOuterHTML($sel) {
+    if (helpers.isDocument($sel[0]))
+      return $sel[0].documentElement.outerHTML;
+    else
+      return $sel[0].outerHTML;
+  }
+
   // Main abstraction
   function Saver() {
     var _saver;
@@ -179,7 +186,7 @@
   };
 
   artoo.saveXml = function(data, params) {
-    var s = (helpers.isSelector(data) && data.html()) ||
+    var s = (helpers.isSelector(data) && selectorOuterHTML(data)) ||
             (helpers.isDocument(data) && data.documentElement.outerHTML) ||
             data;
 

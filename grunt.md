@@ -75,6 +75,7 @@ grunt.initConfig({
 * **loadingText** *?string* : a custom loading text to be written when **artoo** is loading.
 * **random** *?boolean* [`false`] : should we load artoo with a random `GET` parameter in its url to shunt some cache systems?
 * **settings** *?object* : a configuration object for **artoo**. A list of the available settings can be found [here]({{ site.baseurl }}/settings).
+* **version** *?string* [`'latest'`] : artoo's version you want to load.
 
 ### Executing files through the bookmarklet
 If you need the bookmarklet to execute some of your scripts, you can either specify a distant url from where you are going to serve said script through `options.scriptUrl` or let **artoo**'s task concatenate and minify the `src` files.

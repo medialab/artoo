@@ -28,13 +28,12 @@
     <label for="sidebar-checkbox" class="sidebar-toggle"></label>
     <script type="text/javascript" src="{{ site.baseurl }}/public/js/jquery-2.1.1.min.js"></script>
     {% if page.id != 'home' and page.id != 'quick_start' %}
-      <script type="text/javascript" src="{{ site.baseurl }}/public/js/artoo.min.js"></script>
+      <script type="text/javascript" src="{{ site.baseurl }}/public/dist/artoo.latest.min.js"></script>
     {% endif %}
 
     {% if page.id == 'home' %}
       <script type="text/javascript" src="{{ site.baseurl }}/public/js/log.min.js"></script>
-      <script type="text/javascript" src="{{ site.baseurl }}/public/js/jquery-2.1.1.min.js"></script>
-      <script id="artoo_injected_script" type="text/javascript" src="{{ site.baseurl }}/public/js/artoo.min.js" settings='{"autoInit":false}'></script>
+      <script id="artoo_injected_script" type="text/javascript" src="{{ site.baseurl }}/public/dist/artoo.latest.min.js" settings='{"autoInit":false}'></script>
       <script type="text/javascript" src="{{ site.baseurl }}/public/js/tutorial.js"></script>
     {% endif %}
 

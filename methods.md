@@ -22,7 +22,7 @@ Save data to files that your browser will download.
 Easily scrape some data on the page you are browsing.
 
 ### [Spiders]({{ site.baseurl }}/spiders)
-Triggers series of HTTP or ajax requests to retrieved accumulated data.
+Triggers series of HTTP or ajax requests and retrieve the accumulated data.
 
 ### [Store]({{ site.baseurl }}/store)
 Store some persistent data to the `localStorage` for later use.

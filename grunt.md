@@ -24,6 +24,8 @@ npm install grunt-artoo
 npm install git+https://github.com/medialab/grunt-artoo.git
 ```
 
+The task repository can be found [there](https://github.com/medialab/grunt-artoo).
+
 ---
 
 ## Getting Started

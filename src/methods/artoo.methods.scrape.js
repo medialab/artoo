@@ -108,7 +108,8 @@
       i = iterator;
     }
 
-    c = (typeof arguments[arguments.length - 1] === 'function') ?
+    c = (arguments.length > 2 &&
+         typeof arguments[arguments.length - 1] === 'function') ?
       arguments[arguments.length - 1] : p.done;
 
     // Warn if no iterator or no data

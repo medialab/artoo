@@ -68,61 +68,53 @@ One could easily scrape several pages by using an [ajaxSpider]({{ site.baseurl }
 *Example - Downloading the first three pages*
 
 ```js
-function scrapeOnePage($page) {
-  return artoo.scrape(
-    $page.find('tr tr:has(td.title:has(a)):not(:last)'),
-    {
-      title: {sel: '.title a'},
-      url: {sel: '.title a', attr: 'href'},
-      domain: {
-        sel: '.comhead',
-        method: function($) {
-          return $(this).text().trim().replace(/[\(\)]/g, '');
-        }
-      },
-      score: {
-        sel: '+ tr [id^=score]',
-        method: function($) {
-          return +$(this).text().replace(/ points/, '');
-        }
-      },
-      user: {
-        sel: '+ tr a[href^=user]',
-        method: function($) {
-          return $(this).length ? $(this).text() : null;
-        }
-      },
-      nb_comments: {
-        sel: '+ tr a[href^=item]',
-        method: function($) {
-          var nb = +$(this).text().replace(/ comments/, '');
-          return isNaN(nb) ? 0 : nb;
-        }
+var scraper = {
+  iterator: 'tr tr:has(td.title:has(a)):not(:last)',
+  data: {
+    title: {sel: '.title a'},
+    url: {sel: '.title a', attr: 'href'},
+    domain: {
+      sel: '.comhead',
+      method: function($) {
+        return $(this).text().trim().replace(/[\(\)]/g, '');
+      }
+    },
+    score: {
+      sel: '+ tr [id^=score]',
+      method: function($) {
+        return +$(this).text().replace(' points', '');
+      }
+    },
+    user: {
+      sel: '+ tr a[href^=user]',
+      method: function($) {
+        return $(this).length ? $(this).text() : null;
+      }
+    },
+    nb_comments: {
+      sel: '+ tr a[href^=item]',
+      method: function($) {
+        var nb = +$(this).text().replace(' comments', '');
+        return isNaN(nb) ? 0 : nb;
       }
     }
-  );
-}
+  }
+};
 
 function nextUrl($page) {
   return $page.find('td.title:last > a').attr('href');
 }
 
 artoo.log.debug('Starting the scraper...');
-var frontpage = scrapeOnePage(artoo.$(document));
+var frontpage = artoo.scrape(scraper);
 
 artoo.ajaxSpider(
-  function(i, data) {
-    if (!i)
-      return nextUrl(artoo.$(document));
-    else
-      return nextUrl(artoo.$(data));
+  function(i, $data) {
+    return nextUrl(!i ? artoo.$(document) : $data);
   },
   {
     limit: 2,
-    callback: function(data, i) {
-      artoo.log.debug('Fecthed page ' + (i + 1));
-      return scrapeOnePage(artoo.$(data));
-    },
+    scrape: scraper,
     concat: true,
     done: function(data) {
       artoo.log.debug('Finished retrieving data. Downloading...');
@@ -159,4 +151,4 @@ This is not instantaneous so please wait for the data to be retrieved and downlo
 
 Curtom bookmarks such as this one can be generated through **artoo**'s grunt task whose documentation can be found [here]({{ site.baseurl }}/grunt).
 
-Finally, a full example of how you would create such a bookmarklet can be found on this [gist](https://gist.github.com/Yomguithereal/5d792d88ad6f1fe7c15d).
+Finally, a fully explained example of how you would create such a bookmarklet can be found on this [gist](https://gist.github.com/Yomguithereal/5d792d88ad6f1fe7c15d).

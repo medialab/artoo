@@ -8,17 +8,11 @@
    * Some helpers to save data to a file that will be downloaded by the
    * browser. Works mainly with chrome for the time being.
    *
-   * Mainly inspired by:
-   * https://github.com/eligrey/FileSaver.js/blob/master/FileSaver.js
    */
   var _root = this,
       helpers = artoo.helpers;
 
   // Polyfills
-  var reqfs = window.requestFileSystem ||
-              window.webkitRequestFileSystem ||
-              window.mozRequestFileSystem;
-
   var URL = _root.URL || _root.webkitURL || _root;
 
   // Utilities
@@ -37,18 +31,12 @@
     this.forceDownloadMimeType = 'application/octet-stream';
     this.defaultMimeType = 'text/plain';
     this.xmlns = 'http://www.w3.org/1999/xhtml';
-    this.deletionQueue = [];
     this.mimeShortcuts = {
       csv: 'text/csv',
       json: 'application/json',
       txt: 'text/plain',
       html: 'text/html'
     };
-
-    // State
-    this.INIT = 0;
-    this.WRITING = 1;
-    this.DONE = 2;
 
     // Methods
     this.createBlob = function(data, mime, encoding) {
@@ -72,49 +60,34 @@
         type: url.split(',')[0].split(':')[1].split(';')[0]
       });
     };
-    window.c = this.createBlobFromDataURL;
 
     this.blobURL = function(blob) {
       var oURL = URL.createObjectURL(blob);
-      // this.deletionQueue.push(oURL);
       return oURL;
     };
 
-    this.saveBlob = function(blob, filename) {
-      this.readyState = this.INIT;
+    this.saveResource = function(href, params) {
+      var a = document.createElementNS(this.xmlns, 'a');
+      a.href = href;
 
-      var minSize = blob.size,
-          saveLink = document.createElementNS(this.xmlns, 'a'),
-          canUseSaveLink = !_root.externalHost && 'download' in saveLink;
+      a.setAttribute('download', params.filename || '');
 
-      if (canUseSaveLink) {
-        var oURL = this.blobURL(blob);
-
-        // Updating the save link
-        saveLink.href = oURL;
-        saveLink.download = filename;
-
-        // Creating event
-        var e = document.createEvent('MouseEvents');
-        e.initMouseEvent(
-          'click', true, false, _root, 0, 0, 0, 0, 0,
-          false, false, false, false, 0, null);
-
-        saveLink.dispatchEvent(e);
-        this.readyState = this.DONE;
-        // dispatch_all
-      }
+      artoo.$(a).simulate('click');
+      a = null;
     };
 
     // Main interface
-    this.save = function(data, params) {
+    this.saveData = function(data, params) {
       params = params || {};
 
       // Creating the blob
       var blob = this.createBlob(data, params.mime, params.encoding);
 
       // Saving the blob
-      this.saveBlob(blob, params.filename || this.defaultFilename);
+      this.saveResource(
+        this.blobURL(blob),
+        {filename: params.filename || this.defaultFilename}
+      );
     };
 
     this.saveDataURL = function(url, params) {
@@ -124,17 +97,10 @@
       var blob = this.createBlobFromDataURL(url);
 
       // Saving the blob
-      this.saveBlob(blob, params.filename || this.defaultFilename);
-    };
-
-    this.saveResource = function(href, params) {
-      var a = document.createElement('a');
-      a.href = href;
-
-      a.setAttribute('download', params.filename || '');
-
-      artoo.$(a).simulate('click');
-      a = null;
+      this.saveResource(
+        blob,
+        {filename: params.filename || this.defaultFilename}
+      );
     };
   }
 
@@ -142,7 +108,7 @@
 
   // Exporting
   artoo.save = function(data, params) {
-    _saver.save(data, params);
+    _saver.saveData(data, params);
   };
 
   artoo.saveJson = function(data, params) {

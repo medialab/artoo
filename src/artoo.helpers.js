@@ -161,19 +161,33 @@
       );
   }
 
-  // Loading an external script
-  function getScript(url, cb) {
-    var script = document.createElement('script'),
+  // Loading an external file the same way the browser would load it from page
+  function getExternal(url, type, cb) {
+    type = type || 'js';
+
+    if (type !== 'js' && type !== 'css')
+      throw TypeError('artoo.getExternal: invalid type "' + type + '".');
+
+    var el = document.createElement(type === 'js' ? 'script' : 'link'),
         head = document.getElementsByTagName('head')[0];
 
     // Defining the script tag
-    script.src = url;
-    script.onload = script.onreadystatechange = function() {
+    el[type === 'js' ? 'src' : 'href'] = url;
+    if (type === 'css') {
+      el.type = 'text/css';
+      el.rel = 'stylesheet';
+    }
+
+    // Defining callbacks
+    el.onload = el.onreadystatechange = function() {
       if ((!this.readyState ||
             this.readyState == 'loaded' ||
             this.readyState == 'complete')) {
-        script.onload = script.onreadystatechange = null;
-        head.removeChild(script);
+        el.onload = el.onreadystatechange = null;
+
+        // Removing only if Javascript
+        if (type === 'js')
+          head.removeChild(el);
 
         if (typeof cb === 'function')
           cb();
@@ -181,7 +195,7 @@
     };
 
     // Appending the script to head
-    head.appendChild(script);
+    head.appendChild(el);
   }
 
   var globalsBlackList = [
@@ -324,7 +338,12 @@
   }
 
   // Exporting to artoo root
-  artoo.injectScript = getScript;
+  artoo.injectScript = function(url, cb) {
+    getExternal(url, 'js', cb);
+  };
+  artoo.injectStyle = function(url, cb) {
+    getExternal(url, 'css', cb);
+  };
   artoo.waitFor = waitFor;
   artoo.getGlobalVariables = getGlobalVariables;
 

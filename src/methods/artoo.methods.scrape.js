@@ -60,7 +60,7 @@
 
       if (loneSelector)
         item = (typeof data === 'object' && 'scrape' in data) ?
-          artoo.scrape(
+          scrape(
             $(this).find(data.scrape.iterator),
             data.scrape.data,
             data.scrape.params
@@ -69,7 +69,7 @@
       else
         for (p in data) {
           item[p] = (typeof data[p] === 'object' && 'scrape' in data[p]) ?
-            artoo.scrape(
+            scrape(
               $(this).find(data[p].scrape.iterator),
               data[p].scrape.data,
               data[p].scrape.params
@@ -93,39 +93,52 @@
     return scraped;
   }
 
-  // Public interface mainly taking care of polymorphism
-  artoo.scrape = function(iterator, data, params, cb) {
+  // Function taking care of harsh polymorphism
+  function polymorphism(iterator, data, params, cb) {
     var i, d, p, c;
 
-    if (artoo.helpers.isPlainObject(iterator) && iterator.iterator) {
+    if (artoo.helpers.isPlainObject(iterator) &&
+        !artoo.helpers.isSelector(iterator) &&
+        !artoo.helpers.isDocument(iterator) &&
+        (iterator.iterator || iterator.data || iterator.params)) {
       d = iterator.data;
-      p = iterator.params || {};
+      p = artoo.helpers.isPlainObject(iterator.params) ? iterator.params : {};
       i = iterator.iterator;
     }
     else {
       d = data;
-      p = params || {};
+      p = artoo.helpers.isPlainObject(params) ? params : {};
       i = iterator;
     }
+
+    // Default values
+    d = d || 'text';
 
     c = (typeof arguments[arguments.length - 1] === 'function') ?
       arguments[arguments.length - 1] : p.done;
 
+    return [i, d, p, c];
+  }
+
+  // Public interface
+  artoo.scrape = function(iterator, data, params, cb) {
+    var args = polymorphism(iterator, data, params, cb);
+
     // Warn if no iterator or no data
-    if (!i || !d)
+    if (!args[0] || !args[1])
       throw TypeError('artoo.scrape: wrong arguments.');
 
-    return scrape(i, d, p, c);
+    return scrape.apply(this, args);
   };
 
   // Scrape only the first corresponding item
   artoo.scrapeOne = function(iterator, data, params, cb) {
-    return artoo.scrape(
-      iterator,
-      data,
-      extend({limit: 1, one: true}, params),
-      cb
-    );
+    var args = polymorphism(iterator, data, params, cb);
+
+    // Extending parameters
+    args[2] = artoo.helpers.extend(args[2], {limit: 1, one: true});
+
+    return scrape.apply(this, args);
   };
 
   // Scrape a table

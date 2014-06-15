@@ -28,6 +28,13 @@
         'http://unknownsite.com'
       ];
 
+      var titleList = [
+        'Nice site',
+        'Awesome site',
+        'Pretty site',
+        'Unknown site'
+      ];
+
       // Testing
       deepEqual(
         artoo.scrape(id + ' li > a', {
@@ -66,6 +73,12 @@
         artoo.scrape(id + ' li > a', 'href'),
         simpleList,
         'Scraping only one property should return a correct array through polymorphism.'
+      );
+
+      deepEqual(
+        artoo.scrape(id + ' li > a'),
+        titleList,
+        'Scraping only one property with only first argument should return text.'
       );
 
       deepEqual(

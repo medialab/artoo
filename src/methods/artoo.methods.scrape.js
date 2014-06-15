@@ -114,8 +114,9 @@
     // Default values
     d = d || 'text';
 
-    c = (typeof arguments[arguments.length - 1] === 'function') ?
-      arguments[arguments.length - 1] : p.done;
+    c = typeof cb === 'function' ? cb :
+          typeof params === 'function' ? params :
+            p.done;
 
     return [i, d, p, c];
   }

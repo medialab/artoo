@@ -10,15 +10,18 @@
     <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
          content to avoid any CSS collisions with our real content. -->
     <div class="wrap">
-      <div class="masthead">
-        <div class="container">
-          <!-- <img class="artoo-logo" src="https://raw.githubusercontent.com/medialab/artoo/master/chrome/icons/icon48.png" /> -->
-          <h3 style="display: inline;" class="masthead-title">
-            <a href="{{ site.baseurl }}/" title="Home">{{ site.title }}</a>
-            <small>{{ site.tagline }}</small>
-          </h3>
+
+      {% if page.id != 'home' %}
+        <div class="masthead">
+          <div class="container">
+            <!-- <img class="artoo-logo" src="https://raw.githubusercontent.com/medialab/artoo/master/chrome/icons/icon48.png" /> -->
+            <h3 style="display: inline;" class="masthead-title">
+              <a href="{{ site.baseurl }}/" title="Home">{{ site.title }}</a>
+              <small>{{ site.tagline }}</small>
+            </h3>
+          </div>
         </div>
-      </div>
+      {% endif %}
 
       <div class="container content">
         {{ content }}

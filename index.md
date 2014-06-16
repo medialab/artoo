@@ -8,15 +8,19 @@ id: home
 
 <p align="center">
   <a href='{{ site.bookmarklets.artoo }}' id='bookmarklet'>
-    <img alt="artoo" width="220" height="220" src="{{ site.baseurl }}/public/img/artoo-icon.svg" />
+    <img class="inline-img index-bookmarklet" alt="artoo" width="220" height="220" src="{{ site.baseurl }}/public/img/artoo-icon.svg" />
   </a>
+  <img class="inline-img" alt="drag-indicator" src="{{ site.baseurl }}/public/img/drag.png" style="position: absolute; margin-left: 10px;" />
 </p>
+
+<h1>artoo</h1>
+<p align="center"><em>The client-side scraping companion</em></p>
 
 ---
 
 **artoo** is a piece of JavaScript code meant to be run in your browser's console to provide you with some scraping utilites.
 
-**artoo** is loaded into the JavaScript context of any webpage through a handy bookmarklet you can instantly install by dropping the icon above onto your bookmark bar.
+This nice droid is loaded into the JavaScript context of any webpage through a handy bookmarklet you can instantly install by dropping the above icon onto your bookmark bar.
 
 ---
 

@@ -1,9 +1,27 @@
 /* Artoo Doc Stylesheet */
+h1 {
+  text-align: center;
+  margin-top: 0px;
+  color: #1f5baa;
+}
+
 .artoo-logo {
   margin-bottom: 0;
   display: inline;
   width: 35px;
   height: 35px;
+}
+
+.index-bookmarklet:hover {
+  -moz-box-shadow: 1px 1px 10px 2px #656565;
+  -webkit-box-shadow: 1px 1px 10px 2px #656565;
+  box-shadow: 1px 1px 10px 2px #656565;
+  -moz-border-radius: 150px;
+  -webkit-border-radius: 150px;
+  border-radius: 150px;
+  -moz-transition: -moz-box-shadow 0.4s;
+  -webkit-transition: -webkit-box-shadow 0.4s;
+  transition: box-shadow 0.4s;
 }
 
 .theme-base-artoo .sidebar,
@@ -47,4 +65,8 @@
 
 .sidebar-toggle {
   display: none;
+}
+
+.inline-img {
+  display: inline;
 }

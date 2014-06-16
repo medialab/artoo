@@ -6,6 +6,8 @@ id: methods
 
 # {{ page.title }}
 
+---
+
 ### [Autoexpand]({{ site.baseurl }}/expand)
 Expand web pages' content programmatically.
 

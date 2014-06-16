@@ -6,6 +6,8 @@ id: grunt
 
 # {{ page.title }}
 
+---
+
 **artoo** ships with a [grunt](http://gruntjs.com/) task enabling you to create custom bookmarklets.
 
 Those are especially useful when you need precise settings for **artoo** or when you need to inject your own code using **artoo** as a framework.

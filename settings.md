@@ -5,6 +5,9 @@ id: settings
 ---
 
 # {{ page.title }}
+
+---
+
 **artoo** ships with a variety of settings for you to adjust.
 
 You can change **artoo**'s settings either by changing them directly through JavaScript

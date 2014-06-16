@@ -6,6 +6,8 @@ id: quick_start
 
 # Quick start
 
+---
+
 **artoo** is a client-side scraping companion. He can be invoked within any web page and gives you access to a bunch of useful functions aiming at making your scraping jobs as easy as a stroll in a park.
 
 ---

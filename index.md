@@ -18,7 +18,7 @@ id: home
 
 ---
 
-**artoo** is a piece of JavaScript code meant to be run in your browser's console to provide you with some scraping utilites.
+**artoo** is a piece of JavaScript code meant to be run in your browser's console to provide you with some scraping utilities.
 
 This nice droid is loaded into the JavaScript context of any webpage through a handy bookmarklet you can instantly install by dropping the above icon onto your bookmark bar.
 

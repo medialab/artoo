@@ -7,6 +7,8 @@
    *
    * Console abstraction enabling artoo to perform a finer logging job.
    */
+  var _root = this,
+       chrome = 'chrome' in _root;
 
   // Utilities
   function toArray(a, slice) {
@@ -16,7 +18,7 @@
   // Return the logo ASCII array
   function robot() {
     return [
-      '   .-""-.   ',
+      (chrome ? ' ' : '') + '  .-""-.   ',
       '  /[] _ _\\  ',
       ' _|_o_LII|_ ',
       '/ | ==== | \\',
@@ -38,11 +40,13 @@
 
   // Log header
   function logHeader(level) {
-    return [
-      '[artoo]: %c' + level,
-      'color: ' + levels[level] + ';',
-      '-'
-    ];
+    var args = ['[artoo]: ' + (chrome ? '%c' + level : '')];
+
+    if (chrome)
+      args.push('color: ' + levels[level] + ';');
+    args.push('-');
+
+    return args;
   }
 
   // Log override
@@ -56,9 +60,13 @@
 
     level = hasLevel ? level : 'debug';
 
+    var msg = logHeader(level).concat(args);
+
     console.log.apply(
       console,
-      logHeader(level).concat(args)
+      (chrome) ?
+        msg :
+        [msg.reduce(function(a, b) { return a + b; }, '')]
     );
   };
 

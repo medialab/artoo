@@ -36,7 +36,7 @@ Here is what you need to do to install it:
 git clone https://github.com/medialab/artoo
 cd artoo
 npm install
-grunt uglify
+grunt concat
 ```
 
 Then go to chrome's extension page, tick the developer mode's checkbox and load the unpacked extension.

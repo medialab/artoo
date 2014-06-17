@@ -52,7 +52,6 @@ That's it. You've just scraped *Hacker News* front page and downloaded the data 
 ---
 
 <h2 id="features">Features</h2>
-<br>
 
 * **Scrape everything, everywhere**: invoke artoo in the JavaScript console of your browser in any web page.
 * **Scraping helpers**: Scrape data quick & easy with powerful helpers such as [artoo.scrape]({{ site.baseurl }}/scrape).
@@ -142,3 +141,5 @@ npm run https
 **artoo** is being developed by [Guillaume Plique](https://github.com/Yomguithereal) @ SciencesPo - [médialab]({{ site.medialab.url }}).
 
 Logo by [Daniele Guido](https://github.com/danieleguido).
+
+Under a [MIT License](https://raw.githubusercontent.com/medialab/artoo/master/LICENSE.txt).

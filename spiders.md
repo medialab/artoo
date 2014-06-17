@@ -10,8 +10,6 @@ id: spiders
 
 **artoo**'s spiders aims at triggering series of HTTP requests to collect some data.
 
-They work only with ajax for the time being but should be able to crawl through pages of the same domain soon.
-
 ---
 
 * [artoo.ajaxSpider](#ajax)

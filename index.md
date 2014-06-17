@@ -57,7 +57,7 @@ That's it. You've just scraped *Hacker News* front page and downloaded the data 
 * **Loaded with helpers**: Scrape data quick & easy with powerful methods such as [artoo.scrape]({{ site.baseurl }}/scrape).
 * **Data download**: Make your browser download the scraped data with [artoo.save]({{ site.baseurl }}/save) methods.
 * **Spiders**: Crawl pages through ajax and retrieve accumulated data with artoo's [spiders]({{ site.baseurl}}/spiders).
-* **Content expansion**: Expand pages' content programmatically thanks to [artoo.autoExpand]({{ site.baseurl }}/expand) utilites.
+* **Content expansion**: Expand pages' content programmatically thanks to [artoo.autoExpand]({{ site.baseurl }}/expand) utilities.
 * **Store**: stash persistent data in the localStorage with artoo's handy [abstraction]({{ site.baseurl }}/store).
 * **Instructions**: record the [instructions]({{ site.baseurl }}/instructions) typed into the console and save them for later use.
 * **jQuery**: [jQuery]({{ site.baseurl }}/jquery) is injected alongside artoo in the pages you visit so you can handle the DOM easily.

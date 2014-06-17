@@ -17,7 +17,7 @@ Before anything, we need to install **artoo**. Hopefully, this is a painless tas
 
 <p align="center">
   <a href='{{ site.bookmarklets.artoo }}' id='bookmarklet'>
-    <img alt="artoo" width="148" height="148" src="{{ site.baseurl }}/public/img/artoo-icon.svg" />
+    <img class="index-bookmarklet" alt="artoo" width="148" height="148" src="{{ site.baseurl }}/public/img/artoo-icon.svg" />
   </a>
 </p>
 

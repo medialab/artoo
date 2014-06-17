@@ -270,9 +270,9 @@ God no!
 artoo.savePrettyJson(niceList);
 ```
 
-Now you should see your browser download a `data.json` file containing your scraped list and if `chrome` bothers you and tells you are trying to download too much, just tell him to get lost.
+Now you should see your browser download a `data.json` file containing your scraped list and if *Chrome* bothers you and tells you are trying to download too much, just tell him to get lost.
 
-And if you are more the CSV kind of guy.
+And of course, if you are more the CSV kind of guy, just help yourself.
 
 ```js
 artoo.saveCsv(niceList);
@@ -299,7 +299,7 @@ Furthermore, **artoo**'s helpers are often polymorphic and offer you a lot of di
 
 ---
 
-**artoo**, more than just scraping lists and downloading files, is therefore able to expand or scroll web page's content programmatically, to save persistent data in the local storage or in remote databases, to inject scripts, to crawl different websites, to trigger series of ajax queries and a lot of other things you'll be able to find in the **[methods]({{ site.baseurl }}/methods)** compendium of this documentation.
+**artoo**, more than just scraping lists and downloading files, is therefore able to expand or scroll web page's content programmatically, to save persistent data in the local storage or in remote databases, to inject scripts, to crawl different websites, to trigger series of ajax queries and a lot of other things you'll be able to find in the [methods]({{ site.baseurl }}/methods) compendium of this documentation.
 
 ---
 

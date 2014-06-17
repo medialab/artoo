@@ -23,10 +23,19 @@ It is advisable, however, to check the [quick start]({{ site.baseurl }}/quick_st
 <h2 id="scrape">artoo.scrape</h2>
 `artoo.scrape` is the heart of **artoo**'s scraping techniques. It takes a selector as its root iterator and then takes the data model you intent to extract at each step of the iteration.
 
+```js
+// Basic signature
+artoo.scrape(iterator, model, [params, callback]);
+
+// Alternative signatures
+artoo.scrape(configObject, [callback]);
+artoo.scrape(iterator, model, [callback]);
+```
+
 For instance, you could need to iterate on a list while extracting the id and the text of each element of the list.
 
 ```js
-artoo.scrape(iterator, model, [params, callback]);
+artoo.scrape('li', {id: 'id', content: 'text'});
 ```
 
 ---
@@ -37,10 +46,10 @@ artoo.scrape(iterator, model, [params, callback]);
 * **model**     *mixed* : the model of the data you want to scrape and its retrievers.
 * **params**    *?object* : an object of optional parameters.
   * **limit**   *?integer* : the number of items you want to scrape if you do not want each of them.
-  * **done**    *?function* : a function taking as only argument the scraped items and to be triggered when the scraping is done.
-* **callback**  *?function* : same as `params.done`.
+  * **done**    *?function* : same as `callback`.
+* **callback**  *?function* : a function taking as only argument the scraped items and to be triggered when the scraping is done.
 
-Alternatively, you can pass a single object as argument to the `scrape` method and taking as properties `iterator` and `data`.
+Alternatively, you can pass a single object as argument to the `scrape` method and taking as properties `iterator`, `data` and `params`.
 
 ---
 
@@ -67,7 +76,7 @@ artoo.scrape('ul > li', {text: 'text', id: 'id'});
 
 ### Retrievers
 
-Ok, but now that you know what kind of array you want to be returned, you need to specify how to retrieve the wanted data.
+Now that you know what kind of array you want to be returned, you need to specify how to retrieve the wanted data.
 
 There are three ways to get what you want with `artoo.scrape`:
 
@@ -105,7 +114,7 @@ Possible properties for a retriever object are the following:
 * **defaultValue** *?mixed* : a default value to return in case the retriever would return a falsy value or `NaN`.
 * **method** *?string | ?function* : the name of a jQuery element method like `text` or `html` or a custom function.
 * **scrape** *?object* : helper for recursivity. See [recursivity](#recursivity) for complete documentation.
-* **sel** *?css Selector | jQuery selector* : a subselector for the retriever (will apply `.find(sel)` to the current element in iteration). If a `method` property is given as a function, `$(this)` will correspond to this subselection.
+* **sel** *?css Selector | ?jQuery selector* : a subselector for the retriever (will apply `.find(sel)` to the current element in iteration). If a `method` property is given as a function, `$(this)` will correspond to this subselection.
 
 
 
@@ -115,7 +124,7 @@ Possible properties for a retriever object are the following:
 
 Finally, if none of the above methods work for you, you remain free to pass a function that will perform the data retrieval.
 
-Note that a function passed to `artoo.scrape` follows jQuery paradigms: `this` would actually be a reference to the current DOM element in the iteration.
+Note that a function passed to `artoo.scrape` follows jQuery's paradigm: `this` would actually be a reference to the current DOM element in the iteration.
 
 You can therefore use `$(this)` as you would in any jQuery callback.
 
@@ -125,7 +134,7 @@ artoo.scrape('ul > li', function() {
 });
 ```
 
-Note also that functions passed as retrievers can take an argument which is actually **artoo**'s internal jQuery reference.You can read the reason why [here]({{ site.baseurl }}/jquery#dollar).
+Note also that functions passed as retrievers can take an argument which is **artoo**'s internal jQuery reference. You can read the reason why [here]({{ site.baseurl }}/jquery#dollar).
 
 ```js
 artoo.scrape('ul > li', {
@@ -156,7 +165,7 @@ artoo.scrape('ul.list > li', {
 
 <h2 id="scrape-one">artoo.scrapeOne</h2>
 
-`scrapeOne` is works the same way as `scrape` but will only return the first element. It is strictly the same as passing `1` as the `limit` parameter.
+`scrapeOne` works the same way as `scrape` but will only return the first element. It is strictly the same as passing `1` as the `limit` parameter.
 
 ```js
 artoo.scrapeOne(iterator, model, [params, callback]);
@@ -189,14 +198,16 @@ artoo.scrapeTable(selector, [params, callback]);
   * **limit** *?integer* : the number of items you want to scrape if you do not want each of them.
   * **headers** *?mixed*: see below.
   * **data** *?object* : the data retriever as expressed for the `scrape` method if needed.
-  * **done** *?function* : a function taking as only argument the scraped items and to be triggered when the scraping is done.
-* **callback** : same as `params.done`.
+  * **done** *?function* : same as `callback`.
+* **callback** : a function taking as only argument the scraped items and to be triggered when the scraping is done.
+
+<br>
 
 *Headers*
 
 It is possible to specify headers for the scraped table. If you do so, instead of returning an array of array, the `scrapeTable` method will return an array of objects.
 
-You can therefore specify headers through the following ways:
+You can specify headers through the following ways:
 
 * **a string** : either `'first'` to declare the first row as headers or `'th'` if the table as regular HTML headers.
 * **an object** : a configuration object containing at least one of the following parameters.

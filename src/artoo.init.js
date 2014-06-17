@@ -35,7 +35,6 @@
     if (artoo.settings.log.beeping)
       artoo.beep();
 
-
     // Indicating we are injecting artoo from the chrome extension
     if (artoo.settings.chromeExtension)
       artoo.log.verbose('artoo has automatically been injected ' +

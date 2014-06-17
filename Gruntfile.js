@@ -2,6 +2,7 @@ module.exports = function(grunt) {
 
   var jsFiles = [
     'src/artoo.js',
+    'src/plugins/jquery.simulate.js',
     'src/artoo.beep.js',
     'src/artoo.settings.js',
     'src/artoo.helpers.js',
@@ -22,9 +23,9 @@ module.exports = function(grunt) {
     'src/artoo.init.js'
   ];
 
-  var prodFiles = jsFiles.concat([
-    'src/plugins/*.js'
-  ]);
+  function lintFilter(i) {
+    return !~i.indexOf('plugins');
+  }
 
   // Project configuration:
   grunt.initConfig({
@@ -33,7 +34,7 @@ module.exports = function(grunt) {
       app: {
         closureLinterPath: '/usr/local/bin',
         command: 'gjslint',
-        src: jsFiles,
+        src: jsFiles.filter(lintFilter),
         options: {
           stdout: true,
           strict: true,
@@ -42,7 +43,7 @@ module.exports = function(grunt) {
       }
     },
     jshint: {
-      all: jsFiles,
+      all: jsFiles.filter(lintFilter),
       options: {
         '-W055': true,
         '-W040': true,
@@ -55,7 +56,7 @@ module.exports = function(grunt) {
     uglify: {
       prod: {
         files: {
-          'build/artoo.min.js': prodFiles
+          'build/artoo.min.js': jsFiles
         },
         options: {
           banner: '/* artoo.js - <%= pkg.description %> - Version: <%= pkg.version %> -  medialab SciencesPo */\n'
@@ -67,13 +68,13 @@ module.exports = function(grunt) {
         separator: '\n'
       },
       dist: {
-        src: prodFiles,
+        src: jsFiles,
         dest: 'build/artoo.concat.js'
       }
     },
     watch: {
       script: {
-        files: prodFiles,
+        files: jsFiles,
         tasks: ['concat', 'uglify:prod']
       }
     },

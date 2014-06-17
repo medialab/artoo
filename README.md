@@ -11,7 +11,7 @@
 ## Contribution
 [![Build Status](https://travis-ci.org/medialab/artoo.svg)](https://travis-ci.org/medialab/artoo)
 
-Contribution are more than welcome. Feel free to submit any pull request as long as you added unit tests if relevant and passed them all.
+Contributions are more than welcome. Feel free to submit any pull request as long as you added unit tests if relevant and passed them all.
 
 To install the development environment, clone your fork and use the following commands:
 

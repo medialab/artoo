@@ -59,7 +59,7 @@ module.exports = function(grunt) {
           'build/artoo.min.js': jsFiles
         },
         options: {
-          banner: '/* artoo.js - <%= pkg.description %> - Version: <%= pkg.version %> -  medialab SciencesPo */\n'
+          banner: '/* artoo.js - <%= pkg.description %> - Version: <%= pkg.version %> - Author: <%= pkg.author.name %> - medialab SciencesPo */\n'
         }
       }
     },

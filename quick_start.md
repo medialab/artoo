@@ -118,12 +118,12 @@ Pretty straightforward, no?
 
 ---
 
-<h2 id="complex-things">Needing more specific things?</h2>
+<h2 id="specific-things">Needing more specific things?</h2>
 Well even if the precedent example is quite nice, you might need to do more specific things.
 
 It would be nice, for starters, to be able to use jQuery. DOM parsing is way more convenient with jQuery sometimes and every scraping guy cherish this kind of convenience.
 
-But, to be really honest with you, **artoo** already injected jQuery for you. He even did it carefully as it would be a pity to break anything within the page you are trying to scrape, especially if you need JavaScript to run smoothly to access the desired data.
+But, to be really honest with you, **artoo** already injected jQuery for you. He even did it carefully as it would be a pity to break anything within the page you are trying to scrape. Especially if you need JavaScript to run smoothly to access the desired data.
 
 ---
 
@@ -223,7 +223,7 @@ var niceList = artoo.scrape('.complex-url-list > li', {
     method: 'text'
   },
   nb_visits: function() {
-    return +$(this).find('span').text().replace(' visits', '');
+    return +$(this).find('.nb').text().replace(' visits', '');
   }
 });
 ```

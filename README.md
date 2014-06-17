@@ -4,7 +4,7 @@
   </a>
 </p>
 
-**artoo** is a piece of JavaScript code meant to be run in your browser's console to provide you with some scraping utilites.
+**artoo** is a piece of JavaScript code meant to be run in your browser's console to provide you with some scraping utilities.
 
 **artoo**'s full documentation is available on [github pages](https://medialab.github.io/artoo).
 

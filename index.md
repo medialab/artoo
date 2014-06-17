@@ -66,6 +66,13 @@ That's it. You've just scraped *Hacker News* front page and downloaded the data 
 
 ---
 
+<h2 id="disclaimer">Disclaimer</h2>
+Please note that **artoo** has been built having *Chrome* and *Chromium* in mind. So, even if artoo may function quite properly on other browsers, some of its features such as [instructions recording]({{ site.baseurl }}/instructions) might not be available on those.
+
+If you think this is unfair and feel that some features can be ported to other browsers, please report it and we'll find a solution together.
+
+---
+
 <h2 id="philosophy">Philosophy</h2>
 > &laquo; *Why on earth should I scrape on my browser? Isn't this insane?* &raquo;
 
@@ -97,14 +104,6 @@ Using browsers as scraping platforms comes with a lot of advantages:
 The intention here is not at all to say that classical scraping is obsolete but rather that client-side scraping is a possibility today and, what's more, a useful one.
 
 You'll never find yourself crawling pages massively on a browser, but for most of your scraping tasks, client-side should enhance your productivity dramatically.
-
-
----
-
-<h2 id="disclaimer">Disclaimer</h2>
-Please note that **artoo** has been built having *Chrome* and *Chromium* in mind. So, even if artoo may function quite properly on other browsers, some of its features such as [instructions recording]({{ site.baseurl }}/instructions) might not be available on those.
-
-If you think this is injust and feel that some features can be ported to other browsers, please report it and we'll find a solution together.
 
 ---
 

@@ -14,8 +14,7 @@
       blackList = [
         'saveInstructions(',
         '.instructions'
-      ],
-      inChrome = 'chrome' in _root;
+      ];
 
   // We override function calling to sniff user input
   function overrideFunctionCall() {
@@ -53,9 +52,9 @@
   };
 
   artoo.instructions.get = function() {
-    if (!inChrome)
+    if (!artoo.browser.chrome)
       artoo.log.warning('You are not in chrome. artoo is therefore unable ' +
-                        'to record console\' instructions.');
+                        'to record console\'s instructions.');
 
     // Filtering the array
     _instructions = _instructions.filter(function(e, i) {
@@ -72,13 +71,13 @@
   };
 
   artoo.instructions.startRecording = function() {
-    if (!inChrome)
+    if (!artoo.browser.chrome)
       return;
     overrideFunctionCall();
   };
 
   artoo.instructions.stopRecording = function() {
-    if (!inChrome)
+    if (!artoo.browser.chrome)
       return;
     restoreOriginalFunctionCall();
   };

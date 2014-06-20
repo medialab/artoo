@@ -1,5 +1,6 @@
 module.exports = function(grunt) {
 
+  // Order IS important
   var jsFiles = [
     'src/artoo.js',
     'src/plugins/jquery.simulate.js',

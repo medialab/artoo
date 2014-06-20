@@ -14,7 +14,8 @@
   function shuntedConsole() {
 
     // Detection
-    if (~console.log.toString().search(/\[native code\]/i))
+    if (artoo.browser.firebug ||
+        ~console.log.toString().search(/\[native code\]/i))
       return;
 
     // The console have been shunted, repairing...

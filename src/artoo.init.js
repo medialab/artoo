@@ -36,7 +36,7 @@
       artoo.beep();
 
     // Indicating we are injecting artoo from the chrome extension
-    if (artoo.settings.chromeExtension)
+    if (artoo.browser.chromeExtension)
       artoo.log.verbose('artoo has automatically been injected ' +
                         'by the chrome extension.');
 
@@ -72,6 +72,9 @@
     artoo.loadSettings(JSON.parse(artoo.dom.getAttribute('settings')));
     artoo.dom.parentNode.removeChild(artoo.dom);
   }
+
+  // Updating artoo.browser
+  artoo.browser.chromeExtension = !!artoo.settings.chromeExtension;
 
   // Adding functions to hooks
   artoo.hooks.init.unshift(main);

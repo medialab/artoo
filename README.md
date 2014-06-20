@@ -4,7 +4,7 @@
   </a>
 </p>
 
-**artoo.js** is a piece of JavaScript code meant to be run in your browser's console to provide you with some scraping utilites.
+**artoo.js** is a piece of JavaScript code meant to be run in your browser's console to provide you with some scraping utilities.
 
 The library's full documentation is available on [github pages](https://medialab.github.io/artoo).
 
@@ -34,6 +34,6 @@ npm run https
 ```
 
 ## Authors
-**artoo** is being developed by [Guillaume Plique](https://github.com/Yomguithereal) @ SciencesPo - [médialab](http://www.medialab.sciences-po.fr/fr/).
+**artoo.js** is being developed by [Guillaume Plique](https://github.com/Yomguithereal) @ SciencesPo - [médialab](http://www.medialab.sciences-po.fr/fr/).
 
 Logo by [Daniele Guido](https://github.com/danieleguido).

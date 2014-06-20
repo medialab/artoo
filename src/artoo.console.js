@@ -8,7 +8,7 @@
    * Console abstraction enabling artoo to perform a finer logging job.
    */
   var _root = this,
-       chrome = 'chrome' in _root;
+       enhanced = artoo.browser.chrome || artoo.browser.firebug;
 
   // Utilities
   function toArray(a, slice) {
@@ -18,7 +18,7 @@
   // Return the logo ASCII array
   function robot() {
     return [
-      (chrome ? ' ' : '') + '  .-""-.   ',
+      (enhanced ? ' ' : '') + '  .-""-.   ',
       '  /[] _ _\\  ',
       ' _|_o_LII|_ ',
       '/ | ==== | \\',
@@ -40,11 +40,11 @@
 
   // Log header
   function logHeader(level) {
-    var args = ['[artoo]: ' + (chrome ? '%c' + level : '')];
+    var args = ['[artoo]: ' + (enhanced ? '%c' + level : '')];
 
-    if (chrome)
+    if (enhanced)
       args.push('color: ' + levels[level] + ';');
-    args.push('-');
+    args.push('-' + (enhanced ? '' : ' '));
 
     return args;
   }
@@ -64,7 +64,7 @@
 
     console.log.apply(
       console,
-      (chrome) ?
+      (enhanced) ?
         msg :
         [msg.reduce(function(a, b) { return a + b; }, '')]
     );

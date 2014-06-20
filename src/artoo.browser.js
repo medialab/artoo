@@ -21,19 +21,18 @@
     return firebug;
   }
 
-  // Namespace
+  // Browsers
   artoo.browser = {
-
-    // Browsers
     chrome: 'chrome' in _root,
-    firefox: inBrowser && !!~navigator.userAgent.search(/firefox/i),
-
-    // Debuggers
-    firebug: checkFirebug()
+    firefox: inBrowser && !!~navigator.userAgent.search(/firefox/i)
   };
 
+  // Which browser?
   artoo.browser.which =
     artoo.helpers.first(Object.keys(artoo.browser), function(b) {
       return artoo.browser[b];
     }) || null;
+
+  // Debuggers
+  artoo.browser.firebug = checkFirebug();
 }).call(this);

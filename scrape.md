@@ -8,7 +8,7 @@ id: scrape
 
 ---
 
-**artoo**'s main goal is to provide you with some useful scraping helpers and this is precisely what the following methods do.
+**artoo.js**' main goal is to provide you with some useful scraping helpers and this is precisely what the following methods do.
 
 It is advisable, however, to check the [quick start]({{ site.baseurl }}/quick_start) section of this documentation to find a less exhaustive but more didactic presentation of `artoo.scrape` method.
 
@@ -21,7 +21,7 @@ It is advisable, however, to check the [quick start]({{ site.baseurl }}/quick_st
 ---
 
 <h2 id="scrape">artoo.scrape</h2>
-`artoo.scrape` is the heart of **artoo**'s scraping techniques. It takes a selector as its root iterator and then takes the data model you intent to extract at each step of the iteration.
+`artoo.scrape` is the heart of the library scraping techniques. It takes a selector as its root iterator and then takes the data model you intent to extract at each step of the iteration.
 
 ```js
 // Basic signature

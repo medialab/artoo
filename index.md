@@ -13,12 +13,12 @@ id: home
   <img class="inline-img" alt="drag-indicator" src="{{ site.baseurl }}/public/img/drag.png" style="position: absolute; margin-left: 10px; width: 200px; margin-top: -7px;" />
 </p>
 
-<h1>artoo</h1>
+<h1>artoo.js</h1>
 <p align="center"><em>The client-side scraping companion</em></p>
 
 ---
 
-**artoo** is a piece of JavaScript code meant to be run in your browser's console to provide you with some scraping utilities.
+**artoo.js** is a piece of JavaScript code meant to be run in your browser's console to provide you with some scraping utilities.
 
 This nice droid is loaded into the JavaScript context of any webpage through a handy bookmarklet you can instantly install by dropping the above icon onto your bookmark bar.
 
@@ -26,7 +26,7 @@ This nice droid is loaded into the JavaScript context of any webpage through a h
 
 <h2>Bootcamp</h2>
 
-Now that you have installed **artoo** let's scrape the famous *Hacker News* in four painless steps:
+Now that you have installed **artoo.js** let's scrape the famous *Hacker News* in four painless steps:
 
 <ol>
   <li>Copy the following instruction.</li>
@@ -41,7 +41,7 @@ artoo.scrape('td.title:has(a):not(:last)', {
 
 <ol start="2">
   <li>Go to <a href="https://news.ycombinator.com/" target="_blank">Hacker News</a>.</li>
-  <li>Open your JavaScript console and click the freshly created bookmarklet (<strong>artoo</strong> should greet you and tell you he is ready to roll).</li>
+  <li>Open your JavaScript console and click the freshly created bookmarklet (the droid should greet you and tell you he is ready to roll).</li>
   <li>Paste the instruction and hit enter.</li>
 </ol>
 
@@ -67,7 +67,7 @@ That's it. You've just scraped *Hacker News* front page and downloaded the data 
 ---
 
 <h2 id="disclaimer">Disclaimer</h2>
-Please note that **artoo** has been built having *Chrome* and *Chromium* in mind. So, even if artoo may function quite properly on other browsers, some of its features such as [instructions recording]({{ site.baseurl }}/instructions) might not be available on those.
+Please note that **artoo.js** has been built having *Chrome* and *Chromium* in mind. So, even if artoo may function quite properly on other browsers, some of its features such as [instructions recording]({{ site.baseurl }}/instructions) might not be available on those.
 
 If you think this is unfair and feel that some features can be ported to other browsers, please report it and we'll find a solution together.
 
@@ -76,7 +76,7 @@ If you think this is unfair and feel that some features can be ported to other b
 <h2 id="philosophy">Philosophy</h2>
 > &laquo; *Why on earth should I scrape on my browser? Isn't this insane?* &raquo;
 
-Well, before quitting the present documentation and run back to your beloved scrapy<sup><small>&copy;</small></sup> spiders, you should pause for a minute or two and read the reasons why **artoo** has made the choice of client-side scraping.
+Well, before quitting the present documentation and run back to your beloved scrapy<sup><small>&copy;</small></sup> spiders, you should pause for a minute or two and read the reasons why **artoo.js** has made the choice of client-side scraping.
 
 Usually, the scraping process occurs thusly: we find sites from which we need to retrieve data and we consequently build a program whose goal is to fetch those site's html and parse it to get what we need.
 
@@ -91,13 +91,13 @@ Aren't we trying to rebuild **web browsers**?
 ---
 
 So why shouldn't we take advantage of this and start scraping within the cosy environment of web browsers? It has become really easy today to execute JavaScript in a
-a browser's console and this is exactly what **artoo** is doing.
+a browser's console and this is exactly what **artoo.js** is doing.
 
 Using browsers as scraping platforms comes with a lot of advantages:
 
 * **Fast coding**: You can prototype your code live thanks to JavaScript browsers' REPL and peruse the DOM with tools specifically built for web development.
 * **No more authentication issues**: No longer need to deploy clever solutions to enable your spiders to authenticate on the website you intent to scrape. You are already authenticated on your browser as a human being.
-* **Tools for non-devs**: You can easily design tools for non-dev people. One could easily build an application with a UI on top of **artoo**. Moreover, **artoo** gives you the possibility to create bookmarklets on the fly to execute your personnal scripts.
+* **Tools for non-devs**: You can easily design tools for non-dev people. One could easily build an application with a UI on top of **artoo.js**. Moreover, it gives you the possibility to create bookmarklets on the fly to execute your personnal scripts.
 
 ---
 
@@ -135,7 +135,7 @@ npm run https
 ---
 
 <h2 id="authors">Authors</h2>
-**artoo** is being developed by [Guillaume Plique](https://github.com/Yomguithereal) @ SciencesPo - [médialab]({{ site.medialab.url }}).
+**artoo.js** is being developed by [Guillaume Plique](https://github.com/Yomguithereal) @ SciencesPo - [médialab]({{ site.medialab.url }}).
 
 Logo by [Daniele Guido](https://github.com/danieleguido).
 

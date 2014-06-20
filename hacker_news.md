@@ -135,7 +135,7 @@ Just change the `limit` to get more pages and put a `throttle` parameter not to 
 
 > &laquo; *Ok, I see your point but this is quite tiresome to copy & paste code into the JavaScript console. There should be a more pratical way.* &raquo;
 
-Fortunately, there is: You could create a custom **artoo** bookmarklet wrapping things up.
+Fortunately, there is: You could create a custom **artoo.js** bookmarklet wrapping things up.
 
 <p align="center">
   <a href='{{ site.bookmarklets.hackernews }}' id='bookmarklet'>
@@ -149,6 +149,6 @@ This is not instantaneous so please wait for the data to be retrieved and downlo
 
 ---
 
-Custom bookmarks such as this one can easily be generated through **artoo**'s grunt task whose documentation can be found [here]({{ site.baseurl }}/grunt).
+Custom bookmarks such as this one can easily be generated through a specific grunt task whose documentation can be found [here]({{ site.baseurl }}/grunt).
 
 Finally, a fully explained example of how you would create such a bookmarklet can be found on this [gist](https://gist.github.com/Yomguithereal/5d792d88ad6f1fe7c15d).

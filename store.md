@@ -8,11 +8,11 @@ id: store
 
 ---
 
-**artoo**'s store module provides you with a useful `Storage` interface. It becomes really handy when some persistent data has to be saved and accessed throughout a scraping session.
+**artoo.js**' store module provides you with a useful `Storage` interface. It becomes really handy when some persistent data has to be saved and accessed throughout a scraping session.
 
 If you are unfamiliar with `localStorage` and its affiliates, it is highly advisable that you start by reading some [documentation](https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Storage) to learn their downsides.
 
-**artoo** uses the `localStorage` by default. If you need to change this, you should see the relevant [setting]({{ site.baseurl }}/settings#store).
+The `localStorage` is used by default. If you need to change this, you should see the relevant [setting]({{ site.baseurl }}/settings#store).
 
 Note also that `artoo.store` can be accessed through the shortcut `artoo.s` if needed.
 

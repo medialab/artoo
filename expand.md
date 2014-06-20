@@ -8,7 +8,7 @@ id: expand
 
 ---
 
-**artoo**'s autoExpand methods let you expand web pages' contents programmatically.
+**artoo.js**' autoExpand methods let you expand web pages' contents programmatically.
 
 This is useful in pages that require user input like clicking on buttons triggering ajax requests or in pages featuring an infinite scroll.
 

@@ -8,7 +8,7 @@ id: helpers
 
 ---
 
-**artoo**'s helpers module's aim is to provide you with some useful but miscellaneous function ranging from external script injection to array conversion.
+**artoo.js**' helpers module's aim is to provide you with some useful but miscellaneous function ranging from external script injection to array conversion.
 
 ---
 

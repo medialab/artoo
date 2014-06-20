@@ -8,7 +8,7 @@ id: save
 
 ---
 
-**artoo**'s save module enables you to download various things from JavaScript.
+**artoo.js**' save module enables you to download various things from JavaScript.
 
 If your browser warns you about the webpage trying to download several items, just tell him it's gonna be ok and you should not be bothered again.
 

@@ -8,12 +8,12 @@ id: quick_start
 
 ---
 
-**artoo** is a client-side scraping companion. He can be invoked within any web page and gives you access to a bunch of useful functions aiming at making your scraping jobs as easy as a stroll in a park.
+**artoo.js** is a client-side scraping companion. He can be invoked within any web page and gives you access to a bunch of useful functions aiming at making your scraping jobs as easy as a stroll in a park.
 
 ---
 
 <h2 id="installation">Installation</h2>
-Before anything, we need to install **artoo**. Hopefully, this is a painless task: just drop the icon below onto your bookmark bar.
+Before anything, we need to install **artoo.js**. Hopefully, this is a painless task: just drop the icon below onto your bookmark bar.
 
 <p align="center">
   <a href='{{ site.bookmarklets.artoo }}' id='bookmarklet'>
@@ -293,9 +293,9 @@ artoo.saveInstructions();
 ---
 
 <h2 id="what-next">What next?</h2>
-The intention of this quick introduction was merely to show you that **artoo** is full of helpers you can use in order to make your client-side scraping tasks as easy and enjoyable as can be.
+The intention of this quick introduction was merely to show you that **artoo.js** is full of helpers you can use in order to make your client-side scraping tasks as easy and enjoyable as can be.
 
-Furthermore, **artoo**'s helpers are often polymorphic and offer you a lot of different ways to express what you want to do. Just choose the shorter one or the one that fits the more your coding style.
+Furthermore, those helpers are often polymorphic and offer you a lot of different ways to express what you want to do. Just choose the shorter one or the one that fits the more your coding style.
 
 ---
 
@@ -303,6 +303,6 @@ Furthermore, **artoo**'s helpers are often polymorphic and offer you a lot of di
 
 ---
 
-Finally, if you happen to be a super lazy guy or if you need to perform more complex scraping jobs and need, for instance, to overcome some websites' particularly nasty `Content-Security-Policy` headers, **artoo** also exists as a [chrome extension]({{ site.baseurl }}/chrome).
+Finally, if you happen to be a super lazy guy or if you need to perform more complex scraping jobs and need, for instance, to overcome some websites' particularly nasty `Content-Security-Policy` headers, **artoo.js** also exists as a [chrome extension]({{ site.baseurl }}/chrome).
 
-This extension, given you activate it, automatically injects **artoo** into every page you visit and override websites' responses headers in order to make client-side scraping a possibility.
+This extension, given you activate it, automatically injects the handy droid into every page you visit and override websites' responses headers in order to make client-side scraping a possibility.

@@ -6,7 +6,7 @@ highlighter:      pygments
 permalink:        pretty
 
 # Setup
-title:            artoo
+title:            artoo.js
 tagline:          'The client-side scraping companion.'
 description:      'The client-side scraping companion.'
 baseurl:          '/artoo'

@@ -8,11 +8,11 @@ id: instruction
 
 ---
 
-On *chrome* and *chromium*, **artoo** is able to record the instructions you are typing within the console by hooking onto the browser's console evaluation function.
+On *chrome* and *chromium*, **artoo.js** is able to record the instructions you are typing within the console by hooking onto the browser's console evaluation function.
 
 This is useful if you want to get back every instructions you typed during a scraping session. You might indeed need this code again.
 
-By default, **artoo** records the instructions you type from the moment he is loaded into the web page. If you want to alter this behaviour, you should pay a visit to the [settings]({{ site.baseurl }}/settings#instructions) section of this documentation.
+By default, **artoo.js** records the instructions you type from the moment he is loaded into the web page. If you want to alter this behaviour, you should pay a visit to the [settings]({{ site.baseurl }}/settings#instructions) section of this documentation.
 
 It is also possible to download you instructions in the form of a JavaScript file but more precisions are available in the [save]({{ site.baseurl }}/save#instructions) section.
 

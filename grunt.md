@@ -8,9 +8,9 @@ id: grunt
 
 ---
 
-**artoo** ships with a [grunt](http://gruntjs.com/) task enabling you to create custom bookmarklets.
+**artoo.js** ships with a [grunt](http://gruntjs.com/) task enabling you to create custom bookmarklets.
 
-Those are especially useful when you need precise settings for **artoo** or when you need to inject your own code using **artoo** as a framework.
+Those are especially useful when you need precise settings for the library or when you need to inject your own code using the library as a kind of framework.
 
 This also makes possible the creation of bookmarklet scripts or applications that even non-developers can use.
 
@@ -72,15 +72,15 @@ grunt.initConfig({
 
 #### Options
 
-* **url** *?string* : **artoo**'s url if you want to serve it by your own means rather than through the official url.
+* **url** *?string* : **artoo.js**' url if you want to serve it by your own means rather than through the official url.
 * **clipboard** *?boolean*  [`true`] : should the ouptput bookmarklet be automatically copied to your clipboard when generated?
 * **loadingText** *?string* : a custom loading text to be written when **artoo** is loading.
 * **random** *?boolean* [`false`] : should we load artoo with a random `GET` parameter in its url to shunt some cache systems?
-* **settings** *?object* : a configuration object for **artoo**. A list of the available settings can be found [here]({{ site.baseurl }}/settings).
+* **settings** *?object* : a configuration object containing settings. A list of the available settings can be found [here]({{ site.baseurl }}/settings).
 * **version** *?string* [`'latest'`] : artoo's version you want to load.
 
 ### Executing files through the bookmarklet
-If you need the bookmarklet to execute some of your scripts, you can either specify a distant url from where you are going to serve said script through `options.scriptUrl` or let **artoo**'s task concatenate and minify the `src` files.
+If you need the bookmarklet to execute some of your scripts, you can either specify a distant url from where you are going to serve said script through `options.settings.scriptUrl` or let the task concatenate and minify the `src` files into the bookmarklet.
 
 ---
 
@@ -125,10 +125,10 @@ grunt.initConfig({
 
 #### A full example
 
-Want to see a simple but full example of what you can do with **artoo** bookmarklets?
+Want to see a simple but full example of what you can do with **artoo.js** bookmarklets?
 
-Check out this [gist](https://gist.github.com/Yomguithereal/5d792d88ad6f1fe7c15d) containing a bookmarklet project to scrape and download [Hacker News](Hacker News) data.
+Check out this [gist](https://gist.github.com/Yomguithereal/5d792d88ad6f1fe7c15d) containing a project to scrape and download [Hacker News](Hacker News) data.
 
 ---
 
-Note finally that **artoo**'s standard bookmarklets are generated through this task and can be another useful [example](https://github.com/medialab/artoo/blob/master/Gruntfile.js#L98).
+Note finally that **artoo.js**' standard bookmarklets are generated through this task and can be another useful [example](https://github.com/medialab/artoo/blob/master/Gruntfile.js#L98).

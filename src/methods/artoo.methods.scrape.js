@@ -35,7 +35,7 @@
     }
 
     // Default value?
-    if (o.defaultValue && (!val || isNaN(val)))
+    if (o.defaultValue && !val)
       val = o.defaultValue;
 
     return val;

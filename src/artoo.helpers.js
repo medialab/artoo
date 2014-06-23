@@ -36,6 +36,20 @@
   // Useless function
   function noop() {}
 
+  // Creating repeating sequences
+  function repeatString(string, nb) {
+    var s = string,
+        l,
+        i;
+
+    if (nb <= 0)
+      return '';
+
+    for (i = 1, l = nb | 0; i < l; i++)
+      s += string;
+    return s;
+  }
+
   // Is the var an array?
   function isArray(v) {
     return v instanceof Array;
@@ -46,6 +60,11 @@
     return v instanceof Object;
   }
 
+  // Is the var a real NaN
+  function isRealNaN(v) {
+    return isNaN(v) && (typeof v === 'number');
+  }
+
   // Is the var a plain object?
   function isPlainObject(v) {
     return v instanceof Object &&
@@ -53,10 +72,14 @@
            !(v instanceof Function);
   }
 
-  // Flattening an array of array
-  function flatten(a) {
-    var m = [];
-    return m.concat.apply(m, a);
+  // Is nonscalar value?
+  function isNonScalar(v) {
+    return isPlainObject(v) || isArray(v);
+  }
+
+  // Is a value scalar?
+  function isScalar(v) {
+    return !isNonScalar(v);
   }
 
   // Some function
@@ -112,6 +135,108 @@
           item;
       }).join(delimiter);
     }).join('\n');
+  }
+
+  // YAML conversion
+  var yml = {
+    string: function(string) {
+      return (~string.indexOf(':') || ~string.indexOf('-')) ?
+        '\'' + string.replace(/'/g, '\\\'') + '\'' :
+        string;
+    },
+    number: function(nb) {
+      return '' + nb;
+    },
+    array: function(a, lvl) {
+      lvl = lvl || 0;
+
+      if (!a.length)
+        return '[]';
+
+      var string = '',
+          l,
+          i;
+
+      for (i = 0, l = a.length; i < l; i++) {
+        string += repeatString('  ', lvl);
+
+        if (isScalar(a[i])) {
+          string += '- ' + processYAMLVariable(a[i]) + '\n';
+        }
+        else {
+          if (isPlainObject(a[i]))
+            string += '-' + processYAMLVariable(a[i], lvl + 1, true);
+          else
+            string += processYAMLVariable(a[i], lvl + 1);
+        }
+      }
+
+      return string;
+    },
+    object: function(o, lvl, indent) {
+      lvl = lvl || 0;
+
+      if (!Object.keys(o).length)
+        return (lvl ? '- ' : '') + '{}';
+
+      var string = '',
+          key,
+          c = 0,
+          i;
+
+      for (i in o) {
+        key = yml.string(i);
+        string += repeatString('  ', lvl);
+        if (indent && !c)
+          string = string.slice(0, -1);
+        string += key + ': ' + (isNonScalar(o[i]) ? '\n' : '') +
+          processYAMLVariable(o[i], lvl + 1) + '\n';
+
+        c++;
+      }
+
+      return string;
+    },
+    fn: function(fn) {
+      return yml.string(fn.toString());
+    },
+    boolean: function(v) {
+      return '' + v;
+    },
+    nullValue: function(v) {
+      return '~';
+    }
+  };
+
+  // Get the correct handler corresponding to variable type
+  function processYAMLVariable(v, lvl, indent) {
+
+    // Scalars
+    if (typeof v === 'string')
+      return yml.string(v);
+    else if (typeof v === 'number')
+      return yml.number(v);
+    else if (typeof v === 'boolean')
+      return yml.boolean(v);
+    else if (typeof v === 'undefined' || v === null || isRealNaN(v))
+      return yml.nullValue(v);
+
+    // Nonscalars
+    else if (isPlainObject(v))
+      return yml.object(v, lvl, indent);
+    else if (isArray(v))
+      return yml.array(v, lvl);
+    else if (typeof v === 'function')
+      return yml.fn(v);
+
+    // Error
+    else
+      throw TypeError('artoo.helpers.toYAMLString: wrong type.');
+  }
+
+  // Converting JavaScript variables to a YAML string
+  function toYAMLString(data) {
+    return '---\n' + processYAMLVariable(data);
   }
 
   // Checking whether a variable is a jQuery selector
@@ -352,17 +477,20 @@
     createDocument: createDocument,
     extend: extend,
     first: first,
-    flatten: flatten,
     getExtension: getExtension,
     imgToDataUrl: imgToDataUrl,
     isArray: isArray,
     isDocument: isDocument,
     isObject: isObject,
     isPlainObject: isPlainObject,
+    isRealNaN: isRealNaN,
     isSelector: isSelector,
+    isNonScalar: isNonScalar,
+    isScalar: isScalar,
     jquerify: jquerify,
     noop: noop,
     toCSVString: toCSVString,
+    toYAMLString: toYAMLString,
     some: some
   };
 }).call(this);

@@ -137,11 +137,14 @@
     }).join('\n');
   }
 
+  // Characters to escape in YAML
+  var ymlEscape = /[:#,\-\[\]\{\}&%]|!{1,2}/;
+
   // YAML conversion
   var yml = {
     string: function(string) {
-      return (~string.indexOf(':') || ~string.indexOf('-')) ?
-        '\'' + string.replace(/'/g, '\\\'') + '\'' :
+      return (~string.search(ymlEscape)) ?
+        '\'' + string.replace(/'/g, '\'\'') + '\'' :
         string;
     },
     number: function(nb) {

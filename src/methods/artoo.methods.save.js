@@ -35,7 +35,8 @@
       csv: 'text/csv',
       json: 'application/json',
       txt: 'text/plain',
-      html: 'text/html'
+      html: 'text/html',
+      yaml: 'text/yaml'
     };
 
     // Methods
@@ -135,6 +136,14 @@
 
   artoo.savePrettyJson = function(data, params) {
     artoo.saveJson(data, helpers.extend(params, {pretty: true}));
+  };
+
+  artoo.saveYaml = function(data, params) {
+    params = params || {};
+    artoo.save(
+      helpers.toYAMLString(data),
+      helpers.extend(params, {filename: 'data.yml', mime: 'yaml'})
+    );
   };
 
   artoo.saveCsv = function(data, params) {

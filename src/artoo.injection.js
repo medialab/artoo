@@ -8,6 +8,8 @@
    * Checking whether a version of jquery lives in the targeted page
    * and gracefully inject it without generating conflicts.
    */
+  var _root = this;
+
   artoo.jquery.inject = function(cb) {
 
     // Properties
@@ -46,12 +48,25 @@
     // jQuery has not the correct version or another library uses $
     else if ((exists && currentVersion.charAt(0) !== '2') || other) {
       artoo.injectScript(cdn, function() {
-        artoo.log.warning(
-          'Either jQuery has not a valid version or another library ' +
-          'using $ is already present. ' +
-          'Correct version available through `artoo.$`.');
-
         artoo.$ = jQuery.noConflict(true);
+
+        // Then, if dollar does not exist, we set it
+        if (typeof _root.$ === 'undefined') {
+          _root.$ = artoo.$;
+
+          artoo.log.warning(
+            'jQuery is available but does not have a correct version. ' +
+            'The correct version was therefore injected and $ was set since ' +
+            'it was not used.'
+          );
+        }
+        else {
+          artoo.log.warning(
+            'Either jQuery has not a valid version or another library ' +
+            'using $ is already present. ' +
+            'Correct version available through `artoo.$`.'
+          );
+        }
 
         cb();
       });

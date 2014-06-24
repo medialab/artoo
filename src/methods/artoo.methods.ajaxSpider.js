@@ -22,7 +22,7 @@
     function get(c) {
       if (o.settings || params.settings)
         artoo.$.ajax(
-          o.url || o,
+          o.url || params.url || o,
           artoo.helpers.extend(
             o.settings || params.settings,
             {
@@ -34,7 +34,7 @@
         );
       else
         artoo.$[o.method || params.method || 'get'](
-          o.url || o,
+          o.url || params.url || o,
           o.data || params.data || {},
           c
         );

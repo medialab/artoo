@@ -33,6 +33,7 @@
     this.xmlns = 'http://www.w3.org/1999/xhtml';
     this.mimeShortcuts = {
       csv: 'text/csv',
+      tsv: 'text/tab-separated-values',
       json: 'application/json',
       txt: 'text/plain',
       html: 'text/html',
@@ -156,6 +157,17 @@
     artoo.save(
       data,
       helpers.extend(params, {mime: 'csv', filename: 'data.csv'})
+    );
+  };
+
+  artoo.saveTsv = function(data, params) {
+    artoo.saveCsv(
+      data,
+      helpers.extend(params, {
+        mime: 'tsv',
+        delimiter: '\t',
+        filename: 'data.tsv'
+      })
     );
   };
 

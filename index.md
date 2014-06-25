@@ -139,6 +139,8 @@ npm run https
 
 Logo by [Daniele Guido](https://github.com/danieleguido).
 
-Under a [MIT License](https://raw.githubusercontent.com/medialab/artoo/master/LICENSE.txt).
-
 R2D2 ascii logo by [Joan Stark](http://www.geocities.com/spunk1111/) aka `jgs`.
+
+---
+
+Under a [MIT License](https://raw.githubusercontent.com/medialab/artoo/master/LICENSE.txt).

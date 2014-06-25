@@ -63,7 +63,7 @@ artoo.autoExpand({
   * **canExpand** *?function | ?css selector* : a function returning a boolean and asserting whether content can or cannot be expanded. Alternatively, a selector meaning true if at least one of the elements is present.
   * **isExpanding** *?function | ?css selector* : a function returning a boolean and asserting whether content is currently expanding. This typically tracks the visibility or existence of a loading animation or gif. Alternatively a selector meaning true if at least one of the elements is present.
   * **limit** *?integer* : maximum number of expansions.
-  * **throttle** *?integer* : time to wait between each expansion in milliseconds.
+  * **throttle** *?integer | ?function* : time to wait between each expansion in milliseconds or, alternatively, a function taking as argument the index of the expansion and returning the time to wait.
   * **timeout** *?integer* : time in milliseconds before triggering a timeout.
   * **done** *?function* : same as `callback` argument.
 * **callback** *?function* : a function to be fired when expansion is eventually finished.

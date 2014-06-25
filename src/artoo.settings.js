@@ -32,8 +32,9 @@
       force: false
     },
     log: {
+      beeping: false,
       enabled: true,
-      beeping: false
+      level: 'verbose'
     },
     store: {
       engine: 'local'

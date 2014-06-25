@@ -8,11 +8,33 @@
    * Console abstraction enabling artoo to perform a finer logging job.
    */
   var _root = this,
-       enhanced = artoo.browser.chrome || artoo.browser.firebug;
+       enhanced = artoo.browser.chrome || artoo.browser.firebug,
+       settings = artoo.settings.log;
+
+  // Log levels
+  var levels = {
+    verbose: '#33CCFF', // Cyan
+    debug: '#000099',   // Blue
+    info: '#009900',    // Green
+    warning: 'orange',  // Orange
+    error: 'red'        // Red
+  };
+
+  var priorities = [
+    'verbose', 'debug', 'info', 'warning', 'error'
+  ];
 
   // Utilities
   function toArray(a, slice) {
     return Array.prototype.slice.call(a, slice || 0);
+  }
+
+  // Is the level allowed to log?
+  function isAllowed(level) {
+    if (artoo.helpers.isArray(settings.level))
+      return !!~settings.level.indexOf(level);
+    else
+      return priorities.indexOf(level) >= priorities.indexOf(settings.level);
   }
 
   // Return the logo ASCII array
@@ -29,15 +51,6 @@
     ];
   }
 
-  // Log levels
-  var levels = {
-    verbose: '#33CCFF',
-    debug: '#000099',
-    info: '#009900',
-    warning: 'orange',
-    error: 'red'
-  };
-
   // Log header
   function logHeader(level) {
     var args = ['[artoo]: ' + (enhanced ? '%c' + level : '')];
@@ -51,7 +64,7 @@
 
   // Log override
   artoo.log = function(level) {
-    if (!artoo.settings.log.enabled)
+    if (!settings.enabled)
       return;
 
     var hasLevel = (levels[level] !== undefined),
@@ -59,6 +72,10 @@
         args = toArray(arguments, slice);
 
     level = hasLevel ? level : 'debug';
+
+    // Is this level allowed?
+    if (!isAllowed(level))
+      return;
 
     var msg = logHeader(level).concat(args);
 
@@ -83,13 +100,13 @@
 
   // Plain log
   artoo.log.plain = function() {
-    if (artoo.settings.log.enabled)
+    if (settings.enabled)
       console.log.apply(console, arguments);
   };
 
   // Logo display
   artoo.log.welcome = function() {
-    if (!artoo.settings.log.enabled)
+    if (!settings.enabled)
       return;
 
     var ascii = robot();

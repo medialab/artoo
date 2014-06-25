@@ -51,7 +51,11 @@
     params = params || {};
 
     // Transforming to selector
-    var $iterator = artoo.$(iterator);
+    var $iterator;
+    if (typeof iterator === 'function')
+      $iterator = artoo.$(iterator(artoo.$));
+    else
+      $iterator = artoo.$(iterator);
 
     // Iteration
     $iterator.each(function(i) {

@@ -46,6 +46,16 @@
       );
 
       deepEqual(
+        artoo.scrape(
+          function($) {
+            return $(id + ' li > a:first').add(id + ' li > a:last');
+          }
+        ),
+        [titleList[0], titleList[3]],
+        'Scraping the list with a function iterator should return the correct array of first and last elements.'
+      );
+
+      deepEqual(
         artoo.scrape(id + ' li > a', {
           url: 'href',
           title: 'text'

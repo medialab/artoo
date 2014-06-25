@@ -152,12 +152,21 @@ artoo.scrape('ul > li', {
 If you need recursivity within the `artoo.scrape` method, rather that calling the method itself in a function retriever, you can also pass an object with the scrape property like in the example below.
 
 ```js
+// This
 artoo.scrape('ul.list > li', {
   scrape: {
     iterator: 'ul.sublist > li',
     data: 'text'
   }
 });
+
+
+// is the same as writing
+artoo.scrape('ul.list > li', function($) {
+  return artoo.scrape($(this).find('ul.sublist > li'), 'text');
+});
+
+// And will return
 >>> [['item1-1', 'item1-2'], ['item2-1', 'item2-2']]
 ```
 

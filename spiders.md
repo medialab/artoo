@@ -34,14 +34,15 @@ artoo.ajaxSpider(['url1', 'url2'], function(data) {
 // Complex
 artoo.ajaxSpider(
   function(i) {
-    return 'http://domain.com/' + i + '.html';
+    return 'http://domain.com/' + i + '.json';
   },
   {
     method: 'getJSON',
-    process: function(data, i, acc) {
-      return (!data.error) ? data.posts || false;
+    process: function(data) {
+      return data.posts;
     },
-    throttle: 3000
+    throttle: 3000,
+    limit: 10
   },
   function(data) {
     console.log('Retrieved data:', data);

@@ -34,7 +34,13 @@
       params.expand;
 
     if (params.throttle)
-      setTimeout(expandFn, params.throttle, artoo.$);
+      setTimeout(
+        expandFn,
+        typeof params.throttle === 'function' ?
+          params.throttle(i) :
+          params.throttle,
+        artoo.$
+      );
     else
       expandFn(artoo.$);
 

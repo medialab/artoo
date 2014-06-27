@@ -80,6 +80,10 @@
 
       artoo.$(a).simulate('click');
       a = null;
+
+      // Revoking the object URL if we want to
+      if (params.revoke)
+        URL.revokeObjectURL(href);
     };
 
     // Main interface
@@ -92,7 +96,10 @@
       // Saving the blob
       this.saveResource(
         this.blobURL(blob),
-        {filename: params.filename || this.defaultFilename}
+        {
+          filename: params.filename || this.defaultFilename,
+          revoke: params.revoke || true
+        }
       );
     };
 

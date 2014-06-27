@@ -24,6 +24,7 @@
     cache: {
       delimiter: '%'
     },
+    dependencies: [],
     instructions: {
       autoRecord: true
     },

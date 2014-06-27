@@ -2,14 +2,75 @@
   'use strict';
 
   /**
-   * jQuery Injection
-   * =================
+   * artoo dependencies
+   * ===================
    *
-   * Checking whether a version of jquery lives in the targeted page
-   * and gracefully inject it without generating conflicts.
+   * Gracefully inject popular dependencies into the scraped webpage.
    */
   var _root = this;
 
+  artoo.deps = {};
+
+  var supported = {
+    async: {
+      url: '//cdnjs.cloudflare.com/ajax/libs/async/0.9.0/async.js',
+      variable: 'async'
+    },
+    lodash: {
+      url: '//cdn.jsdelivr.net/lodash/2.4.1/lodash.min.js',
+      variable: '_'
+    },
+    underscore: {
+      url: '//cdn.jsdelivr.net/underscorejs/1.6.0/underscore-min.js',
+      variable: '_'
+    }
+  };
+
+  // Dependencies injection routine
+  artoo.deps.inject = function(cb) {
+    var deps = artoo.settings.dependencies;
+
+    if (!deps.length)
+      return cb();
+
+    artoo.log.verbose('Starting to retrieve dependencies...', deps);
+
+    var tasks = deps.map(function(d) {
+      var name = (typeof d === 'string') ? d : d.name,
+          url = d.url || supported[name].url;
+
+      if (!(name in supported)) {
+        throw Error('Trying to load an unsupported dependency: ' + name);
+      }
+
+      return function(taskCb) {
+        var variable = supported[name].variable,
+            exists = variable in _root;
+
+        artoo.injectScript(url, function() {
+          if (exists) {
+            artoo.log.warning(name + ' already exists within your page. By ' +
+                              'precaution, artoo stashed it under artoo.deps.' +
+                              variable);
+
+            artoo.deps[variable] = _root[variable].noConflict();
+            return taskCb();
+          }
+
+          artoo.log.info(name + ' correctly injected into your page.');
+          artoo.deps[variable] = _root[variable];
+          taskCb();
+        });
+      };
+    });
+
+    artoo.helpers.parallel(tasks, function() {
+      artoo.log.verbose('Finished retrieving dependencies.');
+      cb();
+    });
+  };
+
+  // jQuery injection routine
   artoo.jquery.inject = function(cb) {
 
     // Properties

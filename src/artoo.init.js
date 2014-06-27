@@ -29,7 +29,7 @@
     artoo.hooks.trigger('countermeasures');
 
     // Welcoming user
-    this.log.welcome();
+    artoo.log.welcome();
 
     // Should we greet the user with a joyful beep?
     if (artoo.settings.log.beeping)
@@ -44,14 +44,21 @@
     if (artoo.settings.instructions.autoRecord)
       artoo.instructions.startRecording();
 
-    // Injecting jQuery
-    this.jquery.inject(function() {
-      artoo.log.info('artoo is now good to go!');
+    // Injecting dependencies
+    function injectJquery(cb) {
+      artoo.jquery.inject(function() {
 
-      // Applying jQuery plugins
-      artoo.jquery.plugins.map(function(p) {
-        p(artoo.$);
+        // Applying jQuery plugins
+        artoo.jquery.plugins.map(function(p) {
+          p(artoo.$);
+        });
+
+        cb();
       });
+    }
+
+    artoo.helpers.parallel([injectJquery, artoo.deps.inject], function() {
+      artoo.log.info('artoo is now good to go!');
 
       // Triggering exec
       if (artoo.settings.autoExec)
@@ -62,7 +69,7 @@
     });
 
     // Updating artoo state
-    this.loaded = true;
+    artoo.loaded = true;
   }
 
   // Retrieving settings from script tag

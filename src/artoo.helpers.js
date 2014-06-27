@@ -100,27 +100,47 @@
     return a;
   }
 
+  // Escape a string for a RegEx
+  function rescape(s) {
+    return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+  }
+
   // Converting an array of arrays into a CSV string
-  function toCSVString(data, delimiter, escape) {
-    var header = [[]],
+  function toCSVString(data, params) {
+    params = params || {};
+
+    var header = params.headers || [],
         oData,
         i;
 
     // Defaults
-    escape = escape || '"';
-    delimiter = delimiter || ',';
+    var escape = params.escape || '"',
+        delimiter = params.delimiter || ',';
 
-    // If the data is an array of objects
-    if (isPlainObject(data[0])) {
-      for (i in data[0])
-        header[0].push(i);
-      oData = header.concat(data.map(objectToArray));
-    }
+    // Dealing with headers polymorphism
+    if (!header.length)
+      if (isPlainObject(data[0]) && params.headers !== false)
+        for (i in data[0])
+          header.push(i);
+
+    // Should we append headers
+    oData = (header.length ? [header] : []).concat(
+      isPlainObject(data[0]) ?
+        data.map(objectToArray) :
+        data
+    );
 
     // Converting to string
-    return (oData || data).map(function(row) {
+    return oData.map(function(row) {
       return row.map(function(item) {
-        item = ('' + item).replace(new RegExp(escape, 'g'), escape + escape);
+
+        // Wrapping escaping characters
+        item = ('' + item).replace(
+          new RegExp(rescape(escape), 'g'),
+          escape + escape
+        );
+
+        // Escaping if needed
         return ~item.indexOf(delimiter) || ~item.indexOf(escape) ?
           escape + item + escape :
           item;

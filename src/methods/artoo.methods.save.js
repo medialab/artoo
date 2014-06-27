@@ -163,7 +163,7 @@
     params = filenamePolymorphism(params);
 
     data = (typeof data !== 'string') ?
-      helpers.toCSVString(data, params.delimiter, params.escape) :
+      helpers.toCSVString(data, params) :
       data;
 
     artoo.save(

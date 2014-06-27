@@ -57,7 +57,7 @@
             return taskCb();
           }
 
-          artoo.log.info(name + ' correctly injected into your page.');
+          artoo.log.info(name + ' was correctly injected into your page.');
           artoo.deps[variable] = _root[variable];
           taskCb();
         });

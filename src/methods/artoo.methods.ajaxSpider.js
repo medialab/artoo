@@ -15,8 +15,8 @@
 
     var o = (typeof list === 'function') ? list(i, lastData) : list[i];
 
-    // Breaking if iterator returns false
-    if (o === false)
+    // Breaking if iterator returns a falsy value
+    if (!o)
       return params.done(acc);
 
     function get(c) {

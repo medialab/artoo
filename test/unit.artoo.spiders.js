@@ -56,6 +56,7 @@
 
   // Testing ajax spiders
   asyncTest('Basic spider', function() {
+    expect(2);
 
     artoo.ajaxSpider(['/basictxt/1', '/basictxt/2'], function(data) {
       start();
@@ -64,6 +65,14 @@
         data.map(JSON.parse),
         [responses.basic, responses.basic],
         'Crawling a simple list should return the correct array.'
+      );
+    });
+
+    artoo.ajaxSpider([], function(data) {
+      deepEqual(
+        data,
+        [],
+        'Crawling an empty list should not crash.'
       );
     });
   });

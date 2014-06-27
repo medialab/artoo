@@ -409,6 +409,59 @@
     }, milliseconds);
   }
 
+  // Dispatch asynchronous function
+  function async() {
+    var args = Array.prototype.slice.call(arguments);
+    return setTimeout.apply(null, [args[0], 0].concat(args.slice(1)));
+  }
+
+  // Launching tasks in parallel with an optional limit
+  function parallel(tasks, params, last) {
+    var onEnd = (typeof params === 'function') ? params : params.done || last,
+        running = [],
+        results = [],
+        d = 0,
+        t,
+        l,
+        i;
+
+    if (typeof onEnd !== 'function')
+      onEnd = noop;
+
+    function cleanup() {
+      running.forEach(function(r) {
+        clearTimeout(r);
+      });
+    }
+
+    function onTaskEnd(err, result) {
+      // Adding results to accumulator
+      results.push(result);
+
+      if (err) {
+        cleanup();
+        return onEnd(err, results);
+      }
+
+      if (++d >= tasks.length) {
+
+        // Parallel action is finished, returning
+        return onEnd(null, results);
+      }
+
+      // Adding on stack
+      t = tasks[i++];
+      running.push(async(t, onTaskEnd));
+    }
+
+    for (i = 0, l = params.limit || tasks.length; i < l; i++) {
+      t = tasks[i];
+
+      // Dispatching the function asynchronously
+      running.push(async(t, onTaskEnd));
+    }
+  }
+
   /**
    * File handling
    * --------------
@@ -483,6 +536,7 @@
     isScalar: isScalar,
     jquerify: jquerify,
     noop: noop,
+    parallel: parallel,
     toCSVString: toCSVString,
     toYAMLString: toYAMLString
   };

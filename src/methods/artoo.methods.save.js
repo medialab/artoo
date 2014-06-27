@@ -21,6 +21,10 @@
            $sel[0].outerHTML;
   }
 
+  function filenamePolymorphism(params) {
+    return (typeof params === 'string') ? {filename: params} : params || {};
+  }
+
   // Main abstraction
   function Saver() {
     var _saver;
@@ -110,11 +114,11 @@
 
   // Exporting
   artoo.save = function(data, params) {
-    _saver.saveData(data, params);
+    _saver.saveData(data, filenamePolymorphism(params));
   };
 
   artoo.saveJson = function(data, params) {
-    params = params || {};
+    params = filenamePolymorphism(params);
 
     // Enforcing json
     if (typeof data !== 'string') {
@@ -136,11 +140,12 @@
   };
 
   artoo.savePrettyJson = function(data, params) {
+    params = filenamePolymorphism(params);
     artoo.saveJson(data, helpers.extend(params, {pretty: true}));
   };
 
   artoo.saveYaml = function(data, params) {
-    params = params || {};
+    params = filenamePolymorphism(params);
     artoo.save(
       helpers.toYAMLString(data),
       helpers.extend(params, {filename: 'data.yml', mime: 'yaml'})
@@ -148,7 +153,7 @@
   };
 
   artoo.saveCsv = function(data, params) {
-    params = params || {};
+    params = filenamePolymorphism(params);
 
     data = (typeof data !== 'string') ?
       helpers.toCSVString(data, params.delimiter, params.escape) :
@@ -163,7 +168,7 @@
   artoo.saveTsv = function(data, params) {
     artoo.saveCsv(
       data,
-      helpers.extend(params, {
+      helpers.extend(filenamePolymorphism(params), {
         mime: 'tsv',
         delimiter: '\t',
         filename: 'data.tsv'
@@ -178,26 +183,31 @@
 
     artoo.save(
       s,
-      helpers.extend(params, {mime: 'html', filename: 'document.xml'})
+      helpers.extend(
+        filenamePolymorphism(params),
+        {mime: 'html', filename: 'document.xml'})
     );
   };
 
   artoo.saveHtml = function(data, params) {
     artoo.saveXml(
       data,
-      helpers.extend(params || {}, {filename: 'document.html', type: 'html'})
+      helpers.extend(
+        filenamePolymorphism(params),
+        {filename: 'document.html', type: 'html'}
+      )
     );
   };
 
   artoo.savePageHtml = function(params) {
     artoo.saveHtml(
       document,
-      helpers.extend(params || {}, {filename: 'page.html'})
+      helpers.extend(filenamePolymorphism(params), {filename: 'page.html'})
     );
   };
 
   artoo.saveStore = function(params) {
-    params = params || {};
+    params = filenamePolymorphism(params);
     artoo.savePrettyJson(
       artoo.store.get(params.key),
       helpers.extend(params, {filename: 'store.json'})
@@ -207,7 +217,7 @@
   artoo.saveInstructions = function(params) {
     artoo.save(
       artoo.instructions.getScript(),
-      helpers.extend(params, {
+      helpers.extend(filenamePolymorphism(params), {
         mime: 'text/javascript',
         filename: 'artoo_script.js'
       })
@@ -215,11 +225,11 @@
   };
 
   artoo.saveResource = function(url, params) {
-    _saver.saveResource(url, params || {});
+    _saver.saveResource(url, filenamePolymorphism(params));
   };
 
   artoo.saveImage = function(sel, params) {
-    params = params || {};
+    params = filenamePolymorphism(params);
 
     var $sel = artoo.$(sel);
 

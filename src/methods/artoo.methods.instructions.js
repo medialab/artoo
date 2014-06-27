@@ -27,7 +27,7 @@
             lastIndex = _instructions.length - 1;
 
         if (input !== 'this' &&
-            !artoo.helpers.some(blackList, function(e) {
+            !blackList.some(function(e) {
               return ~input.indexOf(e);
             }) &&
             input !== 'artoo') {

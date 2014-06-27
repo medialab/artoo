@@ -82,15 +82,6 @@
     return !isNonScalar(v);
   }
 
-  // Some function
-  function some(a, fn) {
-    for (var i = 0, l = a.length; i < l; i++) {
-      if (fn(a[i]))
-        return true;
-    }
-    return false;
-  }
-
   // Get first item of array returning true to given function
   function first(a, fn) {
     for (var i = 0, l = a.length; i < l; i++) {
@@ -493,7 +484,6 @@
     jquerify: jquerify,
     noop: noop,
     toCSVString: toCSVString,
-    toYAMLString: toYAMLString,
-    some: some
+    toYAMLString: toYAMLString
   };
 }).call(this);

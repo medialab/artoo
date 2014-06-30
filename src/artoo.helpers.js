@@ -92,12 +92,27 @@
   }
 
   // Convert an object into an array of its properties
-  function objectToArray(o) {
-    var a = [],
+  function objectToArray(o, order) {
+    order = order || Object.keys(o);
+
+    return order.map(function(k) {
+      return o[k];
+    });
+  }
+
+  // Retrieve an index of keys present in an array of objects
+  function keysIndex(a) {
+    var keys = [],
+        l,
+        k,
         i;
-    for (i in o)
-      a.push(o[i]);
-    return a;
+
+    for (i = 0, l = a.length; i < l; i++)
+      for (k in a[i])
+        if (!~keys.indexOf(k))
+          keys.push(k);
+
+    return keys;
   }
 
   // Escape a string for a RegEx
@@ -110,6 +125,8 @@
     params = params || {};
 
     var header = params.headers || [],
+        plainObject = isPlainObject(data[0]),
+        keys = plainObject && (params.order || keysIndex(data)),
         oData,
         i;
 
@@ -119,14 +136,13 @@
 
     // Dealing with headers polymorphism
     if (!header.length)
-      if (isPlainObject(data[0]) && params.headers !== false)
-        for (i in data[0])
-          header.push(i);
+      if (plainObject && params.headers !== false)
+        header = keys;
 
     // Should we append headers
     oData = (header.length ? [header] : []).concat(
-      isPlainObject(data[0]) ?
-        data.map(objectToArray) :
+      plainObject ?
+        data.map(function(e) { return objectToArray(e, keys); }) :
         data
     );
 
@@ -135,15 +151,15 @@
       return row.map(function(item) {
 
         // Wrapping escaping characters
-        item = ('' + item).replace(
+        var i = ('' + (typeof item === 'undefined' ? '' : item)).replace(
           new RegExp(rescape(escape), 'g'),
           escape + escape
         );
 
         // Escaping if needed
-        return ~item.indexOf(delimiter) || ~item.indexOf(escape) ?
-          escape + item + escape :
-          item;
+        return ~i.indexOf(delimiter) || ~i.indexOf(escape) ?
+          escape + i + escape :
+          i;
       }).join(delimiter);
     }).join('\n');
   }

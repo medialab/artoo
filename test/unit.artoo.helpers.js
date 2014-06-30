@@ -106,5 +106,50 @@
       '1,2\n3,4',
       'Items other than strings should not mess with CSV conversion.'
     );
+
+    strictEqual(
+      artoo.helpers.toCSVString([
+        {
+          key1: 'ok',
+          key2: 'ok'
+        },
+        {
+          key1: 'ko',
+          key3: 'ko'
+        }
+      ]),
+      'key1,key2,key3\nok,ok,\nko,,ko',
+      'Array of items with different keys should output a full CSV.'
+    );
+
+    strictEqual(
+      artoo.helpers.toCSVString([
+        {
+          key1: 'ok',
+          key2: 'ok'
+        },
+        {
+          key1: 'ko',
+          key3: 'ko'
+        }
+      ], {order: ['key2', 'key1']}),
+      'key2,key1\nok,ok\n,ko',
+      'If an order is specified, we take it to build the csv.'
+    );
+
+    strictEqual(
+      artoo.helpers.toCSVString([
+        {
+          key1: 'ok',
+          key2: 'ok'
+        },
+        {
+          key1: 'ko',
+          key3: 'ko'
+        }
+      ], {order: ['key1', 'key2'], headers: ['Keyone', 'Keytwo']}),
+      'Keyone,Keytwo\nok,ok\nko,',
+      'If an order and headers are specified, we take them to build the csv.'
+    );
   });
 }).call(this);

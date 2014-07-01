@@ -26,10 +26,19 @@ Programmatically expand page's content by performing some action and waiting for
 artoo.autoExpand(params, [callback]);
 ```
 
+*Concept*
+
+You can basically expand content on webpage by following two distincts approaches:
+
+* Either you want a number of elements to grow and you can therefore indicate the selector of those elements to the `autoExpand` method and it will react based on this.
+* Or you can provide the method with some state searching functions like: can I expand content? or is content currently expanding?
+
 *Examples*
 
 ```js
-// Basic
+// Approach n°1
+// We track the number of posts elements and we
+// expand the content by clicking the relevant button.
 artoo.autoExpand({
   elements: '.posts',
   expand: '.expand-button',
@@ -39,7 +48,10 @@ artoo.autoExpand({
   }
 });
 
-// Complex
+// Approach n°2
+// Here, if the expand button exist, we click it
+// and we wait until the loading gif has disappeared
+// to continue our expansion.
 artoo.autoExpand({
   expand: function($) {
     $('.expand-button').simulate('click');

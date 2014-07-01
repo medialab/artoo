@@ -16,11 +16,15 @@ id: helpers
 
 * [artoo.getGlobalVariables](#global-variables)
 * [artoo.injectScript](#inject-script)
+* [artoo.injectStyle](#inject-style)
 * [artoo.waitFor](#wait-for)
 
 **Standard helpers** - *callable from `artoo.helpers`*
 
+* [artoo.helpers.createDocument](#document)
+* [artoo.helpers.jquerify](#jquerify)
 * [artoo.helpers.toCSVString](#to-csv-string)
+* [artoo.helpers.toYAMLString](#to-yaml-string)
 
 ---
 
@@ -49,6 +53,23 @@ artoo.injectScript(url, [callback]]);
 ```js
 artoo.injectScript('//randomcdn/jquery-1.11.0.min.js', function() {
   console.log('Finished injecting jquery version 1.11.0');
+});
+```
+
+---
+
+<h2 id="inject-style">artoo.injectStyle</h2>
+Inject a remote stylesheet into the current webpage and trigger a callback when the browser has retrieved it.
+
+```js
+artoo.injectScript(url, [callback]]);
+```
+
+*Example*
+
+```js
+artoo.injectStyle('//localhost:8000/style.css', function() {
+  console.log('Finished injecting my custom css rules');
 });
 ```
 
@@ -84,6 +105,42 @@ artoo.waitFor(
     console.log('Yay, new items in the list!');
   }
 );
+```
+
+---
+
+<h2 id="document">artoo.helpers.createDocument</h2>
+Returns a new DOM document for you to use.
+
+```js
+artoo.helpers.createDocument([root, namespace]);
+```
+
+*Arguments*
+
+* **root** *?string* : if not root is provided, the function will return a new HTML document. Otherwise, it will create a document having the specified root.
+* **namespace** *?string* : an optional namespace.
+
+*Examples*
+
+```js
+// Creating a new HTML document
+artoo.helpers.createDocument();
+
+// Creating an XML document containing fruits
+artoo.helpers.createDocument('fruits');
+```
+
+---
+
+<h2 id="jquerify">artoo.helpers.jquerify</h2>
+Takes a string, a DOM document or else and returns a jquery object of it.
+
+This is useful to retrieve a jquery usable object when you don't really know what you have to handle: HTML document, XML document, string, erroneous string...
+
+```js
+artoo.helpers.jquerify(data);
+>>> $data
 ```
 
 ---
@@ -124,3 +181,29 @@ artoo.helpers.toCSVString(persons);
      Steven,Douglas'
 ```
 
+---
+
+<h2 id="to-yaml-string">artoo.helpers.toYAMLString</h2>
+Converts a JavaScript variable into a YAML string.
+
+```js
+artoo.helpers.toYAMLString(data);
+```
+
+*Example*
+
+```js
+var data = {
+  hello : 'world',
+  how: 'are you?',
+  colors: ['yellow', 'blue']
+};
+
+artoo.helpers.toYAMLString(data);
+>>> '---
+     hello: world
+     how: are you?
+     colors:
+       - yellow
+       - blue'
+```

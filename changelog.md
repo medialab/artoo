@@ -10,7 +10,7 @@ id: changelog
 
 ## 0.1.1
 
-* Adding `saveYaml`, `saveTsv` and `saveTsv`.
+* Adding `saveYaml`, `saveTsv` and `saveSvg`.
 * Adding a `url` parameter to `ajaxSpider`.
 * Adding an iterator polymorphism for `scrape`.
 * Adding a `revoke` option for the `save` module.

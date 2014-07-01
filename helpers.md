@@ -26,6 +26,15 @@ id: helpers
 * [artoo.helpers.toCSVString](#to-csv-string)
 * [artoo.helpers.toYAMLString](#to-yaml-string)
 
+**Custom console** - *callable from `artoo.log`*
+
+* [artoo.log](#log)
+* [artoo.log.verbose](#levels)
+* [artoo.log.debug](#levels)
+* [artoo.log.info](#levels)
+* [artoo.log.warning](#levels)
+* [artoo.log.error](#levels)
+
 ---
 
 <h2 id="global-variables">artoo.getGlobalVariables</h2>
@@ -206,4 +215,32 @@ artoo.helpers.toYAMLString(data);
      colors:
        - yellow
        - blue'
+```
+
+---
+
+<h2 id="log">artoo.log</h2>
+Provide a simple and colorful way to log data to your console.
+
+<em id="levels">Levels</em>
+
+* *verbose* : cyan
+* *debug* : blue
+* *info* : green
+* *warning* : orange
+* *error* : red
+
+*Examples*
+
+```js
+// If no level is provided, 'debug' is taken by default.
+artoo.log('hello');
+artoo.log('hello', 'info');
+
+// Some aliases exist
+artoo.log.verbose('hello');
+artoo.log.debug('hello');
+artoo.log.info('hello');
+artoo.log.error('hello');
+artoo.log.warning('hello');
 ```

@@ -184,14 +184,39 @@
   };
 
   artoo.saveXml = function(data, params) {
+    params = filenamePolymorphism(params);
+
     var s = (helpers.isSelector(data) && selectorOuterHTML(data)) ||
             (helpers.isDocument(data) && data.documentElement.outerHTML) ||
-            data;
+            data,
+        type = params.type || 'xml',
+        header = '';
+
+    // Determining doctype
+    if (type === 'html' && helpers.isDocument(data)) {
+      var dt = data.doctype;
+
+      if (dt)
+        header = '<!DOCTYPE ' + (dt.name || 'html') +
+                 (dt.publicId ? ' PUBLIC "' + dt.publicId + '"' : '') +
+                 (dt.systemId ? ' "' + dt.systemId + '"' : '') + '>\n';
+    }
+    else if (type === 'xml' || type === 'svg') {
+      if (!~s.search(/<\?xml/))
+        header = '<?xml version="1.0" encoding="' +
+                 (params.encoding || 'utf-8') +
+                 '" standalone="yes"?>\n';
+    }
+
+    if (type === 'svg') {
+      header += '<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" ' +
+                '"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">\n';
+    }
 
     artoo.save(
-      s,
+      header + s,
       helpers.extend(
-        filenamePolymorphism(params),
+        params,
         {mime: 'html', filename: 'document.xml'})
     );
   };
@@ -210,6 +235,19 @@
     artoo.saveHtml(
       document,
       helpers.extend(filenamePolymorphism(params), {filename: 'page.html'})
+    );
+  };
+
+  artoo.saveSvg = function(sel, params) {
+    params = filenamePolymorphism(params);
+
+    var $sel = artoo.$(sel);
+    if (!$sel.is('svg'))
+      throw Error('artoo.saveSvg: selector is not svg.');
+
+    artoo.saveXml(
+      $sel,
+      helpers.extend(params, {filename: 'drawing.svg', type: 'svg'})
     );
   };
 

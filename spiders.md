@@ -58,6 +58,7 @@ artoo.ajaxSpider(
   * **throttle** *?integer | ?function*: Number of milliseconds to wait between two ajax requests. You can also pass a function taking the current index and returning the time to wait.
   * **method** *?string* [`'get'`] : the default HTTP or jQuery method.
   * **data** *?object* : the default data object to pass as the requests parameters.
+  * **url** *?string* : the default url to query. This is useful when querying the same url through POST over and over when only sent data is changing.
   * **settings** *?object* : a settings object as you would pass it to jQuery [ajax](http://api.jquery.com/jquery.ajax/) method.
   * **scrape** *?object* : rather than a callback, you may pass a configuration object for the [scrape]({{ site.baseurl }}/scrape) method that will be automatically called on the retrieved data.
   * **concat** *?boolean* [`false`] : should the data retrieved be concatenated into the accumulator or merely pushed?

@@ -37,8 +37,14 @@ If your browser warns you about the webpage trying to download several items, ju
 Download data according to given parameters. This function should only be used if the next functions cannot satisfy your needs.
 
 ```js
+// Basic signature
 artoo.save(data, [params]);
+
+// Alternative signature
+artoo.save(data, [filename]);
 ```
+
+Note that if the second argument is a string it will be considered as `params.filename`. This is true for every othe save method.
 
 *Arguments*
 
@@ -47,6 +53,7 @@ artoo.save(data, [params]);
   * **mime**     *?string* : mime type of the file to download. Note that **artoo** provide some shortcuts for popular types such as `json`, `csv` `text` and `html`.
   * **encoding** *?string* : encoding of the file to download.
   * **filename** *?string* : name of the file to download.
+  * **revoke** *?boolean* [`true`] : whether you want the blob URL created to download your file revoked afterwards.
 
 ---
 
@@ -96,6 +103,8 @@ artoo.saveCsv(data, [params]);
 
 * **delimiter** *?string* [`,`] : the field delimiter.
 * **escape**    *?string* [`"`] : the escape character.
+* **order**     *?array* : the wanted keys and their order if you pass an array of object as `data`.
+* **headers**   *?boolean | ?array* : whether you want headers and if you want them customized.
 
 *Example*
 

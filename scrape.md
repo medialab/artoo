@@ -21,7 +21,7 @@ It is advisable, however, to check the [quick start]({{ site.baseurl }}/quick_st
 ---
 
 <h2 id="scrape">artoo.scrape</h2>
-`artoo.scrape` is the heart of the library scraping techniques. It takes a selector as its root iterator and then takes the data model you intent to extract at each step of the iteration.
+This helper is the heart of the library's scraping techniques. It takes a selector as its root iterator and then takes the data model you intent to extract at each step of the iteration.
 
 ```js
 // Basic signature
@@ -42,7 +42,7 @@ artoo.scrape('li', {id: 'id', content: 'text'});
 
 ### Arguments
 
-* **iterator**  *css selector | jQuery selector* : the selection of the elements on which you want to iterate.
+* **iterator**  *css selector | jQuery selector | function* : the selection of the elements on which you want to iterate or, alternatively, a function returning this selection.
 * **model**     *mixed* : the model of the data you want to scrape and its retrievers.
 * **params**    *?object* : an object of optional parameters.
   * **limit**   *?integer* : the number of items you want to scrape if you do not want each of them.

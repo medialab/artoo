@@ -91,11 +91,18 @@ artoo.waitFor(
 <h2 id="to-csv-string">artoo.helpers.toCSVString</h2>
 Converts an array of array into a CSV string or an array of objects into a CSV string with headers.
 
+```js
+artoo.helpers.toCSVString(data, [params]);
+```
+
 *Arguments*
 
 * **data**             *array* : The array of array or array of object to convert into a CSV string.
-* **delimiter**        *?string* [`,`] : The field delimiter.
-* **escapeCharacter**  *?string* [`"`] : The escape character for the fields and the field delimiter.
+* **params** *?object* : an object of optional parameters and containing the following keys:
+  * **delimiter**        *?string* [`,`] : The field delimiter.
+  * **escape**  *?string* [`"`] : The escape character for the fields and the field delimiter.
+  * **order** *?array* : if you pass an array of objects, the wanted keys and their order.
+  * **headers** *?boolean | ?array* : if false, the fonction won't add a header line. If you provide an array, the header line will follow it. Note that, by default, a header line is added when an array of object is passed as `data`.
 
 *Example*
 

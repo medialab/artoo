@@ -15,7 +15,7 @@
     jquery: {
       plugins: []
     },
-    version: '0.1.0'
+    version: '0.1.1'
   };
 
   // Exporting to global scope

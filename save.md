@@ -12,7 +12,7 @@ id: save
 
 If your browser warns you about the webpage trying to download several items, just tell him it's gonna be ok and you should not be bothered again.
 
-**Note**: every methods below can take the same parameters object as `artoo.save`. It's just that they are not documented each time.
+**Note**: every methods below can take the same parameters object as `artoo.save`. They are just not documented each time.
 
 ---
 
@@ -20,7 +20,10 @@ If your browser warns you about the webpage trying to download several items, ju
 * [artoo.saveJson](#json)
 * [artoo.savePrettyJson](#pretty)
 * [artoo.saveCsv](#csv)
+* [artoo.saveTsv](#tsv)
+* [artoo.saveYaml](#yaml)
 * [artoo.saveXml](#xml)
+* [artoo.saveSvg](#svg)
 * [artoo.saveHtml](#html)
 * [artoo.savePageHtml](#page-html)
 * [artoo.saveStore](#store)
@@ -115,6 +118,24 @@ For more precisions, refer to [artoo.helpers.toCSVString]({{ site.baseurl }}/hel
 
 ---
 
+<h2 id="tsv">artoo.saveTsv</h2>
+This method is an alias of the `saveCsv` one and simply overrides the delimiter with `\t`.
+
+```js
+artoo.saveTsv(data, [params]);
+```
+
+---
+
+<h2 id="yaml">artoo.saveYaml</h2>
+Dowload a JavaScript variable as a YAML file.
+
+```js
+artoo.saveYaml(data, [params]);
+```
+
+---
+
 <h2 id="xml">artoo.saveXml</h2>
 Download a XML file from a string, a jQuery selector or a DOM document.
 
@@ -131,6 +152,17 @@ artoo.saveXml(document);
 
 ---
 
+<h2 id="svg">artoo.saveSvg</h2>
+Download a SVG file from a jQuery selector.
+
+```js
+artoo.saveSvg(svgData, [params]);
+```
+
+This method is an alias of `artoo.saveXml`.
+
+---
+
 <h2 id="html">artoo.saveHtml</h2>
 Download a HTML file from a string, a jQuery selector or a DOM document.
 
@@ -138,7 +170,7 @@ Download a HTML file from a string, a jQuery selector or a DOM document.
 artoo.saveHtml(htmlData, [params]);
 ```
 
-This method is in fact an alias of `artoo.saveXml`.
+This method is an alias of `artoo.saveXml`.
 
 ---
 

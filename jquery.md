@@ -54,7 +54,7 @@ Finally, if you prefer another jQuery version, you can also configure it in the 
 
 <h2 id="simulate">jQuery simulate</h2>
 
-In order to be able to trigger complex DOM events as well as a human would, **artoo** encapsulates the `jquery.simulate` plugin.
+In order to be able to trigger complex DOM events as well as a human would, **artoo** encapsulates the `jquery.simulate` [plugin](https://github.com/jquery/jquery-simulate).
 
 It is commonly used to perform functionnal testing and ensure that interfaces are working correctly. But scrapers know it can be useful otherwise...
 

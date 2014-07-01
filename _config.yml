@@ -50,6 +50,8 @@ sidebar:
   - url: 'grunt'
     title: 'Grunt task'
   - 'sep'
+  - url: 'changelog'
+    title: 'Changelog'
 
 github:
   repo:           https://github.com/medialab/artoo

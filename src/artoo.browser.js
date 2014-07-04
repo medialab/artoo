@@ -24,7 +24,8 @@
   // Browsers
   artoo.browser = {
     chrome: 'chrome' in _root,
-    firefox: inBrowser && !!~navigator.userAgent.search(/firefox/i)
+    firefox: inBrowser && !!~navigator.userAgent.search(/firefox/i),
+    phantomjs: 'callPhantom' in _root
   };
 
   // Which browser?

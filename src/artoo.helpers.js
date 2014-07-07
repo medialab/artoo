@@ -288,6 +288,8 @@
 
     if (typeof v === 'string') {
       try {
+        if (artoo.browser.phantomjs)
+          throw Error('next');
         return $($.parseXML(v).documentElement);
       }
       catch (x) {

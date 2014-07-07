@@ -1,8 +1,8 @@
 {
-  "name": "artoo",
+  "name": "artoo-js",
   "version": "0.1.1",
   "description": "The client-side scraping companion.",
-  "main": "index.js",
+  "main": "./build/artoo.concat.js",
   "author": {
     "name": "Yomguithereal",
     "url": "https://github.com/Yomguithereal"
@@ -10,7 +10,8 @@
   "scripts": {
     "start": "grunt work & http-server -c-1 -p 8000 && fg",
     "https": "grunt work & http-server -c-1 -p 8000 -S && fg",
-    "test": "grunt qunit"
+    "test": "grunt qunit",
+    "prepublish": "grunt concat"
   },
   "repository": {
     "type": "git",

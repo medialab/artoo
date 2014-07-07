@@ -1,6 +1,10 @@
 node_modules
+.gitignore
 .DS_Store
 TODO.md
 *.pem
 *.log
 build/
+meta.json
+manifest.json
+.travis.yml

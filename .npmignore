@@ -1,0 +1,9 @@
+node_modules
+.DS_Store
+TODO.md
+*.pem
+*.log
+build/bookmarklet.*
+build/artoo.min.js
+test/
+chrome/

@@ -21,11 +21,19 @@
     return firebug;
   }
 
+  function checkNode() {
+    return typeof window === 'undefined' &&
+           typeof global !== 'undefined' &&
+           typeof module !== 'undefined' &&
+           module.exports;
+  }
+
   // Browsers
   artoo.browser = {
     chrome: 'chrome' in _root,
     firefox: inBrowser && !!~navigator.userAgent.search(/firefox/i),
-    phantomjs: 'callPhantom' in _root
+    phantomjs: 'callPhantom' in _root,
+    nodejs: checkNode()
   };
 
   // Which browser?

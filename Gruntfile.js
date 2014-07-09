@@ -4,6 +4,7 @@ module.exports = function(grunt) {
   var jsFiles = [
     'src/artoo.js',
     'src/plugins/jquery.simulate.js',
+    'src/plugins/jquery.path.js',
     'src/artoo.beep.js',
     'src/artoo.settings.js',
     'src/artoo.helpers.js',
@@ -81,7 +82,7 @@ module.exports = function(grunt) {
       }
     },
     sed: {
-      version: {
+      imports: {
         recursive: true,
         path: 'test/',
         pattern: /<!-- START ARTOO IMPORTS -->[\s\S]*<!-- END ARTOO IMPORTS -->/g,

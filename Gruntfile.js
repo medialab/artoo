@@ -5,6 +5,7 @@ module.exports = function(grunt) {
     'src/artoo.js',
     'src/plugins/jquery.simulate.js',
     'src/plugins/jquery.path.js',
+    'src/plugins/jquery.similar.js',
     'src/artoo.beep.js',
     'src/artoo.settings.js',
     'src/artoo.helpers.js',

@@ -10,7 +10,9 @@
    */
 
   function _path($) {
-    $.fn.path = function() {
+    $.fn.path = function(optimal) {
+      optimal = (optimal === false) ? false : true;
+
       var $e = $(this),
           $c = $e,
           $a,
@@ -25,9 +27,11 @@
       while (($c.prop('tagName') || '').toLowerCase() !== 'body') {
 
         // If the current selector is already optimal, we break
-        $a = $(path.join(' > '));
-        if ($a.length === 1 && $a.get(0) === $e.get(0))
-          break;
+        if (optimal) {
+          $a = $(path.join(' > '));
+          if ($a.length === 1 && $a.get(0) === $e.get(0))
+            break;
+        }
 
         // Phase initialization
         sel = $c.prop('tagName').toLowerCase();

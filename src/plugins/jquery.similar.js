@@ -36,6 +36,15 @@
 
       return $sel || $(this);
     };
+
+    // $('*').click(function(e) {
+    //   $('.aaa').css('color', 'black');
+    //   e.stopPropagation();
+    //   e.preventDefault();
+    //   $('.aaa').removeClass('aaa');
+    //   $(this).similar().addClass('aaa');
+    //   $('.aaa').css('color', 'red');
+    // });
   }
 
   // Exporting

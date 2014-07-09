@@ -33,16 +33,22 @@
         sel = $c.prop('tagName').toLowerCase();
         i = '';
 
-        // If this, we get index if needed
-        if ($c === $e && $e.parent().children($e.prop('tagName')).length > 1)
-          i = ':nth-child(' + $e.index() + ')';
-
-        if ($c.attr('id'))
+        // Getting an id
+        if ($c.attr('id')) {
           sel += '#' + $c.attr('id');
-        else if ($c.attr('class'))
-          sel += $c.attr('class').split(' ').map(function(c) {
-            return '.' + c;
-          }).join('');
+        }
+
+        // Getting a discrimining class
+        else if ($c.attr('class')) {
+          $c.attr('class').split(' ').forEach(function(c) {
+            if ($c.parent().children('.' + c).length === 1)
+              sel += '.' + c;
+          });
+        }
+
+        // Getting a nth-child if nothing else works
+        if ($c.parent().children(sel).length > 1)
+          i = ':nth-child(' + ($c.index() + 1) + ')';
 
         path.unshift(sel + i);
 
@@ -51,7 +57,7 @@
       }
 
       // Returning the path
-      return path.join(' > ');
+      return path.join(' > ') || 'body';
     };
   }
 

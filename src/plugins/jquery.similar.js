@@ -34,7 +34,7 @@
           break;
       }
 
-      return $sel || $();
+      return $sel || $(this);
     };
   }
 

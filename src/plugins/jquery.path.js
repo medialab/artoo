@@ -42,9 +42,9 @@
           sel += '#' + $c.attr('id');
         }
 
-        // Getting a discrimining class
+        // Getting a relevant classes
         else if ($c.attr('class')) {
-          $c.attr('class').split(' ').forEach(function(c) {
+          $c.attr('class').trim().split(' ').forEach(function(c) {
             if ($c.parent().children('.' + c).length === 1)
               sel += '.' + c;
           });

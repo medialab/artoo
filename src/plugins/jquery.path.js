@@ -43,7 +43,7 @@
         }
 
         // Getting a relevant classes
-        else if ($c.attr('class')) {
+        else if ($c.attr('class') && optimal) {
           $c.classes().forEach(function(c) {
             if ($c.parent().children('.' + c).length === 1)
               sel += '.' + c;

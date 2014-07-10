@@ -60,20 +60,17 @@
         if (bestCls)
           c += '.' + bestCls;
 
+        // Filtering on visible elements only
+        c += ':visible';
 
         // Are there more than one element in the new selection?
         path[i] = c;
-        $sel = $(path.join(' > ') + ':visible');
+        $sel = $(path.join(' > '));
 
+        // TODO: try and find a statistical way to define threshold
         // If two elements or more are selected, we have a potential winner
         if ($sel.length > 2)
           break;
-
-        // TODO: try to compute identity from selected nodes and compute
-        // statistical anomalies.
-        // If anomalies overcome a threshold, the selector is probably not that good
-
-        // TODO: then we should try to expand to siblings just to be sure.
 
         // Go to parent
         $cur = $cur.parent();

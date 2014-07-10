@@ -110,7 +110,7 @@
       return;
 
     var ascii = robot();
-    ascii[ascii.length - 2] = ascii[ascii.length - 2] + '    artoo';
+    ascii[ascii.length - 2] = ascii[ascii.length - 2] + '    artoo.js';
 
     console.log(ascii.join('\n') + '   v' + artoo.version);
   };

@@ -319,21 +319,13 @@
   }
 
   // Loading an external file the same way the browser would load it from page
-  function getExternal(url, type, cb) {
-    type = type || 'js';
-
-    if (type !== 'js' && type !== 'css')
-      throw TypeError('artoo.getExternal: invalid type "' + type + '".');
-
-    var el = document.createElement(type === 'js' ? 'script' : 'link'),
+  function getScript(url, cb) {
+    var el = document.createElement('script'),
         head = document.getElementsByTagName('head')[0];
 
-    // Defining the script tag
-    el[type === 'js' ? 'src' : 'href'] = url;
-    if (type === 'css') {
-      el.type = 'text/css';
-      el.rel = 'stylesheet';
-    }
+    // Script attributes
+    el.type = 'text/javascript';
+    el.src = url;
 
     // Defining callbacks
     el.onload = el.onreadystatechange = function() {
@@ -342,9 +334,8 @@
             this.readyState == 'complete')) {
         el.onload = el.onreadystatechange = null;
 
-        // Removing only if Javascript
-        if (type === 'js')
-          head.removeChild(el);
+        // Removing element from head
+        head.removeChild(el);
 
         if (typeof cb === 'function')
           cb();
@@ -352,6 +343,37 @@
     };
 
     // Appending the script to head
+    head.appendChild(el);
+  }
+
+  // Loading an external stylesheet
+  function getStylesheet(data, isUrl, cb) {
+    var el = document.createElement(isUrl ? 'link' : 'style'),
+        head = document.getElementsByTagName('head')[0];
+
+    el.type = 'text/css';
+
+    if (isUrl) {
+      el.href = data;
+      el.rel = 'stylesheet';
+
+      // Waiting for script to load
+      el.onload = el.onreadystatechange = function() {
+        if ((!this.readyState ||
+              this.readyState == 'loaded' ||
+              this.readyState == 'complete')) {
+          el.onload = el.onreadystatechange = null;
+
+          if (typeof cb === 'function')
+            cb();
+        }
+      };
+    }
+    else {
+      el.innerHTML = data;
+    }
+
+    // Appending the stylesheet to head
     head.appendChild(el);
   }
 
@@ -549,10 +571,13 @@
 
   // Exporting to artoo root
   artoo.injectScript = function(url, cb) {
-    getExternal(url, 'js', cb);
+    getScript(url, cb);
   };
   artoo.injectStyle = function(url, cb) {
-    getExternal(url, 'css', cb);
+    getStylesheet(url, true, cb);
+  };
+  artoo.injectInlineStyle = function(text) {
+    getStylesheet(text, false);
   };
   artoo.waitFor = waitFor;
   artoo.getGlobalVariables = getGlobalVariables;

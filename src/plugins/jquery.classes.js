@@ -9,7 +9,6 @@
    * given elements.
    */
 
-  // TODO: on content also
   function _classes($) {
     $.fn.classes = function() {
       var index = {},

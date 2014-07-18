@@ -58,7 +58,7 @@
 
       this.open().then(function() {
         if (name in self.collections) {
-          promise.resolve(self.collections[name])
+          promise.resolve(self.collections[name]);
         }
         else {
 

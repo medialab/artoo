@@ -16,6 +16,7 @@ module.exports = function(grunt) {
     'src/artoo.dependencies.js',
     'src/artoo.countermeasures.js',
     // 'src/methods/artoo.methods.cache.js',
+    'src/methods/artoo.methods.sniffers.js',
     'src/methods/artoo.methods.ajaxSpider.js',
     'src/methods/artoo.methods.autoExpand.js',
     'src/methods/artoo.methods.autoScroll.js',

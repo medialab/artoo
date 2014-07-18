@@ -80,7 +80,7 @@
     // Checking the existence of jQuery or of another library.
     var exists = typeof jQuery !== 'undefined',
         other = !exists && typeof $ === 'function',
-        currentVersion = exists ? jQuery.fn.jquery : '0';
+        currentVersion = exists && jQuery.fn.jquery ? jQuery.fn.jquery : '0';
 
     // jQuery is already in a correct mood
     if (exists && currentVersion.charAt(0) === desiredVersion.charAt(0)) {

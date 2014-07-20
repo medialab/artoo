@@ -27,8 +27,8 @@
   }
 
   function _attributes($) {
-    $.fn.attributes = function(classes) {
-      classes = classes === undefined ? true : false;
+    $.fn.attributes = function(blackList) {
+      blackList = blackList || [];
 
       var $e = $(this).first(),
           attrs = {},
@@ -45,10 +45,11 @@
       for (i = 0, l = $e[0].attributes.length; i < l; i++) {
         a = $e[0].attributes[i];
         n = a.name || a.nodeName;
-        v = $e.attr(n);
 
-        if (!classes && n === 'class')
+        if (~blackList.indexOf(n))
           continue;
+
+        v = $e.attr(n);
 
         if (v !== undefined && v !== false)
           attrs[n] = v;

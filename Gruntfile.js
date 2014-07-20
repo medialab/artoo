@@ -4,7 +4,7 @@ module.exports = function(grunt) {
   var jsFiles = [
     'src/artoo.js',
     'src/plugins/jquery.simulate.js',
-    'src/plugins/jquery.classes.js',
+    'src/plugins/jquery.attributes.js',
     'src/plugins/jquery.path.js',
     'src/plugins/jquery.similar.js',
     'src/artoo.beep.js',

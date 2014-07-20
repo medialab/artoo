@@ -2,10 +2,10 @@
   'use strict';
 
   /**
-   * artoo classes jQuery plugin
-   * ============================
+   * artoo attributes jQuery plugin
+   * ===============================
    *
-   * Simplistic jQuery plugin designed to retrieve a list of classes for the
+   * Simplistic jQuery plugin designed to retrieve list of attributes for the
    * given elements.
    */
 

@@ -18,35 +18,55 @@
 
   // Persistent state
   // TODO: hook the get function to retrieve url and requests headers
-  var ajaxRequestCallbacks = [],
+  var ajaxRequestCallbacks = {},
+      counter = 0,
       xhrSend = XMLHttpRequest.prototype.send,
-      hookedXhr = false;
+      isXhrHooked = false;
 
   // Utilities
   function hookXhr() {
-    if (hookedXhr)
+    if (isXhrHooked)
       return;
 
     XMLHttpRequest.prototype.send = function() {
-      var curXhr = this;
+      var curXhr = this,
+          k;
 
-      ajaxRequestCallbacks.forEach(function(fn) {
-        fn(curXhr);
-      });
+      // TODO: how to bubble exception when this is executed through try except
+      for (k in ajaxRequestCallbacks)
+        ajaxRequestCallbacks[k](curXhr);
 
       xhrSend.apply(this, arguments);
     };
+
+    isXhrHooked = true;
   }
 
   function resetXhr() {
-    if (!hookedXhr)
+    if (!isXhrHooked)
       return;
 
     XMLHttpRequest.prototype.send = xhrSend;
+    isXhrHooked = false;
+  }
+
+  // A simple object designed to enable sniffers to be detached
+  function AjaxSniffer(id) {
+
+    // Properties
+    this.id = id;
+
+    // Methods
+    this.detach = function() {
+      delete ajaxRequestCallbacks[this.id];
+
+      // If this is the last ajax sniffer, we reset xhr
+      if (!Object.keys(ajaxRequestCallbacks).length)
+        resetXhr();
+    };
   }
 
   // Hook on ajax requests
-  // TODO: possibility to kill a sniffer
   artoo.sniffers.ajaxRequest = function(fn) {
     if (typeof fn !== 'function')
       throw TypeError('artoo.sniffers.ajaxRequest:' +
@@ -56,7 +76,11 @@
     hookXhr();
 
     // Adding the given function to callbacks
-    ajaxRequestCallbacks.push(fn);
+    var id = counter++;
+    ajaxRequestCallbacks[id] = fn;
+
+    // Returning a sniffer object
+    return new AjaxSniffer(id);
   };
 
   // Hook on ajax results

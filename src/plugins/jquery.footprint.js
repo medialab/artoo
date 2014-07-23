@@ -20,7 +20,8 @@
         'first',
         'hidden',
         'last',
-        'odd'
+        'odd',
+        'selected'
       ],
       attributes: [
         'class',
@@ -30,17 +31,24 @@
         'src',
         'style',
         'value'
+      ],
+      children: [
+        'br',
+        'hr',
+        'iframe',
+        'script'
       ]
     }
 
     $.fn.footprint = function(recur) {
       var $e = $(this).first(),
           $children,
+          $parent,
           fp = [],
           attrs;
 
       //--1) Getting element tag name
-      fp.push($e.prop('tagName').toLowerCase());
+      fp.push($e.prop('tagName'));
 
       //--2) Retrieving relevant classes
       $e.classes().forEach(function(c) {
@@ -62,20 +70,20 @@
       // TODO: define whether a tagging utility is useful or not
 
       //--5) Computing parent
-      if ($e.parent().prop('tagName') !== 'BODY' && recur !== false)
-        fp.push('@parent(' + $e.parent().footprint(false).join(',') + ')');
+      var $parent = $e.parent();
+      if ($parent.prop('tagName') !== 'BODY' &&
+          $parent.prop('tagName') !== 'HTML' &&
+          recur !== false)
+        fp.push('@parent(' + $parent.footprint(false).join(',') + ')');
 
       //--6) Computing children
       if (recur !== false) {
-        $children = $e.children();
-        if (!$children.length) {
-          fp.push('@leaf');
-        }
-        else {
-          $children.each(function() {
-            fp.push('@child(' + $(this).footprint(false).join(',') + ')');
-          });
-        }
+        $children = $e.children(':not(' + blacklists.children.join(',') + ')');
+
+        // Iterating through children
+        $children.each(function() {
+          fp.push('@child(' + $(this).footprint(false).join(',') + ')');
+        });
       }
 
       // TODO: consider nth-child and such

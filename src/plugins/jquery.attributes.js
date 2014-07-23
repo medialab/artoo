@@ -9,15 +9,16 @@
    * given elements.
    */
 
+  // TODO: filter empty class
   function _classes($) {
     $.fn.classes = function() {
       var index = {},
           cls;
 
       $(this).each(function() {
-        cls = $(this).attr('class');
+        cls = ($(this).attr('class') || '').trim().replace(/\s+/g, ' ');
         if (cls)
-          cls.trim().split(' ').forEach(function(c) {
+          cls.split(' ').forEach(function(c) {
             index[c] = true;
           });
       });

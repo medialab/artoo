@@ -20,9 +20,7 @@
     error: 'red'        // Red
   };
 
-  var priorities = [
-    'verbose', 'debug', 'info', 'warning', 'error'
-  ];
+  var priorities = ['verbose', 'debug', 'info', 'warning', 'error'];
 
   // Utilities
   function toArray(a, slice) {

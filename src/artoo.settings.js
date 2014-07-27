@@ -16,9 +16,10 @@
     autoExec: true,
     chromeExtension: false,
     debug: false,
-    scriptUrl: null,
+    env: 'dev',
     eval: null,
     reload: false,
+    scriptUrl: null,
 
     // Methods settings
     cache: {

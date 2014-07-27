@@ -37,7 +37,18 @@
 
   // Methods
   artoo.store.get = function(key) {
-    return key ? JSON.parse(_store.getItem(key)) : artoo.store.getAll();
+    if (!key) {
+      return artoo.store.getAll();
+    }
+    else {
+      var v = _store.getItem(key);
+      try {
+        return JSON.parse(v);
+      }
+      catch (e) {
+        return v;
+      }
+    }
   };
 
   artoo.store.getAll = function() {

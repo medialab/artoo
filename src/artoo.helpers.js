@@ -319,12 +319,21 @@
   }
 
   // Loading an external file the same way the browser would load it from page
-  function getScript(url, cb) {
+  function getScript(url, async, cb) {
+    if (typeof async === 'function') {
+      cb = async;
+      async = false;
+    }
+
     var el = document.createElement('script');
 
     // Script attributes
     el.type = 'text/javascript';
     el.src = url;
+
+    // Should the script be loaded asynchronously?
+    if (async)
+      el.async = true;
 
     // Defining callbacks
     el.onload = el.onreadystatechange = function() {

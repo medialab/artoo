@@ -20,6 +20,8 @@
     eval: null,
     reload: false,
     scriptUrl: null,
+    styleSheets: {},
+    templates: {},
 
     // Methods settings
     cache: {

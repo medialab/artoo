@@ -8,8 +8,8 @@
     "url": "https://github.com/Yomguithereal"
   },
   "scripts": {
-    "start": "grunt work & http-server -c-1 -p 8000 && fg",
-    "https": "grunt work & http-server -c-1 -p 8000 -S && fg",
+    "start": "grunt work & http-server -c-1 -p 8000 --cors && fg",
+    "https": "grunt work & http-server -c-1 -p 8000 -S --cors && fg",
     "test": "grunt qunit",
     "prepublish": "grunt concat"
   },

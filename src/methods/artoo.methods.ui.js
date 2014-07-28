@@ -29,7 +29,20 @@
         artoo.$(this.shadow) :
         artoo.$(this.shadow).children(sel).add(
           artoo.$(this.shadow).children().find(sel)
-        )
+        );
+    };
+
+    this.injectInlineStyle = function(style) {
+
+      // Creating a style tag
+      var e = document.createElement('style');
+      e.innerText = style;
+
+      // Appending to shadow
+      this.shadow.appendChild(e);
+
+      // Returning instance for chaining
+      return this;
     };
 
     this.kill = function() {

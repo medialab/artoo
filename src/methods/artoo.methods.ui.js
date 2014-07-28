@@ -13,7 +13,7 @@
   var counter = 0;
 
   artoo.ui = function() {
-    var id = 'bacta-tank' + (counter++);
+    var id = 'artoo-ui' + (counter++);
 
     // Creating a host
     var host = document.createElement('div');
@@ -26,7 +26,9 @@
 
     // Methods
     this.$ = function(sel) {
-      return !sel ? $(this.shadow) : $(this.shadow).contents(sel);
+      return !sel ?
+        artoo.$(this.shadow) :
+        artoo.$(this.shadow).contents(sel);
     };
   };
 }).call(this);

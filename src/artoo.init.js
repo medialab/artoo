@@ -73,11 +73,11 @@
   }
 
   // Retrieving settings from script tag
-  artoo.dom = document.getElementById('artoo_injected_script');
+  var dom = document.getElementById('artoo_injected_script');
 
-  if (artoo.dom) {
-    artoo.loadSettings(JSON.parse(artoo.dom.getAttribute('settings')));
-    artoo.dom.parentNode.removeChild(artoo.dom);
+  if (dom) {
+    artoo.loadSettings(JSON.parse(dom.getAttribute('settings')));
+    dom.parentNode.removeChild(dom);
   }
 
   // Updating artoo.browser

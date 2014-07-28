@@ -7,14 +7,20 @@
    *
    * The main artoo namespace and its vital properties.
    */
-  var _root = this;
 
-  // Main namespace
+  // Checking whether a body exists
+  var body = document.getElementsByTagName('body')[0];
+  if (!body) {
+    body = document.createElement('body');
+    document.firstChild.appendChild(body);
+  }
+
   var artoo = {
     $: {},
     jquery: {
       plugins: []
     },
+    mountNode: body,
     version: '0.1.1'
   };
 

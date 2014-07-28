@@ -320,8 +320,7 @@
 
   // Loading an external file the same way the browser would load it from page
   function getScript(url, cb) {
-    var el = document.createElement('script'),
-        head = document.getElementsByTagName('head')[0];
+    var el = document.createElement('script');
 
     // Script attributes
     el.type = 'text/javascript';
@@ -335,7 +334,7 @@
         el.onload = el.onreadystatechange = null;
 
         // Removing element from head
-        head.removeChild(el);
+        artoo.mountNode.removeChild(el);
 
         if (typeof cb === 'function')
           cb();
@@ -343,7 +342,7 @@
     };
 
     // Appending the script to head
-    head.appendChild(el);
+    artoo.mountNode.appendChild(el);
   }
 
   // Loading an external stylesheet

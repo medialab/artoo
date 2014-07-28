@@ -16,19 +16,26 @@
     var id = 'artoo-ui' + (counter++);
 
     // Creating a host
-    var host = document.createElement('div');
-    host.setAttribute('id', id);
-    artoo.mountNode.appendChild(host);
+    this.host = document.createElement('div');
+    this.host.setAttribute('id', id);
+    artoo.mountNode.appendChild(this.host);
 
     // Properties
-    this.host = host;
-    this.shadow = host.createShadowRoot();
+    this.shadow = this.host.createShadowRoot();
 
     // Methods
     this.$ = function(sel) {
       return !sel ?
         artoo.$(this.shadow) :
-        artoo.$(this.shadow).contents(sel);
+        artoo.$(this.shadow).children(sel).add(
+          artoo.$(this.shadow).children().find(sel)
+        )
+    };
+
+    this.kill = function() {
+      artoo.mountNode.removeChild(this.host);
+      delete this.shadow;
+      delete this.host;
     };
   };
 }).call(this);

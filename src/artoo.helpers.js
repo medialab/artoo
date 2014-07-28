@@ -83,9 +83,9 @@
   }
 
   // Get first item of array returning true to given function
-  function first(a, fn) {
+  function first(a, fn, scope) {
     for (var i = 0, l = a.length; i < l; i++) {
-      if (fn(a[i]))
+      if (fn.call(scope || null, a[i]))
         return a[i];
     }
     return;

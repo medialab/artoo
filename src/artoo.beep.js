@@ -41,7 +41,3 @@
     };
   });
 }).call(this);
-
-
-// drop merry sassy
-// replace laugh, sassy

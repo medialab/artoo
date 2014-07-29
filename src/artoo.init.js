@@ -29,7 +29,8 @@
     artoo.hooks.trigger('countermeasures');
 
     // Welcoming user
-    artoo.log.welcome();
+    if (artoo.settings.log.welcome)
+      artoo.log.welcome();
 
     // Should we greet the user with a joyful beep?
     if (artoo.settings.log.beeping)

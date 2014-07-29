@@ -13,6 +13,7 @@
   artoo.deps = {};
 
   // Dependencies injection routine
+  // TODO: trust and function to check version and such
   artoo.deps._inject = function(cb) {
     var deps = artoo.settings.dependencies;
 

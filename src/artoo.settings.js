@@ -16,6 +16,7 @@
     autoExec: true,
     chromeExtension: false,
     debug: false,
+    endpoint: null,
     env: 'dev',
     eval: null,
     reload: false,
@@ -24,6 +25,9 @@
     templates: {},
 
     // Methods settings
+    beep: {
+      endpoint: '//medialab.github.io/artoo/sounds/'
+    },
     cache: {
       delimiter: '%'
     },

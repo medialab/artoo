@@ -3,7 +3,7 @@ module.exports = function(grunt) {
   // Order IS important
   var jsFiles = [
     'src/artoo.js',
-    'src/plugins/jquery.simulate.js',
+    'src/third_party/jquery.simulate.js',
     'src/artoo.beep.js',
     'src/artoo.settings.js',
     'src/artoo.helpers.js',
@@ -29,7 +29,7 @@ module.exports = function(grunt) {
   ];
 
   function lintFilter(i) {
-    return !~i.indexOf('plugins');
+    return !~i.indexOf('third_party');
   }
 
   // Project configuration:

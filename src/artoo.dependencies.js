@@ -7,59 +7,71 @@
    *
    * Gracefully inject popular dependencies into the scraped webpage.
    */
-  var _root = this;
+  var _root = this,
+      _cached = {};
 
   artoo.deps = {};
 
-  var supported = {
-    async: {
-      url: '//cdnjs.cloudflare.com/ajax/libs/async/0.9.0/async.js',
-      variable: 'async'
-    },
-    lodash: {
-      url: '//cdn.jsdelivr.net/lodash/2.4.1/lodash.min.js',
-      variable: '_'
-    },
-    underscore: {
-      url: '//cdn.jsdelivr.net/underscorejs/1.6.0/underscore-min.js',
-      variable: '_'
-    }
-  };
-
   // Dependencies injection routine
-  artoo.deps.inject = function(cb) {
+  artoo.deps._inject = function(cb) {
     var deps = artoo.settings.dependencies;
 
     if (!deps.length)
       return cb();
 
-    artoo.log.verbose('Starting to retrieve dependencies...', deps);
+    artoo.log.verbose(
+      'Starting to retrieve dependencies...',
+      deps.map(function(d) {
+        return d.name;
+      })
+    );
 
+    // Creating tasks
     var tasks = deps.map(function(d) {
-      var name = (typeof d === 'string') ? d : d.name,
-          url = d.url || supported[name].url;
+      if (!d.name || !d.globals || !d.url)
+        throw Error('artoo.deps: invalid dependency definition.');
 
-      if (!(name in supported)) {
-        throw Error('Trying to load an unsupported dependency: ' + name);
-      }
+      // Computing globals
+      var globals = typeof d.globals === 'string' ? [d.globals] : d.globals;
+      globals.forEach(function(g) {
 
-      return function(taskCb) {
-        var variable = supported[name].variable,
-            exists = variable in _root;
+          // Is the variable present in the global scope?
+          if (_root[g] && !d.noConflict && !d.force)
+            _cached[g] = _root[g];
+      });
 
-        artoo.injectScript(url, function() {
-          if (exists) {
-            artoo.log.warning(name + ' already exists within your page. By ' +
-                              'precaution, artoo stashed it under artoo.deps.' +
-                              variable);
+      // Creating a task
+      return function(next) {
 
-            artoo.deps[variable] = _root[variable].noConflict();
-            return taskCb();
-          }
+        // Script injection
+        artoo.injectScript(d.url, function() {
 
-          artoo.log.info(name + ' was correctly injected into your page.');
-          artoo.deps[variable] = _root[variable];
-          taskCb();
+          // Announcing
+          artoo.log.verbose('Retrieved dependency ' + d.name);
+
+          // Retrieving the variables under artoo.deps
+          var retrievedGlobals = {};
+          globals.forEach(function(g) {
+
+            retrievedGlobals[g] = _root[g];
+
+            // If cached and not forced
+            if (_cached[g]) {
+              _root[g] = _cached[g];
+              delete _cached[g];
+            }
+
+            // If noConflict and not forced
+            if (d.noConflict)
+              _root[g].noConflict();
+          });
+
+          // Assigning to deps
+          artoo.deps[d.name] = Object.keys(retrievedGlobals).length > 1 ?
+            retrievedGlobals :
+            retrievedGlobals[Object.keys(retrievedGlobals)[0]];
+
+          next();
         });
       };
     });

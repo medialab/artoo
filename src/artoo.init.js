@@ -57,16 +57,19 @@
       });
     }
 
-    artoo.helpers.parallel([injectJquery, artoo.deps.inject], function() {
-      artoo.log.info('artoo is now good to go!');
+    artoo.helpers.parallel(
+      [injectJquery, artoo.deps._inject],
+      function() {
+        artoo.log.info('artoo is now good to go!');
 
-      // Triggering exec
-      if (artoo.settings.autoExec)
-        artoo.exec();
+        // Triggering exec
+        if (artoo.settings.autoExec)
+          artoo.exec();
 
-      // Triggering ready
-      artoo.hooks.trigger('ready');
-    });
+        // Triggering ready
+        artoo.hooks.trigger('ready');
+      }
+    );
 
     // Updating artoo state
     artoo.loaded = true;

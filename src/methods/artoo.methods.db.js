@@ -7,7 +7,8 @@
    *
    * IndexedDB abstraction.
    */
-  var _root = this;
+  var _root = this,
+      DB_NAME = 'artoodb';
 
   // Checking presence of indexedDB
   if (!('indexedDB' in _root))
@@ -23,7 +24,7 @@
     this.collections = {};
 
     this.open = function() {
-      var openRequest = indexedDB.open('artoo'),
+      var openRequest = indexedDB.open(DB_NAME),
           promise = artoo.$.Deferred();
 
       if (this.opened) {
@@ -71,7 +72,7 @@
 
             // The collection is inexistent, we create it
             self.db.close();
-            var upgradeRequest = indexedDB.open('artoo', self.db.version + 1);
+            var upgradeRequest = indexedDB.open(DB_NAME, self.db.version + 1);
 
             upgradeRequest.onupgradeneeded = function(e) {
 
@@ -110,6 +111,7 @@
     // Properties
     this.name = name;
     this.params = params;
+    this.keyValue = false;
 
     // Methods
     this.transaction = function(mode) {
@@ -118,11 +120,13 @@
       return db.transaction([this.name], mode);
     };
 
+    // TODO: Should I return item?
     this.add = function(data, cb) {
       var request = this.transaction('readwrite')
                         .objectStore(this.name)
                         .add(data);
 
+      // TODO: callback on oncomplete on transaction object
       // Request callbacks
       request.onsuccess = function(e) {
         if (typeof cb === 'function')
@@ -135,6 +139,7 @@
       };
     };
 
+    // TODO: Possibility to get several keys when array is provided
     this.get = function(key, cb) {
       var request = this.transaction()
                         .objectStore(this.name)
@@ -149,6 +154,14 @@
       request.onerror = function(e) {
         cb(e.target.error);
       };
+    };
+
+    this.find = function(criteria, cb) {
+
+    };
+
+    this.remove = function(criteria, cb) {
+
     };
   }
 
@@ -166,5 +179,19 @@
       params = null;
 
     DB.objectStore(collection, params).then(cb);
+  };
+
+  artoo.db.clear = function(cb) {
+    var request = indexedDB.deleteDatabase(DB_NAME);
+    cb = typeof cb === 'function' ? cb : artoo.helpers.noop;
+
+    // Request callbacks
+    request.onsuccess = function() {
+      cb();
+    };
+
+    request.onerror = request.onblocked = function(e) {
+      cb(e);
+    };
   };
 }).call(this);

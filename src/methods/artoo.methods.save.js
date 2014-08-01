@@ -32,8 +32,6 @@
     // Properties
     this.defaultFilename = 'artoo_data';
     this.defaultEncoding = 'utf-8';
-    this.forceDownloadMimeType = 'application/octet-stream';
-    this.defaultMimeType = 'text/plain';
     this.xmlns = 'http://www.w3.org/1999/xhtml';
     this.mimeShortcuts = {
       csv: 'text/csv',

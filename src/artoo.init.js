@@ -97,8 +97,13 @@
   };
 
   // artoo exectution
+  var firstExec = true;
   artoo.exec = function() {
+    if (!artoo.reExec && !firstExec)
+      return;
+
     artoo.hooks.trigger('exec');
+    firstExec = false;
   };
 
   // Init?

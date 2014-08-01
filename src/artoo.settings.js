@@ -19,6 +19,7 @@
     endpoint: null,
     env: 'dev',
     eval: null,
+    reExec: true,
     reload: false,
     scriptUrl: null,
     styleSheets: {},

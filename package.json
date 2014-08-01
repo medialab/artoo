@@ -8,10 +8,10 @@
     "url": "https://github.com/Yomguithereal"
   },
   "scripts": {
-    "start": "grunt work & http-server -c-1 -p 8000 --cors && fg",
-    "https": "grunt work & http-server -c-1 -p 8000 -S --cors && fg",
-    "test": "grunt qunit",
-    "prepublish": "grunt concat"
+    "start": "gulp watch & http-server -c-1 -p 8000 --cors && fg",
+    "https": "gulp watch & http-server -c-1 -p 8000 -S --cors && fg",
+    "test": "gulp test",
+    "prepublish": "gulp build"
   },
   "repository": {
     "type": "git",
@@ -29,16 +29,15 @@
   },
   "homepage": "https://github.com/medialab/artoo",
   "devDependencies": {
-    "grunt": "^0.4.4",
-    "grunt-cli": "^0.1.13",
-    "grunt-closure-linter": "^0.1.4",
-    "grunt-contrib-concat": "^0.5.0",
-    "grunt-contrib-jshint": "^0.10.0",
-    "grunt-contrib-uglify": "^0.5.1",
-    "grunt-contrib-watch": "^0.6.1",
-    "grunt-sed": "~0.1.1",
-    "grunt-contrib-qunit": "~0.5.2",
     "http-server": "git+https://github.com/Yomguithereal/http-server.git",
-    "grunt-artoo": "~0.0.3"
+    "gulp": "~3.8.6",
+    "gulp-artoo": "0.0.1",
+    "gulp-concat": "~2.3.4",
+    "gulp-uglify": "~0.3.1",
+    "gulp-jshint": "~1.8.3",
+    "gulp-qunit": "~0.3.3",
+    "gulp-replace": "~0.4.0",
+    "gulp-rename": "~1.2.0",
+    "gulp-header": "~1.0.5"
   }
 }

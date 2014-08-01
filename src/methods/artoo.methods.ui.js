@@ -12,13 +12,15 @@
   // Persistent state
   var counter = 0;
 
-  artoo.ui = function() {
+  artoo.ui = function(params) {
+    params = params || {};
+
     var id = 'artoo-ui' + (counter++);
 
     // Creating a host
     this.host = document.createElement('div');
     this.host.setAttribute('id', id);
-    artoo.mountNode.appendChild(this.host);
+    (params.mountNode || artoo.mountNode).appendChild(this.host);
 
     // Properties
     this.shadow = this.host.createShadowRoot();

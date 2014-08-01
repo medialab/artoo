@@ -157,7 +157,7 @@
         );
 
         // Escaping if needed
-        return ~i.indexOf(delimiter) || ~i.indexOf(escape) ?
+        return ~i.indexOf(delimiter) || ~i.indexOf(escape) || ~i.indexOf('\n') ?
           escape + i + escape :
           i;
       }).join(delimiter);

@@ -31,7 +31,11 @@
       correct: [['Michel', 'Chenu'], ['Marion', 'La brousse']],
       delimiter: [['Michel', 'Chenu, the Lord'], ['Marion', 'La brousse']],
       escape: [['Michel', 'Chenu'], ['Marion', 'dit "La brousse"']],
-      badass: [['Michel', 'Chenu, the Lord'], ['Marion', 'dit "La brousse"']]
+      badass: [['Michel', 'Chenu, the Lord'], ['Marion', 'dit "La brousse"']],
+      linebreak: [
+        { a: 'toto', b: 'tata\n', c: 'titi' },
+        { a: 'tutu', b: 'pouet',  c: 'blah' }
+      ]
     };
 
     var strings = {
@@ -40,7 +44,8 @@
       escape: 'Michel,Chenu\nMarion,"dit ""La brousse"""',
       badass: 'Michel,"Chenu, the Lord"\nMarion,"dit ""La brousse"""',
       tsv: 'Michel\tChenu\nMarion\tLa brousse',
-      customEscape: 'Michel,|Chenu, the Lord|\nMarion,La brousse'
+      customEscape: 'Michel,|Chenu, the Lord|\nMarion,La brousse',
+      linebreak: 'a,b,c\ntoto,"tata\n",titi\ntutu,pouet,blah'
     };
 
     var headerArray = [

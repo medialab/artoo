@@ -14,7 +14,7 @@
     var script = document.createElement('script'),
         body = document.getElementsByTagName('body')[0];
 
-    script.src = chrome.extension.getURL('build/artoo.concat.js');
+    script.src = chrome.extension.getURL('build/artoo.chrome.js');
     script.type = 'text/javascript';
     script.id = 'artoo_injected_script';
     script.setAttribute('chrome', 'true');
@@ -25,9 +25,14 @@
 
   // Requesting variables from background page
   chrome.runtime.sendMessage({variable: 'enabled'}, function(response) {
-    
+
     // If artoo is enabled, we inject the script
     if (response.enabled)
       injectScript();
   });
+
+  // Listening to page's messages
+  window.addEventListener('message', function(e) {
+    console.log('received', e);
+  }, false);
 }).call(this);

@@ -83,6 +83,12 @@ gulp.task('build', function() {
     .pipe(gulp.dest('./build'));
 });
 
+gulp.task('chrome', function() {
+  return gulp.src(jsFiles.concat('./chrome/artoo.methods.chrome.js'))
+    .pipe(concat('artoo.chrome.js'))
+    .pipe(gulp.dest('./build'));
+});
+
 // Bookmarklets
 gulp.task('bookmarklet.dev', function() {
   var opts = {
@@ -107,10 +113,10 @@ gulp.task('bookmarklet.prod', function() {
 });
 
 // Watching
-gulp.task('watch', ['build'], function() {
-  gulp.watch(jsFiles, ['build']);
+gulp.task('watch', ['build', 'chrome'], function() {
+  gulp.watch(jsFiles, ['build', 'chrome']);
 });
 
 // Macro-tasks
 gulp.task('bookmarklets', ['bookmarklet.dev', 'bookmarklet.prod']);
-gulp.task('default', ['lint', 'test', 'build']);
+gulp.task('default', ['lint', 'test', 'build', 'chrome']);

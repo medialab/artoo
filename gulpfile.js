@@ -7,6 +7,7 @@ var gulp = require('gulp'),
     replace = require('gulp-replace'),
     rename = require('gulp-rename'),
     header = require('gulp-header'),
+    webserver = require('gulp-webserver'),
     pkg = require('./package.json');
 
 // Utilities
@@ -117,6 +118,24 @@ gulp.task('watch', ['build', 'chrome'], function() {
   gulp.watch(jsFiles, ['build', 'chrome']);
 });
 
+// Serving
+gulp.task('serve', function() {
+  return gulp.src('./')
+    .pipe(webserver({
+      directoryListing: true
+    }));
+});
+
+gulp.task('serve.https', function() {
+  return gulp.src('./')
+    .pipe(webserver({
+      directoryListing: true,
+      https: true
+    }));
+});
+
 // Macro-tasks
 gulp.task('bookmarklets', ['bookmarklet.dev', 'bookmarklet.prod']);
+gulp.task('work', ['watch', 'serve']);
+gulp.task('https', ['watch', 'serve.https']);
 gulp.task('default', ['lint', 'test', 'build', 'chrome']);

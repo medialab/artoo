@@ -97,7 +97,7 @@ gulp.task('bookmarklet.dev', function() {
     loadingText: null,
     url: '//localhost:8000/build/artoo.concat.js',
     settings: {
-      debug: true,
+      env: 'dev',
       reload: true
     }
   };

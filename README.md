@@ -37,3 +37,5 @@ npm run https
 **artoo.js** is being developed by [Guillaume Plique](https://github.com/Yomguithereal) @ SciencesPo - [médialab](http://www.medialab.sciences-po.fr/fr/).
 
 Logo by [Daniele Guido](https://github.com/danieleguido).
+
+R2D2 ascii logo by [Joan Stark](http://www.geocities.com/spunk1111/) aka `jgs`.

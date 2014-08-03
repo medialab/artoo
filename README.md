@@ -23,7 +23,7 @@ npm install
 npm test
 
 # Compiling dev & prod bookmarklets
-grunt bookmarklets
+gulp bookmarklets
 
 # Running a test server hosting the concatenated file
 npm start

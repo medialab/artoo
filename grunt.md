@@ -8,6 +8,10 @@ id: grunt
 
 ---
 
+**Note**: The grunt task is now deprecated. You should now use the [gulp]({{ site.baseurl }}/gulp) plugin.
+
+---
+
 **artoo.js** ships with a [grunt](http://gruntjs.com/) task enabling you to create custom bookmarklets.
 
 Those are especially useful when you need precise settings for the library or when you need to inject your own code using the library as a kind of framework.

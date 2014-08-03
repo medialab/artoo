@@ -36,7 +36,7 @@ Here is therefore what you need to do:
 git clone https://github.com/medialab/artoo
 cd artoo
 npm install
-grunt concat
+gulp chrome
 ```
 
 Then go to chrome's extension page, tick the developer mode's checkbox and load the unpacked extension.

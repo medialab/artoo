@@ -21,6 +21,8 @@
       plugins: []
     },
     mountNode: body,
+    stylesheets: {},
+    templates: {},
     version: '0.1.1'
   };
 

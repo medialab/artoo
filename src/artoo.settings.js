@@ -21,8 +21,6 @@
     reExec: true,
     reload: false,
     scriptUrl: null,
-    styleSheets: {},
-    templates: {},
 
     // Methods settings
     beep: {

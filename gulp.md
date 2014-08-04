@@ -71,6 +71,10 @@ If you need to encapsulates templates and/or stylesheets for a bookmarklet provi
 
 Those will simply transform any template or stylesheet into javascript variables containing json-encoded strings for artoo to use and you to access in your scripts.
 
+You can optionally pass as sole argument the base directory of your templates or stylesheets relative to your `gulpfile.js` so you keep a relevant name in variables set to `artoo.template` and `artoo.stylesheet`.
+
+Note that, by default, base directories are `stylesheets` and `templates`.
+
 ```js
 // Templates
 gulp.src('./templates/*.tpl')
@@ -80,6 +84,11 @@ gulp.src('./templates/*.tpl')
 // Stylesheets
 gulp.src('./stylesheets/*.css')
   .pipe(artoo.stylesheet())
+  .pipe(gulp.dest('./build'));
+
+// Example of custom base directory
+gulp.src('./stylesheets/*.css')
+  .pipe(artoo.stylesheet('./static/css'))
   .pipe(gulp.dest('./build'));
 ```
 

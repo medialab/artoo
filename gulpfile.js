@@ -127,7 +127,7 @@ gulp.task('bookmarklet.prod', function() {
 });
 
 // Watching
-gulp.task('watch', ['build', 'chrome'], function() {
+gulp.task('watch', ['build', 'chrome', 'phantomjs'], function() {
   gulp.watch(jsFiles, ['build', 'chrome', 'phantomjs']);
 });
 

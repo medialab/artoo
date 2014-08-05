@@ -26,6 +26,16 @@
     this.shadow = this.host.createShadowRoot();
 
     // Methods
+    this.init = function() {
+      var stylesheets = params.stylesheets || params.stylesheet;
+      if (stylesheets) {
+        (artoo.helpers.isArray(stylesheets) ?
+          stylesheets : [stylesheets]).forEach(function(s) {
+          this.injectStyle(s);
+        }, this);
+      }
+    };
+
     this.$ = function(sel) {
       return !sel ?
         artoo.$(this.shadow) :
@@ -34,11 +44,21 @@
         );
     };
 
+    this.injectStyle = function(name) {
+      if (!(name in artoo.stylesheets))
+        throw Error('artoo.ui.injectStyle: attempting to inject unknown ' +
+                    'stylesheet (' + name +')');
+
+      this.injectInlineStyle(artoo.stylesheets[name]);
+    };
+
     this.injectInlineStyle = function(style) {
 
       // Creating a style tag
       var e = document.createElement('style');
-      e.innerText = style;
+      e.innerHTML = (artoo.helpers.isArray(style)) ?
+        style.join('\n') :
+        style;
 
       // Appending to shadow
       this.shadow.appendChild(e);
@@ -52,5 +72,8 @@
       delete this.shadow;
       delete this.host;
     };
+
+    // Initializing
+    this.init();
   };
 }).call(this);

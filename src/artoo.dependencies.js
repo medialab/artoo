@@ -48,7 +48,7 @@
         artoo.injectScript(d.url, function() {
 
           // Announcing
-          artoo.log.verbose('Retrieved dependency ' + d.name);
+          artoo.log.verbose('Retrieved dependency ' + d.name + '.');
 
           // Retrieving the variables under artoo.deps
           var retrievedGlobals = {};

@@ -15,7 +15,6 @@
     autoInit: true,
     autoExec: true,
     chromeExtension: false,
-    endpoint: null,
     env: 'dev',
     eval: null,
     reExec: true,

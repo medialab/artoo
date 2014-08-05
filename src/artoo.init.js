@@ -10,7 +10,16 @@
   var _root = this;
 
   // Script evaluation function
+  var firstExec = true;
   function exec() {
+
+    // Should we reExec?
+    if (!artoo.settings.reExec && !firstExec) {
+      artoo.log.warning('not reexecuting script as per settings.');
+      return;
+    }
+
+    // Evaluating or invoking distant script?
     if (artoo.settings.eval) {
       artoo.log.verbose('evaluating and executing the script given to artoo.');
       eval.call(_root, JSON.parse(artoo.settings.eval));
@@ -20,6 +29,8 @@
                         artoo.settings.scriptUrl + '"');
       artoo.injectScript(artoo.settings.scriptUrl);
     }
+
+    firstExec = false;
   }
 
   // Initialization function
@@ -97,13 +108,8 @@
   };
 
   // artoo exectution
-  var firstExec = true;
   artoo.exec = function() {
-    if (!artoo.reExec && !firstExec)
-      return;
-
     artoo.hooks.trigger('exec');
-    firstExec = false;
   };
 
   // Init?

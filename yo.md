@@ -46,13 +46,13 @@ Every type of bookmark scaffolded comes with a `gulp` environment for you to wor
 You can therefore use the following commands:
 
 ```bash
-# Lint and build the files
+# Build the files
 gulp
 
 # Build only the bookmarklets
 gulp bookmarklets
 
-# Run a local server and watch files
+# Run a local server and watch files to work comfortably
 npm start
 
 # or

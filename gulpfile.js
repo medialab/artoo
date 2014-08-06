@@ -27,7 +27,6 @@ var jsFiles = [
   'src/methods/artoo.methods.ajaxSpider.js',
   'src/methods/artoo.methods.autoExpand.js',
   'src/methods/artoo.methods.autoScroll.js',
-  'src/methods/artoo.methods.db.js',
   'src/methods/artoo.methods.instructions.js',
   // 'src/methods/artoo.methods.navigate.js',
   'src/methods/artoo.methods.save.js',

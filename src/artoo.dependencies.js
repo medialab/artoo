@@ -91,7 +91,7 @@
         cdn = '//code.jquery.com/jquery-' + desiredVersion + '.min.js';
 
     // Checking the existence of jQuery or of another library.
-    var exists = typeof jQuery !== 'undefined',
+    var exists = typeof jQuery !== 'undefined' || artoo.$.fn,
         other = !exists && typeof $ === 'function',
         currentVersion = exists && jQuery.fn.jquery ? jQuery.fn.jquery : '0';
 

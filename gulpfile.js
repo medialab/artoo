@@ -81,26 +81,27 @@ gulp.task('lint', function() {
 });
 
 // Building
+function build(name, files) {
+  return gulp.src(jsFiles.concat(files))
+    .pipe(concat('artoo.' + name + '.js'))
+    .pipe(gulp.dest('./build'));
+}
+
 gulp.task('build', function() {
-  return gulp.src(jsFiles)
-    .pipe(concat('artoo.concat.js'))
-    .pipe(gulp.dest('./build'))
+
+  // Browser version
+  build('concat', jsFiles)
     .pipe(uglify())
     .pipe(header('/* artoo.js - <%= description %> - Version: <%= version %> - Author: <%= author.name %> - medialab SciencesPo */\n', pkg))
     .pipe(rename('artoo.min.js'))
     .pipe(gulp.dest('./build'));
+
+  // Chrome version
+  build('chrome', chromeFiles);
+
+  // Phantomjs version
+  build('phantomjs', phantomjsFiles);
 });
-
-function subBuild(name, files) {
-  return function() {
-    gulp.src(jsFiles.concat(files))
-      .pipe(concat('artoo.' + name + '.js'))
-      .pipe(gulp.dest('./build'));
-  }
-}
-
-gulp.task('chrome', subBuild('chrome', chromeFiles));
-gulp.task('phantomjs', subBuild('phantomjs', phantomjsFiles));
 
 // Bookmarklets
 gulp.task('bookmarklet.dev', function() {
@@ -126,8 +127,8 @@ gulp.task('bookmarklet.prod', function() {
 });
 
 // Watching
-gulp.task('watch', ['build', 'chrome', 'phantomjs'], function() {
-  gulp.watch(jsFiles, ['build', 'chrome', 'phantomjs']);
+gulp.task('watch', ['build'], function() {
+  gulp.watch(jsFiles, ['build']);
 });
 
 // Serving
@@ -150,4 +151,4 @@ gulp.task('serve.https', function() {
 gulp.task('bookmarklets', ['bookmarklet.dev', 'bookmarklet.prod']);
 gulp.task('work', ['watch', 'serve']);
 gulp.task('https', ['watch', 'serve.https']);
-gulp.task('default', ['lint', 'test', 'build', 'chrome', 'phantomjs']);
+gulp.task('default', ['lint', 'test', 'build']);

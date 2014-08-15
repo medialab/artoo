@@ -15,103 +15,108 @@
     return key.charAt(0) === d && key.charAt(key.length - 1) === d;
   }
 
-  // Store alias
-  var _store;
+  // Abstract factory
+  function StoreFactory(engine) {
 
-  function setEngine(engine) {
+    // Initialization
     if (engine === 'local')
-      _store = localStorage;
+      engine = localStorage;
     else if (engine === 'session')
-      _store = sessionStorage;
+      engine = sessionStorage;
     else
       throw Error('artoo.store: wrong engine "' + engine + '".');
+
+    // Returning a function
+    var store = function(key) {
+      return store.get(key);
+    };
+
+    store.get = function(key) {
+      if (!key) {
+        return store.getAll();
+      }
+      else {
+        var v = engine.getItem(key);
+        try {
+          return JSON.parse(v);
+        }
+        catch (e) {
+          return v;
+        }
+      }
+    };
+
+    store.getAll = function() {
+      var s = {};
+      for (var i in engine) {
+        if (!isCache(i))
+        s[i] = store.get(i);
+      }
+      return s;
+    };
+
+    store.keys = function(key) {
+      var keys = [],
+          i;
+      for (i in engine)
+        keys.push(i);
+
+      return keys;
+    };
+
+    store.set = function(key, value) {
+      if (typeof key !== 'string' && typeof key !== 'number')
+        throw TypeError('artoo.store.set: trying to set an invalid key.');
+
+      // Storing
+      engine.setItem(key, JSON.stringify(value));
+    };
+
+    store.pushTo = function(key, value) {
+      var a = store.get(key);
+
+      if (!artoo.helpers.isArray(a) && a !== null)
+        throw TypeError('artoo.store.pushTo: trying to push to a non-array.');
+
+      a = a || [];
+      a.push(value);
+      store.set(key, a);
+      return a;
+    };
+
+    store.update = function(key, object) {
+      var o = store.get(key);
+
+      if (!artoo.helpers.isPlainObject(o) && o !== null)
+        throw TypeError('artoo.store.update: trying to udpate to a non-object.');
+
+      o = artoo.helpers.extend(object, o);
+      store.set(key, o);
+      return o;
+    };
+
+    store.remove = function(key) {
+      engine.removeItem(key);
+    };
+
+    store.removeAll = function() {
+      for (var i in engine) {
+        if (!isCache(i))
+          engine.removeItem(i);
+      }
+    };
+
+    store.clear = store.removeAll;
+
+    return store;
   }
 
-  // Setting engine
-  setEngine(artoo.settings.store.engine);
+  // Exporting factories
+  artoo.createStore = StoreFactory;
 
-  // Namespace
-  artoo.store = function(key) {
-    return artoo.store.get(key);
-  };
-
-  // Methods
-  artoo.store.get = function(key) {
-    if (!key) {
-      return artoo.store.getAll();
-    }
-    else {
-      var v = _store.getItem(key);
-      try {
-        return JSON.parse(v);
-      }
-      catch (e) {
-        return v;
-      }
-    }
-  };
-
-  artoo.store.getAll = function() {
-    var s = {};
-    for (var i in _store) {
-      if (!isCache(i))
-      s[i] = artoo.store.get(i);
-    }
-    return s;
-  };
-
-  artoo.store.keys = function(key) {
-    var keys = [],
-        i;
-    for (i in _store)
-      keys.push(i);
-
-    return keys;
-  };
-
-  artoo.store.set = function(key, value) {
-    if (typeof key !== 'string' && typeof key !== 'number')
-      throw TypeError('artoo.store.set: trying to set an invalid key.');
-
-    // Storing
-    _store.setItem(key, JSON.stringify(value));
-  };
-
-  artoo.store.pushTo = function(key, value) {
-    var a = artoo.store.get(key);
-
-    if (!artoo.helpers.isArray(a) && a !== null)
-      throw TypeError('artoo.store.pushTo: trying to push to a non-array.');
-
-    a = a || [];
-    a.push(value);
-    artoo.store.set(key, a);
-    return a;
-  };
-
-  artoo.store.update = function(key, object) {
-    var o = artoo.store.get(key);
-
-    if (!artoo.helpers.isPlainObject(o) && o !== null)
-      throw TypeError('artoo.store.update: trying to udpate to a non-object.');
-
-    o = artoo.helpers.extend(object, o);
-    artoo.store.set(key, o);
-    return o;
-  };
-
-  artoo.store.remove = function(key) {
-    _store.removeItem(key);
-  };
-
-  artoo.store.removeAll = function() {
-    for (var i in _store) {
-      if (!isCache(i))
-        _store.removeItem(i);
-    }
-  };
+  // Creating artoo's default store to be used
+  artoo.store = StoreFactory(artoo.settings.store.engine);
 
   // Shortcuts
   artoo.s = artoo.store;
-  artoo.store.clean = artoo.store.removeAll;
 }).call(this);

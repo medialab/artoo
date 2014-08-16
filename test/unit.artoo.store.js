@@ -25,7 +25,7 @@
     }
   });
 
-  test('Setters & getters', function() {
+  test('Synchronous Stores', function() {
 
     deepEqual(
       artoo.s.keys().length,
@@ -130,5 +130,78 @@
       artoo.s.keys().length === 0,
       'Removing every items from the store should leave an empty store.'
     );
+  });
+
+  asyncTest('Asynchronous Stores', function() {
+    expect(5);
+
+    var Mockup = new MockupAsynchronousStore(),
+        asyncStore = artoo.createAsyncStore(Mockup.send);
+
+    // Setting a value
+    asyncStore.set('hello', 'world', function() {
+      get();
+    });
+
+    // Getting a value
+    function get() {
+      asyncStore.get('hello', function(data) {
+        start();
+
+        strictEqual(data, 'world', 'Setting and getting simple data should work.');
+        getAll();
+      });
+    }
+
+    // Getting several values
+    function getAll() {
+      asyncStore.set('color', 'blue')
+        .then(function() {
+          ok(true, 'Promise polymorphism should work.');
+
+          asyncStore.getAll()
+            .then(function(data) {
+              deepEqual(
+                data,
+                {hello: 'world', color: 'blue'},
+                'getAll should return the whole store.'
+              );
+
+              removingAndKeys();
+            });
+        });
+    }
+
+    // Deleting elements and retrieving store keys
+    function removingAndKeys() {
+
+      // Removing the 'color' key
+      asyncStore.remove('color', function() {
+
+        // Retrieving remaining keys to check whether deletion worked
+        asyncStore.keys(function(keys) {
+          deepEqual(
+            keys,
+            ['hello'],
+            'Key deletion and key retrieval should work.'
+          );
+        });
+
+        clearing();
+      });
+    }
+
+    // Removing every keys in the store
+    function clearing() {
+      asyncStore.removeAll()
+        .then(function() {
+
+          // Retrieving store to assert
+          asyncStore()
+            .then(function(store) {
+              ok(!!Object.keys(store), 'removeAll successfully clears the store.');
+            });
+        });
+    }
   });
 }).call(this);

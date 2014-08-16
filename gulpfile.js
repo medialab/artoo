@@ -82,7 +82,7 @@ gulp.task('lint', function() {
 
 // Building
 function build(name, files) {
-  return gulp.src(jsFiles.concat(files))
+  return gulp.src(jsFiles.concat(name === 'concat' ? files : []))
     .pipe(concat('artoo.' + name + '.js'))
     .pipe(gulp.dest('./build'));
 }

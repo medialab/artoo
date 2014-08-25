@@ -22,17 +22,14 @@ var jsFiles = [
   'src/artoo.console.js',
   'src/artoo.dependencies.js',
   'src/artoo.countermeasures.js',
-  // 'src/methods/artoo.methods.cache.js',
   'src/methods/artoo.methods.sniffers.js',
   'src/methods/artoo.methods.ajaxSpider.js',
   'src/methods/artoo.methods.autoExpand.js',
   'src/methods/artoo.methods.autoScroll.js',
   'src/methods/artoo.methods.instructions.js',
-  // 'src/methods/artoo.methods.navigate.js',
   'src/methods/artoo.methods.save.js',
   'src/methods/artoo.methods.scrape.js',
   'src/methods/artoo.methods.store.js',
-  // 'src/methods/artoo.methods.state.js',
   'src/methods/artoo.methods.ui.js',
   'src/artoo.init.js'
 ];
@@ -41,8 +38,8 @@ var chromeFiles = [
   'src/chrome/artoo.chrome.js'
 ];
 
-var phantomjsFiles = [
-  'src/phantomjs/artoo.phantom.js'
+var phantomFiles = [
+  'src/phantom/artoo.phantom.js'
 ];
 
 function lintFilter(i) {
@@ -82,7 +79,7 @@ gulp.task('lint', function() {
 
 // Building
 function build(name, files) {
-  return gulp.src(jsFiles.concat(name === 'concat' ? files : []))
+  return gulp.src(jsFiles.concat(name !== 'concat' ? files : []))
     .pipe(concat('artoo.' + name + '.js'))
     .pipe(gulp.dest('./build'));
 }
@@ -90,7 +87,7 @@ function build(name, files) {
 gulp.task('build', function() {
 
   // Browser version
-  build('concat', jsFiles)
+  build('concat')
     .pipe(uglify())
     .pipe(header('/* artoo.js - <%= description %> - Version: <%= version %> - Author: <%= author.name %> - medialab SciencesPo */\n', pkg))
     .pipe(rename('artoo.min.js'))
@@ -99,8 +96,8 @@ gulp.task('build', function() {
   // Chrome version
   build('chrome', chromeFiles);
 
-  // Phantomjs version
-  build('phantomjs', phantomjsFiles);
+  // Phantom version
+  build('phantom', phantomFiles);
 });
 
 // Bookmarklets

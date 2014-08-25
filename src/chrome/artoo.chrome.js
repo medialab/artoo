@@ -13,12 +13,5 @@
   // Namespace
   artoo.chrome = {};
 
-  // Abstract
-  artoo.chrome.send = function(header, data) {
-    window.postMessage({
-      passphrase: 'bip-bip',
-      header: header || 'message',
-      data: data
-    }, '*');
-  };
+  // Communication method
 }).call(this);

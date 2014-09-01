@@ -10,23 +10,30 @@
   var _root = this;
 
   // Persistent state
-  var counter = 0;
+  var COUNTER = 0,
+      INSTANCES = {};
 
+  // Main Class
   artoo.ui = function(params) {
     params = params || {};
 
-    var id = 'artoo-ui' + (counter++);
+    var id = params.id || 'artoo-ui' + (COUNTER++);
+
+    // Referencing the instance
+    this.name = params.name || id;
+    INSTANCES[this.name] = this;
 
     // Creating a host
+    this.mountNode = params.mountNode || artoo.mountNode;
     this.host = document.createElement('div');
     this.host.setAttribute('id', id);
-    (params.mountNode || artoo.mountNode).appendChild(this.host);
+    this.mountNode.appendChild(this.host);
 
     // Properties
     this.shadow = this.host.createShadowRoot();
 
     // Methods
-    this.init = function() {
+    function init() {
       var stylesheets = params.stylesheets || params.stylesheet;
       if (stylesheets) {
         (artoo.helpers.isArray(stylesheets) ?
@@ -68,12 +75,18 @@
     };
 
     this.kill = function() {
-      artoo.mountNode.removeChild(this.host);
+      this.mountNode.removeChild(this.host);
       delete this.shadow;
       delete this.host;
+      delete INSTANCES[this.name];
     };
 
     // Initializing
-    this.init();
+    init.call(this);
+  };
+
+  // Instances accessor
+  artoo.ui.instances = function(key) {
+    return key ? INSTANCES[key] : INSTANCES;
   };
 }).call(this);

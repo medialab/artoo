@@ -114,13 +114,22 @@ gulp.task('bookmarklet.dev', function() {
 
   return artoo.blank('bookmarklet.dev.min.js')
     .pipe(artoo(opts))
-    .pipe(gulp.dest('./build'));
+    .pipe(gulp.dest('./build/bookmarklets'));
 });
 
 gulp.task('bookmarklet.prod', function() {
   return artoo.blank('bookmarklet.prod.min.js')
     .pipe(artoo())
-    .pipe(gulp.dest('./build'));
+    .pipe(gulp.dest('./build/bookmarklets'));
+});
+
+gulp.task('bookmarklet.edge', function() {
+  return artoo.blank('bookmarklet.edge.min.js')
+    .pipe(artoo({
+      version: 'edge',
+      loadingText: 'artoo.js edge version is loading...'
+    }))
+    .pipe(gulp.dest('./build/bookmarklets'));
 });
 
 // Watching
@@ -145,7 +154,7 @@ gulp.task('serve.https', function() {
 });
 
 // Macro-tasks
-gulp.task('bookmarklets', ['bookmarklet.dev', 'bookmarklet.prod']);
+gulp.task('bookmarklets', ['bookmarklet.dev', 'bookmarklet.prod', 'bookmarklet.edge']);
 gulp.task('work', ['watch', 'serve']);
 gulp.task('https', ['watch', 'serve.https']);
 gulp.task('default', ['lint', 'test', 'build']);

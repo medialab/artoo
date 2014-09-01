@@ -26,7 +26,7 @@
   "content_scripts": [
     {
     "matches": ["http://*/*", "https://*/*"],
-    "js": ["chrome/inject.js"],
+    "js": ["chrome/content.js"],
     "run_at": "document_end"
     }
   ],

@@ -3,7 +3,7 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
     jshint = require('gulp-jshint'),
-    qunit = require('gulp-qunit'),
+    mocha = require('gulp-mocha-phantomjs'),
     replace = require('gulp-replace'),
     rename = require('gulp-rename'),
     header = require('gulp-header'),
@@ -53,12 +53,12 @@ gulp.task('test', function() {
       /<!-- START ARTOO IMPORTS -->[\s\S]*<!-- END ARTOO IMPORTS -->/g,
       ['<!-- START ARTOO IMPORTS -->'].concat(
         jsFiles.slice(0, -1).map(function(path) {
-          return '  <script src="../' + path + '"></script>';
+          return '    <script src="../' + path + '"></script>';
         })
-      ).concat('  <!-- END ARTOO IMPORTS -->').join('\n')
+      ).concat('    <!-- END ARTOO IMPORTS -->').join('\n')
     ))
     .pipe(gulp.dest('./test'))
-    .pipe(qunit());
+    .pipe(mocha({reporter: 'spec'}));
 });
 
 // Linting

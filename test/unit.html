@@ -1,75 +1,87 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <title>artoo Unit Tests</title>
-  <link rel="stylesheet" href="qunit/qunit.css">
-  <style>
-    li > a {
-      display: none;
-    }
-    #artoo-doms {
-      display: none;
-    }
-  </style>
-</head>
-<body>
-  <div id="qunit"></div>
-  <div id="qunit-fixture"></div>
-  <div id="artoo-doms"></div>
-  <script src="lib/jquery-2.1.1.min.js"></script>
-  <script src="lib/jquery.xmldom.js"></script>
-  <script src="lib/jquery.mockjax.js"></script>
-  <script src="qunit/qunit.js"></script>
-  <script type="text/javascript">
-    QUnit.config.autostart = false;
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mocha Test Runner</title>
+    <link rel="stylesheet" href="lib/mocha.css">
+    <style>
+      #artoo-doms {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="mocha"></div>
+    <div id="artoo-doms"></div>
 
-    $.mockjaxSettings.responseTime = 300;
-    $.mockjaxSettings.log = function() {};
-  </script>
+    <!-- Testing -->
+    <script src="lib/mocha.js"></script>
+    <script src="lib/chai.js"></script>
+    <script>mocha.setup('bdd');</script>
 
-  <!-- START ARTOO IMPORTS -->
-  <script src="../src/artoo.js"></script>
-  <script src="../src/third_party/jquery.simulate.js"></script>
-  <script src="../src/artoo.beep.js"></script>
-  <script src="../src/artoo.settings.js"></script>
-  <script src="../src/artoo.helpers.js"></script>
-  <script src="../src/artoo.hooks.js"></script>
-  <script src="../src/artoo.browser.js"></script>
-  <script src="../src/artoo.console.js"></script>
-  <script src="../src/artoo.dependencies.js"></script>
-  <script src="../src/artoo.countermeasures.js"></script>
-  <script src="../src/methods/artoo.methods.sniffers.js"></script>
-  <script src="../src/methods/artoo.methods.ajaxSpider.js"></script>
-  <script src="../src/methods/artoo.methods.autoExpand.js"></script>
-  <script src="../src/methods/artoo.methods.autoScroll.js"></script>
-  <script src="../src/methods/artoo.methods.instructions.js"></script>
-  <script src="../src/methods/artoo.methods.save.js"></script>
-  <script src="../src/methods/artoo.methods.scrape.js"></script>
-  <script src="../src/methods/artoo.methods.store.js"></script>
-  <script src="../src/methods/artoo.methods.ui.js"></script>
-  <!-- END ARTOO IMPORTS -->
+    <!-- Libraries -->
+    <script src="lib/jquery-2.1.1.min.js"></script>
+    <script src="lib/jquery.xmldom.js"></script>
+    <script src="lib/jquery.mockjax.js"></script>
+    <script src="lib/async.js"></script>
 
-  <script type="text/javascript">
+    <!-- Helpers -->
+    <script src="helpers.js"></script>
 
-    // Disabling artoo's console for tests
-    artoo.settings.log.enabled = false;
+    <!-- START ARTOO IMPORTS -->
+    <script src="../src/artoo.js"></script>
+    <script src="../src/third_party/jquery.simulate.js"></script>
+    <script src="../src/artoo.beep.js"></script>
+    <script src="../src/artoo.settings.js"></script>
+    <script src="../src/artoo.helpers.js"></script>
+    <script src="../src/artoo.hooks.js"></script>
+    <script src="../src/artoo.browser.js"></script>
+    <script src="../src/artoo.console.js"></script>
+    <script src="../src/artoo.dependencies.js"></script>
+    <script src="../src/artoo.countermeasures.js"></script>
+    <script src="../src/methods/artoo.methods.sniffers.js"></script>
+    <script src="../src/methods/artoo.methods.ajaxSpider.js"></script>
+    <script src="../src/methods/artoo.methods.autoExpand.js"></script>
+    <script src="../src/methods/artoo.methods.autoScroll.js"></script>
+    <script src="../src/methods/artoo.methods.instructions.js"></script>
+    <script src="../src/methods/artoo.methods.save.js"></script>
+    <script src="../src/methods/artoo.methods.scrape.js"></script>
+    <script src="../src/methods/artoo.methods.store.js"></script>
+    <script src="../src/methods/artoo.methods.ui.js"></script>
+    <!-- END ARTOO IMPORTS -->
 
-    // Disabling instructions recording
-    artoo.settings.instructions.record = false;
+    <!-- Tests -->
+    <script src="suites/helpers.test.js"></script>
+    <script src="suites/store.test.js"></script>
+    <script src="suites/ajaxSpiders.test.js"></script>
+    <script src="suites/scrape.test.js"></script>
 
-    // Launching tests when artoo is ready
-    artoo.ready(function() {
-      QUnit.start();
-    });
-  </script>
-  <script src="../src/artoo.init.js"></script>
+    <script type="text/javascript">
 
-  <!-- Test scripts -->
-  <script src="unit.helpers.js"></script>
-  <script src="unit.artoo.helpers.js"></script>
-  <script src="unit.artoo.scrape.js"></script>
-  <script src="unit.artoo.spiders.js"></script>
-  <script src="unit.artoo.store.js"></script>
-</body>
+      // Tweaking mockjax
+      $.mockjaxSettings.responseTime = 10;
+      $.mockjaxSettings.log = function() {};
+
+      // Exposing chai's assert
+      window.assert = chai.assert;
+
+      // Disabling artoo's console for tests
+      artoo.settings.log.enabled = false;
+
+      // Disabling instructions recording
+      artoo.settings.instructions.record = false;
+
+      // Launching tests when artoo is ready
+      artoo.ready(function() {
+        if (window.mochaPhantomJS) {
+          mochaPhantomJS.run();
+        } else {
+          mocha.run();
+        }
+      });
+    </script>
+    <script src="../src/artoo.init.js"></script>
+  </body>
 </html>

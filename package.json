@@ -34,10 +34,10 @@
     "gulp-concat": "~2.3.4",
     "gulp-uglify": "~0.3.1",
     "gulp-jshint": "~1.8.3",
-    "gulp-qunit": "~0.3.3",
     "gulp-replace": "~0.4.0",
     "gulp-rename": "~1.2.0",
     "gulp-header": "~1.0.5",
-    "gulp-webserver": "~0.5.0"
+    "gulp-webserver": "~0.5.0",
+    "gulp-mocha-phantomjs": "~0.5.0"
   }
 }

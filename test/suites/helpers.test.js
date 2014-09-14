@@ -28,6 +28,24 @@
       });
     });
 
+    describe('before', function() {
+      it('should run the given function before the original one.', function() {
+        var count = 0;
+
+        var targetFunction = function() {
+          count++;
+        };
+
+        // Monkey patching
+        var newFunction = artoo.helpers.before(targetFunction, function() {
+          count++;
+        });
+
+        newFunction();
+        assert.strictEqual(count, 2);
+      });
+    });
+
     describe('toCSVString', function() {
       var arrays = {
         correct: [['Michel', 'Chenu'], ['Marion', 'La brousse']],

@@ -531,51 +531,33 @@
   }
 
   /**
-   * File handling
-   * --------------
+   * Monkey Patching
+   * ----------------
    *
-   * Functions dealing with file issues such as converting images into dataURI.
+   * Some monkey patching shortcuts. Useful for sniffers and overriding
+   * native functions.
    */
 
-  // Retrieve a file extenstion from filename or url
-  function getExtension(url) {
-    var a = url.split('.');
+  // TODO: return value
+  function before(targetFunction, beforeFunction) {
 
-    if (a.length === 1 || (a[0] === '' && a.length === 2))
-      return '';
-    return a.pop();
+    // Replacing the target function
+    var newFunction = function() {
+
+      // Applying our function
+      beforeFunction.apply(null, arguments);
+
+      // Applying the original function
+      targetFunction.apply(null, arguments);
+    };
+
+    return newFunction;
   }
 
-  var imageMimes = {
-    'png': 'image/png',
-    'jpg': 'image/jpeg',
-    'jpeg': 'image/jpeg',
-    'gif': 'image/gif'
-  };
-
-  // Convert an image into a dataUrl
-  function imgToDataUrl(img) {
-    var $img = artoo.$(img);
-
-    // Do we know the mime type of the image?
-    var mime = imageMimes[getExtension($img.attr('src')) || 'png'];
-
-    // Creating dummy canvas
-    var canvas = document.createElement('canvas');
-    canvas.width = $img[0].naturalWidth;
-    canvas.height = $img[0].naturalHeight;
-
-    // Copy the desired image to a canvas
-    var ctx = canvas.getContext('2d');
-    ctx.drawImage($img[0], 0, 0);
-    var dataUrl = canvas.toDataURL(mime);
-
-    // Clean up
-    canvas = null;
-
-    // Returning the url
-    return dataUrl;
-  }
+  /**
+   * Exportation
+   * ------------
+   */
 
   // Exporting to artoo root
   artoo.injectScript = function(url, cb) {
@@ -592,11 +574,10 @@
 
   // Exporting to artoo helpers
   artoo.helpers = {
+    before: before,
     createDocument: createDocument,
     extend: extend,
     first: first,
-    getExtension: getExtension,
-    imgToDataUrl: imgToDataUrl,
     isArray: isArray,
     isDocument: isDocument,
     isObject: isObject,

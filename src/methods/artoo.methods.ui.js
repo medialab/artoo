@@ -41,7 +41,7 @@
           this.injectStyle(s);
         }, this);
       }
-    };
+    }
 
     this.$ = function(sel) {
       return !sel ?

@@ -34,6 +34,7 @@
 
         var targetFunction = function() {
           count++;
+          return 'ok';
         };
 
         // Monkey patching
@@ -41,7 +42,7 @@
           count++;
         });
 
-        newFunction();
+        assert.strictEqual(newFunction(), 'ok');
         assert.strictEqual(count, 2);
       });
     });

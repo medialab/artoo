@@ -538,20 +538,17 @@
    * native functions.
    */
 
-  // TODO: return value
   function before(targetFunction, beforeFunction) {
 
     // Replacing the target function
-    var newFunction = function() {
+    return function() {
 
       // Applying our function
       beforeFunction.apply(null, arguments);
 
       // Applying the original function
-      targetFunction.apply(null, arguments);
+      return targetFunction.apply(null, arguments);
     };
-
-    return newFunction;
   }
 
   /**

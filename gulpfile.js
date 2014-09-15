@@ -22,7 +22,7 @@ var jsFiles = [
   'src/artoo.console.js',
   'src/artoo.dependencies.js',
   'src/artoo.countermeasures.js',
-  'src/methods/artoo.methods.sniffers.js',
+  'src/methods/artoo.methods.ajaxSniffer.js',
   'src/methods/artoo.methods.ajaxSpider.js',
   'src/methods/artoo.methods.autoExpand.js',
   'src/methods/artoo.methods.autoScroll.js',

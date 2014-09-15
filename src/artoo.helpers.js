@@ -544,10 +544,10 @@
     return function() {
 
       // Applying our function
-      beforeFunction.apply(null, arguments);
+      beforeFunction.apply(this, arguments);
 
       // Applying the original function
-      return targetFunction.apply(null, arguments);
+      return targetFunction.apply(this, arguments);
     };
   }
 

@@ -28,6 +28,31 @@
       });
     });
 
+    describe('indexOf', function() {
+      var a = [
+        {name: 'John'},
+        {name: 'Patrick'}
+      ];
+
+      it('should return the correct index if the item exists.', function() {
+        assert.strictEqual(
+          artoo.helpers.indexOf(a, function(i) {
+            return i.name === 'Patrick';
+          }),
+          1
+        );
+      });
+
+      it('should return -1 if the item were not to be found.', function() {
+        assert.strictEqual(
+          artoo.helpers.indexOf(a, function(i) {
+            return i.name === 'Jack';
+          }),
+          -1
+        );
+      });
+    });
+
     describe('before', function() {
       it('should run the given function before the original one.', function() {
         var count = 0;

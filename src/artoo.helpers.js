@@ -91,6 +91,15 @@
     return;
   }
 
+  // Get the index of an element in an array by function
+  function indexOf(a, fn, scope) {
+    for (var i = 0, l = a.length; i < l; i++) {
+      if (fn.call(scope || null, a[i]))
+        return i;
+    }
+    return -1;
+  }
+
   // Convert an object into an array of its properties
   function objectToArray(o, order) {
     order = order || Object.keys(o);
@@ -575,6 +584,7 @@
     createDocument: createDocument,
     extend: extend,
     first: first,
+    indexOf: indexOf,
     isArray: isArray,
     isDocument: isDocument,
     isObject: isObject,

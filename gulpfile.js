@@ -31,6 +31,7 @@ var jsFiles = [
   'src/methods/artoo.methods.scrape.js',
   'src/methods/artoo.methods.store.js',
   'src/methods/artoo.methods.ui.js',
+  'src/third_party/jquery.scrape.js',
   'src/artoo.init.js'
 ];
 

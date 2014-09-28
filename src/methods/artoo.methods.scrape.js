@@ -147,11 +147,13 @@
   };
 
   // Scrape a table
+  // TODO: handle different contexts
   // TODO: better header handle
-  artoo.scrapeTable = function(sel, params, cb) {
+  artoo.scrapeTable = function(root, params, cb) {
     params = params || {};
 
-    var headers;
+    var sel = typeof root !== 'string' ? root.selector : root,
+        headers;
 
     if (!params.headers) {
       return artoo.scrape(sel + ' tr:has(td)', {

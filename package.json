@@ -2,7 +2,7 @@
   "name": "artoo-js",
   "version": "0.1.1",
   "description": "The client-side scraping companion.",
-  "main": "./build/artoo.concat.js",
+  "main": "./build/artoo.node.js",
   "author": {
     "name": "Yomguithereal",
     "url": "https://github.com/Yomguithereal"
@@ -39,5 +39,8 @@
     "gulp-header": "~1.0.5",
     "gulp-webserver": "~0.5.0",
     "gulp-mocha-phantomjs": "~0.5.0"
+  },
+  "dependencies": {
+    "cheerio": "~0.17.0"
   }
 }

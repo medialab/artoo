@@ -34,6 +34,15 @@ var jsFiles = [
   'src/artoo.init.js'
 ];
 
+var nodeFiles = [
+  'src/artoo.js',
+  'src/node/artoo.node.shim.js',
+  'src/node/artoo.node.js',
+  'src/node/artoo.node.helpers.js',
+  'src/methods/artoo.methods.scrape.js',
+  'src/node/artoo.node.require.js'
+];
+
 var chromeFiles = [
   'src/chrome/artoo.chrome.js'
 ];
@@ -98,6 +107,11 @@ gulp.task('build', function() {
 
   // Phantom version
   build('phantom', phantomFiles);
+
+  // Node.js version
+  gulp.src(nodeFiles)
+    .pipe(concat('artoo.node.js'))
+    .pipe(gulp.dest('./build'));
 });
 
 // Bookmarklets

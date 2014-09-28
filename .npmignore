@@ -7,3 +7,5 @@ build/bookmarklet.*
 build/artoo.min.js
 test/
 chrome/
+manifest.json
+meta.json

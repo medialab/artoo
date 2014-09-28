@@ -9,8 +9,9 @@
    */
 
   // Checking whether a body exists
+  var body;
   if ('document' in this) {
-    var body = document.getElementsByTagName('body')[0];
+    body = document.getElementsByTagName('body')[0];
     if (!body) {
       body = document.createElement('body');
       document.firstChild.appendChild(body);

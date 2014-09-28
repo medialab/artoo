@@ -17,6 +17,8 @@
   };
 
   // Main abstraction
+  // TODO: parse parameters
+  // TODO: working criteria
   function AjaxSniffer() {
     var self = this;
 
@@ -120,6 +122,25 @@
             originalCallback.apply(xhr, arguments);
         };
       }});
+    };
+
+    this.off = function(fn) {
+
+      // Splicing function from listeners
+      var index = artoo.helpers.indexOf(this.listeners, function(listener) {
+        return listener.fn === fn;
+      });
+
+      // Incorrect function
+      if (!~index)
+        throw Error('artoo.ajaxSniffer.off: trying to remove an inexistant ' +
+                    'listener.');
+
+      this.listeners.splice(index, 1);
+
+      // If no listeners were to remain, we release xhr
+      if (!this.listeners.length)
+        release();
     };
   }
 

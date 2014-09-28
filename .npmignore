@@ -9,3 +9,4 @@ test/
 chrome/
 manifest.json
 meta.json
+gulpfile.js

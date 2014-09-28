@@ -13,12 +13,13 @@
   // Persistent state
   var originalXhr = {
     open: XMLHttpRequest.prototype.open,
-    send: XMLHttpRequest.prototype.send
+    send: XMLHttpRequest.prototype.send,
+    setRequestHeader: XMLHttpRequest.prototype.setRequestHeader
   };
 
   // Main abstraction
-  // TODO: parse parameters
   // TODO: working criteria
+  // TODO: fire exception one step above
   function AjaxSniffer() {
     var self = this;
 
@@ -40,7 +41,8 @@
           // Overloading the xhr object
           xhr._spy = {
             method: method,
-            url: url
+            url: url,
+            params: artoo.helpers.parseUrlParameters(url)
           };
         }
       );
@@ -52,12 +54,13 @@
           var xhr = this;
 
           // Overloading the xhr object
-          xhr._spy.data = data;
+          xhr._spy.querystring = data;
+          xhr._spy.data = artoo.helpers.parseQueryString(data);
 
           // Triggering listeners
           self.listeners.forEach(function(listener) {
             if (listener.criteria === '*')
-              listener.fn.call(xhr);
+              listener.fn.call(xhr, xhr._spy);
           });
         }
       );
@@ -114,8 +117,26 @@
         xhr.onreadystatechange = function() {
           if (xhr.readyState === XMLHttpRequest.prototype.DONE) {
 
-            // TODO: fiddle here to pass additional data
-            callback.apply(xhr);
+            // Retrieving data as per response headers
+            var contentType = xhr.getResponseHeader('Content-Type'),
+                data = xhr.response;
+
+            if (~contentType.search(/json/)) {
+              try {
+                data = JSON.parse(xhr.responseText);
+              }
+              catch (e) {
+                // pass...
+              }
+            }
+            else if (~contentType.search(/xml/)) {
+              data = xhr.responseXML;
+            }
+
+            callback.call(xhr, xhr._spy, {
+              data: data,
+              headers: artoo.helpers.parseHeaders(xhr.getAllResponseHeaders())
+            });
           }
 
           if (typeof originalCallback === 'function')

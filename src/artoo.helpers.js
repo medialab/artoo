@@ -16,6 +16,9 @@
    * Some basic helpers from collection handling to type checking.
    */
 
+  // Useless function
+  function noop() {}
+
   // Recursively extend objects
   function extend() {
     var i,
@@ -32,9 +35,6 @@
 
     return res;
   }
-
-  // Useless function
-  function noop() {}
 
   // Creating repeating sequences
   function repeatString(string, nb) {
@@ -99,6 +99,14 @@
     }
     return -1;
   }
+
+
+  /**
+   * Data Handling
+   * --------------
+   *
+   * Functions to deal with data formats such as CSV, YAML etc.
+   */
 
   // Convert an object into an array of its properties
   function objectToArray(o, order) {
@@ -277,6 +285,54 @@
   function toYAMLString(data) {
     return '---\n' + processYAMLVariable(data);
   }
+
+  function parseQueryString(s) {
+    var data = {};
+
+    s.split('&').forEach(function(item) {
+      var pair = item.split('=');
+      data[decodeURIComponent(pair[0])] =
+        pair[1] ? decodeURIComponent(pair[1]) : true;
+    });
+
+    return data;
+  }
+
+  function parseUrlParameters(url) {
+    var data = {};
+
+    var params = url.split('?')[1];
+
+    if (params)
+      params.split('&').forEach(function(item) {
+        var pair = item.split('=');
+        data[decodeURIComponent(pair[0])] =
+          pair[1] ? decodeURIComponent(pair[1]) : true;
+      });
+
+    return data;
+  }
+
+  function parseHeaders(headers) {
+    var data = {};
+
+    headers.split('\n').slice(1).forEach(function(item) {
+      if (item) {
+        var pair = item.split(': ');
+        data[pair[0]] = pair[1];
+      }
+    });
+
+    return data;
+  }
+
+
+  /**
+   * Document Helpers
+   * -----------------
+   *
+   * Functions to deal with DOM selection and the current document.
+   */
 
   // Checking whether a variable is a jQuery selector
   function isSelector(v) {
@@ -553,10 +609,10 @@
     return function() {
 
       // Applying our function
-      beforeFunction.apply(this, arguments);
+      beforeFunction.apply(this, Array.prototype.slice.call(arguments));
 
       // Applying the original function
-      return targetFunction.apply(this, arguments);
+      return targetFunction.apply(this, Array.prototype.slice.call(arguments));
     };
   }
 
@@ -596,6 +652,9 @@
     jquerify: jquerify,
     noop: noop,
     parallel: parallel,
+    parseHeaders: parseHeaders,
+    parseQueryString: parseQueryString,
+    parseUrlParameters: parseUrlParameters,
     toCSVString: toCSVString,
     toYAMLString: toYAMLString
   };

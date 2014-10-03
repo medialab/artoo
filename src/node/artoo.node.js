@@ -7,7 +7,8 @@
    *
    * Some useful utilities when using artoo.js within node.
    */
-  var cheerio = require('cheerio');
+  var cheerio = require('cheerio'),
+      path = require('path');
 
   // Setting initial context
   artoo.$ = cheerio.load('');
@@ -29,6 +30,14 @@
     // Fixing context
     artoo.$ = $;
   };
+
+  // Giving paths to the library version so they can be used afterwards
+  artoo.paths = {};
+
+  var versions = ['chrome', 'phantom'];
+  versions.forEach(function(v) {
+    artoo.paths[v] = path.join(__dirname, 'artoo.' + v + '.js')
+  });
 }).call(this);
 
 

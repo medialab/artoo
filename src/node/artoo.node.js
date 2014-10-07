@@ -31,7 +31,7 @@
     artoo.$ = $;
   };
 
-  // Giving paths to the library version so they can be used afterwards
+  // Giving paths to alternative lib versions so they can be used afterwards
   artoo.paths = {};
 
   var versions = ['chrome', 'phantom'];

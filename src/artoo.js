@@ -25,9 +25,13 @@
     },
     mountNode: body,
     stylesheets: {},
-    templates: {},
-    version: '0.1.1'
+    templates: {}
   };
+
+  // Non-writable version
+  Object.defineProperty(artoo, 'version', {
+    value: '0.1.1'
+  });
 
   // Exporting to global scope
   this.artoo = artoo;

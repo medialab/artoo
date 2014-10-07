@@ -39,6 +39,7 @@ var nodeFiles = [
   'src/artoo.js',
   'src/node/artoo.node.shim.js',
   'src/node/artoo.node.js',
+  'src/artoo.helpers.js',
   'src/node/artoo.node.helpers.js',
   'src/methods/artoo.methods.scrape.js',
   'src/node/artoo.node.require.js'

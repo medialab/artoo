@@ -63,7 +63,7 @@ That's it. You've just scraped *Hacker News* front page and downloaded the data 
 * **Instructions**: record the [instructions]({{ site.baseurl }}/instructions) typed into the console and save them for later use.
 * **jQuery**: [jQuery]({{ site.baseurl }}/jquery) is injected alongside artoo in the pages you visit so you can handle the DOM easily.
 * **Custom bookmarklets**: you can use artoo as a framework and easily create custom bookmarklets to execute your code.
-* **User Interfaces**: build parasitic user interfaces easily with some Shadow DOM [leverage]({{ site.baseurl }}/ui).
+* **User Interfaces**: build parasitic user interfaces easily with a creative [usage]({{ site.baseurl }}/ui) of Shadow DOM.
 * **Chrome extension**: trying to scrape a nasty page abiding by some sneaky HTML5 rules? Here, have a [chrome extension]({{ site.baseurl }}/chrome).
 
 ---

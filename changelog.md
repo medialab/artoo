@@ -30,7 +30,7 @@ id: changelog
 * Fixing some `store` bugs.
 * Converting to gulp and adding a gulp plugin.
 * Adding a Yeoman generator to scaffold bookmarklets.
-* Removing base64 beep in favor of a more complete but light system.
+* Removing base64 beep in favor of a more complete but lighter system.
 
 ---
 

@@ -12,6 +12,14 @@ id: scrape
 
 It is advisable, however, to check the [quick start]({{ site.baseurl }}/quick_start) section of this documentation to find a less exhaustive but more didactic presentation of `artoo.scrape` method.
 
+Note also that every method presented below comes with its jQuery plugin alias:
+
+```js
+artoo.scrape('.class', params);
+// equals
+$('.class').scrape(params);
+```
+
 ---
 
 * [artoo.scrape](#scrape)

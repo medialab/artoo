@@ -17,6 +17,7 @@ id: helpers
 * [artoo.getGlobalVariables](#global-variables)
 * [artoo.injectScript](#inject-script)
 * [artoo.injectStyle](#inject-style)
+* [artoo.injectInlineStyle](#inject-inline-style)
 * [artoo.waitFor](#wait-for)
 
 **Standard helpers** - *callable from `artoo.helpers`*
@@ -71,7 +72,7 @@ artoo.injectScript('//randomcdn/jquery-1.11.0.min.js', function() {
 Inject a remote stylesheet into the current webpage and trigger a callback when the browser has retrieved it.
 
 ```js
-artoo.injectScript(url, [callback]]);
+artoo.injectStyle(url, [callback]]);
 ```
 
 *Example*
@@ -80,6 +81,21 @@ artoo.injectScript(url, [callback]]);
 artoo.injectStyle('//localhost:8000/style.css', function() {
   console.log('Finished injecting my custom css rules');
 });
+```
+
+---
+
+<h2 id="inject-inline-style">artoo.injectInlineStyle</h2>
+Inject a css style string into the current webpage.
+
+```js
+artoo.injectInlineStyle(styleString);
+```
+
+*Example*
+
+```js
+artoo.injectInlineStyle('.my-class {color: red;}');
 ```
 
 ---
@@ -98,7 +114,7 @@ artoo.waitFor(condition, callback, [params]);
 * **params**         *?object* :  an object that may contain the following properties:
   * **done**         *?function* : same as callback argument.
   * **interval**     *?integer* [`30`] : Interval in milliseconds between each check of the condition.
-  * **timeout**      *?integer* : Timeout in milliseconds. Callback will be called with first argument as false.
+  * **timeout**      *?integer* : Timeout in milliseconds. Callback will be called with first argument as a timeout Error.
 
 *Example*
 
@@ -110,7 +126,7 @@ artoo.waitFor(
   function() {
     return $('.list-item').length > currentLength;
   },
-  function() {
+  function(err) {
     console.log('Yay, new items in the list!');
   }
 );

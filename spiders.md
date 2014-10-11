@@ -61,6 +61,7 @@ artoo.ajaxSpider(
   * **url** *?string* : the default url to query. This is useful when querying the same url through POST over and over when only sent data is changing.
   * **settings** *?object* : a settings object as you would pass it to jQuery [ajax](http://api.jquery.com/jquery.ajax/) method.
   * **scrape** *?object* : rather than a callback, you may pass a configuration object for the [scrape]({{ site.baseurl }}/scrape) method that will be automatically called on the retrieved data.
+  * **scrapeOne** *?object* : same as the `scrape` argument except that the method called will be `scrapeOne`.
   * **concat** *?boolean* [`false`] : should the data retrieved be concatenated into the accumulator or merely pushed?
   * **limit** *?integer* : maximum number of requests to perform.
   * **jquerify** *boolean* [`false`] : should the retrieved data be passed to the callbacks as a jQuery selector? Useful when you need to hit urls returning html.

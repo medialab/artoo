@@ -12,6 +12,7 @@ id: jquery
 * [Logic of the injection](#logic)
 * [jQuery settings](#settings)
 * [jQuery simulate](#simulate)
+* [jQuery scrape](#scrape)
 * [$ in artoo's functions](#dollar)
 
 ---
@@ -57,6 +58,18 @@ Finally, if you prefer another jQuery version, you can also configure it in the 
 In order to be able to trigger complex DOM events as well as a human would, **artoo** encapsulates the `jquery.simulate` [plugin](https://github.com/jquery/jquery-simulate).
 
 It is commonly used to perform functionnal testing and ensure that interfaces are working correctly. But scrapers know it can be useful otherwise...
+
+---
+
+<h2 id="scrape">jQuery scrape</h2>
+
+Every **artoo.js**' [scraping]({{ site.baseurl }}/scrape) methods also comes packed as a jQuery plugin.
+
+```js
+artoo.scrape('.class', params);
+// equals
+$('.class').scrape(params);
+```
 
 ---
 

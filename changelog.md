@@ -8,6 +8,32 @@ id: changelog
 
 ---
 
+## 0.2.0
+
+* Adding Node.js version of the library.
+* Enhancing Phantom.js support.
+* Adding possibility to inject UI.
+* Adding an ajax sniffer.
+* Adding an `injectInlineStyle` helper.
+* Adding a `scrapeOne` option to the ajaxSpider.
+* Adding an async option to `injectScript` helper.
+* Adding a `log.welcome` setting.
+* Adding a `reExec` setting.
+* Adding `$().scrape`.
+* Adding `$().scrapeOne`.
+* Adding `$().scrapeTable`.
+* Adding `createStore`.
+* Adding `createAsyncStore`.
+* Adding XHR related parsers.
+* Reworking the `waitFor` helper callback.
+* Reworking dependencies system.
+* Fixing some `store` bugs.
+* Converting to gulp and adding a gulp plugin.
+* Adding a Yeoman generator to scaffold bookmarklets.
+* Removing base64 beep in favor of a more complete but light system.
+
+---
+
 ## 0.1.1
 
 * Adding `saveYaml`, `saveTsv` and `saveSvg`.

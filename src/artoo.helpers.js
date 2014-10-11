@@ -529,12 +529,12 @@
 
     var i = setInterval(function() {
       if (check()) {
-        cb();
+        cb(null);
         clearInterval(i);
       }
 
       if (params.timeout && params.timeout - (j * milliseconds) <= 0) {
-        cb(false);
+        cb(new Error('timeout'));
         clearInterval(i);
       }
 

@@ -59,9 +59,11 @@ That's it. You've just scraped *Hacker News* front page and downloaded the data 
 * **Spiders**: Crawl pages through ajax and retrieve accumulated data with artoo's [spiders]({{ site.baseurl}}/spiders).
 * **Content expansion**: Expand pages' content programmatically thanks to [artoo.autoExpand]({{ site.baseurl }}/expand) utilities.
 * **Store**: stash persistent data in the localStorage with artoo's handy [abstraction]({{ site.baseurl }}/store).
+* **Sniffers**: hook on XHR requests to retrieve circulating data with a variety of [tools]({{ site.baseurl }}/sniffers).
 * **Instructions**: record the [instructions]({{ site.baseurl }}/instructions) typed into the console and save them for later use.
 * **jQuery**: [jQuery]({{ site.baseurl }}/jquery) is injected alongside artoo in the pages you visit so you can handle the DOM easily.
 * **Custom bookmarklets**: you can use artoo as a framework and easily create custom bookmarklets to execute your code.
+* **User Interfaces**: build parasitic user interfaces easily with some Shadow DOM [leverage]({{ site.baseurl }}/ui).
 * **Chrome extension**: trying to scrape a nasty page abiding by some sneaky HTML5 rules? Here, have a [chrome extension]({{ site.baseurl }}/chrome).
 
 ---

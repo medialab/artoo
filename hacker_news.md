@@ -149,6 +149,6 @@ This is not instantaneous so please wait for the data to be retrieved and downlo
 
 ---
 
-Custom bookmarks such as this one can easily be generated through a specific grunt task whose documentation can be found [here]({{ site.baseurl }}/grunt).
+Custom bookmarks such as this one can easily be generated through a specific gulp plugin whose documentation can be found [here]({{ site.baseurl }}/gulp).
 
 Finally, a fully explained example of how you would create such a bookmarklet can be found on this [gist](https://gist.github.com/Yomguithereal/5d792d88ad6f1fe7c15d).

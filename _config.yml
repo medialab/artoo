@@ -16,7 +16,7 @@ author:
   url:            https://github.com/Yomguithereal
 
 # Custom vars
-version:          0.1.1
+version:          0.2.0
 
 sidebar:
   - url: 'quick_start'
@@ -45,6 +45,8 @@ sidebar:
     title: 'Settings'
   - url: 'jquery'
     title: 'jQuery injection'
+  - url: 'node'
+    title: 'Node.js'
   - url: 'chrome'
     title: 'Chrome extension'
   - url: 'gulp'

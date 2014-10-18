@@ -41,7 +41,11 @@
       minified = UglifyJS.minify(e.data.code);
     }
     catch (e) {
-      return controller.emit('error.parse');
+      console.log(e);
+      return controller.emit('feedback', {
+        text: 'Parsed JavaScript is not valid.',
+        status: 'error'
+      });
     }
 
     // Forging url
@@ -65,6 +69,10 @@
     var bookmarklet = 'javascript: ' + UglifyJS.minify(code);
 
     controller.update('bookmarklet', {name: e.data.name, string: bookmarklet});
+    controller.emit('feedback', {
+      text: 'Bookmarklet generated!',
+      status: 'success'
+    });
   });
 
   // Exporting

@@ -70,3 +70,25 @@ h1 {
 .inline-img {
   display: inline;
 }
+
+textarea.code-container {
+  resize: vertical;
+  min-height: 150px;
+}
+
+.code-div {
+  min-height: 150px;
+}
+
+.dialog {
+  margin-left: 10px;
+  font-size: 0.8em;
+}
+
+.error {
+  color: red;
+}
+
+.success {
+  color: green;
+}

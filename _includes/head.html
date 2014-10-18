@@ -15,6 +15,10 @@
   </title>
 
   <!-- CSS -->
+  {% if page.id == 'generator' %}
+    <link rel="stylesheet" href="{{ site.baseurl }}/public/css/bootstrap.css">
+  {% endif %}
+
   <link rel="stylesheet" href="{{ site.baseurl }}/public/css/poole.css">
   <link rel="stylesheet" href="{{ site.baseurl }}/public/css/syntax.css">
   <link rel="stylesheet" href="{{ site.baseurl }}/public/css/lanyon.css">

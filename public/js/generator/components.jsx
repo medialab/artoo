@@ -39,6 +39,7 @@
           <br />
           <div className="code-div">
             <textarea placeholder="Paste your code here..."
+                      spellCheck="false"
                       className="form-control code-container"
                       ref="code">
             </textarea>

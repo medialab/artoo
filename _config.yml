@@ -23,7 +23,7 @@ sidebar:
     title: 'Quick Start'
   - url: 'hacker_news'
     title: 'Hacker News scraper'
-  - 'sep'
+  - sep
   - url: 'methods'
     title: 'Methods'
     children:
@@ -55,7 +55,7 @@ sidebar:
     title: 'Chrome extension'
   - url: 'gulp'
     title: 'Gulp plugin'
-  - 'sep'
+  - sep
   - url: 'changelog'
     title: 'Changelog'
 

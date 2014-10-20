@@ -62,10 +62,12 @@
       var item = {},
           p;
 
+      // TODO: figure iteration scope elsewhere for scrape recursivity
       if (loneSelector)
         item = (typeof data === 'object' && 'scrape' in data) ?
           scrape(
-            $(this).find(data.scrape.iterator),
+            (data.sel ? $(this).find(data.sel) : $(this))
+              .find(data.scrape.iterator),
             data.scrape.data,
             data.scrape.params
           ) :
@@ -74,7 +76,8 @@
         for (p in data) {
           item[p] = (typeof data[p] === 'object' && 'scrape' in data[p]) ?
             scrape(
-              $(this).find(data[p].scrape.iterator),
+              (data[p].sel ? $(this).find(data[p].sel) : $(this))
+                .find(data[p].scrape.iterator),
               data[p].scrape.data,
               data[p].scrape.params
             ) :

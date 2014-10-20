@@ -319,6 +319,36 @@
       });
     });
 
+    it('recursive issue', function(done) {
+
+      helpers.fetchHTMLResource('recursive_issue', function(id) {
+
+        var result = {
+          title: 'Title',
+          items: ['Label 1', 'Label 2']
+        };
+
+        assert.deepEqual(
+          artoo.scrapeOne(id + ' > ul', {
+            title: {
+              sel: 'li:first > span'
+            },
+            items: {
+              sel: 'li:nth-child(2)',
+              scrape: {
+                iterator: 'span',
+                data: 'text'
+              }
+            }
+          }),
+          result,
+          'Scraping recursively should anchor on the correct selector.'
+        );
+
+        done();
+      });
+    });
+
     it('table', function(done) {
 
       helpers.fetchHTMLResource('table', function(id) {

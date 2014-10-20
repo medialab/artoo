@@ -351,24 +351,9 @@
   function jquerify(v) {
     var $ = artoo.$;
 
-    if (typeof v === 'string') {
-      try {
-        if (artoo.browser.phantomjs)
-          throw Error('next');
-        return $($.parseXML(v).documentElement);
-      }
-      catch (x) {
-        try {
-          return $(createDocument().documentElement).append(v);
-        }
-        catch (x) {
-          return $(v);
-        }
-      }
-    }
-    else {
+    if (isDocument(v))
       return $(v);
-    }
+    return $('<div />').append(v);
   }
 
   // Creating an HTML or XML document

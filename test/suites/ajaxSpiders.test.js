@@ -119,7 +119,6 @@
                 data: 'text'
               },
               done: function(data) {
-
                 assert.deepEqual(
                   data,
                   [['content1', 'content2'], ['content1', 'content2']],

@@ -30,9 +30,10 @@
     new Audio(artoo.settings.beep.endpoint + sound + '.ogg').play();
   };
 
-  artoo.beep.available = function() {
-    return sounds;
-  };
+  // Exposing available beeps
+  Object.defineProperty(artoo.beep, 'available', {
+    value: sounds
+  });
 
   // Creating shortcuts
   sounds.forEach(function(s) {

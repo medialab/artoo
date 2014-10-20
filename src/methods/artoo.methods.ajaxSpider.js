@@ -53,7 +53,7 @@
       // Applying callback on data
       var result = data;
 
-      if (params.scrape || params.scrapeOne || params.jquerify)
+      if (params.scrape || params.scrapeOne || params.jquerify)
         data = artoo.helpers.jquerify(data);
 
       if (params.scrape || params.scrapeOne) {

@@ -15,7 +15,7 @@
 
   // Main Class
   artoo.ui = function(params) {
-    params = params || {};
+    params = params || {};
 
     var id = params.id || 'artoo-ui' + (COUNTER++);
 

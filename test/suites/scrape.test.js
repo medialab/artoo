@@ -8,7 +8,7 @@
 
   describe('artoo.scrape', function() {
 
-    it('basic list', function() {
+    it('basic list', function(done) {
 
       // Basic list scraping
       helpers.fetchHTMLResource('basic_list', function(id) {
@@ -114,10 +114,12 @@
           simpleList.slice(0, 1)[0],
           'Scraping only one item should return the correct element.'
         );
+
+        done();
       });
     });
 
-    it('complex list', function() {
+    it('complex list', function(done) {
 
       // Complex list scraping
       helpers.fetchHTMLResource('seachange', function(id) {
@@ -242,10 +244,12 @@
           list,
           'Scraping the list with functions should return the correct array.'
         );
+
+        done();
       });
     });
 
-    it('recursive list', function() {
+    it('recursive list', function(done) {
 
       helpers.fetchHTMLResource('recursive_list', function(id) {
 
@@ -310,10 +314,12 @@
           result2,
           'Scraping the complex recursive list should return the correct items.'
         );
+
+        done();
       });
     });
 
-    it('table', function() {
+    it('table', function(done) {
 
       helpers.fetchHTMLResource('table', function(id) {
 
@@ -391,6 +397,8 @@
           objects,
           'scrapTable with headers-first and header formatting should produce the same result as above.'
         );
+
+        done();
       });
     });
   });

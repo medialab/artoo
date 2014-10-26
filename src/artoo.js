@@ -12,7 +12,7 @@
   var body;
   if ('document' in this) {
     body = document.getElementsByTagName('body')[0];
-    if (!body) {
+    if (!body && !('callPhantom' in this)) {
       body = document.createElement('body');
       document.firstChild.appendChild(body);
     }

@@ -106,7 +106,7 @@
 
     // Checking the existence of jQuery or of another library.
     var exists = typeof jQuery !== 'undefined' || artoo.$.fn,
-        other = !exists && typeof $ === 'function',
+        other = !exists && typeof $ !== 'undefined',
         currentVersion = exists && jQuery.fn.jquery ? jQuery.fn.jquery : '0';
 
     // jQuery is already in a correct mood

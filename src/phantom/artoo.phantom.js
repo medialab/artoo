@@ -23,6 +23,16 @@
     _root.callPhantom({head: head, body: body, passphrase: passphrase});
   };
 
+  // Phantom notifying something to us
+  artoo.phantom.notify = function(head, body) {
+    artoo.emit('phantom:' + head, body);
+  };
+
+  // Requesting jquery
+  artoo.phantom.requestJQuery = function() {
+    artoo.phantom.send('jquery');
+  };
+
   // Telling phantom the scraping is over
   artoo.phantom.done = function(data) {
     artoo.phantom.send('done', data);

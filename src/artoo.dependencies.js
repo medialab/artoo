@@ -96,7 +96,7 @@
         return artoo.injectScript(cdn, callback);
       }
       else {
-        artoo.on('phantom:jquery', function() {
+        artoo.once('phantom:jquery', function() {
           callback();
         });
 

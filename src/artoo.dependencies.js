@@ -90,6 +90,12 @@
     var desiredVersion = artoo.settings.jquery.version,
         cdn = '//code.jquery.com/jquery-' + desiredVersion + '.min.js';
 
+    // Utilities
+    function injectjQuery(callback) {
+      if (!artoo.browser.phantomjs)
+        return artoo.injectScript(cdn, callback);
+    }
+
     // Checking the existence of jQuery or of another library.
     var exists = typeof jQuery !== 'undefined' || artoo.$.fn,
         other = !exists && typeof $ === 'function',
@@ -108,7 +114,7 @@
 
     // Forcing jQuery injection, according to settings
     else if (artoo.settings.jquery.force) {
-      artoo.injectScript(cdn, function() {
+      injectjQuery(function() {
         artoo.log.warning('According to your settings, jQuery (v' +
                           desiredVersion + ') was injected into your page ' +
                           'to replace the current $ variable.');
@@ -121,7 +127,7 @@
 
     // jQuery has not the correct version or another library uses $
     else if ((exists && currentVersion.charAt(0) !== '2') || other) {
-      artoo.injectScript(cdn, function() {
+      injectjQuery(function() {
         artoo.$ = jQuery.noConflict(true);
 
         // Then, if dollar does not exist, we set it
@@ -148,7 +154,7 @@
 
     // jQuery does not exist at all, we load it
     else {
-      artoo.injectScript(cdn, function() {
+      injectjQuery(function() {
         artoo.log.info('jQuery was correctly injected into your page ' +
                        '(v' + desiredVersion + ').');
 

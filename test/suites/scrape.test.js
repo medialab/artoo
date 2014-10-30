@@ -46,6 +46,15 @@
         );
 
         assert.deepEqual(
+          $(id + ' li > a').scrape({
+            url: {attr: 'href'},
+            title: {method: 'text'}
+          }),
+          list,
+          'Scraping the basic list with the jQuery plugin should return the correct array of objects.'
+        );
+
+        assert.deepEqual(
           artoo.scrape(
             function($) {
               return $(id + ' li > a:first').add(id + ' li > a:last');
@@ -113,6 +122,12 @@
           artoo.scrapeOne(id + ' li > a', function() { return $(this).attr('href'); }),
           simpleList.slice(0, 1)[0],
           'Scraping only one item should return the correct element.'
+        );
+
+        assert.deepEqual(
+          $(id + ' li > a').scrapeOne(function() { return $(this).attr('href'); }),
+          simpleList.slice(0, 1)[0],
+          'Scraping only one item with the jQuery plugin should return the correct element.'
         );
 
         done();
@@ -383,6 +398,12 @@
           artoo.scrapeTable(id + ' .reference'),
           flat,
           'scrapTable should produce the same result as above.'
+        );
+
+        assert.deepEqual(
+          $(id + ' .reference').scrapeTable(),
+          flat,
+          'Scraping a table with the jQuery plugin should work.'
         );
 
         assert.deepEqual(

@@ -10,7 +10,9 @@
   var _root = this,
       extend = artoo.helpers.extend;
 
-  // Helpers
+  /**
+   * Helpers
+   */
   function step(o, scope) {
     var $ = artoo.$,
         $sel = o.sel ? $(scope).find(o.sel) : $(scope),
@@ -128,7 +130,9 @@
     return [i, d, p, c];
   }
 
-  // Public interface
+  /**
+   * Public interface
+   */
   artoo.scrape = function(iterator, data, params, cb) {
     var args = polymorphism(iterator, data, params, cb);
 
@@ -207,4 +211,23 @@
         }, params, cb);
     }
   };
+
+  /**
+   * jQuery plugin
+   */
+  function _scrape($) {
+    var methods = ['scrape', 'scrapeOne', 'scrapeTable'];
+
+    methods.forEach(function(method) {
+
+      $.fn[method] = function() {
+        return artoo[method].apply(
+          artoo, [$(this)].concat(Array.prototype.slice.call(arguments)));
+      };
+    });
+  }
+
+  // Exporting
+  artoo.jquery.plugins.push(_scrape);
+
 }).call(this);

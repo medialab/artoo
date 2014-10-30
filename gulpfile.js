@@ -19,7 +19,7 @@ var jsFiles = [
   'src/artoo.helpers.js',
   'src/artoo.hooks.js',
   'src/artoo.browser.js',
-  'src/artoo.console.js',
+  'src/artoo.log.js',
   'src/artoo.dependencies.js',
   'src/artoo.countermeasures.js',
   'src/methods/artoo.methods.ajaxSniffer.js',

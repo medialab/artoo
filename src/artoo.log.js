@@ -5,11 +5,11 @@
    * artoo console abstraction
    * ==========================
    *
-   * Console abstraction enabling artoo to perform a finer logging job.
+   * Console abstraction enabling artoo to perform a finer logging job than
+   * standard one.
    */
   var _root = this,
-       enhanced = artoo.browser.chrome || artoo.browser.firebug,
-       settings = artoo.settings.log;
+       enhanced = artoo.browser.chrome || artoo.browser.firebug;
 
   // Log levels
   var levels = {
@@ -29,10 +29,13 @@
 
   // Is the level allowed to log?
   function isAllowed(level) {
-    if (artoo.helpers.isArray(settings.level))
-      return !!~settings.level.indexOf(level);
+    var threshold = artoo.settings.log.level;
+
+    if (artoo.helpers.isArray(threshold))
+      return !!~threshold.indexOf(level);
     else
-      return priorities.indexOf(level) >= priorities.indexOf(settings.level);
+      return priorities.indexOf(level) >=
+        priorities.indexOf(threshold);
   }
 
   // Return the logo ASCII array
@@ -62,7 +65,7 @@
 
   // Log override
   artoo.log = function(level) {
-    if (!settings.enabled)
+    if (!artoo.settings.log.enabled)
       return;
 
     var hasLevel = (levels[level] !== undefined),
@@ -98,13 +101,13 @@
 
   // Plain log
   artoo.log.plain = function() {
-    if (settings.enabled)
+    if (artoo.settings.log.enabled)
       console.log.apply(console, arguments);
   };
 
   // Logo display
   artoo.log.welcome = function() {
-    if (!settings.enabled)
+    if (!artoo.settings.log.enabled)
       return;
 
     var ascii = robot();

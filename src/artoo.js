@@ -12,21 +12,26 @@
   var body;
   if ('document' in this) {
     body = document.getElementsByTagName('body')[0];
-    if (!body && !('callPhantom' in this)) {
+    if (!body) {
       body = document.createElement('body');
-      document.firstChild.appendChild(body);
+      document.documentElement.appendChild(body);
     }
   }
 
-  var artoo = {
-    $: {},
-    jquery: {
+  // Main function
+  function Artoo() {
+
+    // Properties
+    this.$ = {};
+    this.jquery = {
       plugins: []
-    },
-    mountNode: body,
-    stylesheets: {},
-    templates: {}
-  };
+    };
+    this.mountNode = body;
+    this.stylesheets = {};
+    this.templates = {};
+  }
+
+  var artoo = new Artoo();
 
   // Non-writable version
   Object.defineProperty(artoo, 'version', {

@@ -5,7 +5,7 @@
    * artoo initialization
    * =====================
    *
-   * Launch artoo's init hooks.
+   * artoo's inititialization routine.
    */
   var _root = this;
 
@@ -37,7 +37,7 @@
   function main() {
 
     // Triggering countermeasures
-    artoo.hooks.trigger('countermeasures');
+    artoo.emit('countermeasures');
 
     // Welcoming user
     if (artoo.settings.log.welcome)
@@ -80,7 +80,7 @@
           artoo.exec();
 
         // Triggering ready
-        artoo.hooks.trigger('ready');
+        artoo.emit('ready');
       }
     );
 
@@ -100,17 +100,17 @@
   artoo.browser.chromeExtension = !!artoo.settings.chromeExtension;
 
   // Adding functions to hooks
-  artoo.hooks.init.unshift(main);
-  artoo.hooks.exec.unshift(exec);
+  artoo.once('init', main);
+  artoo.on('exec', exec);
 
   // artoo initialization
   artoo.init = function() {
-    artoo.hooks.trigger('init');
+    artoo.emit('init');
   };
 
   // artoo exectution
   artoo.exec = function() {
-    artoo.hooks.trigger('exec');
+    artoo.emit('exec');
   };
 
   // Init?

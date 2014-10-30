@@ -27,8 +27,8 @@
                       'are visiting. artoo has repaired it.');
   }
 
-  // Registering hook's function
-  artoo.hooks.countermeasures = artoo.hooks.countermeasures.concat([
-    shuntedConsole
-  ]);
+  // Registering functions
+  artoo.once('countermeasures', function() {
+    shuntedConsole();
+  });
 }).call(this);

@@ -9,6 +9,14 @@
    */
   var _root = this;
 
+  // Extending EventEmitter
+  Object.setPrototypeOf = Object.setPrototypeOf || function (obj, proto) {
+    obj.__proto__ = proto;
+    return obj;
+  };
+  var ee = new artoo.EventEmitter();
+  Object.setPrototypeOf(artoo, Object.getPrototypeOf(ee));
+
   /**
    * Generic Helpers
    * ----------------

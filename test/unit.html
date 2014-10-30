@@ -32,11 +32,11 @@
 
     <!-- START ARTOO IMPORTS -->
     <script src="../src/artoo.js"></script>
+    <script src="../src/third_party/events.js"></script>
     <script src="../src/third_party/jquery.simulate.js"></script>
     <script src="../src/artoo.beep.js"></script>
     <script src="../src/artoo.settings.js"></script>
     <script src="../src/artoo.helpers.js"></script>
-    <script src="../src/artoo.hooks.js"></script>
     <script src="../src/artoo.browser.js"></script>
     <script src="../src/artoo.log.js"></script>
     <script src="../src/artoo.dependencies.js"></script>
@@ -76,7 +76,7 @@
       artoo.settings.instructions.record = false;
 
       // Launching tests when artoo is ready
-      artoo.ready(function() {
+      artoo.on('ready', function() {
         if (window.mochaPhantomJS) {
           mochaPhantomJS.run();
         } else {

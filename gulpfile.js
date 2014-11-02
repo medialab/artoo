@@ -18,6 +18,7 @@ var jsFiles = [
   'src/artoo.beep.js',
   'src/artoo.settings.js',
   'src/artoo.helpers.js',
+  'src/artoo.parsers.js',
   'src/artoo.writers.js',
   'src/artoo.browser.js',
   'src/artoo.log.js',

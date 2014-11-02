@@ -97,54 +97,6 @@
 
 
   /**
-   * Data Handling
-   * --------------
-   *
-   * Functions to deal with data formats such as CSV, YAML etc.
-   */
-
-  function parseQueryString(s) {
-    var data = {};
-
-    s.split('&').forEach(function(item) {
-      var pair = item.split('=');
-      data[decodeURIComponent(pair[0])] =
-        pair[1] ? decodeURIComponent(pair[1]) : true;
-    });
-
-    return data;
-  }
-
-  function parseUrlParameters(url) {
-    var data = {};
-
-    var params = url.split('?')[1];
-
-    if (params)
-      params.split('&').forEach(function(item) {
-        var pair = item.split('=');
-        data[decodeURIComponent(pair[0])] =
-          pair[1] ? decodeURIComponent(pair[1]) : true;
-      });
-
-    return data;
-  }
-
-  function parseHeaders(headers) {
-    var data = {};
-
-    headers.split('\n').slice(1).forEach(function(item) {
-      if (item) {
-        var pair = item.split(': ');
-        data[pair[0]] = pair[1];
-      }
-    });
-
-    return data;
-  }
-
-
-  /**
    * Document Helpers
    * -----------------
    *
@@ -311,6 +263,7 @@
     return o;
   }
 
+
   /**
    * Async Helpers
    * --------------
@@ -397,6 +350,7 @@
     }
   }
 
+
   /**
    * Monkey Patching
    * ----------------
@@ -417,6 +371,7 @@
       return targetFunction.apply(this, Array.prototype.slice.call(arguments));
     };
   }
+
 
   /**
    * Exportation
@@ -453,9 +408,6 @@
     isScalar: isScalar,
     jquerify: jquerify,
     noop: noop,
-    parallel: parallel,
-    parseHeaders: parseHeaders,
-    parseQueryString: parseQueryString,
-    parseUrlParameters: parseUrlParameters
+    parallel: parallel
   };
 }).call(this);

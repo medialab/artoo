@@ -42,7 +42,7 @@
           xhr._spy = {
             method: method,
             url: url,
-            params: artoo.helpers.parseUrlParameters(url)
+            params: artoo.parsers.url(url).params
           };
         }
       );
@@ -55,7 +55,7 @@
 
           // Overloading the xhr object
           xhr._spy.querystring = data;
-          xhr._spy.data = artoo.helpers.parseQueryString(data);
+          xhr._spy.data = artoo.parsers.queryString(data);
 
           // Triggering listeners
           self.listeners.forEach(function(listener) {
@@ -135,7 +135,7 @@
 
             callback.call(xhr, xhr._spy, {
               data: data,
-              headers: artoo.helpers.parseHeaders(xhr.getAllResponseHeaders())
+              headers: artoo.parsers.headers(xhr.getAllResponseHeaders())
             });
           }
 

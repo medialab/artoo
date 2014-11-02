@@ -47,7 +47,6 @@
     <script src="../src/methods/artoo.methods.ajaxSpider.js"></script>
     <script src="../src/methods/artoo.methods.autoExpand.js"></script>
     <script src="../src/methods/artoo.methods.autoScroll.js"></script>
-    <script src="../src/methods/artoo.methods.instructions.js"></script>
     <script src="../src/methods/artoo.methods.save.js"></script>
     <script src="../src/methods/artoo.methods.scrape.js"></script>
     <script src="../src/methods/artoo.methods.store.js"></script>
@@ -75,9 +74,6 @@
 
       // Disabling artoo's console for tests
       artoo.settings.log.enabled = false;
-
-      // Disabling instructions recording
-      artoo.settings.instructions.record = false;
 
       // Launching tests when artoo is ready
       artoo.on('ready', function() {

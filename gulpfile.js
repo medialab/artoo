@@ -28,7 +28,6 @@ var jsFiles = [
   'src/methods/artoo.methods.ajaxSpider.js',
   'src/methods/artoo.methods.autoExpand.js',
   'src/methods/artoo.methods.autoScroll.js',
-  'src/methods/artoo.methods.instructions.js',
   'src/methods/artoo.methods.save.js',
   'src/methods/artoo.methods.scrape.js',
   'src/methods/artoo.methods.store.js',
@@ -41,6 +40,8 @@ var nodeFiles = [
   'src/node/artoo.node.shim.js',
   'src/node/artoo.node.js',
   'src/artoo.helpers.js',
+  'src/artoo.parsers.js',
+  'src/artoo.writers.js',
   'src/node/artoo.node.helpers.js',
   'src/methods/artoo.methods.scrape.js',
   'src/node/artoo.node.require.js'

@@ -29,9 +29,6 @@
       delimiter: '%'
     },
     dependencies: [],
-    instructions: {
-      autoRecord: true
-    },
     jquery: {
       version: '2.1.1',
       force: false

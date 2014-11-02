@@ -257,16 +257,6 @@
     );
   };
 
-  artoo.saveInstructions = function(params) {
-    artoo.save(
-      artoo.instructions.getScript(),
-      helpers.extend(filenamePolymorphism(params), {
-        mime: 'text/javascript',
-        filename: 'artoo_script.js'
-      })
-    );
-  };
-
   artoo.saveResource = function(url, params) {
     _saver.saveResource(url, filenamePolymorphism(params));
   };

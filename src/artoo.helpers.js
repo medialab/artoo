@@ -284,13 +284,13 @@
 
     var i = setInterval(function() {
       if (check()) {
-        cb(null);
         clearInterval(i);
+        cb(null);
       }
 
       if (params.timeout && params.timeout - (j * milliseconds) <= 0) {
-        cb(new Error('timeout'));
         clearInterval(i);
+        cb(new Error('timeout'));
       }
 
       j++;

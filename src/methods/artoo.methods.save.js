@@ -152,7 +152,7 @@
   artoo.saveYaml = function(data, params) {
     params = filenamePolymorphism(params);
     artoo.save(
-      helpers.toYAMLString(data),
+      artoo.writers.yaml(data),
       helpers.extend(params, {filename: 'data.yml', mime: 'yaml'})
     );
   };
@@ -161,7 +161,7 @@
     params = filenamePolymorphism(params);
 
     data = (typeof data !== 'string') ?
-      helpers.toCSVString(data, params) :
+      artoo.writers.csv(data, params) :
       data;
 
     artoo.save(

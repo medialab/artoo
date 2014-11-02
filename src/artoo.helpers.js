@@ -17,6 +17,7 @@
   var ee = new artoo.EventEmitter();
   Object.setPrototypeOf(artoo, Object.getPrototypeOf(ee));
 
+
   /**
    * Generic Helpers
    * ----------------
@@ -42,20 +43,6 @@
           res[k] = arguments[i][k];
 
     return res;
-  }
-
-  // Creating repeating sequences
-  function repeatString(string, nb) {
-    var s = string,
-        l,
-        i;
-
-    if (nb <= 0)
-      return '';
-
-    for (i = 1, l = nb | 0; i < l; i++)
-      s += string;
-    return s;
   }
 
   // Is the var an array?
@@ -115,184 +102,6 @@
    *
    * Functions to deal with data formats such as CSV, YAML etc.
    */
-
-  // Convert an object into an array of its properties
-  function objectToArray(o, order) {
-    order = order || Object.keys(o);
-
-    return order.map(function(k) {
-      return o[k];
-    });
-  }
-
-  // Retrieve an index of keys present in an array of objects
-  function keysIndex(a) {
-    var keys = [],
-        l,
-        k,
-        i;
-
-    for (i = 0, l = a.length; i < l; i++)
-      for (k in a[i])
-        if (!~keys.indexOf(k))
-          keys.push(k);
-
-    return keys;
-  }
-
-  // Escape a string for a RegEx
-  function rescape(s) {
-    return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-  }
-
-  // Converting an array of arrays into a CSV string
-  function toCSVString(data, params) {
-    params = params || {};
-
-    var header = params.headers || [],
-        plainObject = isPlainObject(data[0]),
-        keys = plainObject && (params.order || keysIndex(data)),
-        oData,
-        i;
-
-    // Defaults
-    var escape = params.escape || '"',
-        delimiter = params.delimiter || ',';
-
-    // Dealing with headers polymorphism
-    if (!header.length)
-      if (plainObject && params.headers !== false)
-        header = keys;
-
-    // Should we append headers
-    oData = (header.length ? [header] : []).concat(
-      plainObject ?
-        data.map(function(e) { return objectToArray(e, keys); }) :
-        data
-    );
-
-    // Converting to string
-    return oData.map(function(row) {
-      return row.map(function(item) {
-
-        // Wrapping escaping characters
-        var i = ('' + (typeof item === 'undefined' ? '' : item)).replace(
-          new RegExp(rescape(escape), 'g'),
-          escape + escape
-        );
-
-        // Escaping if needed
-        return ~i.indexOf(delimiter) || ~i.indexOf(escape) || ~i.indexOf('\n') ?
-          escape + i + escape :
-          i;
-      }).join(delimiter);
-    }).join('\n');
-  }
-
-  // Characters to escape in YAML
-  var ymlEscape = /[:#,\-\[\]\{\}&%]|!{1,2}/;
-
-  // YAML conversion
-  var yml = {
-    string: function(string) {
-      return (~string.search(ymlEscape)) ?
-        '\'' + string.replace(/'/g, '\'\'') + '\'' :
-        string;
-    },
-    number: function(nb) {
-      return '' + nb;
-    },
-    array: function(a, lvl) {
-      lvl = lvl || 0;
-
-      if (!a.length)
-        return '[]';
-
-      var string = '',
-          l,
-          i;
-
-      for (i = 0, l = a.length; i < l; i++) {
-        string += repeatString('  ', lvl);
-
-        if (isScalar(a[i])) {
-          string += '- ' + processYAMLVariable(a[i]) + '\n';
-        }
-        else {
-          if (isPlainObject(a[i]))
-            string += '-' + processYAMLVariable(a[i], lvl + 1, true);
-          else
-            string += processYAMLVariable(a[i], lvl + 1);
-        }
-      }
-
-      return string;
-    },
-    object: function(o, lvl, indent) {
-      lvl = lvl || 0;
-
-      if (!Object.keys(o).length)
-        return (lvl ? '- ' : '') + '{}';
-
-      var string = '',
-          key,
-          c = 0,
-          i;
-
-      for (i in o) {
-        key = yml.string(i);
-        string += repeatString('  ', lvl);
-        if (indent && !c)
-          string = string.slice(0, -1);
-        string += key + ': ' + (isNonScalar(o[i]) ? '\n' : '') +
-          processYAMLVariable(o[i], lvl + 1) + '\n';
-
-        c++;
-      }
-
-      return string;
-    },
-    fn: function(fn) {
-      return yml.string(fn.toString());
-    },
-    boolean: function(v) {
-      return '' + v;
-    },
-    nullValue: function(v) {
-      return '~';
-    }
-  };
-
-  // Get the correct handler corresponding to variable type
-  function processYAMLVariable(v, lvl, indent) {
-
-    // Scalars
-    if (typeof v === 'string')
-      return yml.string(v);
-    else if (typeof v === 'number')
-      return yml.number(v);
-    else if (typeof v === 'boolean')
-      return yml.boolean(v);
-    else if (typeof v === 'undefined' || v === null || isRealNaN(v))
-      return yml.nullValue(v);
-
-    // Nonscalars
-    else if (isPlainObject(v))
-      return yml.object(v, lvl, indent);
-    else if (isArray(v))
-      return yml.array(v, lvl);
-    else if (typeof v === 'function')
-      return yml.fn(v);
-
-    // Error
-    else
-      throw TypeError('artoo.helpers.toYAMLString: wrong type.');
-  }
-
-  // Converting JavaScript variables to a YAML string
-  function toYAMLString(data) {
-    return '---\n' + processYAMLVariable(data);
-  }
 
   function parseQueryString(s) {
     var data = {};
@@ -647,8 +456,6 @@
     parallel: parallel,
     parseHeaders: parseHeaders,
     parseQueryString: parseQueryString,
-    parseUrlParameters: parseUrlParameters,
-    toCSVString: toCSVString,
-    toYAMLString: toYAMLString
+    parseUrlParameters: parseUrlParameters
   };
 }).call(this);

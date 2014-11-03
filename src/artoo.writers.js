@@ -230,10 +230,36 @@
 
 
   /**
+   * Web Formats
+   * ------------
+   *
+   * Converts JavaScript data into standard web formats such as querystrings.
+   */
+
+  function toQueryString(o, fn) {
+    if (!isPlainObject(o))
+      throw Error('artoo.writers.queryString: wrong arguments.');
+
+    var s = '',
+        k;
+
+    for (k in o) {
+      s +=
+        (s ? '&' : '') +
+        k + '=' +
+        encodeURIComponent(typeof fn === 'function' ? fn(o[k]) : o[k]);
+    }
+
+    return s;
+  }
+
+
+  /**
    * Exporting
    */
   artoo.writers = {
     csv: toCSVString,
+    queryString: toQueryString,
     yaml: toYAMLString
   };
 }).call(this);

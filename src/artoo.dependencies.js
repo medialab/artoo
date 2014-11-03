@@ -105,7 +105,7 @@
     }
 
     // Checking the existence of jQuery or of another library.
-    var exists = typeof jQuery !== 'undefined' || artoo.$.fn,
+    var exists = (typeof jQuery !== 'undefined' && jQuery.fn) || artoo.$.fn,
         other = !exists && typeof $ !== 'undefined',
         currentVersion = exists && jQuery.fn.jquery ? jQuery.fn.jquery : '0';
 

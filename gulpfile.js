@@ -38,6 +38,7 @@ var jsFiles = [
 var nodeFiles = [
   'src/artoo.js',
   'src/node/artoo.node.shim.js',
+  'src/third_party/emmett.js',
   'src/node/artoo.node.js',
   'src/artoo.helpers.js',
   'src/artoo.parsers.js',

@@ -18,6 +18,15 @@
   Object.setPrototypeOf(artoo, Object.getPrototypeOf(ee));
 
 
+  // Legacy support
+  // TODO: drop this asap
+  artoo.hooks = {
+    trigger: function(name) {
+      artoo.emit(name);
+    }
+  };
+
+
   /**
    * Generic Helpers
    * ----------------

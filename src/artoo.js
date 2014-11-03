@@ -18,20 +18,18 @@
     }
   }
 
-  // Main function
-  function Artoo() {
-
-    // Properties
-    this.$ = {};
-    this.jquery = {
+  // Main object
+  var artoo = {
+    $: {},
+    jquery: {
       plugins: []
-    };
-    this.mountNode = body;
-    this.stylesheets = {};
-    this.templates = {};
-  }
-
-  var artoo = new Artoo();
+    },
+    mountNode: body,
+    stylesheets: {},
+    templates: {},
+    _handlers: {},
+    _handlersAll: []
+  };
 
   // Non-writable version
   Object.defineProperty(artoo, 'version', {

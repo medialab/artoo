@@ -13,7 +13,7 @@ var gulp = require('gulp'),
 // Utilities
 var jsFiles = [
   'src/artoo.js',
-  'src/third_party/events.js',
+  'src/third_party/emmett.js',
   'src/third_party/jquery.simulate.js',
   'src/artoo.beep.js',
   'src/artoo.settings.js',

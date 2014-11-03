@@ -9,12 +9,12 @@
    */
   var _root = this;
 
-  // Extending EventEmitter
+  // Extending Emmett
   Object.setPrototypeOf = Object.setPrototypeOf || function (obj, proto) {
     obj.__proto__ = proto;
     return obj;
   };
-  var ee = new artoo.EventEmitter();
+  var ee = new artoo.emitter();
   Object.setPrototypeOf(artoo, Object.getPrototypeOf(ee));
 
 

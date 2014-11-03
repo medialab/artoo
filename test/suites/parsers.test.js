@@ -200,6 +200,45 @@
           }
         );
       });
+
+      it('should handle authentification.', function() {
+        assert.deepEqual(
+          artoo.parsers.url('http://usr:pwd@mydomain.com/example.html'),
+          {
+            auth: {
+              user: 'usr',
+              password: 'pwd'
+            },
+            href: 'http://usr:pwd@mydomain.com/example.html',
+            protocol: 'http',
+            host: 'mydomain.com',
+            hostname: 'mydomain.com',
+            domain: 'mydomain',
+            pathname: '/example.html',
+            path: '/example.html',
+            tld: 'com',
+            extension: 'html'
+          }
+        );
+
+        assert.deepEqual(
+          artoo.parsers.url('http://usr@mydomain.com/example.html'),
+          {
+            auth: {
+              user: 'usr'
+            },
+            href: 'http://usr@mydomain.com/example.html',
+            protocol: 'http',
+            host: 'mydomain.com',
+            hostname: 'mydomain.com',
+            domain: 'mydomain',
+            pathname: '/example.html',
+            path: '/example.html',
+            tld: 'com',
+            extension: 'html'
+          }
+        );
+      });
     });
   });
 }).call(this);

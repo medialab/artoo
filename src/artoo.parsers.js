@@ -32,6 +32,25 @@
 
     url = ps[ps.length > 1 ? 1 : 0];
 
+    // Searching for an authentification
+    var a = url.split('@');
+    if (a.length > 1) {
+      var as = a[0].split(':');
+      if (as.length > 1) {
+        data.auth = {
+          user: as[0],
+          password: as[1]
+        };
+      }
+      else {
+        data.auth = {
+          user: as[0]
+        };
+      }
+
+      url = a[1];
+    }
+
     // Searching for origin
     var m = url.match(/([^\/:]+)(.*)/);
     data.host = m[1];

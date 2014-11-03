@@ -42,7 +42,7 @@
           xhr._spy = {
             method: method,
             url: url,
-            params: artoo.parsers.url(url).params
+            params: artoo.parsers.url(url).query
           };
         }
       );

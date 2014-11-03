@@ -15,12 +15,13 @@
         assert.deepEqual(
           artoo.parsers.url('http://mydomain.com/'),
           {
-            url: 'http://mydomain.com/',
+            href: 'http://mydomain.com/',
             protocol: 'http',
-            origin: 'mydomain.com',
+            host: 'mydomain.com',
+            hostname: 'mydomain.com',
             domain: 'mydomain',
+            pathname: '/',
             path: '/',
-            fullPath: '/',
             tld: 'com'
           }
         );
@@ -28,12 +29,13 @@
         assert.deepEqual(
           artoo.parsers.url('http://mydomain.com/test'),
           {
-            url: 'http://mydomain.com/test',
+            href: 'http://mydomain.com/test',
             protocol: 'http',
-            origin: 'mydomain.com',
+            host: 'mydomain.com',
+            hostname: 'mydomain.com',
             domain: 'mydomain',
+            pathname: '/test',
             path: '/test',
-            fullPath: '/test',
             tld: 'com'
           }
         );
@@ -41,12 +43,13 @@
         assert.deepEqual(
           artoo.parsers.url('http://mydomain.com:8000/'),
           {
-            url: 'http://mydomain.com:8000/',
+            href: 'http://mydomain.com:8000/',
             protocol: 'http',
-            origin: 'mydomain.com',
+            host: 'mydomain.com:8000',
+            hostname: 'mydomain.com',
             domain: 'mydomain',
+            pathname: '/',
             path: '/',
-            fullPath: '/',
             port: 8000,
             tld: 'com'
           }
@@ -55,11 +58,12 @@
         assert.deepEqual(
           artoo.parsers.url('mydomain.com/'),
           {
-            origin: 'mydomain.com',
+            host: 'mydomain.com',
+            hostname: 'mydomain.com',
             domain: 'mydomain',
-            url: 'mydomain.com/',
+            href: 'mydomain.com/',
+            pathname: '/',
             path: '/',
-            fullPath: '/',
             tld: 'com'
           }
         );
@@ -69,12 +73,13 @@
         assert.deepEqual(
           artoo.parsers.url('http://192.168.0.1:8000/'),
           {
-            url: 'http://192.168.0.1:8000/',
+            href: 'http://192.168.0.1:8000/',
             protocol: 'http',
-            origin: '192.168.0.1',
+            host: '192.168.0.1:8000',
+            hostname: '192.168.0.1',
             domain: '192.168.0.1',
+            pathname: '/',
             path: '/',
-            fullPath: '/',
             port: 8000
           }
         );
@@ -82,12 +87,13 @@
         assert.deepEqual(
           artoo.parsers.url('https://localhost:8000/example'),
           {
-            url: 'https://localhost:8000/example',
+            href: 'https://localhost:8000/example',
             protocol: 'https',
-            origin: 'localhost',
+            host: 'localhost:8000',
+            hostname: 'localhost',
             domain: 'localhost',
-            fullPath: '/example',
             path: '/example',
+            pathname: '/example',
             port: 8000
           }
         );
@@ -95,13 +101,14 @@
         assert.deepEqual(
           artoo.parsers.url('http://sub.mydomain.com/'),
           {
-            url: 'http://sub.mydomain.com/',
+            href: 'http://sub.mydomain.com/',
             protocol: 'http',
-            origin: 'sub.mydomain.com',
+            host: 'sub.mydomain.com',
+            hostname: 'sub.mydomain.com',
             domain: 'mydomain',
             subdomains: ['sub'],
+            pathname: '/',
             path: '/',
-            fullPath: '/',
             tld: 'com'
           }
         );
@@ -109,13 +116,14 @@
         assert.deepEqual(
           artoo.parsers.url('http://sub2.sub1.mydomain.com/'),
           {
-            url: 'http://sub2.sub1.mydomain.com/',
+            href: 'http://sub2.sub1.mydomain.com/',
             protocol: 'http',
-            origin: 'sub2.sub1.mydomain.com',
+            host: 'sub2.sub1.mydomain.com',
+            hostname: 'sub2.sub1.mydomain.com',
             domain: 'mydomain',
             subdomains: ['sub1', 'sub2'],
+            pathname: '/',
             path: '/',
-            fullPath: '/',
             tld: 'com'
           }
         );
@@ -123,13 +131,14 @@
         assert.deepEqual(
           artoo.parsers.url('http://sub3.sub2.sub1.mydomain.com/'),
           {
-            url: 'http://sub3.sub2.sub1.mydomain.com/',
+            href: 'http://sub3.sub2.sub1.mydomain.com/',
             protocol: 'http',
-            origin: 'sub3.sub2.sub1.mydomain.com',
+            host: 'sub3.sub2.sub1.mydomain.com',
+            hostname: 'sub3.sub2.sub1.mydomain.com',
             domain: 'mydomain',
             subdomains: ['sub1', 'sub2', 'sub3'],
+            pathname: '/',
             path: '/',
-            fullPath: '/',
             tld: 'com'
           }
         );
@@ -140,14 +149,15 @@
         assert.deepEqual(
           artoo.parsers.url('https://mydomain.com/example?test&param=yes'),
           {
-            url: 'https://mydomain.com/example?test&param=yes',
+            href: 'https://mydomain.com/example?test&param=yes',
             protocol: 'https',
-            origin: 'mydomain.com',
+            host: 'mydomain.com',
+            hostname: 'mydomain.com',
             domain: 'mydomain',
-            path: '/example',
-            fullPath: '/example?test&param=yes',
-            querystring: 'test&param=yes',
-            params: {
+            pathname: '/example',
+            path: '/example?test&param=yes',
+            search: '?test&param=yes',
+            query: {
               test: true,
               param: 'yes'
             },
@@ -161,13 +171,14 @@
         assert.deepEqual(
           artoo.parsers.url('http://mydomain.com/example#table'),
           {
-            url: 'http://mydomain.com/example#table',
+            href: 'http://mydomain.com/example#table',
             protocol: 'http',
-            origin: 'mydomain.com',
+            host: 'mydomain.com',
+            hostname: 'mydomain.com',
             domain: 'mydomain',
-            path: '/example',
-            fullPath: '/example#table',
-            hash: 'table',
+            pathname: '/example',
+            path: '/example#table',
+            hash: '#table',
             tld: 'com'
           }
         );

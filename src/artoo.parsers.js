@@ -22,7 +22,7 @@
   }
 
   function parseUrl(url) {
-    var data = {url: url};
+    var data = {href: url};
 
     // Searching for a protocol
     var ps = url.split('://');
@@ -34,24 +34,27 @@
 
     // Searching for origin
     var m = url.match(/([^\/:]+)(.*)/);
-    data.origin = m[1];
+    data.host = m[1];
+    data.hostname = m[1];
 
     if (m[2]) {
       var f = m[2].trim();
 
       // Port
-      if (f.charAt(0) === ':')
+      if (f.charAt(0) === ':') {
         data.port = +f.match(/\d+/)[0];
+        data.host += ':' + data.port;
+      }
 
       // Path
-      data.fullPath = '/' + f.split('/').slice(1).join('/');
+      data.path = '/' + f.split('/').slice(1).join('/');
 
-      data.path = data.fullPath.split('?')[0].split('#')[0];
+      data.pathname = data.path.split('?')[0].split('#')[0];
     }
 
     // Tld
-    if (~data.origin.search('.')) {
-      var ds = data.origin.split('.');
+    if (~data.hostname.search('.')) {
+      var ds = data.hostname.split('.');
 
       // Check for IP
       if (!(ds.length === 4 &&
@@ -82,7 +85,7 @@
       else {
 
         // This is an IP
-        data.domain = data.origin;
+        data.domain = data.hostname;
       }
     }
 
@@ -90,15 +93,15 @@
     var hs = url.split('#');
 
     if (hs.length > 1) {
-      data.hash = hs[1];
+      data.hash = '#' + hs[1];
     }
 
     // Querystring
     var qs = url.split('?');
 
     if (qs.length > 1) {
-      data.querystring = qs[1];
-      data.params = parseQueryString(qs[1]);
+      data.search = '?' + qs[1];
+      data.query = parseQueryString(qs[1]);
     }
 
     return data;

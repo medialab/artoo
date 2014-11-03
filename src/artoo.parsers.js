@@ -151,6 +151,9 @@
   function parseCookies(s) {
     var cookies = {};
 
+    if (!s.trim())
+      return cookies;
+
     s.split('; ').forEach(function(item) {
       var pair = item.split('=');
       cookies[pair[0]] = decodeURIComponent(pair[1]);

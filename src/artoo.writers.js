@@ -253,11 +253,34 @@
     return s;
   }
 
+  function toCookie(key, value, params) {
+    params = params || {};
+
+    var cookie = key + '=' + encodeURIComponent(value);
+
+    if (params.days) {
+      var date = new Date();
+      date.setTime(date.getTime() + (params.days * 24 * 60 * 60 * 1000));
+      cookie += '; expires=' + date.toGMTString();
+    }
+
+    if (params.path) {
+      cookie += '; path=' + params.path;
+    }
+
+    if (params.domain) {
+      cookie += '; domain=' + params.domain;
+    }
+
+    return cookie;
+  }
+
 
   /**
    * Exporting
    */
   artoo.writers = {
+    cookie: toCookie,
     csv: toCSVString,
     queryString: toQueryString,
     yaml: toYAMLString

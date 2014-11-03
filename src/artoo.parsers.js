@@ -137,7 +137,7 @@
     var data = {};
 
     headers.split('\n').filter(function(item) {
-      return i.trim();
+      return item.trim();
     }).forEach(function(item) {
       if (item) {
         var pair = item.split(': ');

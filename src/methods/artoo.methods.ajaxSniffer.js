@@ -54,8 +54,10 @@
           var xhr = this;
 
           // Overloading the xhr object
-          xhr._spy.querystring = data;
-          xhr._spy.data = artoo.parsers.queryString(data);
+          if (data) {
+            xhr._spy.querystring = data;
+            xhr._spy.data = artoo.parsers.queryString(data);
+          }
 
           // Triggering listeners
           self.listeners.forEach(function(listener) {

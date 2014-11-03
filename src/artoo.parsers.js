@@ -148,10 +148,22 @@
     return data;
   }
 
+  function parseCookies(s) {
+    var cookies = {};
+
+    s.split('; ').forEach(function(item) {
+      var pair = item.split('=');
+      cookies[pair[0]] = decodeURIComponent(pair[1]);
+    });
+
+    return cookies;
+  }
+
   /**
    * Exporting
    */
   artoo.parsers = {
+    cookies: parseCookies,
     headers: parseHeaders,
     queryString: parseQueryString,
     url: parseUrl

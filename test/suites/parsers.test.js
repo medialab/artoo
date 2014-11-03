@@ -183,6 +183,23 @@
           }
         );
       });
+
+      it('should handle extensions.', function() {
+        assert.deepEqual(
+          artoo.parsers.url('http://mydomain.com/example.html'),
+          {
+            href: 'http://mydomain.com/example.html',
+            protocol: 'http',
+            host: 'mydomain.com',
+            hostname: 'mydomain.com',
+            domain: 'mydomain',
+            pathname: '/example.html',
+            path: '/example.html',
+            tld: 'com',
+            extension: 'html'
+          }
+        );
+      });
     });
   });
 }).call(this);

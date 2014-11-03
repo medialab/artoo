@@ -104,6 +104,13 @@
       data.query = parseQueryString(qs[1]);
     }
 
+    // Extension
+    var ss = data.pathname.split('/'),
+        es = ss[ss.length - 1].split('.');
+
+    if (es.length > 1)
+      data.extension = es[es.length - 1];
+
     return data;
   }
 

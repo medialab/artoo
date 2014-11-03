@@ -33,6 +33,11 @@
     artoo.phantom.send('jquery');
   };
 
+  // Streaming data to phantom
+  artoo.phantom.stream = function(data) {
+    artoo.phantom.send('stream', data);
+  };
+
   // Telling phantom the scraping is over
   artoo.phantom.done = function(data) {
     artoo.phantom.send('done', data);

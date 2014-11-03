@@ -161,8 +161,9 @@
    * @param  {function} handler The function to bind to every events.
    * @return {Emitter}          Returns this.
    */
-  Emitter.prototype.once = function(events, handler) {
-    return this.on(events, handler, true);
+  Emitter.prototype.once = function() {
+    var args = Array.prototype.slice.call(arguments).concat(true);
+    return this.on.apply(this, args);
   };
 
 
@@ -417,8 +418,7 @@
    * The polymorphism is exactly the one from Emitter.prototype.on.
    */
   Binder.prototype.once = function() {
-    var args = Array.prototype.slice.call(arguments);
-    args.push(true);
+    var args = Array.prototype.slice.call(arguments).concat(true);
 
     // Store the bindings as if it were an emitter:
     Emitter.prototype.on.apply(this, args);

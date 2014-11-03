@@ -46,7 +46,7 @@
     // Should we greet the user with a joyful beep?
     var beeping = artoo.settings.log.beeping;
     if (beeping)
-      artoo.beep(typeof beeping === 'boolean' ? 'original' : null);
+      artoo.beep.greet();
 
     // Indicating we are injecting artoo from the chrome extension
     if (artoo.browser.chromeExtension)

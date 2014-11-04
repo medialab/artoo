@@ -264,13 +264,17 @@
       cookie += '; expires=' + date.toGMTString();
     }
 
-    if (params.path) {
+    if (params.path)
       cookie += '; path=' + params.path;
-    }
 
-    if (params.domain) {
+    if (params.domain)
       cookie += '; domain=' + params.domain;
-    }
+
+    if (params.httpOnly)
+      cookie += '; HttpOnly';
+
+    if (params.secure)
+      cookie += '; Secure';
 
     return cookie;
   }

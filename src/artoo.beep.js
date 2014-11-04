@@ -53,10 +53,10 @@
   });
 
   // Creating shortcuts
-  sounds.forEach(function(s) {
-    artoo.beep[s] = artoo.beep.bind(artoo, s);
+  // NOTE: not using bind here to avoid messing with phantomjs
+  sounds.concat(Object.keys(collections)).forEach(function(s) {
+    artoo.beep[s] = function() {
+      artoo.beep(s);
+    };
   });
-
-  for (var c in collections)
-    artoo.beep[c] = artoo.beep.bind(artoo, c);
 }).call(this);

@@ -148,6 +148,40 @@
     return data;
   }
 
+  function parseCookie(s) {
+    var cookie = {
+      httpOnly: false,
+      secure: false
+    };
+
+    if (!s.trim())
+      return;
+
+    s.split('; ').forEach(function(item) {
+
+      // Path
+      if (~item.search(/path=/i)) {
+        cookie.path = item.split('=')[1];
+      }
+      else if (~item.search(/expires=/i)) {
+        cookie.expires = item.split('=')[1];
+      }
+      else if (~item.search(/httponly/i) && !~item.search('=')) {
+        cookie.httpOnly = true;
+      }
+      else if (~item.search(/secure/i) && !~item.search('=')) {
+        cookie.secure = true;
+      }
+      else {
+        var is = item.split('=');
+        cookie.key = is[0];
+        cookie.value = decodeURIComponent(is[1]);
+      }
+    });
+
+    return cookie;
+  }
+
   function parseCookies(s) {
     var cookies = {};
 
@@ -166,6 +200,7 @@
    * Exporting
    */
   artoo.parsers = {
+    cookie: parseCookie,
     cookies: parseCookies,
     headers: parseHeaders,
     queryString: parseQueryString,

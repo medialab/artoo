@@ -104,19 +104,20 @@
 
   // Function taking care of harsh polymorphism
   function polymorphism(iterator, data, params, cb) {
-    var i, d, p, c;
+    var h = artoo.helpers,
+        i, d, p, c;
 
-    if (artoo.helpers.isPlainObject(iterator) &&
-        !artoo.helpers.isSelector(iterator) &&
-        !artoo.helpers.isDocument(iterator) &&
+    if (h.isPlainObject(iterator) &&
+        !h.isSelector(iterator) &&
+        !h.isDocument(iterator) &&
         (iterator.iterator || iterator.data || iterator.params)) {
       d = iterator.data;
-      p = artoo.helpers.isPlainObject(iterator.params) ? iterator.params : {};
+      p = h.isPlainObject(iterator.params) ? iterator.params : {};
       i = iterator.iterator;
     }
     else {
       d = data;
-      p = artoo.helpers.isPlainObject(params) ? params : {};
+      p = h.isPlainObject(params) ? params : {};
       i = iterator;
     }
 

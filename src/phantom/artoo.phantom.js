@@ -33,6 +33,11 @@
     artoo.phantom.send('jquery');
   };
 
+  // Killing phantom from the page for testing purposes
+  artoo.phantom.exit = function(code) {
+    artoo.phantom.send('exit', code);
+  };
+
   // Streaming data to phantom
   artoo.phantom.stream = function(data) {
     artoo.phantom.send('stream', data);

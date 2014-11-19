@@ -1,5 +1,13 @@
-;(function() {
+(function() {
   'use strict';
+
+  /**
+   * Here is the list of every allowed parameter when using Emitter#on:
+   * @type {Object}
+   */
+  var __allowedOptions = {
+    once: 'boolean'
+  };
 
 
   /**
@@ -9,9 +17,11 @@
    * Emitters are useful for non-DOM events communication. Read its methods
    * documentation for more information about how it works.
    *
-   * @return {Emitter} The fresh new instance.
+   * @return {Emitter}         The fresh new instance.
    */
   var Emitter = function() {
+    this._enabled = true;
+    this._children = [];
     this._handlers = {};
     this._handlersAll = [];
   };
@@ -22,23 +32,41 @@
    * suite of events. So, these functions will be executed anytime one related
    * event is emitted.
    *
-   * It is also possible to bind a function to any emitted event by not specifying
-   * any event to bind the function to.
+   * It is also possible to bind a function to any emitted event by not
+   * specifying any event to bind the function to.
+   *
+   * Recognized options:
+   * *******************
+   *  - {?boolean} once   If true, the handlers will be unbound after the first
+   *                      execution. Default value: false.
    *
    * Variant 1:
    * **********
    * > myEmitter.on('myEvent', function(e) { console.log(e); });
+   * > // Or:
+   * > myEmitter.on('myEvent', function(e) { console.log(e); }, { once: true });
    *
    * @param  {string}   event   The event to listen to.
    * @param  {function} handler The function to bind.
+   * @param  {?object}  options Eventually some options.
    * @return {Emitter}          Returns this.
    *
    * Variant 2:
    * **********
-   * > myEmitter.on(['myEvent1', 'myEvent2'], function(e) { console.log(e); });
+   * > myEmitter.on(
+   * >   ['myEvent1', 'myEvent2'],
+   * >   function(e) { console.log(e); }
+   * >);
+   * > // Or:
+   * > myEmitter.on(
+   * >   ['myEvent1', 'myEvent2'],
+   * >   function(e) { console.log(e); }
+   * >   { once: true }}
+   * >);
    *
    * @param  {array}    events  The events to listen to.
    * @param  {function} handler The function to bind.
+   * @param  {?object}  options Eventually some options.
    * @return {Emitter}          Returns this.
    *
    * Variant 3:
@@ -47,56 +75,39 @@
    * >   myEvent1: function(e) { console.log(e); },
    * >   myEvent2: function(e) { console.log(e); }
    * > });
+   * > // Or:
+   * > myEmitter.on({
+   * >   myEvent1: function(e) { console.log(e); },
+   * >   myEvent2: function(e) { console.log(e); }
+   * > }, { once: true });
    *
-   * @param  {object} bindings An object containing pairs event / function.
-   * @return {Emitter}         Returns this.
+   * @param  {object}  bindings An object containing pairs event / function.
+   * @param  {?object}  options Eventually some options.
+   * @return {Emitter}          Returns this.
    *
    * Variant 4:
    * **********
    * > myEmitter.on(function(e) { console.log(e); });
+   * > // Or:
+   * > myEmitter.on(function(e) { console.log(e); }, { once: true});
    *
    * @param  {function} handler The function to bind to every events.
+   * @param  {?object}  options Eventually some options.
    * @return {Emitter}          Returns this.
    */
-  Emitter.prototype.on = function(events, handler, onlyOnce) {
+  Emitter.prototype.on = function(a, b, c) {
     var i,
         l,
+        k,
         event,
         eArray,
-        last = arguments[arguments.length - 1];
+        bindingObject;
 
-    // Dealing with once polymorphism
-    // NOTE: this is hardly clean
-    if (typeof last === 'boolean') {
-      onlyOnce = last;
-      arguments.length--;
-    }
-    else {
-      onlyOnce = false;
-    }
-
-    if (
-      arguments.length === 1 &&
-      typeof arguments[0] === 'object'
-    )
-      for (event in arguments[0])
-        Emitter.prototype.on.call(this, event, arguments[0][event], onlyOnce);
-
-    else if (
-      arguments.length === 1 &&
-      typeof arguments[0] === 'function'
-    )
-      this._handlersAll.push({
-        handler: arguments[0]
-      });
-
-    else if (
-      arguments.length === 2 &&
-      typeof arguments[1] === 'function'
-    ) {
-      eArray = typeof events === 'string' ?
-        [events] :
-        events;
+    // Variant 1 and 2:
+    if (typeof b === 'function') {
+      eArray = typeof a === 'string' ?
+        [a] :
+        a;
 
       for (i = 0, l = eArray.length; i !== l; i += 1) {
         event = eArray[i];
@@ -108,15 +119,45 @@
         if (!this._handlers[event])
           this._handlers[event] = [];
 
-        // Using an object instead of directly the handler will make possible
-        // later to add flags
-        this._handlers[event].push({
-          once: !!onlyOnce,
-          handler: handler
-        });
+        bindingObject = {
+          handler: b
+        };
+
+        for (k in c || {})
+          if (__allowedOptions[k])
+            bindingObject[k] = c[k];
+          else
+            throw new Error(
+              'The option "' + k + '" is not recognized by Emmett.'
+            );
+
+        this._handlers[event].push(bindingObject);
       }
 
-    } else
+    // Variant 3:
+    } else if (a && typeof a === 'object' && !Array.isArray(a))
+      for (event in a)
+        Emitter.prototype.on.call(this, event, a[event], c);
+
+    // Variant 4:
+    else if (typeof a === 'function') {
+      bindingObject = {
+        handler: a
+      };
+
+      for (k in c || {})
+        if (__allowedOptions[k])
+          bindingObject[k] = c[k];
+        else
+          throw new Error(
+            'The option "' + k + '" is not recognized by Emmett.'
+          );
+
+      this._handlersAll.push(bindingObject);
+    }
+
+    // No matching variant:
+    else
       throw new Error('Wrong arguments.');
 
     return this;
@@ -124,9 +165,8 @@
 
 
   /**
-   * This method is basically the same as `on` but comes with a notable
-   * difference: the handler will fire only once, the first time a relevant
-   * event is emitted and will be removed immediately after.
+   * This method works exactly as the previous on, but will always add an
+   * options object with the key "once" set to true as the last parameter.
    *
    * Variant 1:
    * **********
@@ -138,7 +178,10 @@
    *
    * Variant 2:
    * **********
-   * > myEmitter.once(['myEvent1', 'myEvent2'], function(e) { console.log(e); });
+   * > myEmitter.once(
+   * >   ['myEvent1', 'myEvent2'],
+   * >   function(e) { console.log(e); }
+   * > );
    *
    * @param  {array}    events  The events to listen to.
    * @param  {function} handler The function to bind.
@@ -151,8 +194,8 @@
    * >   myEvent2: function(e) { console.log(e); }
    * > });
    *
-   * @param  {object} bindings An object containing pairs event / function.
-   * @return {Emitter}         Returns this.
+   * @param  {object}  bindings An object containing pairs event / function.
+   * @return {Emitter}          Returns this.
    *
    * Variant 4:
    * **********
@@ -161,40 +204,34 @@
    * @param  {function} handler The function to bind to every events.
    * @return {Emitter}          Returns this.
    */
-  Emitter.prototype.once = function() {
-    var args = Array.prototype.slice.call(arguments).concat(true);
-    return this.on.apply(this, args);
+  Emitter.prototype.once = function(a, b) {
+    this.on.apply(
+      this,
+      Array.prototype.splice.call(arguments, 0).concat({ once: true })
+    );
+    return this;
   };
 
 
   /**
    * This method unbinds one or more functions from events of the emitter. So,
-   * these functions will no more be executed when the related events are emitted.
-   * If the functions were not bound to the events, nothing will happen, and no
-   * error will be thrown.
-   *
-   * It is also possible to unbind a function from every AND any emitted event by
-   * not specifying any event to bind the function to.
+   * these functions will no more be executed when the related events are
+   * emitted. If the functions were not bound to the events, nothing will
+   * happen, and no error will be thrown.
    *
    * Variant 1:
    * **********
-   * > myEmitter.off('myEvent');
+   * > myEmitter.off('myEvent', myHandler);
    *
-   * @param  {string} event The event to unbind.
-   * @return {Emitter}      Returns this.
-   *
-   * Variant 1:
-   * **********
-   * > myEmitter.off(['myEvent1', 'myEvent2']);
-   *
-   * @param  {array} events The events to unbind.
-   * @return {Emitter}      Returns this.
+   * @param  {string}   event   The event to unbind the handler from.
+   * @param  {function} handler The function to unbind.
+   * @return {Emitter}          Returns this.
    *
    * Variant 2:
    * **********
    * > myEmitter.off(['myEvent1', 'myEvent2'], myHandler);
    *
-   * @param  {array}    events  The events to unbind to.
+   * @param  {array}    events  The events to unbind the handler from.
    * @param  {function} handler The function to unbind.
    * @return {Emitter}          Returns this.
    *
@@ -212,10 +249,10 @@
    * **********
    * > myEmitter.off(myHandler);
    *
-   * @param  {function} handler The function to unbind to every events.
+   * @param  {function} handler The function to unbind from every events.
    * @return {Emitter}          Returns this.
    */
-  Emitter.prototype.off = function(events, handler, onlyOnce) {
+  Emitter.prototype.off = function(events, handler) {
     var i,
         n,
         j,
@@ -223,32 +260,11 @@
         k,
         a,
         event,
-        last = arguments[arguments.length - 1],
         eArray = typeof events === 'string' ?
           [events] :
           events;
 
-    // Dealing with once polymorphism
-    // NOTE: this is hardly clean
-    if (typeof last === 'boolean') {
-      onlyOnce = last;
-      arguments.length--;
-    }
-    else {
-      onlyOnce = false;
-    }
-
-    if (!arguments.length) {
-      this._handlersAll = [];
-      for (k in this._handlers)
-        delete this._handlers[k];
-    }
-
-    else if (arguments.length === 1 && typeof eArray !== 'function')
-      for (i = 0, n = eArray.length; i !== n; i += 1)
-        delete this._handlers[eArray[i]];
-
-    else if (arguments.length === 1 && typeof eArray === 'function') {
+    if (arguments.length === 1 && typeof eArray === 'function') {
       handler = arguments[0];
 
       // Handlers bound to events:
@@ -272,11 +288,9 @@
         event = eArray[i];
         if (this._handlers[event]) {
           a = [];
-          for (j = 0, m = this._handlers[event].length; j !== m; j += 1) {
-            if (this._handlers[event][j].handler !== handler ||
-                (onlyOnce && !this._handlers[event][j].once))
+          for (j = 0, m = this._handlers[event].length; j !== m; j += 1)
+            if (this._handlers[event][j].handler !== handler)
               a.push(this._handlers[event][j]);
-          }
 
           this._handlers[event] = a;
         }
@@ -285,6 +299,29 @@
           delete this._handlers[event];
       }
     }
+
+    return this;
+  };
+
+
+  /**
+   * This method unbinds every handlers attached to every or any events. So,
+   * these functions will no more be executed when the related events are
+   * emitted. If the functions were not bound to the events, nothing will
+   * happen, and no error will be thrown.
+   *
+   * Usage:
+   * ******
+   * > myEmitter.unbindAll();
+   *
+   * @return {Emitter}      Returns this.
+   */
+  Emitter.prototype.unbindAll = function() {
+    var k;
+
+    this._handlersAll = [];
+    for (k in this._handlers)
+      delete this._handlers[k];
 
     return this;
   };
@@ -310,13 +347,19 @@
         n,
         j,
         m,
+        a,
         event,
+        child,
         handlers,
         eventName,
         self = this,
         eArray = typeof events === 'string' ?
           [events] :
           events;
+
+    // Check that the emitter is enabled:
+    if (!this._enabled)
+      return this;
 
     data = data === undefined ? {} : data;
 
@@ -330,152 +373,22 @@
           data: data || {},
           target: this
         };
+        a = [];
 
         for (j = 0, m = handlers.length; j !== m; j += 1) {
           handlers[j].handler.call(this, event);
-
-          // Removing handler if once
-          if (handlers[j].once)
-            this.off(eventName, handlers[j].handler, true);
+          if (!handlers[j].once)
+            a.push(handlers[j]);
         }
+
+        this._handlers[eventName] = a;
       }
     }
 
-    return this;
-  };
-
-
-  /**
-   * This method will create a binder, to help enable / disable a bunch of
-   * functions as a single entity. This binder extends the on / off API of the
-   * emitter.
-   *
-   * @param  {object} bindings The initial bindings.
-   * @return {Binder}          The binder.
-   */
-  Emitter.prototype.binder = function() {
-    var k,
-        i,
-        l,
-        a,
-        binder = new Binder(this);
-
-    // Bind initial bindings:
-    if (arguments.length)
-      binder.on.apply(binder, arguments);
-
-    return binder;
-  };
-
-
-
-
-
-
-  /**
-   * The binder's constructor. Binders are useful if you want to manage your
-   * bindings as batches instead of individually.
-   *
-   * @return {Emitter} The fresh new instance.
-   */
-  var Binder = function(emitter) {
-    // Initialize the emitter
-    Emitter.call(this);
-
-    // Reference the parent emitter:
-    this._emitter = emitter;
-
-    // Add current state:
-    this._enabled = true;
-  };
-
-
-  /**
-   * This method registers the pairs event(s) / function in the binder, and
-   * binds them to the emitter if the binder is activated.
-   *
-   * The polymorphism is exactly the one from Emitter.prototype.on.
-   */
-  Binder.prototype.on = function() {
-    // Store the bindings as if it were an emitter:
-    Emitter.prototype.on.apply(this, arguments);
-
-    // Actually send the bindings to the parent emitter if the binder is on:
-    if (this._enabled)
-      this._emitter.on.apply(this._emitter, arguments);
-
-    return this;
-  };
-
-
-  /**
-   * This method registers the pairs event(s) / function in the binder, and
-   * binds them to the emitter if the binder is activated.
-   *
-   * The only difference with Binder.prototype.on is that the handler will
-   * only be fired the first time the relevant event is emitted.
-   *
-   * The polymorphism is exactly the one from Emitter.prototype.on.
-   */
-  Binder.prototype.once = function() {
-    var args = Array.prototype.slice.call(arguments).concat(true);
-
-    // Store the bindings as if it were an emitter:
-    Emitter.prototype.on.apply(this, args);
-
-    // Actually send the bindings to the parent emitter if the binder is on:
-    if (this._enabled)
-      this._emitter.on.apply(this._emitter, args);
-
-    return this;
-  };
-
-
-  /**
-   * This method unregister the pairs event(s) / function from the binder, and
-   * unbinds them from the emitter if the binder is activated.
-   *
-   * The polymorphism is exactly the one from Emitter.prototype.off.
-   */
-  Binder.prototype.off = function() {
-    // Store the bindings as if it were an emitter:
-    Emitter.prototype.off.apply(this, arguments);
-
-    // Actually send the bindings to the parent emitter if the binder is on:
-    if (this._enabled)
-      this._emitter.off.apply(this._emitter, arguments);
-
-    return this;
-  };
-
-
-  /**
-   * If the binder if not enabled yet, this method will enable it and bind each
-   * stored event(s) / function pair to the emitter.
-   *
-   * @return {Binder} Returns this.
-   */
-  Binder.prototype.enable = function() {
-    var k,
-        a,
-        i,
-        l;
-
-    if (this._enabled)
-      return this;
-
-    this._enabled = true;
-
-    // First, let's deal with the _handlersAll index:
-    a = this._handlersAll;
-    for (i = a.length - 1; i >= 0; i--)
-      this._emitter.on(a[i].handler);
-
-    // Let's now deal with the _handlers index:
-    for (k in this._handlers) {
-      a = this._handlers[k];
-      for (i = a.length - 1; i >= 0; i--)
-        this._emitter.on(k, a[i].handler);
+    // Events propagation:
+    for (i = 0, n = this._children.length; i !== n; i += 1) {
+      child = this._children[i];
+      child.emit.apply(child, arguments);
     }
 
     return this;
@@ -483,39 +396,72 @@
 
 
   /**
-   * If the binder if enabled, this method will disable it and unbind each stored
-   * event(s) / function pair from the emitter.
+   * This method creates a new instance of Emitter and binds it as a child. Here
+   * is what children do:
+   *  - When the parent emits an event, the children will emit the same later
+   *  - When a child is killed, it is automatically unreferenced from the parent
+   *  - When the parent is killed, all children will be killed as well
    *
-   * @return {Binder} Returns this.
+   * @return {Emitter} Returns the fresh new child.
    */
-  Binder.prototype.disable = function() {
-    var i,
-        k,
-        a;
+  Emitter.prototype.child = function() {
+    var self = this,
+        child = new Emitter();
 
-    if (!this._enabled)
-      return this;
+    child.on('emmett:kill', function() {
+      if (self._children)
+        for (var i = 0, l = self._children.length; i < l; i++)
+          if (self._children[i] === child) {
+            self._children.splice(i, 1);
+            break;
+          }
+    });
+    this._children.push(child);
 
-    // First, let's deal with the _handlersAll index:
-    // NOTE: Since the Emitter API does not allow to unbind functions ONLY from
-    // the _handlersAll index, I had to do it manually here.
-    function checkHandler(obj) {
-      return obj.handler === a[i].handler;
-    }
-    a = this._emitter._handlersAll;
-    for (i = a.length - 1; i >= 0; i--)
-      /*jslint browser: true, plusplus: true */
-      if (this._handlersAll.find(checkHandler))
-        a.splice(i, 1);
+    return child;
+  };
 
-    // Let's now deal with the _handlers index:
-    for (k in this._handlers) {
-      a = this._handlers[k];
-      for (i = a.length - 1; i >= 0; i--)
-        this._emitter.off(k, a[i].handler);
-    }
 
+  /**
+   * This method will first dispatch a "emmett:kill" event, and then unbinds all
+   * listeners and make it impossible to ever rebind any listener to any event.
+   */
+  Emitter.prototype.kill = function() {
+    this.emit('emmett:kill');
+
+    this.unbindAll();
+    this._handlers = null;
+    this._handlersAll = null;
     this._enabled = false;
+
+    if (this._children)
+      for (var i = 0, l = this._children.length; i < l; i++)
+        this._children[i].kill();
+
+    this._children = null;
+  };
+
+
+  /**
+   * This method disabled the emitter, which means its emit method will do
+   * nothing.
+   *
+   * @return {Emitter} Returns this.
+   */
+  Emitter.prototype.disable = function() {
+    this._enabled = false;
+
+    return this;
+  };
+
+
+  /**
+   * This method enables the emitter.
+   *
+   * @return {Emitter} Returns this.
+   */
+  Emitter.prototype.enable = function() {
+    this._enabled = true;
 
     return this;
   };
@@ -524,7 +470,7 @@
   /**
    * Version:
    */
-  Emitter.version = '1.0.0';
+  Emitter.version = '2.0.0';
 
 
   // Export:

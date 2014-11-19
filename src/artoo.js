@@ -20,6 +20,8 @@
 
   // Main object
   var artoo = {
+
+    // Standard properties
     $: {},
     jquery: {
       plugins: []
@@ -27,6 +29,10 @@
     mountNode: body,
     stylesheets: {},
     templates: {},
+
+    // Emitter shim properties
+    _enabled: true,
+    _children: [],
     _handlers: {},
     _handlersAll: []
   };

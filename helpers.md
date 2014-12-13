@@ -40,6 +40,12 @@ id: helpers
 * [artoo.writers.queryString](#querystring-writer)
 * [artoo.writers.yaml](#to-yaml-string)
 
+**Cookies** - *callable from `artoo.cookies`*
+
+* [artoo.cookies.get](#cookies-get)
+* [artoo.cookies.set](#cookies-set)
+* [artoo.cookies.remove](#cookies-remove)
+
 **Custom console** - *callable from `artoo.log`*
 
 * [artoo.log](#log)
@@ -387,6 +393,44 @@ artoo.writers.yaml(data);
      colors:
        - yellow
        - blue'
+```
+
+---
+
+<h2 id="cookies">artoo.cookies</h2>
+
+*artoo.cookies* provides a simple way to interact with the host page's stored cookies.
+
+<em id="cookies-get">Retrieving cookies</em>
+
+```js
+// Get every cookies
+artoo.cookies();
+artoo.cookies.get();
+artoo.cookies.getAll();
+
+// Get cookie by key
+artoo.cookies(key);
+artoo.cookies.get(key);
+```
+
+<em id="cookies-set">Setting cookies</em>
+
+As per [artoo.writers.cookie](#cookie-writer).
+
+```js
+artoo.cookies.set(key, value, [params]);
+```
+
+<em id="cookies-remove">Removing cookies</em>
+
+```js
+// Remove cookie by key
+artoo.cookies.remove(key);
+
+// Removing every cookies
+artoo.cookies.removeAll();
+artoo.cookies.clear();
 ```
 
 ---

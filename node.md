@@ -51,21 +51,34 @@ If you are not familiar with **artoo.js**' scraping utilities, you should go rea
 
 *Usage*
 
+There are two ways of using scraping utilities along with cheerio
+
+You can bootstrap your cheerio object so you can use the `$().scrape` shorthands.
+
+```js
+var artoo = require('artoo-js'),
+    cheerio = require('cheerio');
+
+// Bootstrapping cheerio
+artoo.bootstrap(cheerio);
+
+var $ = cheerio.load(myXMLString);
+
+var data = $('ul > li').scrape(params);
+```
+
+Or else you can set artoo's own context to be a specific cheerio instance (a dollar variable typically). Please note that this is not ideal when dealing with asynchronous processes run in parallel.
+
 ```js
 var artoo = require('artoo-js'),
     cheerio = require('cheerio');
 
 var $ = cheerio.load(myXMLString);
 
-// 1) Passing a cheerio selector to artoo
-var data = artoo.scrape($('ul > li'), params);
-
-// 2) Setting artoo's current $ context
+// Setting artoo's context
 artoo.setContext($);
-var data = artoo.scrape('ul > li', params);
 
-// 3) Using the scrape methods
-var data = $('ul > li').scrape(params);
+var data = artoo.scrape('ul > li', params);
 ```
 
 Note that you can also use `scrapeOne` and `scrapeTable`.
@@ -74,7 +87,7 @@ Note that you can also use `scrapeOne` and `scrapeTable`.
 
 <h2 id="helpers">Helpers</h2>
 
-Most of the library's [helpers]({{ site.baseurl }}/helpers) can be used with node.js.
+Most of the library's [helpers]({{ site.baseurl }}/helpers), writers and parsers included, can be used within node.js.
 
 *Example*
 
@@ -83,7 +96,7 @@ var artoo = require('artoo-js');
 
 var tabularData = [['John', 'Tell'], ['Mary', 'Proudlike']];
 
-var csvString = artoo.helpers.toCSVString(tabularData);
+var csvString = artoo.writers.csv(tabularData);
 ```
 
 ---
@@ -97,6 +110,7 @@ You can access their paths in node likewise if needed:
 ```js
 var artoo = require('artoo-js');
 
+artoo.paths.browser;
 artoo.paths.chrome;
 artoo.paths.phantom;
 ```

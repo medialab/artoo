@@ -12,6 +12,10 @@ id: helpers
 
 ---
 
+**Miscellaneous**
+
+* [artoo.emitter](#events)
+
 **Root helpers** - *callable from `artoo`*
 
 * [artoo.getGlobalVariables](#global-variables)
@@ -54,6 +58,32 @@ id: helpers
 * [artoo.log.info](#levels)
 * [artoo.log.warning](#levels)
 * [artoo.log.error](#levels)
+
+---
+
+<h2 id="events">artoo.emitter</h2>
+
+**artoo.js** uses the [emmett](https://github.com/jacomyal/emmett) library to provide its user with simple event emitting if needed.
+
+```js
+var ee = new artoo.emitter();
+
+ee.on('message', function(e) {
+  console.log('received', e.data);
+});
+
+ee.emit('message', 'Hello world!');
+```
+
+Note also that **artoo** itself is an event emitter.
+
+```js
+artoo.on('message', function(e) {
+  console.log('received', e.data);
+});
+
+artoo.emit('message');
+```
 
 ---
 

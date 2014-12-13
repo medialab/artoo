@@ -11,8 +11,8 @@
   // Dependencies
   var isPlainObject = artoo.helpers.isPlainObject,
       isArray = artoo.helpers.isArray,
-      isScalar = artoo.helpers.isScalar,
-      isNonScalar = artoo.helpers.isNonScalar,
+      isPrimitive = artoo.helpers.isPrimitive,
+      isNonPrimitive = artoo.helpers.isNonPrimitive,
       isRealNaN = artoo.helpers.isRealNaN;
 
 
@@ -149,7 +149,7 @@
       for (i = 0, l = a.length; i < l; i++) {
         string += repeatString('  ', lvl);
 
-        if (isScalar(a[i])) {
+        if (isPrimitive(a[i])) {
           string += '- ' + processYAMLVariable(a[i]) + '\n';
         }
         else {
@@ -178,7 +178,7 @@
         string += repeatString('  ', lvl);
         if (indent && !c)
           string = string.slice(0, -1);
-        string += key + ': ' + (isNonScalar(o[i]) ? '\n' : '') +
+        string += key + ': ' + (isNonPrimitive(o[i]) ? '\n' : '') +
           processYAMLVariable(o[i], lvl + 1) + '\n';
 
         c++;

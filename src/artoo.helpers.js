@@ -76,13 +76,13 @@
            !(v instanceof Function);
   }
 
-  // Is nonscalar value?
-  function isNonScalar(v) {
+  // Is a var non primitive?
+  function isNonPrimitive(v) {
     return isPlainObject(v) || isArray(v);
   }
 
-  // Is a value scalar?
-  function isScalar(v) {
+  // Is a var primitive?
+  function isPrimitive(v) {
     return !isNonScalar(v);
   }
 
@@ -413,8 +413,8 @@
     isPlainObject: isPlainObject,
     isRealNaN: isRealNaN,
     isSelector: isSelector,
-    isNonScalar: isNonScalar,
-    isScalar: isScalar,
+    isNonPrimitive: isNonPrimitive,
+    isPrimitive: isPrimitive,
     jquerify: jquerify,
     noop: noop,
     parallel: parallel

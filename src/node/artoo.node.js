@@ -13,18 +13,18 @@
   // Setting initial context
   artoo.$ = cheerio.load('');
 
-  // Applying helpers
-  var methods = ['scrape', 'scrapeOne', 'scrapeTable'];
-
-  methods.forEach(function(method) {
-
-    cheerio.prototype[method] = function() {
-      return artoo[method].apply(
-        artoo, [artoo.$(this)].concat(Array.prototype.slice.call(arguments)));
-    };
-  });
-
   // Methods
+  artoo.bootstrap = function(cheerioInstance) {
+    ['scrape', 'scrapeOne', 'scrapeTable'].forEach(function(m) {
+      cheerioInstance.prototype[m] = function() {
+        return artoo[m].apply(
+          artoo, [artoo.$(this)].concat(Array.prototype.slice.call(arguments)));
+      };
+    });
+  };
+
+  artoo.bootstrap(cheerio);
+
   artoo.setContext = function($) {
 
     // Fixing context

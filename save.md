@@ -27,7 +27,6 @@ If your browser warns you about the webpage trying to download several items, ju
 * [artoo.saveHtml](#html)
 * [artoo.savePageHtml](#page-html)
 * [artoo.saveStore](#store)
-* [artoo.saveInstructions](#instructions)
 * [artoo.saveResource](#resource)
 * [artoo.saveImage](#image)
 
@@ -123,7 +122,7 @@ var persons =[
 artoo.saveCsv(persons);
 ```
 
-For more precisions, refer to [artoo.helpers.toCSVString]({{ site.baseurl }}/helpers#to-csv-string) method.
+For more precisions, refer to the [artoo.writers.csv]({{ site.baseurl }}/helpers#to-csv-string) method.
 
 ---
 
@@ -208,17 +207,6 @@ artoo.saveStore([params]);
 ```js
 artoo.saveStore({key: 'your-needed-key'});
 ```
-
----
-
-<h2 id="instructions">artoo.saveInstructions</h2>
-Save the instructions recorded by artoo as a JavaScript file.
-
-```js
-artoo.saveInstructions([params]);
-```
-
-If you want more precise information about how the instructions recording work, the [instructions]({{ site.baseurl }}/instructions) section of this documentation should be of help.
 
 ---
 

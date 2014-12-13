@@ -31,7 +31,6 @@ Now that we are ready, let's scrape!
 * [Needing more specific things?](#specific-things)
 * [A more complex list](#more-complex-list)
 * [Downloading your list](#downloading-list)
-* [Remember, remember](#remember)
 * [What next?](#what-next)
 
 ---
@@ -276,18 +275,6 @@ And of course, if you are more the CSV kind of guy, just help yourself.
 
 ```js
 artoo.saveCsv(niceList);
-```
-
----
-<h2 id="remember">Remember, remember</h2>
-Having written some commands now, you might find yourself in delicate position.
-
-> &laquo; *How on earth am I going to remember all the possibly complex commands I just wrote into my browser console?* &raquo;
-
-> &laquo; *It would be nice I could just download a `js` script containing everything I executed while scraping this fine site.* &raquo;
-
-```js
-artoo.saveInstructions();
 ```
 
 ---

@@ -24,8 +24,21 @@ id: helpers
 
 * [artoo.helpers.createDocument](#document)
 * [artoo.helpers.jquerify](#jquerify)
-* [artoo.helpers.toCSVString](#to-csv-string)
-* [artoo.helpers.toYAMLString](#to-yaml-string)
+
+**Parsers** - *callable from `artoo.parsers`*
+
+* [artoo.parsers.cookie](#cookie)
+* [artoo.parsers.cookies](#cookies)
+* [artoo.parsers.headers](#headers)
+* [artoo.parsers.queryString](#querystring)
+* [artoo.parsers.url](#url)
+
+**Writers** - *callable from `artoo.writers`*
+
+* [artoo.writers.cookie](#cookie-writer)
+* [artoo.writers.csv](#to-csv-string)
+* [artoo.writers.queryString](#querystring-writer)
+* [artoo.writers.yaml](#to-yaml-string)
 
 **Custom console** - *callable from `artoo.log`*
 
@@ -170,11 +183,118 @@ artoo.helpers.jquerify(data);
 
 ---
 
-<h2 id="to-csv-string">artoo.helpers.toCSVString</h2>
+<h2 id="cookie">artoo.parsers.cookie</h2>
+Parses a cookie string.
+
+```js
+artoo.parsers.cookie(
+  'name2=value2; Expires=Wed, 09 Jun 2021 10:18:14 GMT'
+);
+>>> {
+  httpOnly: false,
+  secure: false,
+  key: 'name2',
+  value: 'value2',
+  expires: 'Wed, 09 Jun 2021 10:18:14 GMT'
+}
+```
+
+---
+
+<h2 id="cookies">artoo.parsers.cookies</h2>
+Parses a string containing one or more cookies and return an object storing them in a key/value fashion. Typically, this can be used to parse `document.cookie`.
+
+```js
+artoo.parsers.cookies(document.cookie);
+>>> {
+  cookie1: 'value1',
+  cookie2: 'value2'
+}
+```
+
+---
+
+<h2 id="headers">artoo.parsers.headers</h2>
+Parses a string containing HTTP headers. Typically, this can be used to parse XHR headers.
+
+```js
+artoo.parsers.headers(xhr.getAllResponseHeaders());
+>>> {
+  Date: 'Sat, 13 Dec 2014 15:27:42 GMT'
+  Connection: 'keep-alive'
+  Content-Length: '9072'
+  Content-Type: 'text/html; charset=utf-8'
+}
+```
+
+---
+
+<h2 id="querystring">artoo.parsers.queryString</h2>
+Parses a querystring.
+
+```js
+artoo.parsers.queryString('var1=value1&var2=value2');
+>>> {
+  var1: 'value1',
+  var2: 'value2'
+}
+```
+
+---
+
+<h2 id="url">artoo.parsers.url</h2>
+Parses the given url as [Node.js](http://nodejs.org/api/url.html#url_url_parse_urlstr_parsequerystring_slashesdenotehost) would.
+
+```js
+artoo.parsers.url('http://localhost:8000')
+>>> {
+  href: 'http://localhost:8000/',
+  protocol: 'http',
+  host: 'localhost:8000',
+  hostname: 'localhost',
+  port: 8000,
+  path: '/',
+  pathname: '/',
+  domain: 'localhost'
+}
+```
+
+---
+
+<h2 id="cookie-writer">artoo.writers.cookie</h2>
+Creates a cookie string with given parameters
+
+```js
+artoo.writers.cookie(key, value, [params]);
+```
+
+*Arguments*
+
+* **key** *string*: the cookie's key.
+* **value** *string*: the cookie's value.
+* **params** *?object*: an object of optional parameters and containing the following keys.
+  * **days** *?integer*: number of days before cookie expiration.
+  * **domain** *?string*: cookie's domain.
+  * **httpOnly** *?boolean* [`false`]: should the cookie be httpOnly?
+  * **path** *?string*: cookie's path.
+  * **secure** *?boolean* [`false`]: should the cookie be secure?
+
+*Example*
+
+```js
+artoo.writers.cookie('myKey', 'myValue', {
+  httpOnly: true
+});
+>>> 'myKey=myValue; HttpOnly'
+```
+
+---
+
+<h2 id="to-csv-string">artoo.writers.csv</h2>
 Converts an array of array into a CSV string or an array of objects into a CSV string with headers.
 
 ```js
-artoo.helpers.toCSVString(data, [params]);
+artoo.writers.csv(data, [params]);
 ```
 
 *Arguments*
@@ -200,19 +320,55 @@ var persons =[
    }
 ];
 
-artoo.helpers.toCSVString(persons);
+artoo.writers.csv(persons);
 >>> 'firstname,lastname
      Caroline,Williams
      Steven,Douglas'
 ```
 
+<h2 id="querystring-writer">artoo.writers.queryString</h2>
+Converts an object into a query string.
+
+```js
+artoo.writers.queryString(object, [caster]);
+```
+
+*Arguments*
+
+* **object** *object*: a simple key/value object to convert.
+* **caster** *?function*: a function used to cast values into the desired format.
+
+*Examples*
+
+```js
+artoo.writers.queryString({hello: 'world'});
+>>> 'hello=world'
+
+artoo.writers.queryString(
+  {
+    hello: 'world',
+    secure: true,
+    authenticated: false
+  },
+  function(v) {
+    if (v === true)
+      return 1;
+    else if (v === false)
+      return 0;
+    else
+      return v;
+  }
+);
+>>> 'hello=world&secure=1&authenticated=0'
+```
+
 ---
 
-<h2 id="to-yaml-string">artoo.helpers.toYAMLString</h2>
+<h2 id="to-yaml-string">artoo.writers.yaml</h2>
 Converts a JavaScript variable into a YAML string.
 
 ```js
-artoo.helpers.toYAMLString(data);
+artoo.writers.yaml(data);
 ```
 
 *Example*
@@ -224,7 +380,7 @@ var data = {
   colors: ['yellow', 'blue']
 };
 
-artoo.helpers.toYAMLString(data);
+artoo.writers.yaml(data);
 >>> '---
      hello: world
      how: are you?

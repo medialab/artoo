@@ -68,13 +68,6 @@ That's it. You've just scraped *Hacker News* front page and downloaded the data 
 
 ---
 
-<h2 id="disclaimer">Disclaimer</h2>
-Please note that **artoo.js** has been built having *Chrome* and *Chromium* in mind. So, even if artoo may perform quite properly on other browsers, some of its features such as [instructions recording]({{ site.baseurl }}/instructions) might not be available on those.
-
-If you think this is unfair and feel that some features can be ported to other browsers, please report it and we'll find a solution together.
-
----
-
 <h2 id="philosophy">Philosophy</h2>
 > &laquo; *Why on earth should I scrape on my browser? Isn't this insane?* &raquo;
 

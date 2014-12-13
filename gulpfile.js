@@ -3,11 +3,13 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
     jshint = require('gulp-jshint'),
-    mocha = require('gulp-mocha-phantomjs'),
+    mocha = require('gulp-mocha'),
+    phantomMocha = require('gulp-mocha-phantomjs'),
     replace = require('gulp-replace'),
     rename = require('gulp-rename'),
     header = require('gulp-header'),
     webserver = require('gulp-webserver'),
+    seq = require('run-sequence'),
     pkg = require('./package.json');
 
 // Utilities
@@ -62,7 +64,7 @@ function lintFilter(i) {
 }
 
 // Testing
-gulp.task('test', function() {
+gulp.task('browser-test', function() {
   return gulp.src('./test/unit.html')
     .pipe(replace(
       /<!-- START ARTOO IMPORTS -->[\s\S]*<!-- END ARTOO IMPORTS -->/g,
@@ -73,6 +75,11 @@ gulp.task('test', function() {
       ).concat('    <!-- END ARTOO IMPORTS -->').join('\n')
     ))
     .pipe(gulp.dest('./test'))
+    .pipe(phantomMocha({reporter: 'spec'}));
+});
+
+gulp.task('node-test', ['build'], function() {
+  return gulp.src('./test/endpoint.js')
     .pipe(mocha({reporter: 'spec'}));
 });
 
@@ -175,6 +182,9 @@ gulp.task('serve.https', function() {
 
 // Macro-tasks
 gulp.task('bookmarklets', ['bookmarklet.dev', 'bookmarklet.prod', 'bookmarklet.edge']);
+gulp.task('test', function(next) {
+  seq('browser-test', 'node-test', next);
+});
 gulp.task('work', ['watch', 'serve']);
 gulp.task('https', ['watch', 'serve.https']);
 gulp.task('default', ['lint', 'test', 'build']);

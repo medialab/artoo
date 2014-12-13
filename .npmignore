@@ -3,7 +3,7 @@ node_modules
 TODO.md
 *.pem
 *.log
-build/bookmarklet.*
+build/bookmarklet/
 build/artoo.min.js
 test/
 chrome/

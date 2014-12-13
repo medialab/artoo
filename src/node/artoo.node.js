@@ -32,12 +32,11 @@
   };
 
   // Giving paths to alternative lib versions so they can be used afterwards
-  artoo.paths = {};
-
-  var versions = ['chrome', 'phantom'];
-  versions.forEach(function(v) {
-    artoo.paths[v] = path.join(__dirname, 'artoo.' + v + '.js')
-  });
+  artoo.paths = {
+    browser: path.join(__dirname, 'artoo.concat.js'),
+    chrome: path.join(__dirname, 'artoo.chrome.js'),
+    phantom: path.join(__dirname, 'artoo.phantom.js')
+  };
 }).call(this);
 
 

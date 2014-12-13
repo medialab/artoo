@@ -8,6 +8,22 @@ id: changelog
 
 ---
 
+## 0.3.0
+
+* Several enhancements for uses within Phantom.js.
+* Several enhancements to the beeping utility.
+* Adding writers and parsers.
+* Adding `artoo.cookies`.
+* Adding [emmett](https://github.com/jacomyal/emmett) as event emitter.
+* Removing instructions, alas.
+* Fixing `artoo.helpers.jquerify`.
+* Fixing `artoo.scrape` recursivity.
+* Fixing log settings.
+* Updating node.js process.
+* Updating `jquery.simulate` to version `1.0.1-pre`.
+
+---
+
 ## 0.2.0
 
 * Adding Node.js version of the library.

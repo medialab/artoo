@@ -7,8 +7,7 @@
    *
    * Replacing some helpers by their node.js counterparts.
    */
-  var _root = this,
-      cheerio = require('cheerio');
+  var _root = this;
 
   // False function
   artoo.helpers.isDocument = function(v) {
@@ -17,6 +16,8 @@
 
   // Is this a cheerio selector?
   artoo.helpers.isSelector = function(v) {
-    return v instanceof cheerio;
+    return !!(v && v.prototype && v.prototype.cheerio &&
+              v.prototype.cheerio === '[cheerio object]') ||
+           !!(v._root && v.options && 'normalizeWhitespace' in v.options);
   };
 }).call(this);

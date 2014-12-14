@@ -38,6 +38,3 @@
     phantom: path.join(__dirname, 'artoo.phantom.js')
   };
 }).call(this);
-
-
-

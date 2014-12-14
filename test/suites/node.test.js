@@ -10,6 +10,13 @@ var assert = require('assert'),
 
 describe('artoo.node', function() {
 
+  it('should override correctly isSelector.', function() {
+    var $ = cheerio.load('<div>Hello</div>');
+
+    assert(artoo.helpers.isSelector($));
+    assert(artoo.helpers.isSelector($('div')));
+  });
+
   it('should be possible to retrieve paths.', function() {
     assert.deepEqual(Object.keys(artoo.paths), ['browser', 'chrome', 'phantom']);
   });

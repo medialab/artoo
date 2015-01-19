@@ -56,9 +56,9 @@
     // Transforming to selector
     var $iterator;
     if (typeof iterator === 'function')
-      $iterator = artoo.$(iterator(artoo.$));
+      $iterator = $(iterator($));
     else
-      $iterator = artoo.$(iterator);
+      $iterator = $(iterator);
 
     // Iteration
     $iterator.each(function(i) {

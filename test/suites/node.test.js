@@ -36,4 +36,25 @@ describe('artoo.node', function() {
 
     assert.deepEqual(artoo.scrape('li'), ['item1', 'item2']);
   });
+
+  it('should be possible to scrape recursively.', function() {
+    var $ = cheerio.load([
+      '<ul class="list">',
+        '<li>',
+          '<ul class="sublist"><li>item1-1</li><li>item1-2</li></ul>',
+        '</li>',
+        '<li>item2',
+          '<ul class="sublist"><li>item2-1</li><li>item2-2</li></ul>',
+        '</li>',
+      '</ul>'].join('\n'));
+
+    artoo.setContext($);
+
+    assert.deepEqual(artoo.scrape('ul.list > li', {
+      scrape: {
+        iterator: 'ul.sublist > li',
+        data: 'text'
+      }
+    }), [['item1-1', 'item1-2'], ['item2-1', 'item2-2']]);
+  });
 });

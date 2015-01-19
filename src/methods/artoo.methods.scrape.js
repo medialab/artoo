@@ -45,7 +45,8 @@
 
   // Scraping function after polymorphism has been taken care of
   function scrape(iterator, data, params, cb) {
-    var scraped = [],
+    var $ = artoo.$,
+        scraped = [],
         loneSelector = !!data.attr || !!data.method || data.scrape ||
                        typeof data === 'string' ||
                        typeof data === 'function';
@@ -55,9 +56,9 @@
     // Transforming to selector
     var $iterator;
     if (typeof iterator === 'function')
-      $iterator = artoo.$(iterator(artoo.$));
+      $iterator = $(iterator($));
     else
-      $iterator = artoo.$(iterator);
+      $iterator = $(iterator);
 
     // Iteration
     $iterator.each(function(i) {

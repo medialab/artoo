@@ -45,7 +45,8 @@
 
   // Scraping function after polymorphism has been taken care of
   function scrape(iterator, data, params, cb) {
-    var scraped = [],
+    var $ = artoo.$,
+        scraped = [],
         loneSelector = !!data.attr || !!data.method || data.scrape ||
                        typeof data === 'string' ||
                        typeof data === 'function';

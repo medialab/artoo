@@ -38,7 +38,7 @@
       sound = a1;
       if (typeof a2 === 'function') 
         callback = a2;
-      else
+      else if (typeof a2 !== 'undefined')
         throw Error('artoo.beep: second argument have to be a function.');
     }
 

@@ -26,8 +26,20 @@
   }
 
   // Playing the base64 sound
-  artoo.beep = function(sound) {
-    var chosenSound;
+  artoo.beep = function(a1, a2) {
+    var sound,
+        callback,
+        chosenSound;
+
+    if (typeof a1 === 'function') {
+      sound = a2;
+      callback = a1;
+    }
+    else {
+      sound = a1;
+      callback = a2;
+    }
+
     if (artoo.helpers.isArray(sound))
       chosenSound = randomInArray(sound);
     else
@@ -39,7 +51,12 @@
     if (!~sounds.indexOf(chosenSound))
       throw Error('artoo.beep: wrong sound specified.');
 
-    new Audio(artoo.settings.beep.endpoint + chosenSound + '.ogg').play();
+    var player = new Audio(artoo.settings.beep.endpoint + chosenSound + '.ogg');
+    if(callback)
+      player.addEventListener('ended', function() {
+            callback();
+        });
+    player.play();
   };
 
   // Exposing available beeps

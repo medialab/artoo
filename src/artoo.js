@@ -39,7 +39,7 @@
 
   // Non-writable version
   Object.defineProperty(artoo, 'version', {
-    value: '0.3.0'
+    value: '0.3.1'
   });
 
   // Exporting to global scope

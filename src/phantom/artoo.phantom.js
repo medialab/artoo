@@ -44,8 +44,8 @@
   };
 
   // Telling phantom the scraping is over
-  artoo.phantom.done = function(data) {
-    artoo.phantom.send('done', data);
+  artoo.phantom.done = function(err, data) {
+    artoo.phantom.send('done', {error: err, data: data});
   };
 
   // Alias

@@ -8,6 +8,16 @@ id: changelog
 
 ---
 
+## 0.3.1
+
+* Updating dependencies.
+* Updating phantomjs helpers.
+* Fixing cheerio integration.
+* Fixing `artoo.scrape`'s recursion thanks to @slashdotdash.
+* Adding callback to `artoo.beep` thanks to @aileo.
+
+---
+
 ## 0.3.0
 
 * Several enhancements for uses within Phantom.js.

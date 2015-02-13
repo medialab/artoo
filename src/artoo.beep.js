@@ -36,7 +36,7 @@
     }
     else {
       sound = a1;
-      if (typeof a2 === 'function') 
+      if (typeof a2 === 'function')
         callback = a2;
       else if (typeof a2 !== 'undefined')
         throw Error('artoo.beep: second argument have to be a function.');
@@ -56,8 +56,8 @@
     var player = new Audio(artoo.settings.beep.endpoint + chosenSound + '.ogg');
     if(callback)
       player.addEventListener('ended', function() {
-          callback();
-        });
+        callback();
+      });
     player.play();
   };
 

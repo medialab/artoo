@@ -5,4 +5,4 @@
  * Requiring the node.js test suites.
  */
 
-var tests = require('./suites/node.test.js');
+require('./suites/node.test.js');

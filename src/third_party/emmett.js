@@ -6,7 +6,8 @@
    * @type {Object}
    */
   var __allowedOptions = {
-    once: 'boolean'
+    once: 'boolean',
+    scope: 'object'
   };
 
 
@@ -39,6 +40,8 @@
    * *******************
    *  - {?boolean} once   If true, the handlers will be unbound after the first
    *                      execution. Default value: false.
+   *  - {?object}  scope  If a scope is given, then the listeners will be called
+   *                      with this scope as "this".
    *
    * Variant 1:
    * **********
@@ -137,7 +140,7 @@
     // Variant 3:
     } else if (a && typeof a === 'object' && !Array.isArray(a))
       for (event in a)
-        Emitter.prototype.on.call(this, event, a[event], c);
+        Emitter.prototype.on.call(this, event, a[event], b);
 
     // Variant 4:
     else if (typeof a === 'function') {
@@ -165,50 +168,33 @@
 
 
   /**
-   * This method works exactly as the previous on, but will always add an
-   * options object with the key "once" set to true as the last parameter.
+   * This method works exactly as the previous #on, but will add an options
+   * object if none is given, and set the option "once" to true.
    *
-   * Variant 1:
-   * **********
-   * > myEmitter.once('myEvent', function(e) { console.log(e); });
-   *
-   * @param  {string}   event   The event to listen to.
-   * @param  {function} handler The function to bind.
-   * @return {Emitter}          Returns this.
-   *
-   * Variant 2:
-   * **********
-   * > myEmitter.once(
-   * >   ['myEvent1', 'myEvent2'],
-   * >   function(e) { console.log(e); }
-   * > );
-   *
-   * @param  {array}    events  The events to listen to.
-   * @param  {function} handler The function to bind.
-   * @return {Emitter}          Returns this.
-   *
-   * Variant 3:
-   * **********
-   * > myEmitter.once({
-   * >   myEvent1: function(e) { console.log(e); },
-   * >   myEvent2: function(e) { console.log(e); }
-   * > });
-   *
-   * @param  {object}  bindings An object containing pairs event / function.
-   * @return {Emitter}          Returns this.
-   *
-   * Variant 4:
-   * **********
-   * > myEmitter.once(function(e) { console.log(e); });
-   *
-   * @param  {function} handler The function to bind to every events.
-   * @return {Emitter}          Returns this.
+   * The polymorphism works exactly as with the #on method.
    */
-  Emitter.prototype.once = function(a, b) {
-    this.on.apply(
-      this,
-      Array.prototype.splice.call(arguments, 0).concat({ once: true })
-    );
+  Emitter.prototype.once = function(a, b, c) {
+    // Variant 1 and 2:
+    if (typeof b === 'function') {
+      c = c || {};
+      c.once = true;
+      this.on(a, b, c);
+
+    // Variants 3 and 4:
+    } else if (
+      // Variant 3:
+      (a && typeof a === 'object' && !Array.isArray(a)) ||
+      // Variant 4:
+      (typeof a === 'function')
+    ) {
+      b = b || {};
+      b.once = true;
+      this.on(a, b);
+
+    // No matching variant:
+    } else
+      throw new Error('Wrong arguments.');
+
     return this;
   };
 
@@ -376,7 +362,10 @@
         a = [];
 
         for (j = 0, m = handlers.length; j !== m; j += 1) {
-          handlers[j].handler.call(this, event);
+          handlers[j].handler.call(
+            'scope' in handlers[j] ? handlers[j].scope : this,
+            event
+          );
           if (!handlers[j].once)
             a.push(handlers[j]);
         }
@@ -419,6 +408,52 @@
     this._children.push(child);
 
     return child;
+  };
+
+  /**
+   * This returns an array of handler functions corresponding to the given
+   * event or every handler functions if an event were not to be given.
+   *
+   * @param  {?string} event Name of the event.
+   * @return {Emitter} Returns this.
+   */
+  function mapHandlers(a) {
+    var i, l, h = [];
+
+    for (i = 0, l = a.length; i < l; i++)
+      h.push(a[i].handler);
+
+    return h;
+  }
+
+  Emitter.prototype.listeners = function(event) {
+    var handlers = [],
+        k,
+        i,
+        l;
+
+    // If no event is passed, we return every handlers
+    if (!event) {
+      handlers = mapHandlers(this._handlersAll);
+
+      for (k in this._handlers)
+        handlers = handlers.concat(mapHandlers(this._handlers[k]));
+
+      // Retrieving handlers per children
+      for (i = 0, l = this._children.length; i < l; i++)
+        handlers = handlers.concat(this._children[i].listeners());
+    }
+
+    // Else we only retrieve the needed handlers
+    else {
+      handlers = mapHandlers(this._handlers[event]);
+
+      // Retrieving handlers per children
+      for (i = 0, l = this._children.length; i < l; i++)
+        handlers = handlers.concat(this._children[i].listeners(event));
+    }
+
+    return handlers;
   };
 
 
@@ -470,7 +505,7 @@
   /**
    * Version:
    */
-  Emitter.version = '2.0.0';
+  Emitter.version = '2.1.1';
 
 
   // Export:

@@ -110,7 +110,9 @@
         currentVersion = exists && jQuery.fn.jquery ? jQuery.fn.jquery : '0';
 
     // jQuery is already in a correct mood
-    if (exists && currentVersion.charAt(0) === desiredVersion.charAt(0)) {
+    if (exists &&
+        currentVersion.charAt(0) === desiredVersion.charAt(0) &&
+        currentVersion.charAt(2) === desiredVersion.charAt(2)) {
       artoo.log.verbose('jQuery already exists in this page ' +
                         '(v' + currentVersion + '). No need to load it again.');
 

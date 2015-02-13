@@ -1,12 +1,10 @@
 /*!
- * jQuery Simulate v1.0.1-pre - simulate browser mouse and keyboard events
+ * jQuery Simulate v1.0.1 - simulate browser mouse and keyboard events
  * https://github.com/jquery/jquery-simulate
  *
- * Copyright 2012 jQuery Foundation and other contributors
+ * Copyright jQuery Foundation and other contributors
  * Released under the MIT license.
  * http://jquery.org/license
- *
- * Date: Fri Aug 22 16:18:35 2014 -0400
  */
 
 ;(function(undefined) {
@@ -296,6 +294,7 @@
       simulateDrag: function() {
         var i = 0,
           target = this.target,
+          eventDoc = target.ownerDocument,
           options = this.options,
           center = options.handle === "corner" ? findCorner( target ) : findCenter( target ),
           x = Math.floor( center.x ),
@@ -316,14 +315,14 @@
             clientY: Math.round( y )
           };
 
-          this.simulateEvent( target.ownerDocument, "mousemove", coord );
+          this.simulateEvent( eventDoc, "mousemove", coord );
         }
 
-        if ( $.contains( document, target ) ) {
+        if ( $.contains( eventDoc, target ) ) {
           this.simulateEvent( target, "mouseup", coord );
           this.simulateEvent( target, "click", coord );
         } else {
-          this.simulateEvent( document, "mouseup", coord );
+          this.simulateEvent( eventDoc, "mouseup", coord );
         }
       }
     });

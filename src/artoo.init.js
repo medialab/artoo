@@ -54,8 +54,9 @@
                         'by the chrome extension.');
 
     // If in phantom, dependencies are loaded synchronously
-    if (artoo.browser.phantom) {
-      artoo.$ = window.jQuery.noConflict();
+    if (artoo.browser.phantomjs) {
+      artoo.$ = window.artooPhantomJQuery;
+      delete window.artooPhantomJQuery;
       artoo.jquery.applyPlugins();
       return artoo.emit('ready');
     }

@@ -28,11 +28,6 @@
     artoo.emit('phantom:' + head, body);
   };
 
-  // Requesting jquery
-  artoo.phantom.requestJQuery = function() {
-    artoo.phantom.send('jquery');
-  };
-
   // Killing phantom from the page for testing purposes
   artoo.phantom.exit = function(code) {
     artoo.phantom.send('exit', code);

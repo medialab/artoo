@@ -91,6 +91,9 @@
 
     <script type="text/javascript">
 
+      // Offering jQuery
+      window.artooPhantomJQuery = jQuery;
+
       // Tweaking mockjax
       $.mockjaxSettings.responseTime = 10;
       $.mockjaxSettings.log = function() {};
@@ -103,6 +106,7 @@
 
       // Launching tests when artoo is ready
       artoo.on('ready', function() {
+        console.log(artoo.$)
         if (window.mochaPhantomJS) {
           mochaPhantomJS.run();
         } else {

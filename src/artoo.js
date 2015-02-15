@@ -24,6 +24,11 @@
     // Standard properties
     $: {},
     jquery: {
+      applyPlugins: function() {
+        artoo.jquery.plugins.map(function(p) {
+          p(artoo.$);
+        });
+      },
       plugins: []
     },
     mountNode: body,

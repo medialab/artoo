@@ -53,14 +53,20 @@
       artoo.log.verbose('artoo has automatically been injected ' +
                         'by the chrome extension.');
 
+    // If in phantom, dependencies are loaded synchronously
+    if (artoo.browser.phantom) {
+      artoo.$ = window.jQuery.noConflict();
+      artoo.jquery.applyPlugins();
+      return artoo.emit('ready');
+    }
+
+
     // Injecting dependencies
     function injectJquery(cb) {
       artoo.jquery.inject(function() {
 
         // Applying jQuery plugins
-        artoo.jquery.plugins.map(function(p) {
-          p(artoo.$);
-        });
+        artoo.jquery.applyPlugins();
 
         cb();
       });

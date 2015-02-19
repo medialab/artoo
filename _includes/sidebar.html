@@ -7,13 +7,12 @@
   <div class="sidebar-item">
     <p align="center">
       <a href='{{ site.baseurl }}/'>
-        <img alt="artoo" width="148" height="148" src="{{ site.baseurl }}/public/img/artoo-icon.svg" />
+        <img alt="artoo" width="120" height="120" src="{{ site.baseurl }}/public/img/artoo-icon.svg" />
       </a>
     </p>
   </div>
 
   <nav class="sidebar-nav">
-    <a class="sidebar-nav-item{% if page.id == 'home' %} active{% endif %}" href="{{ site.baseurl }}/">Home</a>
     {% for node in site.sidebar %}
       {% if node != 'sep' %}
         <a class="sidebar-nav-item{% if page.id == node.url %} active{% endif %}" href="{{ site.baseurl }}/{{ node.url }}">{{ node.title }}</a>

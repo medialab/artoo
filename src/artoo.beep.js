@@ -39,7 +39,7 @@
       if (typeof a2 === 'function')
         callback = a2;
       else if (typeof a2 !== 'undefined')
-        throw Error('artoo.beep: second argument have to be a function.');
+        throw Error('artoo.beep: second argument has to be a function.');
     }
 
     if (artoo.helpers.isArray(sound))

@@ -33,7 +33,7 @@ Now that you have installed **artoo.js** let's scrape the famous *Hacker News* i
 </ol>
 
 ```js
-artoo.scrape('td.title:has(a):not(:last)', {
+artoo.scrape('td.title:nth-child(3)', {
   title: {sel: 'a'},
   url: {sel: 'a', attr: 'href'}
 }, artoo.savePrettyJson);

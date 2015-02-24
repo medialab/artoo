@@ -18,7 +18,7 @@ id: hacker_news
 <h2 id="basic">Getting basic data</h2>
 
 ```js
-artoo.scrape('td.title:has(a):not(:last)', {
+artoo.scrape('td.title:nth-child(3)', {
   title: {sel: 'a'},
   url: {sel: 'a', attr: 'href'}
 }, artoo.savePrettyJson);

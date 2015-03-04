@@ -60,7 +60,6 @@ That's it. You've just scraped *Hacker News* front page and downloaded the data 
 * **Content expansion**: Expand pages' content programmatically thanks to [artoo.autoExpand]({{ site.baseurl }}/expand) utilities.
 * **Store**: stash persistent data in the localStorage with artoo's handy [abstraction]({{ site.baseurl }}/store).
 * **Sniffers**: hook on XHR requests to retrieve circulating data with a variety of [tools]({{ site.baseurl }}/sniffers).
-* **Instructions**: record the [instructions]({{ site.baseurl }}/instructions) typed into the console and save them for later use.
 * **jQuery**: [jQuery]({{ site.baseurl }}/jquery) is injected alongside artoo in the pages you visit so you can handle the DOM easily.
 * **Custom bookmarklets**: you can use artoo as a framework and easily create custom bookmarklets to execute your code.
 * **User Interfaces**: build parasitic user interfaces easily with a creative [usage]({{ site.baseurl }}/ui) of Shadow DOM.
@@ -71,7 +70,7 @@ That's it. You've just scraped *Hacker News* front page and downloaded the data 
 <h2 id="philosophy">Philosophy</h2>
 > &laquo; *Why on earth should I scrape on my browser? Isn't this insane?* &raquo;
 
-Well, before quitting the present documentation and run back to your beloved scrapy<sup><small>&copy;</small></sup> spiders, you should pause for a minute or two and read the reasons why **artoo.js** has made the choice of client-side scraping.
+Well, before quitting the present documentation and run back to your beloved spiders, you should pause for a minute or two and read the reasons why **artoo.js** has made the choice of client-side scraping.
 
 Usually, the scraping process occurs thusly: we find sites from which we need to retrieve data and we consequently build a program whose goal is to fetch those site's html and parse it to get what we need.
 

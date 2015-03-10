@@ -333,6 +333,7 @@
         n,
         j,
         m,
+        z,
         a,
         event,
         child,
@@ -362,15 +363,33 @@
         a = [];
 
         for (j = 0, m = handlers.length; j !== m; j += 1) {
-          handlers[j].handler.call(
-            'scope' in handlers[j] ? handlers[j].scope : this,
-            event
-          );
-          if (!handlers[j].once)
-            a.push(handlers[j]);
+
+          // We have to verify that the handler still exists in the array,
+          // as it might have been mutated already
+          if (
+            (
+              this._handlers[eventName] &&
+              this._handlers[eventName].indexOf(handlers[j]) >= 0
+            ) ||
+            this._handlersAll.indexOf(handlers[j]) >= 0
+          ) {
+            handlers[j].handler.call(
+              'scope' in handlers[j] ? handlers[j].scope : this,
+              event
+            );
+
+            // Since the listener callback can mutate the _handlers,
+            // we register the handlers we want to remove, not the ones
+            // we want to keep
+            if (handlers[j].once)
+              a.push(handlers[j]);
+          }
         }
 
-        this._handlers[eventName] = a;
+        // Go through handlers to remove
+        for (z = 0; z < a.length; z++) {
+          this._handlers[eventName].splice(a.indexOf(a[z]), 1);
+        }
       }
     }
 
@@ -505,7 +524,7 @@
   /**
    * Version:
    */
-  Emitter.version = '2.1.1';
+  Emitter.version = '2.1.2';
 
 
   // Export:

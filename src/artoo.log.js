@@ -41,7 +41,7 @@
   // Return the logo ASCII array
   function robot() {
     return [
-      '  .-""-.   ',
+      '   .-""-.   ',
       '  /[] _ _\\  ',
       ' _|_o_LII|_ ',
       '/ | ==== | \\',

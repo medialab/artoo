@@ -8,6 +8,14 @@ id: changelog
 
 ---
 
+## 0.3.2
+
+* Updating external dependencies: `jquery`, `jquery-simulate`, `emmett`.
+* Safer jQuery injection routine.
+* Enhancing phantomjs integration.
+
+---
+
 ## 0.3.1
 
 * Updating dependencies.

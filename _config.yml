@@ -16,7 +16,7 @@ author:
   url:            https://github.com/Yomguithereal
 
 # Custom vars
-version:          0.3.1
+version:          0.3.2
 
 sidebar:
   - url: 'quick_start'

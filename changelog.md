@@ -21,8 +21,8 @@ id: changelog
 * Updating dependencies.
 * Updating phantomjs helpers.
 * Fixing cheerio integration.
-* Fixing `artoo.scrape`'s recursion thanks to @slashdotdash.
-* Adding callback to `artoo.beep` thanks to @aileo.
+* Fixing `artoo.scrape`'s recursion thanks to **@slashdotdash**.
+* Adding callback to `artoo.beep` thanks to **@aileo**.
 
 ---
 

@@ -18,7 +18,9 @@
     "url": "https://github.com/medialab/artoo"
   },
   "keywords": [
-    "scraping"
+    "datamining",
+    "scraping",
+    "webscraper"
   ],
   "license": {
     "type": "MIT",

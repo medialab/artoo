@@ -58,6 +58,9 @@
 
   // Converting an array of arrays into a CSV string
   function toCSVString(data, params) {
+    if (data.length === 0) {
+      return '';
+    }
     params = params || {};
 
     var header = params.headers || [],

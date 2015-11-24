@@ -33,6 +33,6 @@
 
   // Listening to page's messages
   window.addEventListener('message', function(e) {
-    console.log('received', e);
+    // console.log('received', e);
   }, false);
 }).call(this);

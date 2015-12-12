@@ -28,7 +28,7 @@ artoo.autoExpand(params, [callback]);
 
 *Concept*
 
-You can basically expand content on webpage by following two distincts approaches:
+You can basically expand content on webpage by following two distinct approaches:
 
 * Either you want a number of elements to grow and you can therefore indicate the selector of those elements to the `autoExpand` method and it will react based on this.
 * Or you can provide the method with some state searching functions like: can I expand content? or is content currently expanding?

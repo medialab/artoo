@@ -8,7 +8,7 @@ id: spiders
 
 ---
 
-**artoo.js**' spiders aims at triggering series of HTTP requests to collect some data.
+**artoo.js**' spiders aims at triggering a series of HTTP requests to collect some data.
 
 ---
 
@@ -17,7 +17,7 @@ id: spiders
 ----
 
 <h2 id="ajax">artoo.ajaxSpider</h2>
-An ajax spider aims at triggering a series of ajax requests and passing the accumulated data to a final callback.
+An ajax spider aimed at triggering a series of ajax requests and passing the accumulated data to a final callback.
 
 ```js
 artoo.ajaxSpider(urlList, [params, callback]);

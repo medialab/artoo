@@ -286,7 +286,7 @@ Furthermore, those helpers are often polymorphic and offer you a lot of differen
 
 ---
 
-**artoo**, more than just scraping lists and downloading files, is therefore able to expand or scroll web page's content programmatically, to save persistent data in the local storage or in remote databases, to inject scripts, to crawl different websites, to trigger series of ajax queries and a lot of other things you'll be able to find in the [methods]({{ site.baseurl }}/methods) compendium of this documentation.
+**artoo**, beyond just scraping lists and downloading files, is able to expand or scroll web page's content programmatically, to save persistent data in the local storage or in remote databases, to inject scripts, to crawl different websites, to trigger series of ajax queries and a lot of other things you'll be able to find in the [methods]({{ site.baseurl }}/methods) compendium of this documentation.
 
 ---
 

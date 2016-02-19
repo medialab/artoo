@@ -9,7 +9,7 @@
   },
   "scripts": {
     "lint": "eslint ./src ./test",
-    "test": "mocha -R spec --compilers js:babel-register ./test"
+    "test": "mocha --recursive -R spec --compilers js:babel-register ./test"
   },
   "repository": {
     "type": "git",

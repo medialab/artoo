@@ -22,10 +22,7 @@
     "scraping",
     "webscraper"
   ],
-  "license": {
-    "type": "MIT",
-    "url": "https://github.com/medialab/artoo/blob/master/LICENSE.txt"
-  },
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/medialab/artoo/issues"
   },

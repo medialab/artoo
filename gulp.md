@@ -151,7 +151,7 @@ var gulp = require('gulp'),
     artoo = require('gulp-artoo');
 
 gulp.task('bookmarklet', function() {
-  return artoo.src('./index.js')
+  return gulp.src('./index.js')
     .pipe(artoo())
     .pipe(rename('my-bookmark.js'))
     .pipe(gulp.dest('./build'));
@@ -167,7 +167,7 @@ var gulp = require('gulp'),
     artoo = require('gulp-artoo');
 
 gulp.task('bookmarklet', function() {
-  return artoo.src('./src/*.js')
+  return gulp.src('./src/*.js')
     .pipe(concat('my-bookmark.js'))
     .pipe(uglify())
     .pipe(artoo())
@@ -208,7 +208,7 @@ var files = [
 ];
 
 gulp.task('bookmarklet', function() {
-  return artoo.src(files)
+  return gulp.src(files)
     .pipe(gulpif('*.css'), artoo.stylesheet())
     .pipe(gulpif('*.tpl'), artoo.template())
     .pipe(concat('my-bookmark.js'))

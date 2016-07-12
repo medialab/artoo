@@ -1,6 +1,6 @@
 {
   "name": "artoo-js",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "The client-side scraping companion.",
   "main": "./build/artoo.node.js",
   "author": {

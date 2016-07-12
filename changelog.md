@@ -8,6 +8,14 @@ id: changelog
 
 ---
 
+## 0.3.3
+
+* Fixing `artoo.save*` methods for Firefox.
+* Fixing `artoo.saveTable` edge case (**@boogheta**).
+* Fixing `artoo.writers.csv` edge case (**@joscha**).
+
+---
+
 ## 0.3.2
 
 * Updating external dependencies: `jquery`, `jquery-simulate`, `emmett`.

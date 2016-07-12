@@ -76,12 +76,21 @@
 
       a.setAttribute('download', params.filename || '');
 
-      artoo.$(a).simulate('click');
+      // Firefox needs the link attached to the page's DOM
+      if ('document' in _root)
+        document.body.appendChild(a);
+
+      a.click();
+
+      if ('document' in _root)
+        document.body.removeChild(a);
       a = null;
 
       // Revoking the object URL if we want to
       if (params.revoke)
-        URL.revokeObjectURL(href);
+        setTimeout(function() {
+          URL.revokeObjectURL(href);
+        });
     };
 
     // Main interface

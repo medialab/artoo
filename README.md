@@ -15,23 +15,21 @@ Contributions are more than welcome. Feel free to submit any pull request as lon
 
 To install the development environment, clone your fork and use the following commands:
 
-```bash
-# Install dependencies
-npm install
+    # Install dependencies
+    npm install
 
-# Testing
-npm test
+    # Testing
+    npm test
 
-# Compiling dev & prod bookmarklets
-gulp bookmarklets
+    # Compiling dev & prod bookmarklets
+    grunt bookmarklets
 
-# Running a test server hosting the concatenated file
-npm start
+    # Running a test server hosting the concatenated file
+    npm start
 
-# Running a https server hosting the concatenated file
-# Note that you'll need some ssl keys (instructions to come...)
-npm run https
-```
+    # Running a https server hosting the concatenated file
+    # Note that you'll need some ssl keys (instructions to come...)
+    npm run https
 
 ## Authors
 **artoo.js** is being developed by [Guillaume Plique](https://github.com/Yomguithereal) @ SciencesPo - [médialab](http://www.medialab.sciences-po.fr/fr/).

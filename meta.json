@@ -1,10 +1,10 @@
 {
   "name": "artoo.js",
   "authors": ["Guillaume Plique"],
-  "url": "http://tools.medialab.sciences-po.fr/artoo.js/",
+  "url": "https://medialab.github.io/artoo/",
   "source": "https://github.com/medialab/artoo",
   "licence": "MIT",
-  "visual": "http://tools.medialab.sciences-po.fr/artoo.js/res/visual",
+  "visual": "",
   "description": "artoo.js - the client-side scraping companion.",
   "doc": ""
 }

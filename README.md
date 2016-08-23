@@ -22,7 +22,7 @@ To install the development environment, clone your fork and use the following co
     npm test
 
     # Compiling dev & prod bookmarklets
-    grunt bookmarklets
+    gulp bookmarklets
 
     # Running a test server hosting the concatenated file
     npm start

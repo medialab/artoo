@@ -123,7 +123,7 @@
             var contentType = xhr.getResponseHeader('Content-Type'),
                 data = xhr.response;
 
-            if (~contentType.search(/json/)) {
+            if (contentType && ~contentType.search(/json/)) {
               try {
                 data = JSON.parse(xhr.responseText);
               }
@@ -131,8 +131,14 @@
                 // pass...
               }
             }
-            else if (~contentType.search(/xml/)) {
+            else if (contentType && ~contentType.search(/xml/)) {
               data = xhr.responseXML;
+            } else {
+              try {
+                data = JSON.parse(xhr.responseText);
+              } catch (e) {
+                data = xhr.responseText;
+              }
             }
 
             callback.call(xhr, xhr._spy, {

@@ -33,8 +33,8 @@
           o.value = 
             "default-src *;" +
             "script-src * 'unsafe-inline' 'unsafe-eval';" +
-            "connect-src * 'unsafe-inline' 'unsafe-eval;" +
-            "style-src * 'unsafe-inline;";
+            "connect-src * 'unsafe-inline' 'unsafe-eval';" +
+            "style-src * 'unsafe-inline';";
       }
 
       return {

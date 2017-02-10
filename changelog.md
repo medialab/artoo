@@ -8,6 +8,12 @@ id: changelog
 
 ---
 
+## 0.3.4
+
+* Fixing `artoo.saveImage` by adding the `getExtension` helper back.
+
+---
+
 ## 0.3.3
 
 * Fixing `artoo.save*` methods for Firefox.

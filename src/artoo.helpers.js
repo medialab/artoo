@@ -104,6 +104,14 @@
     return -1;
   }
 
+  // Retrieve a file extenstion from filename or url
+  function getExtension(url) {
+    var a = url.split('.');
+
+    if (a.length === 1 || (a[0] === '' && a.length === 2))
+      return '';
+    return a.pop();
+  }
 
   /**
    * Document Helpers
@@ -406,6 +414,7 @@
     createDocument: createDocument,
     extend: extend,
     first: first,
+    getExtension: getExtension,
     indexOf: indexOf,
     isArray: isArray,
     isDocument: isDocument,

@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "artoo",
   "description": "The client-side scraping companion.",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "permissions": [
     "background",
     "webRequest",

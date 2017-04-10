@@ -57,7 +57,7 @@
         data = artoo.helpers.jquerify(data);
 
       if (params.scrape || params.scrapeOne) {
-        var chosenScraper = params.scrape ? 'scrape' : 'scrapeOne'
+        var chosenScraper = params.scrape ? 'scrape' : 'scrapeOne';
         result = artoo[chosenScraper](
           data.find(params[chosenScraper].iterator),
           params[chosenScraper].data,

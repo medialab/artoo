@@ -57,10 +57,11 @@
         data = artoo.helpers.jquerify(data);
 
       if (params.scrape || params.scrapeOne) {
-        result = artoo[params.scrape ? 'scrape' : 'scrapeOne'](
-          data.find(params.scrape.iterator),
-          params.scrape.data,
-          params.scrape.params
+        var chosenScraper = params.scrape ? 'scrape' : 'scrapeOne';
+        result = artoo[chosenScraper](
+          data.find(params[chosenScraper].iterator),
+          params[chosenScraper].data,
+          params[chosenScraper].params
         );
       }
       else if (typeof params.process === 'function') {

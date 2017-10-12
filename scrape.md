@@ -155,6 +155,15 @@ artoo.scrape('ul > li', {
 })
 ```
 
+Additionally, a reference to the current DOM element in the iteration is passed in as the second parameter to the function `function($, el)`. This will enable the use of arrow functions.
+
+```js
+artoo.scrape('ul > li', {
+  text: ($, el) => $(el).text(),
+  nb: ($, el) => +$(el).attr('data-nb')
+})
+```
+
 <h3 id="recursivity">Recursivity</h3>
 
 If you need recursivity within the `artoo.scrape` method, rather that calling the method itself in a function retriever, you can also pass an object with the scrape property like in the example below.

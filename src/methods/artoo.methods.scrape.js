@@ -23,7 +23,7 @@
       val = o.call(scope, $);
     }
     else if (typeof o.method === 'function')
-      val = o.method.call($sel.get(), $);
+      val = o.method.call($sel.get(), $, $sel.get());
     else if (typeof o === 'string') {
       if (typeof $sel[o] === 'function')
         val = $sel[o]();

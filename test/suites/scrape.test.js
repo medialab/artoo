@@ -211,6 +211,25 @@
           artoo.scrape(id + ' .views-row', {
             url: {
               sel: 'a',
+              method: function($, el) {
+                return $(el).attr('href');
+              }
+            },
+            title: {
+              sel: 'a',
+              method: function($, el) { 
+                return $(el).text();
+              }
+            }
+          }),
+          list,
+          'Scraping the list with methods el param should return the correct array.'
+        );
+
+        assert.deepEqual(
+          artoo.scrape(id + ' .views-row', {
+            url: {
+              sel: 'a',
               method: function() {
                 return;
               },

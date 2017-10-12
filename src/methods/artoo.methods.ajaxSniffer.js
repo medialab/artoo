@@ -113,43 +113,37 @@
 
       // Binding a deviant listener
       this.listeners.push({criteria: '*', fn: function() {
-        var xhr = this,
-            originalCallback = xhr.onreadystatechange;
+        var xhr = this;
 
-        xhr.onreadystatechange = function() {
-          if (xhr.readyState === XMLHttpRequest.prototype.DONE) {
+        xhr.addEventListener('load', function() {
 
-            // Retrieving data as per response headers
-            var contentType = xhr.getResponseHeader('Content-Type'),
-                data = xhr.response;
+          // Retrieving data as per response headers
+          var contentType = xhr.getResponseHeader('Content-Type'),
+              data = xhr.response;
 
-            if (contentType && ~contentType.search(/json/)) {
-              try {
-                data = JSON.parse(xhr.responseText);
-              }
-              catch (e) {
-                // pass...
-              }
+          if (contentType && ~contentType.search(/json/)) {
+            try {
+              data = JSON.parse(xhr.responseText);
             }
-            else if (contentType && ~contentType.search(/xml/)) {
-              data = xhr.responseXML;
-            } else {
-              try {
-                data = JSON.parse(xhr.responseText);
-              } catch (e) {
-                data = xhr.responseText;
-              }
+            catch (e) {
+              // pass...
             }
-
-            callback.call(xhr, xhr._spy, {
-              data: data,
-              headers: artoo.parsers.headers(xhr.getAllResponseHeaders())
-            });
+          }
+          else if (contentType && ~contentType.search(/xml/)) {
+            data = xhr.responseXML;
+          } else {
+            try {
+              data = JSON.parse(xhr.responseText);
+            } catch (e) {
+              data = xhr.responseText;
+            }
           }
 
-          if (typeof originalCallback === 'function')
-            originalCallback.apply(xhr, arguments);
-        };
+          callback.call(xhr, xhr._spy, {
+            data: data,
+            headers: artoo.parsers.headers(xhr.getAllResponseHeaders())
+          });
+        }, false);
       }});
     };
 

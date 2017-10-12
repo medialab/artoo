@@ -8,6 +8,13 @@ id: changelog
 
 ---
 
+## 0.4.0
+
+* Adding the current dom element as second argument to the `artoo.scrape` callbacks (**jbryson3**).
+* Fixing `artoo.ajaxSniffer.after`.
+
+---
+
 ## 0.3.4
 
 * Fixing `artoo.saveImage` by adding the `getExtension` helper back.
@@ -17,7 +24,7 @@ id: changelog
 ## 0.3.3
 
 * Fixing `artoo.save*` methods for Firefox.
-* Fixing `artoo.saveTable` edge case (**@boogheta**).
+* Fixing `artoo.scrapeTable` edge case (**@boogheta**).
 * Fixing `artoo.writers.csv` edge case (**@joscha**).
 
 ---

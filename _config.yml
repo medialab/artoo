@@ -36,6 +36,8 @@ sidebar:
     title: 'Chrome extension'
   - url: 'gulp'
     title: 'Gulp plugin'
+  - url: 'generator'
+    title: 'Bookmarklet generator'
   - sep
   - url: 'changelog'
     title: 'Changelog'

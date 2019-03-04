@@ -74,7 +74,7 @@ Requesting the [async](https://github.com/caolan/async) library through a cdn.
 
 * **name** *string* : name of the dependency as registered in `artoo.deps`.
 * **url** *string* : remote url where it is possible to load the dependency.
-* **globals** *string|array* : array of variable names or single variable names that will be injected to the global scope by the loaded dependency so we can track inject them safely.
+* **globals** *string or array* : array of variable names or single variable names that will be injected to the global scope by the loaded dependency so we can track inject them safely.
 * **force** *?boolean* [`false`] : should the dependency be forced into the global scope?
 
 *Usage*

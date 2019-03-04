@@ -71,7 +71,7 @@ grunt.initConfig({
 #### Root
 
 * **options** *?object* : an object of options for the task.
-* **src** *?string | ?array* : files to compile with the bookmarklet.
+* **src** *?string or ?array* : files to compile with the bookmarklet.
 * **dest** *?string* [`./targetName.bookmarklet.min.js`] : destination for the created bookmarklet.
 
 #### Options

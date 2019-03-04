@@ -50,7 +50,7 @@ artoo.scrape('li', {id: 'id', content: 'text'});
 
 ### Arguments
 
-* **iterator**  *css selector | jQuery selector | function* : the selection of the elements on which you want to iterate or, alternatively, a function returning this selection.
+* **iterator**  *css selector or jQuery selector or function* : the selection of the elements on which you want to iterate or, alternatively, a function returning this selection.
 * **model**     *mixed* : the model of the data you want to scrape and its retrievers.
 * **params**    *?object* : an object of optional parameters.
   * **limit**   *?integer* : the number of items you want to scrape if you do not want each of them.
@@ -120,9 +120,9 @@ Possible properties for a retriever object are the following:
 
 * **attr** *?string* : an attribute to retrieve.
 * **defaultValue** *?mixed* : a default value to return in case the retriever would return a falsy value or `NaN`.
-* **method** *?string | ?function* : the name of a jQuery element method like `text` or `html` or a custom function.
+* **method** *?string or ?function* : the name of a jQuery element method like `text` or `html` or a custom function.
 * **scrape** *?object* : helper for recursivity. See [recursivity](#recursivity) for complete documentation.
-* **sel** *?css Selector | ?jQuery selector* : a subselector for the retriever (will apply `.find(sel)` to the current element in iteration). If a `method` property is given as a function, `$(this)` will correspond to this subselection.
+* **sel** *?css Selector or ?jQuery selector* : a subselector for the retriever (will apply `.find(sel)` to the current element in iteration). If a `method` property is given as a function, `$(this)` will correspond to this subselection.
 
 
 
@@ -219,7 +219,7 @@ artoo.scrapeTable(selector, [params, callback]);
 
 *Arguments*
 
-* **selector** *css selector | jQuery selector* : the root selector of the table you need to scrape.
+* **selector** *css selector or jQuery selector* : the root selector of the table you need to scrape.
 * **params** *?object* : an object of optional parameters.
   * **limit** *?integer* : the number of items you want to scrape if you do not want each of them.
   * **headers** *?mixed*: see below.

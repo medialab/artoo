@@ -103,7 +103,7 @@ artoo.saveCsv(data, [params]);
 * **delimiter** *?string* [`,`] : the field delimiter.
 * **escape**    *?string* [`"`] : the escape character.
 * **order**     *?array* : the wanted keys and their order if you pass an array of object as `data`.
-* **headers**   *?boolean | ?array* : whether you want headers and if you want them customized.
+* **headers**   *?boolean or ?array* : whether you want headers and if you want them customized.
 
 *Example*
 

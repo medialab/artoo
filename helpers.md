@@ -340,7 +340,7 @@ artoo.writers.csv(data, [params]);
   * **delimiter**        *?string* [`,`] : The field delimiter.
   * **escape**  *?string* [`"`] : The escape character for the fields and the field delimiter.
   * **order** *?array* : if you pass an array of objects, the wanted keys and their order.
-  * **headers** *?boolean | ?array* : if false, the fonction won't add a header line. If you provide an array, the header line will follow it. Note that, by default, a header line is added when an array of object is passed as `data`.
+  * **headers** *?boolean or ?array* : if false, the fonction won't add a header line. If you provide an array, the header line will follow it. Note that, by default, a header line is added when an array of object is passed as `data`.
 
 *Example*
 

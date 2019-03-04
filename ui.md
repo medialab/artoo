@@ -61,7 +61,7 @@ var ui = new artoo.ui(params);
 
 * **name** *?string* : optional ui identifier.
 * **mountNode** *?DOMElement* : the ui's Shadow DOM mount node. If none is provided, the body of the page will serve as the ui's mount node.
-* **stylesheets** *?string|array* : An array of stylesheets names or a single stylesheet name to be injected from `artoo.stylesheets`.
+* **stylesheets** *?string or array* : An array of stylesheets names or a single stylesheet name to be injected from `artoo.stylesheets`.
 
 *Properties*
 

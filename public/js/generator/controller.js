@@ -38,7 +38,7 @@
 
     // Attempting to uglify the given code
     try {
-      minified = UglifyJS.minify(e.data.code);
+      minified = Terser.minify(e.data.code).code;
     }
     catch (e) {
       console.log(e);
@@ -66,7 +66,7 @@
     );
 
     // Bookmarklet
-    var bookmarklet = 'javascript: ' + UglifyJS.minify(code);
+    var bookmarklet = 'javascript: ' + Terser.minify(code).code;
 
     controller.update('bookmarklet', {name: e.data.name, string: bookmarklet});
     controller.emit('feedback', {

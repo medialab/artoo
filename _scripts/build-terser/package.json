@@ -1,0 +1,17 @@
+{
+  "name": "build-terser",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --colors --progress -p && cp terser.min.js ../../public/js/libs/"
+  },
+  "author": "yomguithereal <kropotkinepiotr@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "terser": "^4.3.9",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
+  }
+}

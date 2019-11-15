@@ -24,6 +24,17 @@ This nice droid is loaded into the JavaScript context of any webpage through a h
 
 ---
 
+## Disclaimer
+
+Web security has widely improved in the last years and most websites prevent JavaScript code injection nowadays by relying on [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) headers.
+
+But fear not, it is always possible to shunt them using browser extensions and/or proper configuration:
+
+* For chrome see the [Disable Content-Security-Policy](https://chrome.google.com/webstore/detail/disable-content-security/ieelmcmcagommplceebfedjlakkhpden) extension, for instance
+* For firefox, check [this](https://stackoverflow.com/a/27324485) stackoverflow response explaining how to shunt CSP
+
+---
+
 <h2>Bootcamp</h2>
 
 Now that you have installed **artoo.js** let's scrape the famous *Hacker News* in four painless steps:
@@ -63,7 +74,6 @@ That's it. You've just scraped *Hacker News* front page and downloaded the data 
 * **jQuery**: [jQuery]({{ site.baseurl }}/jquery) is injected alongside artoo in the pages you visit so you can handle the DOM easily.
 * **Custom bookmarklets**: you can use artoo as a framework and easily create custom bookmarklets to execute your code.
 * **User Interfaces**: build parasitic user interfaces easily with a creative [usage]({{ site.baseurl }}/ui) of Shadow DOM.
-* **Chrome extension**: trying to scrape a nasty page abiding by some sneaky HTML5 rules? Here, have a [chrome extension]({{ site.baseurl }}/chrome).
 
 ---
 

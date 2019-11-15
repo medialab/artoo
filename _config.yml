@@ -32,8 +32,6 @@ sidebar:
     title: 'jQuery injection'
   - url: 'node'
     title: 'Node.js'
-  - url: 'chrome'
-    title: 'Chrome extension'
   - url: 'gulp'
     title: 'Gulp plugin'
   - url: 'generator'

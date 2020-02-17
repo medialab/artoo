@@ -8,6 +8,12 @@ id: changelog
 
 ---
 
+## 0.4.1
+
+* Fixing `artoo.ui` after Shadow DOM API deprecations.
+
+---
+
 ## 0.4.0
 
 * Adding the current dom element as second argument to the `artoo.scrape` callbacks (**jbryson3**).

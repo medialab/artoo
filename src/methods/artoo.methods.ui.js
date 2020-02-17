@@ -30,7 +30,7 @@
     this.mountNode.appendChild(this.host);
 
     // Properties
-    this.shadow = this.host.createShadowRoot();
+    this.shadow = this.host.attachShadow({mode: 'open'});
 
     // Methods
     function init() {

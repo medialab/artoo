@@ -104,7 +104,7 @@ ui.injectStyle(stylesheetName);
 Inject a CSS style string into the ui's Shadow DOM.
 
 ```js
-ui.injectStyle(styleString);
+ui.injectInlineStyle(styleString);
 ```
 
 ---

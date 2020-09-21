@@ -9,7 +9,6 @@ var gulp = require('gulp'),
     rename = require('gulp-rename'),
     header = require('gulp-header'),
     webserver = require('gulp-webserver'),
-    seq = require('run-sequence'),
     pkg = require('./package.json');
 
 // Utilities
@@ -78,11 +77,6 @@ gulp.task('browser-test', function() {
     .pipe(phantomMocha({reporter: 'spec'}));
 });
 
-gulp.task('node-test', ['build'], function() {
-  return gulp.src('./test/endpoint.js')
-    .pipe(mocha({reporter: 'spec'}));
-});
-
 // Linting
 gulp.task('lint', function() {
   var avoidFlags = {
@@ -100,32 +94,35 @@ gulp.task('lint', function() {
 });
 
 // Building
-function build(name, files) {
+function build_one(name, files) {
   return gulp.src(jsFiles.concat(name !== 'concat' ? files : []))
     .pipe(concat('artoo.' + name + '.js'))
     .pipe(gulp.dest('./build'));
 }
 
-gulp.task('build', function() {
-
-  // Browser version
-  build('concat')
+function browser() {
+  return build_one('concat')
     .pipe(uglify())
     .pipe(header('/* artoo.js - <%= description %> - Version: <%= version %> - Author: <%= author.name %> - medialab SciencesPo */\n', pkg))
     .pipe(rename('artoo.min.js'))
     .pipe(gulp.dest('./build'));
+};
 
-  // Chrome version
-  build('chrome', chromeFiles);
+function chrome() {
+  return build_one('chrome', chromeFiles);
+};
 
-  // Phantom version
-  build('phantom', phantomFiles);
+function phantom() {
+  return build_one('phantom', phantomFiles);
+};
 
-  // Node.js version
-  gulp.src(nodeFiles)
+function nodefiles() {
+  return gulp.src(nodeFiles)
     .pipe(concat('artoo.node.js'))
     .pipe(gulp.dest('./build'));
-});
+};
+
+var build = gulp.series(browser, chrome, phantom, nodefiles);
 
 // Bookmarklets
 gulp.task('bookmarklet.dev', function() {
@@ -160,9 +157,9 @@ gulp.task('bookmarklet.edge', function() {
 });
 
 // Watching
-gulp.task('watch', ['build'], function() {
+gulp.task('watch', gulp.series(build, function() {
   gulp.watch(jsFiles, ['build']);
-});
+}));
 
 // Serving
 gulp.task('serve', function() {
@@ -180,11 +177,18 @@ gulp.task('serve.https', function() {
     }));
 });
 
+gulp.task('node-test', gulp.series(build, function() {
+  return gulp.src('./test/endpoint.js')
+    .pipe(mocha({reporter: 'spec'}));
+}));
+
+exports.build = build
+
 // Macro-tasks
-gulp.task('bookmarklets', ['bookmarklet.dev', 'bookmarklet.prod', 'bookmarklet.edge']);
-gulp.task('test', function(next) {
-  seq('browser-test', 'node-test', next);
-});
-gulp.task('work', ['watch', 'serve']);
-gulp.task('https', ['watch', 'serve.https']);
-gulp.task('default', ['lint', 'test', 'build']);
+exports.bookmarklets = gulp.series('bookmarklet.dev', 'bookmarklet.prod', 'bookmarklet.edge');
+var test = gulp.series('browser-test', 'node-test');
+exports.test = test
+exports.work = gulp.series('watch', 'serve');
+exports.https = gulp.series('watch', 'serve.https');
+exports.default = gulp.series('lint', test, build);
+exports.chrome = chrome

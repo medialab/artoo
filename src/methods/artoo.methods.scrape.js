@@ -187,7 +187,7 @@
       }
       else if (headerType === 'first') {
         headers = artoo.scrape(
-          sel + ' tr:has(td):first td',
+          sel + ' tr:has(td):first-of-type td',
           headerFn || 'text'
         );
       }
@@ -201,13 +201,13 @@
       // Scraping
       return artoo.scrape(
         sel + ' tr:has(td)' +
-        (headerType === 'first' ? ':not(:first)' : ''), function() {
+        (headerType === 'first' ? ':not(:first-of-type)' : ''), function() {
           var o = {};
 
           headers.forEach(function(h, i) {
             o[h] = step(
               params.data || 'text',
-              $(this).find('td:eq(' + i + ')')
+              $(this).find('td:nth-of-type(' + (i + 1) + ')')
             );
           }, this);
 

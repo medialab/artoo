@@ -6,3 +6,4 @@
  */
 
 require('./suites/node.test.js');
+require('./suites/node.scrape.test.js');

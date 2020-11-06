@@ -163,11 +163,11 @@
     
     params = params || {};
 
-    var sel = typeof root !== 'string' ? root.selector : root,
+    var sel = root,
         headers;
 
     if (!params.headers) {
-      return artoo.scrape(sel + ' tr:has(td)', {
+      return artoo.scrape($(sel).find('tr:has(td)'), {
         scrape: {
           iterator: 'td',
           data: params.data || 'text'
@@ -182,12 +182,12 @@
 
       if (headerType === 'th') {
         headers = artoo.scrape(
-          sel + ' th', headerFn || 'text'
+          $(sel).find('th'), headerFn || 'text'
         );
       }
       else if (headerType === 'first') {
         headers = artoo.scrape(
-          sel + ' tr:has(td):first-of-type td',
+          $(sel).find(' tr:has(td):first-of-type td'),
           headerFn || 'text'
         );
       }
@@ -200,8 +200,8 @@
 
       // Scraping
       return artoo.scrape(
-        sel + ' tr:has(td)' +
-        (headerType === 'first' ? ':not(:first-of-type)' : ''), function() {
+        $(sel).find('tr:has(td)' +
+        (headerType === 'first' ? ':not(:first-of-type)' : '')), function() {
           var o = {};
 
           headers.forEach(function(h, i) {

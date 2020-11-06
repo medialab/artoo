@@ -57,7 +57,7 @@
         assert.deepEqual(
           artoo.scrape(
             function($) {
-              return $(id + ' li > a:first').add(id + ' li > a:last');
+              return $(id + ' li:first-of-type > a').add(id + ' li:last-of-type > a');
             }
           ),
           [titleList[0], titleList[3]],
@@ -365,7 +365,7 @@
         assert.deepEqual(
           artoo.scrapeOne(id + ' > ul', {
             title: {
-              sel: 'li:first > span'
+              sel: 'li:first-of-type > span'
             },
             items: {
               sel: 'li:nth-child(2)',
@@ -403,7 +403,7 @@
         });
 
         assert.deepEqual(
-          artoo.scrape(id + ' .reference tr:not(:first)', {
+          artoo.scrape(id + ' .reference tr:not(:first-of-type)', {
             scrape: {
               iterator: 'td',
               data: 'text'
@@ -426,10 +426,10 @@
         );
 
         assert.deepEqual(
-          artoo.scrape(id + ' .reference tr:not(:first)', {
-            firstname: {sel: 'td:first'},
-            lastname: {sel: 'td:eq(1)'},
-            points: {sel: 'td:eq(2)'}
+          artoo.scrape(id + ' .reference tr:not(:first-of-type)', {
+            firstname: {sel: 'td:first-of-type'},
+            lastname: {sel: 'td:nth-of-type(2)'},
+            points: {sel: 'td:nth-of-type(3)'}
           }),
           objects,
           'Scraping the list more easily should return the correct array of objects'

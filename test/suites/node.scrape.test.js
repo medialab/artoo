@@ -21,7 +21,6 @@ helpers = {
         var $newDom = cheerio.load('<div id="' + name + '"></div>');
         artoo.setContext($newDom)
         $newDom('#' + name).append(readFile(__dirname + '/../resources/' + name + '.html'));
-        artoo.setContext($newDom)
         $ = $newDom
         cb('#' + name);
     }

@@ -8,6 +8,12 @@ id: changelog
 
 ---
 
+## 0.4.3
+
+* Fixing `artoo.scrapeTable` for node.js (**@0xc0d3c5**).
+
+---
+
 ## 0.4.2
 
 * Fixing outdated jQuery selectors (**@0xc0d3c5**).

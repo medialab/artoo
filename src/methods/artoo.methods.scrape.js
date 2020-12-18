@@ -20,7 +20,7 @@
 
     // Polymorphism
     if (typeof o === 'function') {
-      val = o.call(scope, $);
+      val = o.call(scope, $, $sel.get());
     }
     else if (typeof o.method === 'function')
       val = o.method.call($sel.get(), $, $sel.get());
@@ -160,7 +160,7 @@
   // TODO: better header handle
   artoo.scrapeTable = function(root, params, cb) {
     var $ = artoo.$;
-    
+
     params = params || {};
 
     var sel = root,

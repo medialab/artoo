@@ -10,7 +10,7 @@ id: chrome
 
 **artoo.js** can also be used as a chrome extension.
 
-This is rather an experimental feature and can only perform two things for the time being:
+This is a rather experimental feature and can only perform two things for the time being:
 
 * It can inject **artoo.js** in every page you visit.
 * It can override pages' responses headers in order to shunt `Content-Security-Policy` headers.

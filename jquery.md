@@ -19,7 +19,7 @@ id: jquery
 
 <h2 id="why">Why jQuery?</h2>
 
-It would be an understatement to say that jQuery is useless when it comes to DOM parsing and AJAX queries. This is indeed a nice and widely used library and anyone who tried to scrape data from HTML with jQuery once may have a lot of regrets while returning to XPath&#42;.
+It would be an understatement to say that jQuery is useless when it comes to DOM parsing and AJAX queries. This is indeed a nice and widely used library and anyone who has tried to scrape data from HTML with jQuery may have a lot of regrets when returning to XPath&#42;.
 
 So, in order to make your scraping jobs an agreable moment, **artoo.js** injects jQuery within the page you are browsing.
 
@@ -41,7 +41,7 @@ The logic followed by the jQuery injection is the following:
 
 <h2 id="settings">jQuery settings</h2>
 
-If you find exhausting to use `artoo.$` in pages where **artoo** thinks he should not override another `$` variable and if you know for sure that reassigning it won't cause trouble, you are obviously free to do so.
+If you find it exhausting to use `artoo.$` in pages where **artoo** thinks he should not override another `$` variable and if you know for sure that reassigning it won't cause trouble, you are obviously free to do so.
 
 ```js
 var $ = artoo.$;
@@ -75,7 +75,7 @@ $('.class').scrape(params);
 
 <h2 id="dollar">$ in artoo's functions</h2>
 
-Knowing that you may not be able to access easily jQuery through the global `$`, **artoo.js** gives access to his internal jQuery instance in some of his methods callbacks. This is for instance the case for the `artoo.scrape` method.
+Knowing that you may not be able to easily access jQuery through the global `$`, **artoo.js** gives access to his internal jQuery instance in some of his methods callbacks. This is the case for the `artoo.scrape` method.
 
 *Example*
 

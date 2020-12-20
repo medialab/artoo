@@ -43,7 +43,7 @@ artoo.save(data, [params]);
 artoo.save(data, [filename]);
 ```
 
-Note that if the second argument is a string it will be considered as `params.filename`. This is true for every othe save method.
+Note that if the second argument is a string it will be considered as `params.filename`. This is true for every other save method.
 
 *Arguments*
 

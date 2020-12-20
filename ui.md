@@ -16,7 +16,7 @@ Sometimes, when designing a tool or a bookmarklet for non-dev people, you might 
 
 *Example*
 
-You want to design a *à la carte* Google Scholar scraper for researchers.
+You want to design an *à la carte* Google Scholar scraper for researchers.
 
 You would be able, through the library's UI methods, to display a div with a fixed position on a Google Scholar result page proposing some options to the user as a button to finally download the scraped data as a CSV file.
 
@@ -52,6 +52,7 @@ The *artoo.ui* class can be instantiated to create a Shadow DOM instance within 
 The main advantage of Shadow DOM in our case is that it will only abide by its own CSS style and not the one of the host page which is incredibly handy when designing parasitic interfaces.
 
 Note however that the Shadow DOM implementations are quite recent and that it will require a fairly modern browser to work.
+[Browsers that support Shadow DOM](http://caniuse.com/#search=shadow%20dom)
 
 ```js
 var ui = new artoo.ui(params);

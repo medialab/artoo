@@ -80,13 +80,13 @@ That's it. You've just scraped *Hacker News* front page and downloaded the data 
 <h2 id="philosophy">Philosophy</h2>
 > &laquo; *Why on earth should I scrape on my browser? Isn't this insane?* &raquo;
 
-Well, before quitting the present documentation and run back to your beloved spiders, you should pause for a minute or two and read the reasons why **artoo.js** has made the choice of client-side scraping.
+Well, before quitting the present documentation and running back to your beloved spiders, you should pause for a minute or two and read the reasons why **artoo.js** has made the choice of client-side scraping.
 
 Usually, the scraping process occurs thusly: we find sites from which we need to retrieve data and we consequently build a program whose goal is to fetch those site's html and parse it to get what we need.
 
 The only problem with this process is that, nowadays, websites are not just plain html. We need cookies, we need authentication, we need JavaScript execution and a million other things to get proper data.
 
-So, by the days, to cope with this harsh reality, our scraping programs became complex monsters being able to execute JavaScript, authenticate on websites and mimic human behaviour.
+To cope with this harsh reality, our scraping programs became complex monsters being able to execute JavaScript, authenticate on websites and mimic human behaviour.
 
 But, if you sit back and try to find other programs able to perform all those things, you'll quickly come to this observation:
 
@@ -94,13 +94,12 @@ Aren't we trying to rebuild **web browsers**?
 
 ---
 
-So why shouldn't we take advantage of this and start scraping within the cosy environment of web browsers? It has become really easy today to execute JavaScript in a
-a browser's console and this is exactly what **artoo.js** is doing.
+So why shouldn't we take advantage of this and start scraping within the cosy environment of web browsers? It has become really easy today to execute JavaScript in a browser's console and this is exactly what **artoo.js** is doing.
 
 Using browsers as scraping platforms comes with a lot of advantages:
 
 * **Fast coding**: You can prototype your code live thanks to JavaScript browsers' REPL and peruse the DOM with tools specifically built for web development.
-* **No more authentication issues**: No longer need to deploy clever solutions to enable your spiders to authenticate on the website you intent to scrape. You are already authenticated on your browser as a human being.
+* **No more authentication issues**: No need to deploy clever solutions to enable your spiders to authenticate on the website you intent to scrape. You are already authenticated on your browser as a human being.
 * **Tools for non-devs**: You can easily design tools for non-dev people. One could easily build an application with a UI on top of **artoo.js**. Moreover, it gives you the possibility to create bookmarklets on the fly to execute your personnal scripts.
 
 ---

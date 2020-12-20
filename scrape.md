@@ -10,9 +10,9 @@ id: scrape
 
 **artoo.js**' main goal is to provide you with some useful scraping helpers and this is precisely what the following methods do.
 
-It is advisable, however, to check the [quick start]({{ site.baseurl }}/quick_start) section of this documentation to find a less exhaustive but more didactic presentation of `artoo.scrape` method.
+It is advisable, however, to check the [quick start]({{ site.baseurl }}/quick_start) section of this documentation to find a less exhaustive but more didactic presentation of the `artoo.scrape` method.
 
-Note also that every method presented below comes with its jQuery plugin alias:
+Note also that every method presented below comes with its own jQuery plugin alias:
 
 ```js
 artoo.scrape('.class', params);
@@ -29,7 +29,7 @@ $('.class').scrape(params);
 ---
 
 <h2 id="scrape">artoo.scrape</h2>
-This helper is the heart of the library's scraping techniques. It takes a selector as its root iterator and then takes the data model you intent to extract at each step of the iteration.
+This helper is the heart of the library's scraping techniques. It takes a selector as its root iterator and then takes the data model you intend to extract at each step of the iteration.
 
 ```js
 // Basic signature
@@ -40,7 +40,7 @@ artoo.scrape(configObject, [callback]);
 artoo.scrape(iterator, model, [callback]);
 ```
 
-For instance, you could need to iterate on a list while extracting the id and the text of each element of the list.
+For instance, you might need to iterate on a list while extracting the id and the text of each element of the list.
 
 ```js
 artoo.scrape('li', {id: 'id', content: 'text'});
@@ -57,13 +57,13 @@ artoo.scrape('li', {id: 'id', content: 'text'});
   * **done**    *?function* : same as `callback`.
 * **callback**  *?function* : a function taking as only argument the scraped items and to be triggered when the scraping is done.
 
-Alternatively, you can pass a single object as argument to the `scrape` method and taking as properties `iterator`, `data` and `params`.
+Alternatively, you can pass a single object as an argument to the `scrape` method and setting the properties `iterator`, `data` and `params`.
 
 ---
 
 ### Data model
 
-Choosing a data model when using `artoo.scrape` is just a matter of deciding whether you want the function to return an array of values or rather an array of items with properties you prealably chose.
+Choosing a data model when using `artoo.scrape` is just a matter of deciding whether you want the function to return an array of values or rather an object with items and properties you designate.
 
 ```js
 // Passing a single element to the method will
@@ -84,7 +84,7 @@ artoo.scrape('ul > li', {text: 'text', id: 'id'});
 
 ### Retrievers
 
-Now that you know what kind of array you want to be returned, you need to specify how to retrieve the wanted data.
+Now that you know what kind of data format you want returned, you need to specify how to retrieve the data.
 
 There are three ways to get what you want with `artoo.scrape`:
 

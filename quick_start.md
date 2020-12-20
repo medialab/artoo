@@ -8,7 +8,7 @@ id: quick_start
 
 ---
 
-**artoo.js** is a client-side scraping companion. He can be invoked within any web page and gives you access to a bunch of useful functions aiming at making your scraping jobs as easy as a stroll in a park.
+**artoo.js** is a client-side scraping companion. He can be invoked within any web page and gives you access to a bunch of useful functions aimied at making your scraping jobs as easy as a stroll in the park.
 
 ---
 
@@ -286,10 +286,10 @@ Furthermore, those helpers are often polymorphic and offer you a lot of differen
 
 ---
 
-**artoo**, more than just scraping lists and downloading files, is therefore able to expand or scroll web page's content programmatically, to save persistent data in the local storage or in remote databases, to inject scripts, to crawl different websites, to trigger series of ajax queries and a lot of other things you'll be able to find in the [methods]({{ site.baseurl }}/methods) compendium of this documentation.
+**artoo**, beyond just scraping lists and downloading files, is able to expand or scroll web page's content programmatically, to save persistent data in the local storage or in remote databases, to inject scripts, to crawl different websites, to trigger series of ajax queries and a lot of other things you'll be able to find in the [methods]({{ site.baseurl }}/methods) compendium of this documentation.
 
 ---
 
 Finally, if you happen to be a super lazy guy or if you need to perform more complex scraping jobs and need, for instance, to overcome some websites' particularly nasty `Content-Security-Policy` headers, **artoo.js** also exists as a [chrome extension]({{ site.baseurl }}/chrome).
 
-This extension, given you activate it, automatically injects the handy droid into every page you visit and override websites' responses headers in order to make client-side scraping a possibility.
+This extension, once you install it, automatically injects the handy droid into every page you visit and override websites' responses headers in order to make client-side scraping a possibility.
